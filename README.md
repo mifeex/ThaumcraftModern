@@ -1,6 +1,6 @@
 # Thaumcraft Modern
 
-Частный рабочий порт **Thaumcraft 4.2.3.5** на Minecraft Forge 1.20.1 / Java 17.
+An unofficial community port of Azanor's Thaumcraft 4.2.3.5 for Minecraft Forge 1.20.1 / Java 17.
 Сейчас реализованы первая вертикаль, следующая gameplay-вертикаль и
 world-content foundation из
 [`docs/MASTER_PROMPT_1.4.19.md`](docs/MASTER_PROMPT_1.4.19.md):
@@ -162,3 +162,5 @@ Arcane Workbench также выполняет обычные vanilla crafting r
 
 Отдельный краткий гайд по созданию исследований и тестированию цепочек:
 [`docs/RESEARCH_CREATION_GUIDE_RU.md`](docs/RESEARCH_CREATION_GUIDE_RU.md).
+
+Thaumcraft 4.2.3.5 is by Azanor.
