@@ -1,0 +1,7 @@
+{
+  "kind": "rod",
+  "id": "greatwood_staff",
+  "capacity_vis": 125,
+  "staff": true,
+  "translation_key": "item.Wand.greatwood.rod"
+}

@@ -1,0 +1,45 @@
+{
+  "type": "block",
+  "target": "minecraft:glowstone",
+  "display": "",
+  "aspects": [
+    {
+      "id": "sensus",
+      "amount": 3
+    },
+    {
+      "id": "lux",
+      "amount": 10
+    }
+  ],
+  "inactive": false,
+  "legacy": {
+    "registration_mode": "explicit",
+    "target_kind": "ore_dictionary",
+    "legacy_target": "glowstone",
+    "metadata_group_raw": null,
+    "aspects": [
+      {
+        "id": "sensus",
+        "amount": 3
+      },
+      {
+        "id": "lux",
+        "amount": 10
+      }
+    ],
+    "aspect_operations": [
+      {
+        "operation": "add",
+        "id": "sensus",
+        "amount": 3
+      },
+      {
+        "operation": "add",
+        "id": "lux",
+        "amount": 10
+      }
+    ],
+    "source_expression": "ThaumcraftApi.registerObjectTag(\"glowstone\", (new AspectList()).add(Aspect.SENSES, 3).add(Aspect.LIGHT, 10))"
+  }
+}

@@ -1,0 +1,41 @@
+{
+  "type": "entity",
+  "target": "minecraft:ender_dragon",
+  "display": "",
+  "aspects": [
+    {
+      "id": "alienis",
+      "amount": 20
+    },
+    {
+      "id": "bestia",
+      "amount": 20
+    },
+    {
+      "id": "perditio",
+      "amount": 20
+    }
+  ],
+  "inactive": false,
+  "inactive_reason": null,
+  "legacy": {
+    "legacy_entity_id": "EnderDragon",
+    "modern_target": "minecraft:ender_dragon",
+    "aspects": [
+      {
+        "id": "alienis",
+        "amount": 20
+      },
+      {
+        "id": "bestia",
+        "amount": 20
+      },
+      {
+        "id": "perditio",
+        "amount": 20
+      }
+    ],
+    "nbt_conditions_raw": [],
+    "source_expression": "ThaumcraftApi.registerEntityTag(\"EnderDragon\", (new AspectList()).add(Aspect.ELDRITCH, 20).add(Aspect.BEAST, 20).add(Aspect.ENTROPY, 20))"
+  }
+}

@@ -1,0 +1,45 @@
+{
+  "type": "block",
+  "target": "minecraft:oak_fence_gate",
+  "display": "",
+  "aspects": [
+    {
+      "id": "machina",
+      "amount": 1
+    },
+    {
+      "id": "iter",
+      "amount": 1
+    }
+  ],
+  "inactive": false,
+  "legacy": {
+    "registration_mode": "recipe_derived_modifier",
+    "target_kind": "item_stack",
+    "legacy_target": "new ItemStack(Blocks.field_150396_be, 1, 32767)",
+    "metadata_group_raw": null,
+    "aspects": [
+      {
+        "id": "machina",
+        "amount": 1
+      },
+      {
+        "id": "iter",
+        "amount": 1
+      }
+    ],
+    "aspect_operations": [
+      {
+        "operation": "add",
+        "id": "machina",
+        "amount": 1
+      },
+      {
+        "operation": "add",
+        "id": "iter",
+        "amount": 1
+      }
+    ],
+    "source_expression": "ThaumcraftApi.registerComplexObjectTag(new ItemStack(Blocks.field_150396_be, 1, 32767), (new AspectList()).add(Aspect.MECHANISM, 1).add(Aspect.TRAVEL, 1))"
+  }
+}

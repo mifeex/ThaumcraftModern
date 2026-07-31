@@ -1,0 +1,46 @@
+{
+  "type": "block",
+  "target": "minecraft:mycelium",
+  "display": "",
+  "aspects": [
+    {
+      "id": "terra",
+      "amount": 1
+    },
+    {
+      "id": "herba",
+      "amount": 1
+    }
+  ],
+  "inactive": false,
+  "inactive_reason": null,
+  "legacy": {
+    "registration_mode": "explicit",
+    "target_kind": "item_stack",
+    "legacy_target": "new ItemStack(Blocks.field_150391_bh)",
+    "metadata_group_raw": null,
+    "aspects": [
+      {
+        "id": "terra",
+        "amount": 1
+      },
+      {
+        "id": "herba",
+        "amount": 1
+      }
+    ],
+    "aspect_operations": [
+      {
+        "operation": "add",
+        "id": "terra",
+        "amount": 1
+      },
+      {
+        "operation": "add",
+        "id": "herba",
+        "amount": 1
+      }
+    ],
+    "source_expression": "ThaumcraftApi.registerObjectTag(new ItemStack(Blocks.field_150391_bh), (new AspectList()).add(Aspect.EARTH, 1).add(Aspect.PLANT, 1))"
+  }
+}

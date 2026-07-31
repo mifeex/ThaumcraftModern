@@ -1,0 +1,145 @@
+{
+  "id": "thaumium",
+  "legacy_id": "THAUMIUM",
+  "category": "alchemy",
+  "icon": "thaumcraftmodern:thaumonomicon",
+  "title": "tc.research_name.THAUMIUM",
+  "subtitle": "tc.research_text.THAUMIUM",
+  "concealed": true,
+  "auto_unlock": false,
+  "parents": [
+    "crucible"
+  ],
+  "hidden_parents": [],
+  "reveal_when": {
+    "type": "scan_aspect",
+    "id": "metallum"
+  },
+  "x": -24,
+  "y": 72,
+  "pages": [
+    {
+      "type": "text",
+      "title": "",
+      "body": "tc.research_page.THAUMIUM.1"
+    },
+    {
+      "type": "unavailable",
+      "title": "",
+      "body": "",
+      "legacy_type": "recipe",
+      "legacy_content": "Thaumium",
+      "source_expression": "new ResearchPage((CrucibleRecipe)recipes.get(\"Thaumium\"))"
+    },
+    {
+      "type": "unavailable",
+      "title": "",
+      "body": "",
+      "legacy_type": "recipe",
+      "legacy_content": "ThaumiumAxe",
+      "source_expression": "new ResearchPage((IRecipe)recipes.get(\"ThaumiumAxe\"))"
+    },
+    {
+      "type": "unavailable",
+      "title": "",
+      "body": "",
+      "legacy_type": "recipe",
+      "legacy_content": "ThaumiumSword",
+      "source_expression": "new ResearchPage((IRecipe)recipes.get(\"ThaumiumSword\"))"
+    },
+    {
+      "type": "unavailable",
+      "title": "",
+      "body": "",
+      "legacy_type": "recipe",
+      "legacy_content": "ThaumiumPick",
+      "source_expression": "new ResearchPage((IRecipe)recipes.get(\"ThaumiumPick\"))"
+    },
+    {
+      "type": "unavailable",
+      "title": "",
+      "body": "",
+      "legacy_type": "recipe",
+      "legacy_content": "ThaumiumShovel",
+      "source_expression": "new ResearchPage((IRecipe)recipes.get(\"ThaumiumShovel\"))"
+    },
+    {
+      "type": "unavailable",
+      "title": "",
+      "body": "",
+      "legacy_type": "recipe",
+      "legacy_content": "ThaumiumHoe",
+      "source_expression": "new ResearchPage((IRecipe)recipes.get(\"ThaumiumHoe\"))"
+    },
+    {
+      "type": "unavailable",
+      "title": "",
+      "body": "",
+      "legacy_type": "recipe",
+      "legacy_content": "ThaumiumHelm",
+      "source_expression": "new ResearchPage((IRecipe)recipes.get(\"ThaumiumHelm\"))"
+    },
+    {
+      "type": "unavailable",
+      "title": "",
+      "body": "",
+      "legacy_type": "recipe",
+      "legacy_content": "ThaumiumChest",
+      "source_expression": "new ResearchPage((IRecipe)recipes.get(\"ThaumiumChest\"))"
+    },
+    {
+      "type": "unavailable",
+      "title": "",
+      "body": "",
+      "legacy_type": "recipe",
+      "legacy_content": "ThaumiumLegs",
+      "source_expression": "new ResearchPage((IRecipe)recipes.get(\"ThaumiumLegs\"))"
+    },
+    {
+      "type": "unavailable",
+      "title": "",
+      "body": "",
+      "legacy_type": "recipe",
+      "legacy_content": "ThaumiumBoots",
+      "source_expression": "new ResearchPage((IRecipe)recipes.get(\"ThaumiumBoots\"))"
+    }
+  ],
+  "inactive": true,
+  "inactive_reason": "referenced gameplay content is not implemented",
+  "legacy": {
+    "x": -1,
+    "y": 3,
+    "complexity": 1,
+    "icon_raw": "new ItemStack(ConfigItems.itemResource, 1, 2)",
+    "flags": {
+      "special": false,
+      "secondary": false,
+      "round": false,
+      "stub": false,
+      "virtual": false,
+      "concealed": false,
+      "hidden": true,
+      "lost": false,
+      "auto_unlock": false
+    },
+    "hidden_parents": [],
+    "siblings": [],
+    "item_triggers_raw": [],
+    "entity_triggers": [],
+    "aspect_triggers": [
+      "metallum"
+    ],
+    "research_aspects": [
+      {
+        "id": "metallum",
+        "amount": 3
+      },
+      {
+        "id": "praecantatio",
+        "amount": 3
+      }
+    ],
+    "warp": [],
+    "source_expression": "(new ResearchItem(\"THAUMIUM\", \"ALCHEMY\", (new AspectList()).add(Aspect.METAL, 3).add(Aspect.MAGIC, 3), -1, 3, 1, new ItemStack(ConfigItems.itemResource, 1, 2))).setPages(new ResearchPage(\"tc.research_page.THAUMIUM.1\"), new ResearchPage((CrucibleRecipe)recipes.get(\"Thaumium\")), new ResearchPage((IRecipe)recipes.get(\"ThaumiumAxe\")), new ResearchPage((IRecipe)recipes.get(\"ThaumiumSword\")), new ResearchPage((IRecipe)recipes.get(\"ThaumiumPick\")), new ResearchPage((IRecipe)recipes.get(\"ThaumiumShovel\")), new ResearchPage((IRecipe)recipes.get(\"ThaumiumHoe\")), new ResearchPage((IRecipe)recipes.get(\"ThaumiumHelm\")), new ResearchPage((IRecipe)recipes.get(\"ThaumiumChest\")), new ResearchPage((IRecipe)recipes.get(\"ThaumiumLegs\")), new ResearchPage((IRecipe)recipes.get(\"ThaumiumBoots\"))).setHidden().setAspectTriggers(Aspect.METAL).setParents(\"CRUCIBLE\").registerResearchItem()"
+  }
+}

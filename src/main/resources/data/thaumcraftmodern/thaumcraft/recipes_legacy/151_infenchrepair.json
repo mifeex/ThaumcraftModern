@@ -1,0 +1,27 @@
+{
+  "id": "infenchrepair",
+  "legacy_id": "InfEnchRepair",
+  "legacy_kind": "infusion_enchantment",
+  "inactive": true,
+  "inactive_reason": "recipe type or referenced content is not implemented",
+  "modern_recipe": "",
+  "required_aspects": [
+    {
+      "id": "praecantatio",
+      "amount": 8
+    },
+    {
+      "id": "fabrico",
+      "amount": 10
+    },
+    {
+      "id": "ordo",
+      "amount": 10
+    }
+  ],
+  "legacy": {
+    "source_expression": "ThaumcraftApi.addInfusionEnchantmentRecipe(\"INFUSIONENCHANTMENT\", Enchantment.field_77331_b[ThaumcraftApi.enchantRepair], 4, (new AspectList()).add(Aspect.MAGIC, 8).add(Aspect.CRAFT, 10).add(Aspect.ORDER, 10), new ItemStack[]{new ItemStack(Blocks.field_150467_bQ), new ItemStack(ConfigItems.itemResource, 1, 14)})",
+    "source_statement": "}\n\n   private static void initializeInfusionEnchantmentRecipes() {\n      ConfigResearch.recipes.put(\"InfEnchRepair\", ThaumcraftApi.addInfusionEnchantmentRecipe(\"INFUSIONENCHANTMENT\", Enchantment.field_77331_b[ThaumcraftApi.enchantRepair], 4, (new AspectList()).add(Aspect.MAGIC, 8).add(Aspect.CRAFT, 10).add(Aspect.ORDER, 10), new ItemStack[]{new ItemStack(Blocks.field_150467_bQ), new ItemStack(ConfigItems.itemResource, 1, 14)}))",
+    "unkeyed": false
+  }
+}

@@ -1,0 +1,31 @@
+{
+  "type": "thaumcraftmodern:arcane_shaped",
+  "research": "tubes",
+  "vis": {
+    "aqua": 5,
+    "ordo": 5
+  },
+  "pattern": [
+    " Q ",
+    "IGI",
+    " B "
+  ],
+  "key": {
+    "I": {
+      "item": "minecraft:iron_ingot"
+    },
+    "B": {
+      "item": "minecraft:gold_nugget"
+    },
+    "G": {
+      "item": "minecraft:glass"
+    },
+    "Q": {
+      "item": "thaumcraftmodern:thaumium_nugget"
+    }
+  },
+  "result": {
+    "item": "thaumcraftmodern:essentia_tube",
+    "count": 8
+  }
+}

@@ -1,0 +1,32 @@
+{
+  "type": "item_tag",
+  "target": "forge:nuggets/iron",
+  "display": "",
+  "aspects": [
+    {
+      "id": "metallum",
+      "amount": 1
+    }
+  ],
+  "inactive": false,
+  "legacy": {
+    "registration_mode": "explicit",
+    "target_kind": "ore_dictionary",
+    "legacy_target": "nuggetIron",
+    "metadata_group_raw": null,
+    "aspects": [
+      {
+        "id": "metallum",
+        "amount": 1
+      }
+    ],
+    "aspect_operations": [
+      {
+        "operation": "add",
+        "id": "metallum",
+        "amount": 1
+      }
+    ],
+    "source_expression": "ThaumcraftApi.registerObjectTag(\"nuggetIron\", (new AspectList()).add(Aspect.METAL, 1))"
+  }
+}

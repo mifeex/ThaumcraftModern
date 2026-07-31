@@ -1,0 +1,6 @@
+{
+  "kind": "rod",
+  "id": "codex",
+  "capacity_vis": 1000,
+  "translation_key": "item.thaumcraftmodern.codex_rod"
+}

@@ -1,0 +1,33 @@
+{
+  "type": "entity",
+  "target": "minecraft:squid",
+  "display": "",
+  "aspects": [
+    {
+      "id": "bestia",
+      "amount": 2
+    },
+    {
+      "id": "aqua",
+      "amount": 2
+    }
+  ],
+  "inactive": false,
+  "inactive_reason": null,
+  "legacy": {
+    "legacy_entity_id": "Squid",
+    "modern_target": "minecraft:squid",
+    "aspects": [
+      {
+        "id": "bestia",
+        "amount": 2
+      },
+      {
+        "id": "aqua",
+        "amount": 2
+      }
+    ],
+    "nbt_conditions_raw": [],
+    "source_expression": "ThaumcraftApi.registerEntityTag(\"Squid\", (new AspectList()).add(Aspect.BEAST, 2).add(Aspect.WATER, 2))"
+  }
+}

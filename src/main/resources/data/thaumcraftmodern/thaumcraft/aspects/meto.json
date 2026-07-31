@@ -1,0 +1,10 @@
+{
+  "id": "meto",
+  "order": 390,
+  "color": "EEAD82",
+  "icon": "thaumcraftmodern:textures/aspects/meto.png",
+  "components": [
+    "messis",
+    "instrumentum"
+  ]
+}

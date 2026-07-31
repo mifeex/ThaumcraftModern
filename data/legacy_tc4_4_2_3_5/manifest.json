@@ -1,0 +1,20 @@
+{
+  "format": "thaumcraftmodern.tc4-legacy-export",
+  "format_version": 1,
+  "source": "Thaumcraft_1.7.10_4.2.3.5.jar",
+  "source_sha256": "3dba9786966974701578a658d1bb369bf35bdf5f363079f5ac9c4910a39113be",
+  "counts": {
+    "aspects": 48,
+    "object_aspect_registrations": 326,
+    "entity_aspect_registrations": 69,
+    "research_categories": 6,
+    "research": 201,
+    "research_warp_registrations": 20,
+    "recipes": 307
+  },
+  "notes": [
+    "source_expression fields are intentional lossless migration evidence",
+    "null modern_target means that no automatic 1.20.1 mapping was asserted",
+    "conditional Java registrations remain present with their original expression"
+  ]
+}

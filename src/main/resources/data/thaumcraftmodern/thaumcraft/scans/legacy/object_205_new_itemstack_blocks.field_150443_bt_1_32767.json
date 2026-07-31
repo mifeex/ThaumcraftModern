@@ -1,0 +1,45 @@
+{
+  "type": "block",
+  "target": "minecraft:heavy_weighted_pressure_plate",
+  "display": "",
+  "aspects": [
+    {
+      "id": "machina",
+      "amount": 1
+    },
+    {
+      "id": "sensus",
+      "amount": 1
+    }
+  ],
+  "inactive": false,
+  "legacy": {
+    "registration_mode": "recipe_derived_modifier",
+    "target_kind": "item_stack",
+    "legacy_target": "new ItemStack(Blocks.field_150443_bT, 1, 32767)",
+    "metadata_group_raw": null,
+    "aspects": [
+      {
+        "id": "machina",
+        "amount": 1
+      },
+      {
+        "id": "sensus",
+        "amount": 1
+      }
+    ],
+    "aspect_operations": [
+      {
+        "operation": "add",
+        "id": "machina",
+        "amount": 1
+      },
+      {
+        "operation": "add",
+        "id": "sensus",
+        "amount": 1
+      }
+    ],
+    "source_expression": "ThaumcraftApi.registerComplexObjectTag(new ItemStack(Blocks.field_150443_bT, 1, 32767), (new AspectList()).add(Aspect.MECHANISM, 1).add(Aspect.SENSES, 1))"
+  }
+}

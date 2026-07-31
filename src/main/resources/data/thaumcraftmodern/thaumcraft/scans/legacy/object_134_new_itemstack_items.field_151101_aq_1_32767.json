@@ -1,0 +1,58 @@
+{
+  "type": "item",
+  "target": "minecraft:cooked_cod",
+  "display": "",
+  "aspects": [
+    {
+      "id": "fabrico",
+      "amount": 1
+    },
+    {
+      "id": "corpus",
+      "amount": 4
+    },
+    {
+      "id": "fames",
+      "amount": 3
+    }
+  ],
+  "inactive": false,
+  "legacy": {
+    "registration_mode": "explicit",
+    "target_kind": "item_stack",
+    "legacy_target": "new ItemStack(Items.field_151101_aQ, 1, 32767)",
+    "metadata_group_raw": null,
+    "aspects": [
+      {
+        "id": "fabrico",
+        "amount": 1
+      },
+      {
+        "id": "corpus",
+        "amount": 4
+      },
+      {
+        "id": "fames",
+        "amount": 3
+      }
+    ],
+    "aspect_operations": [
+      {
+        "operation": "add",
+        "id": "fabrico",
+        "amount": 1
+      },
+      {
+        "operation": "add",
+        "id": "corpus",
+        "amount": 4
+      },
+      {
+        "operation": "add",
+        "id": "fames",
+        "amount": 3
+      }
+    ],
+    "source_expression": "ThaumcraftApi.registerObjectTag(new ItemStack(Items.field_151101_aQ, 1, 32767), (new AspectList()).add(Aspect.CRAFT, 1).add(Aspect.FLESH, 4).add(Aspect.HUNGER, 3))"
+  }
+}

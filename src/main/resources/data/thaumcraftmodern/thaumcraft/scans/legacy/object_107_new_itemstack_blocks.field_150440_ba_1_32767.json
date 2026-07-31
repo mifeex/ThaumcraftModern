@@ -1,0 +1,37 @@
+{
+  "type": "block",
+  "target": "minecraft:melon",
+  "display": "",
+  "aspects": [
+    {
+      "id": "messis",
+      "amount": 2
+    }
+  ],
+  "inactive": false,
+  "legacy": {
+    "registration_mode": "recipe_derived_modifier",
+    "target_kind": "item_stack",
+    "legacy_target": "new ItemStack(Blocks.field_150440_ba, 1, 32767)",
+    "metadata_group_raw": null,
+    "aspects": [
+      {
+        "id": "messis",
+        "amount": 2
+      }
+    ],
+    "aspect_operations": [
+      {
+        "operation": "add",
+        "id": "messis",
+        "amount": 2
+      },
+      {
+        "operation": "remove",
+        "id": "fames",
+        "amount": 4
+      }
+    ],
+    "source_expression": "ThaumcraftApi.registerComplexObjectTag(new ItemStack(Blocks.field_150440_ba, 1, 32767), (new AspectList()).add(Aspect.CROP, 2).remove(Aspect.HUNGER, 4))"
+  }
+}

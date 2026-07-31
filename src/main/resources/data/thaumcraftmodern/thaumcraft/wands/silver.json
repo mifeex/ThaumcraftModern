@@ -1,0 +1,8 @@
+{
+  "kind": "cap",
+  "id": "silver",
+  "cost_modifier": 1.0,
+  "special_aspects": ["aer", "terra", "ignis", "aqua"],
+  "special_cost_modifier": 0.95,
+  "translation_key": "item.Wand.silver.cap"
+}

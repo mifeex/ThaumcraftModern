@@ -1,0 +1,17 @@
+{
+  "rotation_degrees": 0.0,
+  "mirror_x": false,
+  "mirror_y": false,
+  "offset_x": 0,
+  "offset_y": 0,
+
+  "model_scale": 3,
+  "model_offset_x": -1.05,
+  "model_offset_y": -1,
+  "model_offset_z": 0.5,
+  "model_rotation_x_degrees": 0.0,
+  "model_rotation_y_degrees": 180.0,
+  "model_rotation_z_degrees": 90.0,
+
+  "hands_offset_z": -0.1
+}

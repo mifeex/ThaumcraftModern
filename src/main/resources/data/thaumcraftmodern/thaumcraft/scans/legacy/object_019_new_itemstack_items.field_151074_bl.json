@@ -1,0 +1,33 @@
+{
+  "type": "item",
+  "target": "minecraft:gold_nugget",
+  "display": "",
+  "aspects": [
+    {
+      "id": "metallum",
+      "amount": 1
+    }
+  ],
+  "inactive": false,
+  "inactive_reason": null,
+  "legacy": {
+    "registration_mode": "explicit",
+    "target_kind": "item_stack",
+    "legacy_target": "new ItemStack(Items.field_151074_bl)",
+    "metadata_group_raw": null,
+    "aspects": [
+      {
+        "id": "metallum",
+        "amount": 1
+      }
+    ],
+    "aspect_operations": [
+      {
+        "operation": "add",
+        "id": "metallum",
+        "amount": 1
+      }
+    ],
+    "source_expression": "ThaumcraftApi.registerObjectTag(new ItemStack(Items.field_151074_bl), (new AspectList()).add(Aspect.METAL, 1))"
+  }
+}

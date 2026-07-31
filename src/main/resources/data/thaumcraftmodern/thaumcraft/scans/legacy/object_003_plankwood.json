@@ -1,0 +1,32 @@
+{
+  "type": "block_tag",
+  "target": "minecraft:planks",
+  "display": "",
+  "aspects": [
+    {
+      "id": "arbor",
+      "amount": 1
+    }
+  ],
+  "inactive": false,
+  "legacy": {
+    "registration_mode": "explicit",
+    "target_kind": "ore_dictionary",
+    "legacy_target": "plankWood",
+    "metadata_group_raw": null,
+    "aspects": [
+      {
+        "id": "arbor",
+        "amount": 1
+      }
+    ],
+    "aspect_operations": [
+      {
+        "operation": "add",
+        "id": "arbor",
+        "amount": 1
+      }
+    ],
+    "source_expression": "ThaumcraftApi.registerObjectTag(\"plankWood\", (new AspectList()).add(Aspect.TREE, 1))"
+  }
+}

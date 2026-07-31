@@ -1,0 +1,6 @@
+{
+  "kind": "cap",
+  "id": "thaumium",
+  "cost_modifier": 0.9,
+  "translation_key": "item.Wand.thaumium.cap"
+}

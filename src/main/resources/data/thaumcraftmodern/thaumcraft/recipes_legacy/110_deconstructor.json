@@ -1,0 +1,19 @@
+{
+  "id": "deconstructor",
+  "legacy_id": "Deconstructor",
+  "legacy_kind": "arcane_shaped",
+  "inactive": true,
+  "inactive_reason": "recipe type or referenced content is not implemented",
+  "modern_recipe": "",
+  "required_aspects": [
+    {
+      "id": "perditio",
+      "amount": 20
+    }
+  ],
+  "legacy": {
+    "source_expression": "ThaumcraftApi.addArcaneCraftingRecipe(\"DECONSTRUCTOR\", new ItemStack(ConfigBlocks.blockTable, 1, 14), (new AspectList()).add(Aspect.ENTROPY, 20), \" S \", \"ATP\", 'T', new ItemStack(ConfigBlocks.blockTable, 1, 0), 'S', new ItemStack(ConfigItems.itemThaumometer), 'P', new ItemStack(Items.field_151005_D), 'A', new ItemStack(Items.field_151006_E))",
+    "source_statement": "ConfigResearch.recipes.put(\"Deconstructor\", ThaumcraftApi.addArcaneCraftingRecipe(\"DECONSTRUCTOR\", new ItemStack(ConfigBlocks.blockTable, 1, 14), (new AspectList()).add(Aspect.ENTROPY, 20), \" S \", \"ATP\", 'T', new ItemStack(ConfigBlocks.blockTable, 1, 0), 'S', new ItemStack(ConfigItems.itemThaumometer), 'P', new ItemStack(Items.field_151005_D), 'A', new ItemStack(Items.field_151006_E)))",
+    "unkeyed": false
+  }
+}

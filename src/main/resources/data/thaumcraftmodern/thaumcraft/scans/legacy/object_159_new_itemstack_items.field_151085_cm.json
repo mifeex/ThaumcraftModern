@@ -1,0 +1,71 @@
+{
+  "type": "item",
+  "target": "minecraft:music_disc_ward",
+  "display": "",
+  "aspects": [
+    {
+      "id": "sensus",
+      "amount": 4
+    },
+    {
+      "id": "aer",
+      "amount": 4
+    },
+    {
+      "id": "praecantatio",
+      "amount": 4
+    },
+    {
+      "id": "lucrum",
+      "amount": 4
+    }
+  ],
+  "inactive": false,
+  "legacy": {
+    "registration_mode": "explicit",
+    "target_kind": "item_stack",
+    "legacy_target": "new ItemStack(Items.field_151085_cm)",
+    "metadata_group_raw": null,
+    "aspects": [
+      {
+        "id": "sensus",
+        "amount": 4
+      },
+      {
+        "id": "aer",
+        "amount": 4
+      },
+      {
+        "id": "praecantatio",
+        "amount": 4
+      },
+      {
+        "id": "lucrum",
+        "amount": 4
+      }
+    ],
+    "aspect_operations": [
+      {
+        "operation": "add",
+        "id": "sensus",
+        "amount": 4
+      },
+      {
+        "operation": "add",
+        "id": "aer",
+        "amount": 4
+      },
+      {
+        "operation": "add",
+        "id": "praecantatio",
+        "amount": 4
+      },
+      {
+        "operation": "add",
+        "id": "lucrum",
+        "amount": 4
+      }
+    ],
+    "source_expression": "ThaumcraftApi.registerObjectTag(new ItemStack(Items.field_151085_cm), (new AspectList()).add(Aspect.SENSES, 4).add(Aspect.AIR, 4).add(Aspect.MAGIC, 4).add(Aspect.GREED, 4))"
+  }
+}

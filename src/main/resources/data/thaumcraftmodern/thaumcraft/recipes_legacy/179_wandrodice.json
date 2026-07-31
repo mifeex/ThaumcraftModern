@@ -1,0 +1,27 @@
+{
+  "id": "wandrodice",
+  "legacy_id": "WandRodIce",
+  "legacy_kind": "infusion",
+  "inactive": true,
+  "inactive_reason": "recipe type or referenced content is not implemented",
+  "modern_recipe": "",
+  "required_aspects": [
+    {
+      "id": "aqua",
+      "amount": "((WandRod"
+    },
+    {
+      "id": "praecantatio",
+      "amount": "((WandRod"
+    },
+    {
+      "id": "gelum",
+      "amount": "((WandRod"
+    }
+  ],
+  "legacy": {
+    "source_expression": "ThaumcraftApi.addInfusionCraftingRecipe(\"ROD_ice\", new ItemStack(ConfigItems.itemWandRod, 1, 3), 3, (new AspectList()).add(Aspect.WATER, ((WandRod)WandRod.rods.get(\"ice\")).getCraftCost() * 2).add(Aspect.MAGIC, ((WandRod)WandRod.rods.get(\"ice\")).getCraftCost()).add(Aspect.COLD, ((WandRod)WandRod.rods.get(\"blaze\")).getCraftCost()), new ItemStack(Blocks.field_150432_aD), new ItemStack[]{new ItemStack(ConfigItems.itemShard, 1, 6), new ItemStack(ConfigItems.itemShard, 1, 2)})",
+    "source_statement": "ConfigResearch.recipes.put(\"WandRodIce\", ThaumcraftApi.addInfusionCraftingRecipe(\"ROD_ice\", new ItemStack(ConfigItems.itemWandRod, 1, 3), 3, (new AspectList()).add(Aspect.WATER, ((WandRod)WandRod.rods.get(\"ice\")).getCraftCost() * 2).add(Aspect.MAGIC, ((WandRod)WandRod.rods.get(\"ice\")).getCraftCost()).add(Aspect.COLD, ((WandRod)WandRod.rods.get(\"blaze\")).getCraftCost()), new ItemStack(Blocks.field_150432_aD), new ItemStack[]{new ItemStack(ConfigItems.itemShard, 1, 6), new ItemStack(ConfigItems.itemShard, 1, 2)}))",
+    "unkeyed": false
+  }
+}

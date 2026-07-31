@@ -1,0 +1,27 @@
+{
+  "id": "elementalsword",
+  "legacy_id": "ElementalSword",
+  "legacy_kind": "infusion",
+  "inactive": true,
+  "inactive_reason": "recipe type or referenced content is not implemented",
+  "modern_recipe": "",
+  "required_aspects": [
+    {
+      "id": "aer",
+      "amount": 8
+    },
+    {
+      "id": "motus",
+      "amount": 8
+    },
+    {
+      "id": "potentia",
+      "amount": 8
+    }
+  ],
+  "legacy": {
+    "source_expression": "ThaumcraftApi.addInfusionCraftingRecipe(\"ELEMENTALSWORD\", new ItemStack(ConfigItems.itemSwordElemental), 1, (new AspectList()).add(Aspect.AIR, 8).add(Aspect.MOTION, 8).add(Aspect.ENERGY, 8), new ItemStack(ConfigItems.itemSwordThaumium), new ItemStack[]{new ItemStack(ConfigItems.itemShard, 1, 0), new ItemStack(ConfigItems.itemShard, 1, 0), new ItemStack(Items.field_151045_i), new ItemStack(ConfigBlocks.blockMagicalLog, 1, 0)})",
+    "source_statement": "ConfigResearch.recipes.put(\"ElementalSword\", ThaumcraftApi.addInfusionCraftingRecipe(\"ELEMENTALSWORD\", new ItemStack(ConfigItems.itemSwordElemental), 1, (new AspectList()).add(Aspect.AIR, 8).add(Aspect.MOTION, 8).add(Aspect.ENERGY, 8), new ItemStack(ConfigItems.itemSwordThaumium), new ItemStack[]{new ItemStack(ConfigItems.itemShard, 1, 0), new ItemStack(ConfigItems.itemShard, 1, 0), new ItemStack(Items.field_151045_i), new ItemStack(ConfigBlocks.blockMagicalLog, 1, 0)}))",
+    "unkeyed": false
+  }
+}

@@ -1,0 +1,6 @@
+{
+  "parent": "thaumcraftmodern:block/taint_fibres_overlay",
+  "textures": {
+    "overlay": "thaumcraftmodern:block/taint_over_3"
+  }
+}

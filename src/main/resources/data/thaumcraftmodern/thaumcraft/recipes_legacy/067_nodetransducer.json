@@ -1,0 +1,27 @@
+{
+  "id": "nodetransducer",
+  "legacy_id": "NodeTransducer",
+  "legacy_kind": "arcane_shaped",
+  "inactive": true,
+  "inactive_reason": "recipe type or referenced content is not implemented",
+  "modern_recipe": "",
+  "required_aspects": [
+    {
+      "id": "ignis",
+      "amount": 32
+    },
+    {
+      "id": "aer",
+      "amount": 32
+    },
+    {
+      "id": "perditio",
+      "amount": 32
+    }
+  ],
+  "legacy": {
+    "source_expression": "ThaumcraftApi.addArcaneCraftingRecipe(\"VISPOWER\", new ItemStack(ConfigBlocks.blockStoneDevice, 1, 11), (new AspectList()).add(Aspect.FIRE, 32).add(Aspect.AIR, 32).add(Aspect.ENTROPY, 32), \"RCR\", \"ISI\", \"RAR\", 'S', new ItemStack(ConfigBlocks.blockStoneDevice, 1, 9), 'C', new ItemStack(Items.field_151132_bS), 'I', new ItemStack(Items.field_151042_j), 'R', new ItemStack(Blocks.field_150451_bX), 'A', new ItemStack(ConfigItems.itemResource, 1, 1))",
+    "source_statement": "ConfigResearch.recipes.put(\"NodeTransducer\", ThaumcraftApi.addArcaneCraftingRecipe(\"VISPOWER\", new ItemStack(ConfigBlocks.blockStoneDevice, 1, 11), (new AspectList()).add(Aspect.FIRE, 32).add(Aspect.AIR, 32).add(Aspect.ENTROPY, 32), \"RCR\", \"ISI\", \"RAR\", 'S', new ItemStack(ConfigBlocks.blockStoneDevice, 1, 9), 'C', new ItemStack(Items.field_151132_bS), 'I', new ItemStack(Items.field_151042_j), 'R', new ItemStack(Blocks.field_150451_bX), 'A', new ItemStack(ConfigItems.itemResource, 1, 1)))",
+    "unkeyed": false
+  }
+}

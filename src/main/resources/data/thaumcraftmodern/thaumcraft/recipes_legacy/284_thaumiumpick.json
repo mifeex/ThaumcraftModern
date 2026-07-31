@@ -1,0 +1,14 @@
+{
+  "id": "thaumiumpick",
+  "legacy_id": "ThaumiumPick",
+  "legacy_kind": "crafting_shaped_ore",
+  "inactive": true,
+  "inactive_reason": "recipe type or referenced content is not implemented",
+  "modern_recipe": "",
+  "required_aspects": [],
+  "legacy": {
+    "source_expression": "oreDictRecipe(new ItemStack(ConfigItems.itemPickThaumium, 1), new Object[]{\"III\", \" S \", \" S \", 'I', \"ingotThaumium\", 'S', \"stickWood\"})",
+    "source_statement": "ConfigResearch.recipes.put(\"ThaumiumPick\", oreDictRecipe(new ItemStack(ConfigItems.itemPickThaumium, 1), new Object[]{\"III\", \" S \", \" S \", 'I', \"ingotThaumium\", 'S', \"stickWood\"}))",
+    "unkeyed": false
+  }
+}

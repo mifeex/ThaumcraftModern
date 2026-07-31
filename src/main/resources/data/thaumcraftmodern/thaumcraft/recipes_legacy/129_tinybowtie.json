@@ -1,0 +1,23 @@
+{
+  "id": "tinybowtie",
+  "legacy_id": "TinyBowtie",
+  "legacy_kind": "arcane_shaped",
+  "inactive": true,
+  "inactive_reason": "recipe type or referenced content is not implemented",
+  "modern_recipe": "",
+  "required_aspects": [
+    {
+      "id": "aer",
+      "amount": 4
+    },
+    {
+      "id": "ordo",
+      "amount": 4
+    }
+  ],
+  "legacy": {
+    "source_expression": "ThaumcraftApi.addArcaneCraftingRecipe(\"TINYBOWTIE\", new ItemStack(ConfigItems.itemGolemDecoration, 1, 2), (new AspectList()).add(Aspect.AIR, 4).add(Aspect.ORDER, 4), \"CSC\", \"C C\", 'C', new ItemStack(Blocks.field_150325_L, 1, 15), 'S', Items.field_151007_F)",
+    "source_statement": "ConfigResearch.recipes.put(\"TinyBowtie\", ThaumcraftApi.addArcaneCraftingRecipe(\"TINYBOWTIE\", new ItemStack(ConfigItems.itemGolemDecoration, 1, 2), (new AspectList()).add(Aspect.AIR, 4).add(Aspect.ORDER, 4), \"CSC\", \"C C\", 'C', new ItemStack(Blocks.field_150325_L, 1, 15), 'S', Items.field_151007_F))",
+    "unkeyed": false
+  }
+}

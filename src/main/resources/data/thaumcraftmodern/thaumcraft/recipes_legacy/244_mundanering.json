@@ -1,0 +1,14 @@
+{
+  "id": "mundanering",
+  "legacy_id": "MundaneRing",
+  "legacy_kind": "crafting_shaped_ore",
+  "inactive": true,
+  "inactive_reason": "recipe type or referenced content is not implemented",
+  "modern_recipe": "",
+  "required_aspects": [],
+  "legacy": {
+    "source_expression": "oreDictRecipe(new ItemStack(ConfigItems.itemBaubleBlanks, 1, 1), new Object[]{\" N \", \"N N\", \" N \", 'N', new ItemStack(Items.field_151074_bl)})",
+    "source_statement": "ConfigResearch.recipes.put(\"MundaneRing\", oreDictRecipe(new ItemStack(ConfigItems.itemBaubleBlanks, 1, 1), new Object[]{\" N \", \"N N\", \" N \", 'N', new ItemStack(Items.field_151074_bl)}))",
+    "unkeyed": false
+  }
+}

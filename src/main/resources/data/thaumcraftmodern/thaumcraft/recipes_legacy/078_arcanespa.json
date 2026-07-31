@@ -1,0 +1,27 @@
+{
+  "id": "arcanespa",
+  "legacy_id": "ArcaneSpa",
+  "legacy_kind": "arcane_shaped",
+  "inactive": true,
+  "inactive_reason": "recipe type or referenced content is not implemented",
+  "modern_recipe": "",
+  "required_aspects": [
+    {
+      "id": "aqua",
+      "amount": 16
+    },
+    {
+      "id": "ordo",
+      "amount": 8
+    },
+    {
+      "id": "terra",
+      "amount": 4
+    }
+  ],
+  "legacy": {
+    "source_expression": "ThaumcraftApi.addArcaneCraftingRecipe(\"ARCANESPA\", new ItemStack(ConfigBlocks.blockStoneDevice, 1, 12), (new AspectList()).add(Aspect.WATER, 16).add(Aspect.ORDER, 8).add(Aspect.EARTH, 4), \"QIQ\", \"SJS\", \"SPS\", 'P', new ItemStack(Blocks.field_150331_J), 'J', new ItemStack(ConfigBlocks.blockJar), 'S', new ItemStack(ConfigBlocks.blockCosmeticSolid, 1, 6), 'Q', new ItemStack(Blocks.field_150371_ca), 'I', new ItemStack(Blocks.field_150411_aY))",
+    "source_statement": "ConfigResearch.recipes.put(\"ArcaneSpa\", ThaumcraftApi.addArcaneCraftingRecipe(\"ARCANESPA\", new ItemStack(ConfigBlocks.blockStoneDevice, 1, 12), (new AspectList()).add(Aspect.WATER, 16).add(Aspect.ORDER, 8).add(Aspect.EARTH, 4), \"QIQ\", \"SJS\", \"SPS\", 'P', new ItemStack(Blocks.field_150331_J), 'J', new ItemStack(ConfigBlocks.blockJar), 'S', new ItemStack(ConfigBlocks.blockCosmeticSolid, 1, 6), 'Q', new ItemStack(Blocks.field_150371_ca), 'I', new ItemStack(Blocks.field_150411_aY)))",
+    "unkeyed": false
+  }
+}

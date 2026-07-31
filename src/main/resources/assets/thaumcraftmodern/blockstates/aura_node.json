@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "": {
+      "model": "thaumcraftmodern:block/aura_node_particles"
+    }
+  }
+}

@@ -1,0 +1,27 @@
+{
+  "id": "wandrodobsidian",
+  "legacy_id": "WandRodObsidian",
+  "legacy_kind": "infusion",
+  "inactive": true,
+  "inactive_reason": "recipe type or referenced content is not implemented",
+  "modern_recipe": "",
+  "required_aspects": [
+    {
+      "id": "terra",
+      "amount": "((WandRod"
+    },
+    {
+      "id": "praecantatio",
+      "amount": "((WandRod"
+    },
+    {
+      "id": "tenebrae",
+      "amount": "((WandRod"
+    }
+  ],
+  "legacy": {
+    "source_expression": "ThaumcraftApi.addInfusionCraftingRecipe(\"ROD_obsidian\", new ItemStack(ConfigItems.itemWandRod, 1, 1), 3, (new AspectList()).add(Aspect.EARTH, ((WandRod)WandRod.rods.get(\"obsidian\")).getCraftCost() * 2).add(Aspect.MAGIC, ((WandRod)WandRod.rods.get(\"obsidian\")).getCraftCost()).add(Aspect.DARKNESS, ((WandRod)WandRod.rods.get(\"blaze\")).getCraftCost()), new ItemStack(Blocks.field_150343_Z), new ItemStack[]{new ItemStack(ConfigItems.itemShard, 1, 6), new ItemStack(ConfigItems.itemShard, 1, 3)})",
+    "source_statement": "ConfigResearch.recipes.put(\"WandRodObsidian\", ThaumcraftApi.addInfusionCraftingRecipe(\"ROD_obsidian\", new ItemStack(ConfigItems.itemWandRod, 1, 1), 3, (new AspectList()).add(Aspect.EARTH, ((WandRod)WandRod.rods.get(\"obsidian\")).getCraftCost() * 2).add(Aspect.MAGIC, ((WandRod)WandRod.rods.get(\"obsidian\")).getCraftCost()).add(Aspect.DARKNESS, ((WandRod)WandRod.rods.get(\"blaze\")).getCraftCost()), new ItemStack(Blocks.field_150343_Z), new ItemStack[]{new ItemStack(ConfigItems.itemShard, 1, 6), new ItemStack(ConfigItems.itemShard, 1, 3)}))",
+    "unkeyed": false
+  }
+}

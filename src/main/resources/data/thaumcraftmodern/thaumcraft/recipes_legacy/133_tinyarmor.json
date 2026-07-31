@@ -1,0 +1,19 @@
+{
+  "id": "tinyarmor",
+  "legacy_id": "TinyArmor",
+  "legacy_kind": "arcane_shaped",
+  "inactive": true,
+  "inactive_reason": "recipe type or referenced content is not implemented",
+  "modern_recipe": "",
+  "required_aspects": [
+    {
+      "id": "terra",
+      "amount": 8
+    }
+  ],
+  "legacy": {
+    "source_expression": "ThaumcraftApi.addArcaneCraftingRecipe(\"TINYARMOR\", new ItemStack(ConfigItems.itemGolemDecoration, 1, 6), (new AspectList()).add(Aspect.EARTH, 8), \"I I\", \"IAI\", 'I', Items.field_151042_j, 'A', new ItemStack(Items.field_151030_Z, 1, 32767))",
+    "source_statement": "ConfigResearch.recipes.put(\"TinyArmor\", ThaumcraftApi.addArcaneCraftingRecipe(\"TINYARMOR\", new ItemStack(ConfigItems.itemGolemDecoration, 1, 6), (new AspectList()).add(Aspect.EARTH, 8), \"I I\", \"IAI\", 'I', Items.field_151042_j, 'A', new ItemStack(Items.field_151030_Z, 1, 32767)))",
+    "unkeyed": false
+  }
+}

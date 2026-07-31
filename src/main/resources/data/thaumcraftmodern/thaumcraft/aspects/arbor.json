@@ -1,0 +1,10 @@
+{
+  "id": "arbor",
+  "order": 290,
+  "color": "876531",
+  "icon": "thaumcraftmodern:textures/aspects/arbor.png",
+  "components": [
+    "aer",
+    "herba"
+  ]
+}

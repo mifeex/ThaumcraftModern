@@ -1,0 +1,19 @@
+{
+  "id": "wardedjar",
+  "legacy_id": "WardedJar",
+  "legacy_kind": "arcane_shaped",
+  "inactive": true,
+  "inactive_reason": "recipe type or referenced content is not implemented",
+  "modern_recipe": "",
+  "required_aspects": [
+    {
+      "id": "aqua",
+      "amount": 1
+    }
+  ],
+  "legacy": {
+    "source_expression": "ThaumcraftApi.addArcaneCraftingRecipe(\"DISTILESSENTIA\", new ItemStack(ConfigBlocks.blockJar, 1, 0), (new AspectList()).add(Aspect.WATER, 1), \"GWG\", \"G G\", \"GGG\", 'W', \"slabWood\", 'G', Blocks.field_150410_aZ)",
+    "source_statement": "ConfigResearch.recipes.put(\"WardedJar\", ThaumcraftApi.addArcaneCraftingRecipe(\"DISTILESSENTIA\", new ItemStack(ConfigBlocks.blockJar, 1, 0), (new AspectList()).add(Aspect.WATER, 1), \"GWG\", \"G G\", \"GGG\", 'W', \"slabWood\", 'G', Blocks.field_150410_aZ))",
+    "unkeyed": false
+  }
+}

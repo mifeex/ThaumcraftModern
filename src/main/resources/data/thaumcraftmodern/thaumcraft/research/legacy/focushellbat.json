@@ -1,0 +1,89 @@
+{
+  "id": "focushellbat",
+  "legacy_id": "FOCUSHELLBAT",
+  "category": "thaumaturgy",
+  "icon": "thaumcraftmodern:thaumonomicon",
+  "title": "tc.research_name.FOCUSHELLBAT",
+  "subtitle": "tc.research_text.FOCUSHELLBAT",
+  "concealed": true,
+  "auto_unlock": false,
+  "parents": [],
+  "hidden_parents": [
+    "focusfire",
+    "infusion"
+  ],
+  "reveal_when": {
+    "type": "scan_aspect",
+    "id": "ignis"
+  },
+  "x": 72,
+  "y": -168,
+  "pages": [
+    {
+      "type": "text",
+      "title": "",
+      "body": "tc.research_page.FOCUSHELLBAT.1"
+    },
+    {
+      "type": "unavailable",
+      "title": "",
+      "body": "",
+      "legacy_type": "recipe",
+      "legacy_content": "FocusHellbat",
+      "source_expression": "new ResearchPage((InfusionRecipe)recipes.get(\"FocusHellbat\"))"
+    }
+  ],
+  "inactive": true,
+  "inactive_reason": "referenced gameplay content is not implemented",
+  "legacy": {
+    "x": 3,
+    "y": -7,
+    "complexity": 2,
+    "icon_raw": "new ItemStack(ConfigItems.itemFocusHellbat)",
+    "flags": {
+      "special": false,
+      "secondary": false,
+      "round": false,
+      "stub": false,
+      "virtual": false,
+      "concealed": false,
+      "hidden": true,
+      "lost": false,
+      "auto_unlock": false
+    },
+    "hidden_parents": [
+      "FOCUSFIRE",
+      "INFUSION"
+    ],
+    "siblings": [],
+    "item_triggers_raw": [],
+    "entity_triggers": [
+      "Thaumcraft.Firebat"
+    ],
+    "aspect_triggers": [
+      "ignis"
+    ],
+    "research_aspects": [
+      {
+        "id": "iter",
+        "amount": 3
+      },
+      {
+        "id": "bestia",
+        "amount": 6
+      },
+      {
+        "id": "ignis",
+        "amount": 3
+      },
+      {
+        "id": "praecantatio",
+        "amount": 3
+      }
+    ],
+    "warp": [
+      2
+    ],
+    "source_expression": "(new ResearchItem(\"FOCUSHELLBAT\", \"THAUMATURGY\", (new AspectList()).add(Aspect.TRAVEL, 3).add(Aspect.BEAST, 6).add(Aspect.FIRE, 3).add(Aspect.MAGIC, 3), 3, -7, 2, new ItemStack(ConfigItems.itemFocusHellbat))).setPages(new ResearchPage(\"tc.research_page.FOCUSHELLBAT.1\"), new ResearchPage((InfusionRecipe)recipes.get(\"FocusHellbat\"))).setHidden().setEntityTriggers(\"Thaumcraft.Firebat\").setAspectTriggers(Aspect.FIRE).setParentsHidden(\"FOCUSFIRE\", \"INFUSION\").registerResearchItem()"
+  }
+}

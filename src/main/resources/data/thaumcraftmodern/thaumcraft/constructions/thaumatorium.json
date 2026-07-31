@@ -1,0 +1,7 @@
+{
+  "id": "thaumatorium",
+  "handler": "thaumatorium",
+  "trigger": {"type": "wand", "consume": 0},
+  "research": "thaumatorium",
+  "vis": {"ignis": 15, "ordo": 30, "aqua": 30}
+}

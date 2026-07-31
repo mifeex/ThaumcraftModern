@@ -1,0 +1,33 @@
+{
+  "type": "entity",
+  "target": "minecraft:villager",
+  "display": "",
+  "aspects": [
+    {
+      "id": "humanus",
+      "amount": 3
+    },
+    {
+      "id": "aer",
+      "amount": 2
+    }
+  ],
+  "inactive": false,
+  "inactive_reason": null,
+  "legacy": {
+    "legacy_entity_id": "Villager",
+    "modern_target": "minecraft:villager",
+    "aspects": [
+      {
+        "id": "humanus",
+        "amount": 3
+      },
+      {
+        "id": "aer",
+        "amount": 2
+      }
+    ],
+    "nbt_conditions_raw": [],
+    "source_expression": "ThaumcraftApi.registerEntityTag(\"Villager\", (new AspectList()).add(Aspect.MAN, 3).add(Aspect.AIR, 2))"
+  }
+}

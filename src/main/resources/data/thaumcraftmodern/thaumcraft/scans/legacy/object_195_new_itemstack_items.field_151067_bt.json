@@ -1,0 +1,46 @@
+{
+  "type": "item",
+  "target": "minecraft:brewing_stand",
+  "display": "",
+  "aspects": [
+    {
+      "id": "fabrico",
+      "amount": 2
+    },
+    {
+      "id": "aqua",
+      "amount": 2
+    }
+  ],
+  "inactive": true,
+  "inactive_reason": "recipe-derived base aspects cannot yet be reproduced safely",
+  "legacy": {
+    "registration_mode": "recipe_derived_modifier",
+    "target_kind": "item_stack",
+    "legacy_target": "new ItemStack(Items.field_151067_bt)",
+    "metadata_group_raw": null,
+    "aspects": [
+      {
+        "id": "fabrico",
+        "amount": 2
+      },
+      {
+        "id": "aqua",
+        "amount": 2
+      }
+    ],
+    "aspect_operations": [
+      {
+        "operation": "add",
+        "id": "fabrico",
+        "amount": 2
+      },
+      {
+        "operation": "add",
+        "id": "aqua",
+        "amount": 2
+      }
+    ],
+    "source_expression": "ThaumcraftApi.registerComplexObjectTag(new ItemStack(Items.field_151067_bt), (new AspectList()).add(Aspect.CRAFT, 2).add(Aspect.WATER, 2))"
+  }
+}

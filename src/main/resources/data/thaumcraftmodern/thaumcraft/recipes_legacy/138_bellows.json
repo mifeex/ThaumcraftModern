@@ -1,0 +1,23 @@
+{
+  "id": "bellows",
+  "legacy_id": "Bellows",
+  "legacy_kind": "arcane_shaped",
+  "inactive": true,
+  "inactive_reason": "recipe type or referenced content is not implemented",
+  "modern_recipe": "",
+  "required_aspects": [
+    {
+      "id": "aer",
+      "amount": 10
+    },
+    {
+      "id": "ordo",
+      "amount": 5
+    }
+  ],
+  "legacy": {
+    "source_expression": "ThaumcraftApi.addArcaneCraftingRecipe(\"BELLOWS\", new ItemStack(ConfigBlocks.blockWoodenDevice, 1, 0), (new AspectList()).add(Aspect.AIR, 10).add(Aspect.ORDER, 5), \"WW \", \"LCI\", \"WW \", 'W', \"plankWood\", 'C', new ItemStack(ConfigItems.itemShard, 1, 0), 'I', Items.field_151042_j, 'L', Items.field_151116_aA)",
+    "source_statement": "ConfigResearch.recipes.put(\"Bellows\", ThaumcraftApi.addArcaneCraftingRecipe(\"BELLOWS\", new ItemStack(ConfigBlocks.blockWoodenDevice, 1, 0), (new AspectList()).add(Aspect.AIR, 10).add(Aspect.ORDER, 5), \"WW \", \"LCI\", \"WW \", 'W', \"plankWood\", 'C', new ItemStack(ConfigItems.itemShard, 1, 0), 'I', Items.field_151042_j, 'L', Items.field_151116_aA))",
+    "unkeyed": false
+  }
+}

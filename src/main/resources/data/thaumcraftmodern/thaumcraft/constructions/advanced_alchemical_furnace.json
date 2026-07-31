@@ -1,0 +1,7 @@
+{
+  "id": "advanced_alchemical_furnace",
+  "handler": "advanced_alchemical_furnace",
+  "trigger": {"type": "wand", "consume": 0},
+  "research": "advalchemyfurnace",
+  "vis": {"ignis": 50, "aqua": 50, "ordo": 50}
+}

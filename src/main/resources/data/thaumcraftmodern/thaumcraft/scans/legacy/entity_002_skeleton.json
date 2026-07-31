@@ -1,0 +1,41 @@
+{
+  "type": "entity",
+  "target": "minecraft:skeleton",
+  "display": "",
+  "aspects": [
+    {
+      "id": "exanimis",
+      "amount": 3
+    },
+    {
+      "id": "humanus",
+      "amount": 1
+    },
+    {
+      "id": "terra",
+      "amount": 1
+    }
+  ],
+  "inactive": false,
+  "inactive_reason": null,
+  "legacy": {
+    "legacy_entity_id": "Skeleton",
+    "modern_target": "minecraft:skeleton",
+    "aspects": [
+      {
+        "id": "exanimis",
+        "amount": 3
+      },
+      {
+        "id": "humanus",
+        "amount": 1
+      },
+      {
+        "id": "terra",
+        "amount": 1
+      }
+    ],
+    "nbt_conditions_raw": [],
+    "source_expression": "ThaumcraftApi.registerEntityTag(\"Skeleton\", (new AspectList()).add(Aspect.UNDEAD, 3).add(Aspect.MAN, 1).add(Aspect.EARTH, 1))"
+  }
+}

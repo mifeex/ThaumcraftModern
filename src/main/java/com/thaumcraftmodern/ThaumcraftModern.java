@@ -1,0 +1,77 @@
+package com.thaumcraftmodern;
+
+import com.mojang.logging.LogUtils;
+import com.thaumcraftmodern.arcane.ModArcaneRecipes;
+import com.thaumcraftmodern.config.ThaumcraftModernClientConfig;
+import com.thaumcraftmodern.config.ThaumcraftModernServerConfig;
+import com.thaumcraftmodern.network.ModNetwork;
+import com.thaumcraftmodern.registry.ModBlockEntities;
+import com.thaumcraftmodern.registry.ModBiomeSources;
+import com.thaumcraftmodern.registry.ModBlocks;
+import com.thaumcraftmodern.registry.ModCreativeTabs;
+import com.thaumcraftmodern.registry.ModFeatures;
+import com.thaumcraftmodern.registry.ModFluids;
+import com.thaumcraftmodern.registry.ModEntities;
+import com.thaumcraftmodern.registry.ModEnchantments;
+import com.thaumcraftmodern.registry.ModEffects;
+import com.thaumcraftmodern.registry.ModItems;
+import com.thaumcraftmodern.registry.ModMenus;
+import com.thaumcraftmodern.registry.ModParticles;
+import com.thaumcraftmodern.registry.ModSounds;
+import com.thaumcraftmodern.registry.ModStructures;
+import com.thaumcraftmodern.registry.ModVillagers;
+import com.thaumcraftmodern.enchantment.ThaumcraftEnchantmentEvents;
+import com.thaumcraftmodern.worldgen.LegacyVillagePoolInjector;
+import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.eventbus.api.IEventBus;
+import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.config.ModConfig;
+import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
+import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
+import org.slf4j.Logger;
+
+@Mod(ThaumcraftModern.MOD_ID)
+public final class ThaumcraftModern {
+    public static final String MOD_ID = "thaumcraftmodern";
+    public static final Logger LOGGER = LogUtils.getLogger();
+
+    public ThaumcraftModern(FMLJavaModLoadingContext context) {
+        IEventBus modBus = context.getModEventBus();
+
+        context.registerConfig(
+                ModConfig.Type.CLIENT,
+                ThaumcraftModernClientConfig.SPEC,
+                "thaumcraftmodern-client.toml"
+        );
+        context.registerConfig(
+                ModConfig.Type.SERVER,
+                ThaumcraftModernServerConfig.SPEC,
+                "thaumcraftmodern-server.toml"
+        );
+        ModBlocks.register(modBus);
+        ModFluids.register(modBus);
+        ModBiomeSources.register(modBus);
+        ModFeatures.register(modBus);
+        ModStructures.register(modBus);
+        ModEffects.register(modBus);
+        ModEnchantments.register(modBus);
+        ModEntities.register(modBus);
+        ModItems.register(modBus);
+        ModVillagers.register(modBus);
+        ModBlockEntities.register(modBus);
+        ModMenus.register(modBus);
+        ModParticles.register(modBus);
+        ModArcaneRecipes.register(modBus);
+        ModSounds.register(modBus);
+        ModCreativeTabs.register(modBus);
+        modBus.addListener(this::commonSetup);
+
+        MinecraftForge.EVENT_BUS.register(this);
+        MinecraftForge.EVENT_BUS.register(LegacyVillagePoolInjector.class);
+        MinecraftForge.EVENT_BUS.register(ThaumcraftEnchantmentEvents.class);
+    }
+
+    private void commonSetup(FMLCommonSetupEvent event) {
+        event.enqueueWork(ModNetwork::register);
+    }
+}

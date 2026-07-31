@@ -1,0 +1,14 @@
+{
+  "id": "voidhoe",
+  "legacy_id": "VoidHoe",
+  "legacy_kind": "crafting_shaped_ore",
+  "inactive": true,
+  "inactive_reason": "recipe type or referenced content is not implemented",
+  "modern_recipe": "",
+  "required_aspects": [],
+  "legacy": {
+    "source_expression": "oreDictRecipe(new ItemStack(ConfigItems.itemHoeVoid, 1), new Object[]{\"II\", \"S \", \"S \", 'I', \"ingotVoid\", 'S', \"stickWood\"})",
+    "source_statement": "ConfigResearch.recipes.put(\"VoidHoe\", oreDictRecipe(new ItemStack(ConfigItems.itemHoeVoid, 1), new Object[]{\"II\", \"S \", \"S \", 'I', \"ingotVoid\", 'S', \"stickWood\"}))",
+    "unkeyed": false
+  }
+}

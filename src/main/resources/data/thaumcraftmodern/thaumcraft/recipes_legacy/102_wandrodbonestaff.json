@@ -1,0 +1,19 @@
+{
+  "id": "wandrodbonestaff",
+  "legacy_id": "WandRodBoneStaff",
+  "legacy_kind": "arcane_shaped",
+  "inactive": true,
+  "inactive_reason": "recipe type or referenced content is not implemented",
+  "modern_recipe": "",
+  "required_aspects": [
+    {
+      "id": "ordo",
+      "amount": "((WandRod"
+    }
+  ],
+  "legacy": {
+    "source_expression": "ThaumcraftApi.addArcaneCraftingRecipe(\"ROD_bone_staff\", new ItemStack(ConfigItems.itemWandRod, 1, 57), (new AspectList()).add(Aspect.ORDER, ((WandRod)WandRod.rods.get(\"bone_staff\")).getCraftCost()), \"  S\", \" G \", \"G  \", 'S', new ItemStack(ConfigItems.itemResource, 1, 15), 'G', new ItemStack(ConfigItems.itemWandRod, 1, 7))",
+    "source_statement": "ConfigResearch.recipes.put(\"WandRodBoneStaff\", ThaumcraftApi.addArcaneCraftingRecipe(\"ROD_bone_staff\", new ItemStack(ConfigItems.itemWandRod, 1, 57), (new AspectList()).add(Aspect.ORDER, ((WandRod)WandRod.rods.get(\"bone_staff\")).getCraftCost()), \"  S\", \" G \", \"G  \", 'S', new ItemStack(ConfigItems.itemResource, 1, 15), 'G', new ItemStack(ConfigItems.itemWandRod, 1, 7)))",
+    "unkeyed": false
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "id": "tempestas",
+  "order": 80,
+  "color": "FFFFFF",
+  "icon": "thaumcraftmodern:textures/aspects/tempestas.png",
+  "components": [
+    "aer",
+    "aqua"
+  ]
+}

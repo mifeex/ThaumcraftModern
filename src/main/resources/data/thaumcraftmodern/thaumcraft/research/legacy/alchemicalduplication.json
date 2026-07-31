@@ -1,0 +1,120 @@
+{
+  "id": "alchemicalduplication",
+  "legacy_id": "ALCHEMICALDUPLICATION",
+  "category": "alchemy",
+  "icon": "thaumcraftmodern:thaumonomicon",
+  "title": "tc.research_name.ALCHEMICALDUPLICATION",
+  "subtitle": "tc.research_text.ALCHEMICALDUPLICATION",
+  "concealed": true,
+  "auto_unlock": false,
+  "parents": [
+    "tallow"
+  ],
+  "hidden_parents": [],
+  "reveal_when": {
+    "type": "always"
+  },
+  "x": -96,
+  "y": 0,
+  "pages": [
+    {
+      "type": "text",
+      "title": "",
+      "body": "tc.research_page.ALCHEMICALDUPLICATION.1"
+    },
+    {
+      "type": "unavailable",
+      "title": "",
+      "body": "",
+      "legacy_type": "recipe",
+      "legacy_content": "AltGunpowder",
+      "source_expression": "new ResearchPage((CrucibleRecipe)recipes.get(\"AltGunpowder\"))"
+    },
+    {
+      "type": "unavailable",
+      "title": "",
+      "body": "",
+      "legacy_type": "recipe",
+      "legacy_content": "AltSlime",
+      "source_expression": "new ResearchPage((CrucibleRecipe)recipes.get(\"AltSlime\"))"
+    },
+    {
+      "type": "unavailable",
+      "title": "",
+      "body": "",
+      "legacy_type": "recipe",
+      "legacy_content": "AltClay",
+      "source_expression": "new ResearchPage((CrucibleRecipe)recipes.get(\"AltClay\"))"
+    },
+    {
+      "type": "unavailable",
+      "title": "",
+      "body": "",
+      "legacy_type": "recipe",
+      "legacy_content": "AltGlowstone",
+      "source_expression": "new ResearchPage((CrucibleRecipe)recipes.get(\"AltGlowstone\"))"
+    },
+    {
+      "type": "unavailable",
+      "title": "",
+      "body": "",
+      "legacy_type": "recipe",
+      "legacy_content": "AltInk",
+      "source_expression": "new ResearchPage((CrucibleRecipe)recipes.get(\"AltInk\"))"
+    }
+  ],
+  "purchase_cost": [
+    {
+      "id": "praecantatio",
+      "amount": 3
+    },
+    {
+      "id": "lucrum",
+      "amount": 3
+    },
+    {
+      "id": "fabrico",
+      "amount": 3
+    }
+  ],
+  "inactive": true,
+  "inactive_reason": "referenced gameplay content is not implemented",
+  "legacy": {
+    "x": -4,
+    "y": 0,
+    "complexity": 1,
+    "icon_raw": "new ResourceLocation(\"thaumcraft\", \"textures/misc/r_alchmult.png\")",
+    "flags": {
+      "special": false,
+      "secondary": true,
+      "round": false,
+      "stub": false,
+      "virtual": false,
+      "concealed": true,
+      "hidden": false,
+      "lost": false,
+      "auto_unlock": false
+    },
+    "hidden_parents": [],
+    "siblings": [],
+    "item_triggers_raw": [],
+    "entity_triggers": [],
+    "aspect_triggers": [],
+    "research_aspects": [
+      {
+        "id": "praecantatio",
+        "amount": 3
+      },
+      {
+        "id": "lucrum",
+        "amount": 3
+      },
+      {
+        "id": "fabrico",
+        "amount": 3
+      }
+    ],
+    "warp": [],
+    "source_expression": "(new ResearchItem(\"ALCHEMICALDUPLICATION\", \"ALCHEMY\", (new AspectList()).add(Aspect.MAGIC, 3).add(Aspect.GREED, 3).add(Aspect.CRAFT, 3), -4, 0, 1, new ResourceLocation(\"thaumcraft\", \"textures/misc/r_alchmult.png\"))).setPages(new ResearchPage(\"tc.research_page.ALCHEMICALDUPLICATION.1\"), new ResearchPage((CrucibleRecipe)recipes.get(\"AltGunpowder\")), new ResearchPage((CrucibleRecipe)recipes.get(\"AltSlime\")), new ResearchPage((CrucibleRecipe)recipes.get(\"AltClay\")), new ResearchPage((CrucibleRecipe)recipes.get(\"AltGlowstone\")), new ResearchPage((CrucibleRecipe)recipes.get(\"AltInk\"))).setConcealed().setSecondary().setParents(\"TALLOW\").registerResearchItem()"
+  }
+}

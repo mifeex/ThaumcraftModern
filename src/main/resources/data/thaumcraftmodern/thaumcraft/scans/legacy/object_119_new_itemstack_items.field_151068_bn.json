@@ -1,0 +1,45 @@
+{
+  "type": "item",
+  "target": "minecraft:potion",
+  "display": "",
+  "aspects": [
+    {
+      "id": "aqua",
+      "amount": 1
+    },
+    {
+      "id": "vitreus",
+      "amount": 1
+    }
+  ],
+  "inactive": false,
+  "legacy": {
+    "registration_mode": "explicit",
+    "target_kind": "item_stack",
+    "legacy_target": "new ItemStack(Items.field_151068_bn)",
+    "metadata_group_raw": null,
+    "aspects": [
+      {
+        "id": "aqua",
+        "amount": 1
+      },
+      {
+        "id": "vitreus",
+        "amount": 1
+      }
+    ],
+    "aspect_operations": [
+      {
+        "operation": "add",
+        "id": "aqua",
+        "amount": 1
+      },
+      {
+        "operation": "add",
+        "id": "vitreus",
+        "amount": 1
+      }
+    ],
+    "source_expression": "ThaumcraftApi.registerObjectTag(new ItemStack(Items.field_151068_bn), (new AspectList()).add(Aspect.WATER, 1).add(Aspect.CRYSTAL, 1))"
+  }
+}

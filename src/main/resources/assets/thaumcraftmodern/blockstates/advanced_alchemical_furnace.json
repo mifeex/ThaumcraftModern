@@ -1,0 +1,15 @@
+{
+  "variants": {
+    "part=0":{"model":"thaumcraftmodern:block/advanced_alchemical_furnace_core"},
+    "part=1":{"model":"thaumcraftmodern:block/advanced_alchemical_furnace_lower"},
+    "part=2":{"model":"thaumcraftmodern:block/advanced_alchemical_furnace_tank"},
+    "part=3":{"model":"thaumcraftmodern:block/advanced_alchemical_furnace_upper"},
+    "part=4":{"model":"thaumcraftmodern:block/advanced_alchemical_furnace_lower"},
+    "part=5":{"model":"thaumcraftmodern:block/advanced_alchemical_furnace_lower"},
+    "part=6":{"model":"thaumcraftmodern:block/advanced_alchemical_furnace_lower"},
+    "part=7":{"model":"thaumcraftmodern:block/advanced_alchemical_furnace_lower"},
+    "part=8":{"model":"thaumcraftmodern:block/advanced_alchemical_furnace_lower"},
+    "part=9":{"model":"thaumcraftmodern:block/advanced_alchemical_furnace_lower"},
+    "part=10":{"model":"thaumcraftmodern:block/advanced_alchemical_furnace_lower"}
+  }
+}

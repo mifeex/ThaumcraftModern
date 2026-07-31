@@ -1,0 +1,10 @@
+{
+  "id": "spiritus",
+  "order": 200,
+  "color": "EBEBFB",
+  "icon": "thaumcraftmodern:textures/aspects/spiritus.png",
+  "components": [
+    "victus",
+    "mortuus"
+  ]
+}

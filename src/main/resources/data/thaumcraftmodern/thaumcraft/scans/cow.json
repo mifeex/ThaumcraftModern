@@ -1,0 +1,15 @@
+{
+  "type": "entity",
+  "target": "minecraft:cow",
+  "display": "entity.minecraft.cow",
+  "aspects": [
+    {
+      "id": "bestia",
+      "amount": 3
+    },
+    {
+      "id": "terra",
+      "amount": 3
+    }
+  ]
+}

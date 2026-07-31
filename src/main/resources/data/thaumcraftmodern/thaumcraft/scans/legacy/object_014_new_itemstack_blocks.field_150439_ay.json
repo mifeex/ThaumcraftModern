@@ -1,0 +1,59 @@
+{
+  "type": "block",
+  "target": "minecraft:redstone_ore",
+  "display": "",
+  "aspects": [
+    {
+      "id": "terra",
+      "amount": 1
+    },
+    {
+      "id": "potentia",
+      "amount": 3
+    },
+    {
+      "id": "machina",
+      "amount": 2
+    }
+  ],
+  "inactive": false,
+  "inactive_reason": null,
+  "legacy": {
+    "registration_mode": "explicit",
+    "target_kind": "item_stack",
+    "legacy_target": "new ItemStack(Blocks.field_150439_ay)",
+    "metadata_group_raw": null,
+    "aspects": [
+      {
+        "id": "terra",
+        "amount": 1
+      },
+      {
+        "id": "potentia",
+        "amount": 3
+      },
+      {
+        "id": "machina",
+        "amount": 2
+      }
+    ],
+    "aspect_operations": [
+      {
+        "operation": "add",
+        "id": "terra",
+        "amount": 1
+      },
+      {
+        "operation": "add",
+        "id": "potentia",
+        "amount": 3
+      },
+      {
+        "operation": "add",
+        "id": "machina",
+        "amount": 2
+      }
+    ],
+    "source_expression": "ThaumcraftApi.registerObjectTag(new ItemStack(Blocks.field_150439_ay), (new AspectList()).add(Aspect.EARTH, 1).add(Aspect.ENERGY, 3).add(Aspect.MECHANISM, 2))"
+  }
+}

@@ -1,0 +1,41 @@
+{
+  "type": "entity",
+  "target": "minecraft:chicken",
+  "display": "",
+  "aspects": [
+    {
+      "id": "bestia",
+      "amount": 2
+    },
+    {
+      "id": "volatus",
+      "amount": 2
+    },
+    {
+      "id": "aer",
+      "amount": 1
+    }
+  ],
+  "inactive": false,
+  "inactive_reason": null,
+  "legacy": {
+    "legacy_entity_id": "Chicken",
+    "modern_target": "minecraft:chicken",
+    "aspects": [
+      {
+        "id": "bestia",
+        "amount": 2
+      },
+      {
+        "id": "volatus",
+        "amount": 2
+      },
+      {
+        "id": "aer",
+        "amount": 1
+      }
+    ],
+    "nbt_conditions_raw": [],
+    "source_expression": "ThaumcraftApi.registerEntityTag(\"Chicken\", (new AspectList()).add(Aspect.BEAST, 2).add(Aspect.FLIGHT, 2).add(Aspect.AIR, 1))"
+  }
+}

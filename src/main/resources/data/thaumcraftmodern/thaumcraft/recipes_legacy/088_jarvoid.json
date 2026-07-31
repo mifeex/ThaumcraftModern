@@ -1,0 +1,23 @@
+{
+  "id": "jarvoid",
+  "legacy_id": "JarVoid",
+  "legacy_kind": "arcane_shaped",
+  "inactive": true,
+  "inactive_reason": "recipe type or referenced content is not implemented",
+  "modern_recipe": "",
+  "required_aspects": [
+    {
+      "id": "aqua",
+      "amount": 5
+    },
+    {
+      "id": "perditio",
+      "amount": 15
+    }
+  ],
+  "legacy": {
+    "source_expression": "ThaumcraftApi.addArcaneCraftingRecipe(\"JARVOID\", new ItemStack(ConfigBlocks.blockJar, 1, 3), (new AspectList()).add(Aspect.WATER, 5).add(Aspect.ENTROPY, 15), \"O\", \"J\", \"P\", 'O', Blocks.field_150343_Z, 'P', Items.field_151065_br, 'J', new ItemStack(ConfigBlocks.blockJar, 1, 0))",
+    "source_statement": "ConfigResearch.recipes.put(\"JarVoid\", ThaumcraftApi.addArcaneCraftingRecipe(\"JARVOID\", new ItemStack(ConfigBlocks.blockJar, 1, 3), (new AspectList()).add(Aspect.WATER, 5).add(Aspect.ENTROPY, 15), \"O\", \"J\", \"P\", 'O', Blocks.field_150343_Z, 'P', Items.field_151065_br, 'J', new ItemStack(ConfigBlocks.blockJar, 1, 0)))",
+    "unkeyed": false
+  }
+}

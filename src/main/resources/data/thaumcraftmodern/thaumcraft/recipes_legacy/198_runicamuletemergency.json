@@ -1,0 +1,31 @@
+{
+  "id": "runicamuletemergency",
+  "legacy_id": "RunicAmuletEmergency",
+  "legacy_kind": "infusion",
+  "inactive": true,
+  "inactive_reason": "recipe type or referenced content is not implemented",
+  "modern_recipe": "",
+  "required_aspects": [
+    {
+      "id": "tutamen",
+      "amount": 20
+    },
+    {
+      "id": "praecantatio",
+      "amount": 35
+    },
+    {
+      "id": "terra",
+      "amount": 32
+    },
+    {
+      "id": "vacuos",
+      "amount": 32
+    }
+  ],
+  "legacy": {
+    "source_expression": "ThaumcraftApi.addInfusionCraftingRecipe(\"RUNICEMERGENCY\", new ItemStack(ConfigItems.itemAmuletRunic, 1, 1), 7, (new AspectList()).add(Aspect.ARMOR, 20).add(Aspect.MAGIC, 35).add(Aspect.EARTH, 32).add(Aspect.VOID, 32), new ItemStack(ConfigItems.itemAmuletRunic, 1, 0), new ItemStack[]{new ItemStack(ConfigItems.itemShard, 1, 6), new ItemStack(ConfigItems.itemShard, 1, 3), new ItemStack(ConfigItems.itemShard, 1, 3), new ItemStack(Items.field_151068_bn, 1, 8233), new ItemStack(ConfigItems.itemShard, 1, 3), new ItemStack(ConfigItems.itemShard, 1, 3)})",
+    "source_statement": "ConfigResearch.recipes.put(\"RunicAmuletEmergency\", ThaumcraftApi.addInfusionCraftingRecipe(\"RUNICEMERGENCY\", new ItemStack(ConfigItems.itemAmuletRunic, 1, 1), 7, (new AspectList()).add(Aspect.ARMOR, 20).add(Aspect.MAGIC, 35).add(Aspect.EARTH, 32).add(Aspect.VOID, 32), new ItemStack(ConfigItems.itemAmuletRunic, 1, 0), new ItemStack[]{new ItemStack(ConfigItems.itemShard, 1, 6), new ItemStack(ConfigItems.itemShard, 1, 3), new ItemStack(ConfigItems.itemShard, 1, 3), new ItemStack(Items.field_151068_bn, 1, 8233), new ItemStack(ConfigItems.itemShard, 1, 3), new ItemStack(ConfigItems.itemShard, 1, 3)}))",
+    "unkeyed": false
+  }
+}

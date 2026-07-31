@@ -1,0 +1,96 @@
+{
+  "id": "nodestabilizeradv",
+  "legacy_id": "NODESTABILIZERADV",
+  "category": "thaumaturgy",
+  "icon": "thaumcraftmodern:thaumonomicon",
+  "title": "tc.research_name.NODESTABILIZERADV",
+  "subtitle": "tc.research_text.NODESTABILIZERADV",
+  "concealed": true,
+  "auto_unlock": false,
+  "parents": [
+    "nodestabilizer"
+  ],
+  "hidden_parents": [],
+  "reveal_when": {
+    "type": "always"
+  },
+  "x": -192,
+  "y": -72,
+  "pages": [
+    {
+      "type": "text",
+      "title": "",
+      "body": "tc.research_page.NODESTABILIZERADV.1"
+    },
+    {
+      "type": "unavailable",
+      "title": "",
+      "body": "",
+      "legacy_type": "recipe",
+      "legacy_content": "NodeStabilizerAdv",
+      "source_expression": "new ResearchPage((InfusionRecipe)recipes.get(\"NodeStabilizerAdv\"))"
+    }
+  ],
+  "purchase_cost": [
+    {
+      "id": "auram",
+      "amount": 9
+    },
+    {
+      "id": "praecantatio",
+      "amount": 6
+    },
+    {
+      "id": "ordo",
+      "amount": 6
+    },
+    {
+      "id": "potentia",
+      "amount": 6
+    }
+  ],
+  "inactive": true,
+  "inactive_reason": "referenced gameplay content is not implemented",
+  "legacy": {
+    "x": -8,
+    "y": -3,
+    "complexity": 2,
+    "icon_raw": "new ItemStack(ConfigBlocks.blockStoneDevice, 1, 9)",
+    "flags": {
+      "special": false,
+      "secondary": true,
+      "round": false,
+      "stub": false,
+      "virtual": false,
+      "concealed": true,
+      "hidden": false,
+      "lost": false,
+      "auto_unlock": false
+    },
+    "hidden_parents": [],
+    "siblings": [],
+    "item_triggers_raw": [],
+    "entity_triggers": [],
+    "aspect_triggers": [],
+    "research_aspects": [
+      {
+        "id": "auram",
+        "amount": 9
+      },
+      {
+        "id": "praecantatio",
+        "amount": 6
+      },
+      {
+        "id": "ordo",
+        "amount": 6
+      },
+      {
+        "id": "potentia",
+        "amount": 6
+      }
+    ],
+    "warp": [],
+    "source_expression": "(new ResearchItem(\"NODESTABILIZERADV\", \"THAUMATURGY\", (new AspectList()).add(Aspect.AURA, 9).add(Aspect.MAGIC, 6).add(Aspect.ORDER, 6).add(Aspect.ENERGY, 6), -8, -3, 2, new ItemStack(ConfigBlocks.blockStoneDevice, 1, 9))).setPages(new ResearchPage(\"tc.research_page.NODESTABILIZERADV.1\"), new ResearchPage((InfusionRecipe)recipes.get(\"NodeStabilizerAdv\"))).setSecondary().setConcealed().setParents(\"NODESTABILIZER\").registerResearchItem()"
+  }
+}

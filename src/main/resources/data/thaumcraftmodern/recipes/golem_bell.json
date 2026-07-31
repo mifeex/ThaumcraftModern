@@ -1,0 +1,23 @@
+{
+  "type": "thaumcraftmodern:arcane_shaped",
+  "research": "golembell",
+  "vis": {
+    "ordo": 5
+  },
+  "pattern": [
+    " QQ",
+    " QQ",
+    "S  "
+  ],
+  "key": {
+    "S": {
+      "tag": "minecraft:wooden_rods"
+    },
+    "Q": {
+      "item": "minecraft:quartz"
+    }
+  },
+  "result": {
+    "item": "thaumcraftmodern:golem_bell"
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "id": "voidaxe",
+  "legacy_id": "VoidAxe",
+  "legacy_kind": "crafting_shaped_ore",
+  "inactive": true,
+  "inactive_reason": "recipe type or referenced content is not implemented",
+  "modern_recipe": "",
+  "required_aspects": [],
+  "legacy": {
+    "source_expression": "oreDictRecipe(new ItemStack(ConfigItems.itemAxeVoid, 1), new Object[]{\"II\", \"SI\", \"S \", 'I', \"ingotVoid\", 'S', \"stickWood\"})",
+    "source_statement": "ConfigResearch.recipes.put(\"VoidAxe\", oreDictRecipe(new ItemStack(ConfigItems.itemAxeVoid, 1), new Object[]{\"II\", \"SI\", \"S \", 'I', \"ingotVoid\", 'S', \"stickWood\"}))",
+    "unkeyed": false
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "id": "voidhelm",
+  "legacy_id": "VoidHelm",
+  "legacy_kind": "crafting_shaped_ore",
+  "inactive": true,
+  "inactive_reason": "recipe type or referenced content is not implemented",
+  "modern_recipe": "",
+  "required_aspects": [],
+  "legacy": {
+    "source_expression": "oreDictRecipe(new ItemStack(ConfigItems.itemHelmetVoid, 1), new Object[]{\"III\", \"I I\", 'I', \"ingotVoid\"})",
+    "source_statement": "ConfigResearch.recipes.put(\"VoidHelm\", oreDictRecipe(new ItemStack(ConfigItems.itemHelmetVoid, 1), new Object[]{\"III\", \"I I\", 'I', \"ingotVoid\"}))",
+    "unkeyed": false
+  }
+}

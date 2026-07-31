@@ -1,0 +1,19 @@
+{
+  "id": "robechest",
+  "legacy_id": "RobeChest",
+  "legacy_kind": "arcane_shaped",
+  "inactive": true,
+  "inactive_reason": "recipe type or referenced content is not implemented",
+  "modern_recipe": "",
+  "required_aspects": [
+    {
+      "id": "aer",
+      "amount": 5
+    }
+  ],
+  "legacy": {
+    "source_expression": "ThaumcraftApi.addArcaneCraftingRecipe(\"ENCHFABRIC\", new ItemStack(ConfigItems.itemChestRobe, 1), (new AspectList()).add(Aspect.AIR, 5), \"I I\", \"III\", \"III\", 'I', new ItemStack(ConfigItems.itemResource, 1, 7))",
+    "source_statement": "ConfigResearch.recipes.put(\"RobeChest\", ThaumcraftApi.addArcaneCraftingRecipe(\"ENCHFABRIC\", new ItemStack(ConfigItems.itemChestRobe, 1), (new AspectList()).add(Aspect.AIR, 5), \"I I\", \"III\", \"III\", 'I', new ItemStack(ConfigItems.itemResource, 1, 7)))",
+    "unkeyed": false
+  }
+}

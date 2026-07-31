@@ -1,0 +1,14 @@
+{
+  "id": "primalarrow__a",
+  "legacy_id": "\"PrimalArrow_\" + a",
+  "legacy_kind": "arcane_shaped",
+  "inactive": true,
+  "inactive_reason": "recipe type or referenced content is not implemented",
+  "modern_recipe": "",
+  "required_aspects": [],
+  "legacy": {
+    "source_expression": "ThaumcraftApi.addArcaneCraftingRecipe(\"PRIMALARROW\", new ItemStack(ConfigItems.itemPrimalArrow, 8, a), (new AspectList()).add(pa[a], 8), \"AAA\", \"ASA\", \"AAA\", 'A', Items.field_151032_g, 'S', new ItemStack(ConfigItems.itemShard, 1, a))",
+    "source_statement": "for(int a = 0; a < 6; ++a) {\n         ConfigResearch.recipes.put(\"PrimalArrow_\" + a, ThaumcraftApi.addArcaneCraftingRecipe(\"PRIMALARROW\", new ItemStack(ConfigItems.itemPrimalArrow, 8, a), (new AspectList()).add(pa[a], 8), \"AAA\", \"ASA\", \"AAA\", 'A', Items.field_151032_g, 'S', new ItemStack(ConfigItems.itemShard, 1, a)))",
+    "unkeyed": false
+  }
+}

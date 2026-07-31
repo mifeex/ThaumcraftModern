@@ -1,0 +1,102 @@
+[
+  {
+    "research": "FOCUSHELLBAT",
+    "amount": 2,
+    "source_expression": "ThaumcraftApi.addWarpToResearch(\"FOCUSHELLBAT\", 2)"
+  },
+  {
+    "research": "ROD_bone",
+    "amount": 1,
+    "source_expression": "ThaumcraftApi.addWarpToResearch(\"ROD_bone\", 1)"
+  },
+  {
+    "research": "ROD_bone_staff",
+    "amount": 1,
+    "source_expression": "ThaumcraftApi.addWarpToResearch(\"ROD_bone_staff\", 1)"
+  },
+  {
+    "research": "SINSTONE",
+    "amount": 2,
+    "source_expression": "ThaumcraftApi.addWarpToResearch(\"SINSTONE\", 2)"
+  },
+  {
+    "research": "INFERNALFURNACE",
+    "amount": 2,
+    "source_expression": "ThaumcraftApi.addWarpToResearch(\"INFERNALFURNACE\", 2)"
+  },
+  {
+    "research": "JARBRAIN",
+    "amount": 3,
+    "source_expression": "ThaumcraftApi.addWarpToResearch(\"JARBRAIN\", 3)"
+  },
+  {
+    "research": "MASKANGRYGHOST",
+    "amount": 1,
+    "source_expression": "ThaumcraftApi.addWarpToResearch(\"MASKANGRYGHOST\", 1)"
+  },
+  {
+    "research": "MASKSIPPINGFIEND",
+    "amount": 1,
+    "source_expression": "ThaumcraftApi.addWarpToResearch(\"MASKSIPPINGFIEND\", 1)"
+  },
+  {
+    "research": "LIQUIDDEATH",
+    "amount": 3,
+    "source_expression": "ThaumcraftApi.addWarpToResearch(\"LIQUIDDEATH\", 3)"
+  },
+  {
+    "research": "BOTTLETAINT",
+    "amount": 2,
+    "source_expression": "ThaumcraftApi.addWarpToResearch(\"BOTTLETAINT\", 2)"
+  },
+  {
+    "research": "GOLEMFLESH",
+    "amount": 3,
+    "source_expression": "ThaumcraftApi.addWarpToResearch(\"GOLEMFLESH\", 3)"
+  },
+  {
+    "research": "COREBUTCHER",
+    "amount": 1,
+    "source_expression": "ThaumcraftApi.addWarpToResearch(\"COREBUTCHER\", 1)"
+  },
+  {
+    "research": "ADVANCEDGOLEM",
+    "amount": 5,
+    "source_expression": "ThaumcraftApi.addWarpToResearch(\"ADVANCEDGOLEM\", 5)"
+  },
+  {
+    "research": "RESEARCHER2",
+    "amount": 1,
+    "source_expression": "ThaumcraftApi.addWarpToResearch(\"RESEARCHER2\", 1)"
+  },
+  {
+    "research": "CRIMSON",
+    "amount": 3,
+    "source_expression": "ThaumcraftApi.addWarpToResearch(\"CRIMSON\", 3)"
+  },
+  {
+    "research": "OCULUS",
+    "amount": 6,
+    "source_expression": "ThaumcraftApi.addWarpToResearch(\"OCULUS\", 6)"
+  },
+  {
+    "research": "PRIMNODE",
+    "amount": 1,
+    "source_expression": "ThaumcraftApi.addWarpToResearch(\"PRIMNODE\", 1)"
+  },
+  {
+    "research": "CAP_void",
+    "amount": 1,
+    "source_expression": "ThaumcraftApi.addWarpToResearch(\"CAP_void\", 1)"
+  },
+  {
+    "research": "FOCUSPRIMAL",
+    "amount": 2,
+    "source_expression": "ThaumcraftApi.addWarpToResearch(\"FOCUSPRIMAL\", 2)"
+  },
+  {
+    "research": "ROD_primal_staff",
+    "amount": 3,
+    "source_expression": "ThaumcraftApi.addWarpToResearch(\"ROD_primal_staff\", 3)"
+  }
+]

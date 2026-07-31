@@ -1,0 +1,72 @@
+{
+  "type": "block",
+  "target": "minecraft:bedrock",
+  "display": "",
+  "aspects": [
+    {
+      "id": "vacuos",
+      "amount": 16
+    },
+    {
+      "id": "perditio",
+      "amount": 16
+    },
+    {
+      "id": "terra",
+      "amount": 16
+    },
+    {
+      "id": "tenebrae",
+      "amount": 16
+    }
+  ],
+  "inactive": false,
+  "inactive_reason": null,
+  "legacy": {
+    "registration_mode": "explicit",
+    "target_kind": "item_stack",
+    "legacy_target": "new ItemStack(Blocks.field_150357_h)",
+    "metadata_group_raw": null,
+    "aspects": [
+      {
+        "id": "vacuos",
+        "amount": 16
+      },
+      {
+        "id": "perditio",
+        "amount": 16
+      },
+      {
+        "id": "terra",
+        "amount": 16
+      },
+      {
+        "id": "tenebrae",
+        "amount": 16
+      }
+    ],
+    "aspect_operations": [
+      {
+        "operation": "add",
+        "id": "vacuos",
+        "amount": 16
+      },
+      {
+        "operation": "add",
+        "id": "perditio",
+        "amount": 16
+      },
+      {
+        "operation": "add",
+        "id": "terra",
+        "amount": 16
+      },
+      {
+        "operation": "add",
+        "id": "tenebrae",
+        "amount": 16
+      }
+    ],
+    "source_expression": "}\n\n      ThaumcraftApi.registerObjectTag(new ItemStack(Blocks.field_150357_h), (new AspectList()).add(Aspect.VOID, 16).add(Aspect.ENTROPY, 16).add(Aspect.EARTH, 16).add(Aspect.DARKNESS, 16))"
+  }
+}

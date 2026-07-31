@@ -1,0 +1,23 @@
+{
+  "id": "puretin",
+  "legacy_id": "PureTin",
+  "legacy_kind": "crucible",
+  "inactive": true,
+  "inactive_reason": "recipe type or referenced content is not implemented",
+  "modern_recipe": "",
+  "required_aspects": [
+    {
+      "id": "metallum",
+      "amount": 1
+    },
+    {
+      "id": "ordo",
+      "amount": 1
+    }
+  ],
+  "legacy": {
+    "source_expression": "ThaumcraftApi.addCrucibleRecipe(\"PURETIN\", new ItemStack(ConfigItems.itemNugget, 1, 18), \"oreTin\", (new AspectList()).merge(Aspect.METAL, 1).merge(Aspect.ORDER, 1))",
+    "source_statement": "}\n\n      if (Config.foundTinIngot) {\n         ConfigResearch.recipes.put(\"PureTin\", ThaumcraftApi.addCrucibleRecipe(\"PURETIN\", new ItemStack(ConfigItems.itemNugget, 1, 18), \"oreTin\", (new AspectList()).merge(Aspect.METAL, 1).merge(Aspect.ORDER, 1)))",
+    "unkeyed": false
+  }
+}

@@ -1,0 +1,41 @@
+{
+  "type": "entity",
+  "target": "minecraft:cave_spider",
+  "display": "",
+  "aspects": [
+    {
+      "id": "bestia",
+      "amount": 2
+    },
+    {
+      "id": "venenum",
+      "amount": 2
+    },
+    {
+      "id": "terra",
+      "amount": 1
+    }
+  ],
+  "inactive": false,
+  "inactive_reason": null,
+  "legacy": {
+    "legacy_entity_id": "CaveSpider",
+    "modern_target": "minecraft:cave_spider",
+    "aspects": [
+      {
+        "id": "bestia",
+        "amount": 2
+      },
+      {
+        "id": "venenum",
+        "amount": 2
+      },
+      {
+        "id": "terra",
+        "amount": 1
+      }
+    ],
+    "nbt_conditions_raw": [],
+    "source_expression": "ThaumcraftApi.registerEntityTag(\"CaveSpider\", (new AspectList()).add(Aspect.BEAST, 2).add(Aspect.POISON, 2).add(Aspect.EARTH, 1))"
+  }
+}

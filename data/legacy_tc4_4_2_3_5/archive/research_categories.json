@@ -1,0 +1,38 @@
+[
+  {
+    "id": "BASICS",
+    "icon_raw": "new ResourceLocation(\"thaumcraft\", \"textures/items/thaumonomiconcheat.png\")",
+    "background_raw": "new ResourceLocation(\"thaumcraft\", \"textures/gui/gui_researchback.png\")",
+    "source_expression": "}\n\n   private static void initCategories() {\n      ResearchCategories.registerCategory(\"BASICS\", new ResourceLocation(\"thaumcraft\", \"textures/items/thaumonomiconcheat.png\"), new ResourceLocation(\"thaumcraft\", \"textures/gui/gui_researchback.png\"))"
+  },
+  {
+    "id": "THAUMATURGY",
+    "icon_raw": "new ResourceLocation(\"thaumcraft\", \"textures/misc/r_thaumaturgy.png\")",
+    "background_raw": "new ResourceLocation(\"thaumcraft\", \"textures/gui/gui_researchback.png\")",
+    "source_expression": "ResearchCategories.registerCategory(\"THAUMATURGY\", new ResourceLocation(\"thaumcraft\", \"textures/misc/r_thaumaturgy.png\"), new ResourceLocation(\"thaumcraft\", \"textures/gui/gui_researchback.png\"))"
+  },
+  {
+    "id": "ALCHEMY",
+    "icon_raw": "new ResourceLocation(\"thaumcraft\", \"textures/misc/r_crucible.png\")",
+    "background_raw": "new ResourceLocation(\"thaumcraft\", \"textures/gui/gui_researchback.png\")",
+    "source_expression": "ResearchCategories.registerCategory(\"ALCHEMY\", new ResourceLocation(\"thaumcraft\", \"textures/misc/r_crucible.png\"), new ResourceLocation(\"thaumcraft\", \"textures/gui/gui_researchback.png\"))"
+  },
+  {
+    "id": "ARTIFICE",
+    "icon_raw": "new ResourceLocation(\"thaumcraft\", \"textures/misc/r_artifice.png\")",
+    "background_raw": "new ResourceLocation(\"thaumcraft\", \"textures/gui/gui_researchback.png\")",
+    "source_expression": "ResearchCategories.registerCategory(\"ARTIFICE\", new ResourceLocation(\"thaumcraft\", \"textures/misc/r_artifice.png\"), new ResourceLocation(\"thaumcraft\", \"textures/gui/gui_researchback.png\"))"
+  },
+  {
+    "id": "GOLEMANCY",
+    "icon_raw": "new ResourceLocation(\"thaumcraft\", \"textures/misc/r_golemancy.png\")",
+    "background_raw": "new ResourceLocation(\"thaumcraft\", \"textures/gui/gui_researchback.png\")",
+    "source_expression": "ResearchCategories.registerCategory(\"GOLEMANCY\", new ResourceLocation(\"thaumcraft\", \"textures/misc/r_golemancy.png\"), new ResourceLocation(\"thaumcraft\", \"textures/gui/gui_researchback.png\"))"
+  },
+  {
+    "id": "ELDRITCH",
+    "icon_raw": "new ResourceLocation(\"thaumcraft\", \"textures/misc/r_eldritch.png\")",
+    "background_raw": "new ResourceLocation(\"thaumcraft\", \"textures/gui/gui_researchbackeldritch.png\")",
+    "source_expression": "ResearchCategories.registerCategory(\"ELDRITCH\", new ResourceLocation(\"thaumcraft\", \"textures/misc/r_eldritch.png\"), new ResourceLocation(\"thaumcraft\", \"textures/gui/gui_researchbackeldritch.png\"))"
+  }
+]

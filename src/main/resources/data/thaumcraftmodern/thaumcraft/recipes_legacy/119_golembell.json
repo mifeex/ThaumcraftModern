@@ -1,0 +1,19 @@
+{
+  "id": "golembell",
+  "legacy_id": "GolemBell",
+  "legacy_kind": "arcane_shaped",
+  "inactive": true,
+  "inactive_reason": "recipe type or referenced content is not implemented",
+  "modern_recipe": "",
+  "required_aspects": [
+    {
+      "id": "ordo",
+      "amount": 5
+    }
+  ],
+  "legacy": {
+    "source_expression": "ThaumcraftApi.addArcaneCraftingRecipe(\"GOLEMBELL\", new ItemStack(ConfigItems.itemGolemBell), (new AspectList()).add(Aspect.ORDER, 5), \" QQ\", \" QQ\", \"S  \", 'S', \"stickWood\", 'Q', Items.field_151128_bU)",
+    "source_statement": "ConfigResearch.recipes.put(\"GolemBell\", ThaumcraftApi.addArcaneCraftingRecipe(\"GOLEMBELL\", new ItemStack(ConfigItems.itemGolemBell), (new AspectList()).add(Aspect.ORDER, 5), \" QQ\", \" QQ\", \"S  \", 'S', \"stickWood\", 'Q', Items.field_151128_bU))",
+    "unkeyed": false
+  }
+}

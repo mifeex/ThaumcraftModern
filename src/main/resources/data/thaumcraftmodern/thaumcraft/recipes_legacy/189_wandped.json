@@ -1,0 +1,27 @@
+{
+  "id": "wandped",
+  "legacy_id": "WandPed",
+  "legacy_kind": "infusion",
+  "inactive": true,
+  "inactive_reason": "recipe type or referenced content is not implemented",
+  "modern_recipe": "",
+  "required_aspects": [
+    {
+      "id": "auram",
+      "amount": 10
+    },
+    {
+      "id": "praecantatio",
+      "amount": 15
+    },
+    {
+      "id": "permutatio",
+      "amount": 15
+    }
+  ],
+  "legacy": {
+    "source_expression": "ThaumcraftApi.addInfusionCraftingRecipe(\"WANDPED\", new ItemStack(ConfigBlocks.blockStoneDevice, 1, 5), 3, (new AspectList()).add(Aspect.AURA, 10).add(Aspect.MAGIC, 15).add(Aspect.EXCHANGE, 15), new ItemStack(ConfigBlocks.blockStoneDevice, 1, 1), new ItemStack[]{new ItemStack(Items.field_151043_k), new ItemStack(Items.field_151045_i), new ItemStack(ConfigItems.itemResource, 1, 15), new ItemStack(Items.field_151045_i)})",
+    "source_statement": "ConfigResearch.recipes.put(\"WandPed\", ThaumcraftApi.addInfusionCraftingRecipe(\"WANDPED\", new ItemStack(ConfigBlocks.blockStoneDevice, 1, 5), 3, (new AspectList()).add(Aspect.AURA, 10).add(Aspect.MAGIC, 15).add(Aspect.EXCHANGE, 15), new ItemStack(ConfigBlocks.blockStoneDevice, 1, 1), new ItemStack[]{new ItemStack(Items.field_151043_k), new ItemStack(Items.field_151045_i), new ItemStack(ConfigItems.itemResource, 1, 15), new ItemStack(Items.field_151045_i)}))",
+    "unkeyed": false
+  }
+}

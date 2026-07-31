@@ -1,0 +1,27 @@
+{
+  "id": "nodechargerelay",
+  "legacy_id": "NodeChargeRelay",
+  "legacy_kind": "arcane_shaped",
+  "inactive": true,
+  "inactive_reason": "recipe type or referenced content is not implemented",
+  "modern_recipe": "",
+  "required_aspects": [
+    {
+      "id": "ignis",
+      "amount": 16
+    },
+    {
+      "id": "ordo",
+      "amount": 16
+    },
+    {
+      "id": "aer",
+      "amount": 16
+    }
+  ],
+  "legacy": {
+    "source_expression": "ThaumcraftApi.addArcaneCraftingRecipe(\"VISCHARGERELAY\", new ItemStack(ConfigBlocks.blockMetalDevice, 1, 2), (new AspectList()).add(Aspect.FIRE, 16).add(Aspect.ORDER, 16).add(Aspect.AIR, 16), \" R \", \"W W\", \"I I\", 'I', new ItemStack(Items.field_151042_j), 'R', new ItemStack(ConfigBlocks.blockMetalDevice, 1, 14), 'W', new ItemStack(ConfigItems.itemWandRod, 1, 0))",
+    "source_statement": "ConfigResearch.recipes.put(\"NodeChargeRelay\", ThaumcraftApi.addArcaneCraftingRecipe(\"VISCHARGERELAY\", new ItemStack(ConfigBlocks.blockMetalDevice, 1, 2), (new AspectList()).add(Aspect.FIRE, 16).add(Aspect.ORDER, 16).add(Aspect.AIR, 16), \" R \", \"W W\", \"I I\", 'I', new ItemStack(Items.field_151042_j), 'R', new ItemStack(ConfigBlocks.blockMetalDevice, 1, 14), 'W', new ItemStack(ConfigItems.itemWandRod, 1, 0)))",
+    "unkeyed": false
+  }
+}

@@ -1,0 +1,33 @@
+{
+  "type": "item",
+  "target": "minecraft:carrot_on_a_stick",
+  "display": "",
+  "aspects": [
+    {
+      "id": "iter",
+      "amount": 4
+    }
+  ],
+  "inactive": true,
+  "inactive_reason": "recipe-derived base aspects cannot yet be reproduced safely",
+  "legacy": {
+    "registration_mode": "recipe_derived_modifier",
+    "target_kind": "item_stack",
+    "legacy_target": "new ItemStack(Items.field_151146_bM, 1, 32767)",
+    "metadata_group_raw": null,
+    "aspects": [
+      {
+        "id": "iter",
+        "amount": 4
+      }
+    ],
+    "aspect_operations": [
+      {
+        "operation": "add",
+        "id": "iter",
+        "amount": 4
+      }
+    ],
+    "source_expression": "ThaumcraftApi.registerComplexObjectTag(new ItemStack(Items.field_151146_bM, 1, 32767), (new AspectList()).add(Aspect.TRAVEL, 4))"
+  }
+}

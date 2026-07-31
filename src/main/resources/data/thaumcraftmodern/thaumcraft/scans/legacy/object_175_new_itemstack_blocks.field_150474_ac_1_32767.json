@@ -1,0 +1,71 @@
+{
+  "type": "block",
+  "target": "minecraft:spawner",
+  "display": "",
+  "aspects": [
+    {
+      "id": "bestia",
+      "amount": 4
+    },
+    {
+      "id": "iter",
+      "amount": 4
+    },
+    {
+      "id": "exanimis",
+      "amount": 4
+    },
+    {
+      "id": "praecantatio",
+      "amount": 4
+    }
+  ],
+  "inactive": false,
+  "legacy": {
+    "registration_mode": "explicit",
+    "target_kind": "item_stack",
+    "legacy_target": "new ItemStack(Blocks.field_150474_ac, 1, 32767)",
+    "metadata_group_raw": null,
+    "aspects": [
+      {
+        "id": "bestia",
+        "amount": 4
+      },
+      {
+        "id": "iter",
+        "amount": 4
+      },
+      {
+        "id": "exanimis",
+        "amount": 4
+      },
+      {
+        "id": "praecantatio",
+        "amount": 4
+      }
+    ],
+    "aspect_operations": [
+      {
+        "operation": "add",
+        "id": "bestia",
+        "amount": 4
+      },
+      {
+        "operation": "add",
+        "id": "iter",
+        "amount": 4
+      },
+      {
+        "operation": "add",
+        "id": "exanimis",
+        "amount": 4
+      },
+      {
+        "operation": "add",
+        "id": "praecantatio",
+        "amount": 4
+      }
+    ],
+    "source_expression": "ThaumcraftApi.registerObjectTag(new ItemStack(Blocks.field_150474_ac, 1, 32767), (new AspectList()).add(Aspect.BEAST, 4).add(Aspect.TRAVEL, 4).add(Aspect.UNDEAD, 4).add(Aspect.MAGIC, 4))"
+  }
+}

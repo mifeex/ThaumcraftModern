@@ -1,0 +1,7 @@
+{
+  "parent": "thaumcraftmodern:block/essentia_tube_base",
+  "textures": {
+    "tube": "thaumcraftmodern:block/pipe_1",
+    "joint": "thaumcraftmodern:block/pipe_2"
+  }
+}

@@ -1,0 +1,27 @@
+{
+  "id": "infench3",
+  "legacy_id": "InfEnch3",
+  "legacy_kind": "infusion_enchantment",
+  "inactive": true,
+  "inactive_reason": "recipe type or referenced content is not implemented",
+  "modern_recipe": "",
+  "required_aspects": [
+    {
+      "id": "praecantatio",
+      "amount": 4
+    },
+    {
+      "id": "tutamen",
+      "amount": 4
+    },
+    {
+      "id": "volatus",
+      "amount": 4
+    }
+  ],
+  "legacy": {
+    "source_expression": "ThaumcraftApi.addInfusionEnchantmentRecipe(\"INFUSIONENCHANTMENT\", Enchantment.field_77328_g, 1, (new AspectList()).add(Aspect.MAGIC, 4).add(Aspect.ARMOR, 4).add(Aspect.FLIGHT, 4), new ItemStack[]{new ItemStack(Items.field_151042_j), new ItemStack(Items.field_151032_g), new ItemStack(ConfigItems.itemResource, 1, 14)})",
+    "source_statement": "ConfigResearch.recipes.put(\"InfEnch3\", ThaumcraftApi.addInfusionEnchantmentRecipe(\"INFUSIONENCHANTMENT\", Enchantment.field_77328_g, 1, (new AspectList()).add(Aspect.MAGIC, 4).add(Aspect.ARMOR, 4).add(Aspect.FLIGHT, 4), new ItemStack[]{new ItemStack(Items.field_151042_j), new ItemStack(Items.field_151032_g), new ItemStack(ConfigItems.itemResource, 1, 14)}))",
+    "unkeyed": false
+  }
+}

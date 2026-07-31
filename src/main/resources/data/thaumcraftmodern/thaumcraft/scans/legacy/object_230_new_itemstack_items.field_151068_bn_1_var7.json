@@ -1,0 +1,17 @@
+{
+  "type": "item",
+  "target": "minecraft:potion",
+  "display": "",
+  "aspects": [],
+  "inactive": true,
+  "legacy": {
+    "registration_mode": "explicit",
+    "target_kind": "item_stack",
+    "legacy_target": "new ItemStack(Items.field_151068_bn, 1, var7)",
+    "metadata_group_raw": null,
+    "aspects": [],
+    "aspect_operations": [],
+    "source_expression": "}\n      }\n\n      for(int var7 : lhm.values()) {\n         ThaumcraftApi.registerObjectTag(new ItemStack(Items.field_151068_bn, 1, var7), new AspectList(new ItemStack(Items.field_151068_bn)))"
+  },
+  "inactive_reason": "multiple legacy registrations collapse to one modern target"
+}

@@ -1,0 +1,23 @@
+{
+  "id": "infernalfurnace",
+  "legacy_id": "InfernalFurnace",
+  "legacy_kind": "multiblock",
+  "inactive": true,
+  "inactive_reason": "recipe type or referenced content is not implemented",
+  "modern_recipe": "",
+  "required_aspects": [
+    {
+      "id": "ignis",
+      "amount": 50
+    },
+    {
+      "id": "terra",
+      "amount": 50
+    }
+  ],
+  "legacy": {
+    "source_expression": "Arrays.asList((new AspectList()).add(Aspect.FIRE, 50).add(Aspect.EARTH, 50), 3, 3, 3, Arrays.asList(new ItemStack(Blocks.field_150385_bj), new ItemStack(Blocks.field_150343_Z), new ItemStack(Blocks.field_150385_bj), new ItemStack(Blocks.field_150343_Z), empty, new ItemStack(Blocks.field_150343_Z), new ItemStack(Blocks.field_150385_bj), new ItemStack(Blocks.field_150343_Z), new ItemStack(Blocks.field_150385_bj), new ItemStack(Blocks.field_150385_bj), new ItemStack(Blocks.field_150343_Z), new ItemStack(Blocks.field_150385_bj), new ItemStack(Blocks.field_150343_Z), new ItemStack(Blocks.field_150353_l), new ItemStack(Blocks.field_150411_aY), new ItemStack(Blocks.field_150385_bj), new ItemStack(Blocks.field_150343_Z), new ItemStack(Blocks.field_150385_bj), new ItemStack(Blocks.field_150385_bj), new ItemStack(Blocks.field_150343_Z), new ItemStack(Blocks.field_150385_bj), new ItemStack(Blocks.field_150343_Z), new ItemStack(Blocks.field_150343_Z), new ItemStack(Blocks.field_150343_Z), new ItemStack(Blocks.field_150385_bj), new ItemStack(Blocks.field_150343_Z), new ItemStack(Blocks.field_150385_bj)))",
+    "source_statement": "ConfigResearch.recipes.put(\"InfernalFurnace\", Arrays.asList((new AspectList()).add(Aspect.FIRE, 50).add(Aspect.EARTH, 50), 3, 3, 3, Arrays.asList(new ItemStack(Blocks.field_150385_bj), new ItemStack(Blocks.field_150343_Z), new ItemStack(Blocks.field_150385_bj), new ItemStack(Blocks.field_150343_Z), empty, new ItemStack(Blocks.field_150343_Z), new ItemStack(Blocks.field_150385_bj), new ItemStack(Blocks.field_150343_Z), new ItemStack(Blocks.field_150385_bj), new ItemStack(Blocks.field_150385_bj), new ItemStack(Blocks.field_150343_Z), new ItemStack(Blocks.field_150385_bj), new ItemStack(Blocks.field_150343_Z), new ItemStack(Blocks.field_150353_l), new ItemStack(Blocks.field_150411_aY), new ItemStack(Blocks.field_150385_bj), new ItemStack(Blocks.field_150343_Z), new ItemStack(Blocks.field_150385_bj), new ItemStack(Blocks.field_150385_bj), new ItemStack(Blocks.field_150343_Z), new ItemStack(Blocks.field_150385_bj), new ItemStack(Blocks.field_150343_Z), new ItemStack(Blocks.field_150343_Z), new ItemStack(Blocks.field_150343_Z), new ItemStack(Blocks.field_150385_bj), new ItemStack(Blocks.field_150343_Z), new ItemStack(Blocks.field_150385_bj))))",
+    "unkeyed": false
+  }
+}

@@ -1,0 +1,23 @@
+{
+  "id": "tinydart",
+  "legacy_id": "TinyDart",
+  "legacy_kind": "arcane_shaped",
+  "inactive": true,
+  "inactive_reason": "recipe type or referenced content is not implemented",
+  "modern_recipe": "",
+  "required_aspects": [
+    {
+      "id": "aer",
+      "amount": 4
+    },
+    {
+      "id": "ignis",
+      "amount": 4
+    }
+  ],
+  "legacy": {
+    "source_expression": "ThaumcraftApi.addArcaneCraftingRecipe(\"TINYDART\", new ItemStack(ConfigItems.itemGolemDecoration, 1, 4), (new AspectList()).add(Aspect.AIR, 4).add(Aspect.FIRE, 4), \"AIA\", \"ADA\", \"AIA\", 'I', Items.field_151042_j, 'D', Blocks.field_150367_z, 'A', Items.field_151032_g)",
+    "source_statement": "ConfigResearch.recipes.put(\"TinyDart\", ThaumcraftApi.addArcaneCraftingRecipe(\"TINYDART\", new ItemStack(ConfigItems.itemGolemDecoration, 1, 4), (new AspectList()).add(Aspect.AIR, 4).add(Aspect.FIRE, 4), \"AIA\", \"ADA\", \"AIA\", 'I', Items.field_151042_j, 'D', Blocks.field_150367_z, 'A', Items.field_151032_g))",
+    "unkeyed": false
+  }
+}

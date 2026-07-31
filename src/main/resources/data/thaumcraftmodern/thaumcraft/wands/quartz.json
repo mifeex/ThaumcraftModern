@@ -1,0 +1,9 @@
+{
+  "kind": "rod",
+  "id": "quartz",
+  "capacity_vis": 75,
+  "recharge_aspects": ["ordo"],
+  "recharge_interval_ticks": 200,
+  "recharge_centivis": 1,
+  "translation_key": "item.Wand.quartz.rod"
+}

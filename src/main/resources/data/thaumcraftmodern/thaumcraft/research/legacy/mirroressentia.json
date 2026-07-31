@@ -1,0 +1,101 @@
+{
+  "id": "mirroressentia",
+  "legacy_id": "MIRRORESSENTIA",
+  "category": "artifice",
+  "icon": "thaumcraftmodern:thaumonomicon",
+  "title": "tc.research_name.MIRRORESSENTIA",
+  "subtitle": "tc.research_text.MIRRORESSENTIA",
+  "concealed": true,
+  "auto_unlock": false,
+  "parents": [
+    "mirror"
+  ],
+  "hidden_parents": [],
+  "reveal_when": {
+    "type": "always"
+  },
+  "x": -24,
+  "y": 240,
+  "pages": [
+    {
+      "type": "text",
+      "title": "",
+      "body": "tc.research_page.MIRRORESSENTIA.1"
+    },
+    {
+      "type": "unavailable",
+      "title": "",
+      "body": "",
+      "legacy_type": "recipe",
+      "legacy_content": "MirrorEssentia",
+      "source_expression": "new ResearchPage((InfusionRecipe)recipes.get(\"MirrorEssentia\"))"
+    },
+    {
+      "type": "text",
+      "title": "",
+      "body": "tc.research_page.MIRRORESSENTIA.2"
+    }
+  ],
+  "purchase_cost": [
+    {
+      "id": "iter",
+      "amount": 6
+    },
+    {
+      "id": "alienis",
+      "amount": 3
+    },
+    {
+      "id": "aqua",
+      "amount": 3
+    },
+    {
+      "id": "praecantatio",
+      "amount": 3
+    }
+  ],
+  "inactive": true,
+  "inactive_reason": "referenced gameplay content is not implemented",
+  "legacy": {
+    "x": -1,
+    "y": 10,
+    "complexity": 2,
+    "icon_raw": "new ItemStack(ConfigBlocks.blockMirror, 1, 6)",
+    "flags": {
+      "special": false,
+      "secondary": true,
+      "round": false,
+      "stub": false,
+      "virtual": false,
+      "concealed": true,
+      "hidden": false,
+      "lost": false,
+      "auto_unlock": false
+    },
+    "hidden_parents": [],
+    "siblings": [],
+    "item_triggers_raw": [],
+    "entity_triggers": [],
+    "aspect_triggers": [],
+    "research_aspects": [
+      {
+        "id": "iter",
+        "amount": 6
+      },
+      {
+        "id": "alienis",
+        "amount": 3
+      },
+      {
+        "id": "aqua",
+        "amount": 3
+      },
+      {
+        "id": "praecantatio",
+        "amount": 3
+      }
+    ],
+    "warp": [],
+    "source_expression": "(new ResearchItem(\"MIRRORESSENTIA\", \"ARTIFICE\", (new AspectList()).add(Aspect.TRAVEL, 6).add(Aspect.ELDRITCH, 3).add(Aspect.WATER, 3).add(Aspect.MAGIC, 3), -1, 10, 2, new ItemStack(ConfigBlocks.blockMirror, 1, 6))).setPages(new ResearchPage(\"tc.research_page.MIRRORESSENTIA.1\"), new ResearchPage((InfusionRecipe)recipes.get(\"MirrorEssentia\")), new ResearchPage(\"tc.research_page.MIRRORESSENTIA.2\")).setSecondary().setConcealed().setParents(\"MIRROR\").registerResearchItem()"
+  }
+}

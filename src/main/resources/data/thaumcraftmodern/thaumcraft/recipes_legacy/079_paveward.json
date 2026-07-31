@@ -1,0 +1,23 @@
+{
+  "id": "paveward",
+  "legacy_id": "PaveWard",
+  "legacy_kind": "arcane_shaped",
+  "inactive": true,
+  "inactive_reason": "recipe type or referenced content is not implemented",
+  "modern_recipe": "",
+  "required_aspects": [
+    {
+      "id": "ignis",
+      "amount": 10
+    },
+    {
+      "id": "ordo",
+      "amount": 10
+    }
+  ],
+  "legacy": {
+    "source_expression": "ThaumcraftApi.addArcaneCraftingRecipe(\"PAVEWARD\", new ItemStack(ConfigBlocks.blockCosmeticSolid, 4, 3), (new AspectList()).add(Aspect.FIRE, 10).add(Aspect.ORDER, 10), \"SAS\", \"SBS\", 'S', new ItemStack(ConfigBlocks.blockCosmeticSolid, 1, 7), 'A', new ItemStack(ConfigItems.itemShard, 1, 1), 'B', new ItemStack(ConfigItems.itemShard, 1, 4))",
+    "source_statement": "ConfigResearch.recipes.put(\"PaveWard\", ThaumcraftApi.addArcaneCraftingRecipe(\"PAVEWARD\", new ItemStack(ConfigBlocks.blockCosmeticSolid, 4, 3), (new AspectList()).add(Aspect.FIRE, 10).add(Aspect.ORDER, 10), \"SAS\", \"SBS\", 'S', new ItemStack(ConfigBlocks.blockCosmeticSolid, 1, 7), 'A', new ItemStack(ConfigItems.itemShard, 1, 1), 'B', new ItemStack(ConfigItems.itemShard, 1, 4)))",
+    "unkeyed": false
+  }
+}

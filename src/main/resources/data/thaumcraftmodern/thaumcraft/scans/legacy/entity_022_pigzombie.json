@@ -1,0 +1,33 @@
+{
+  "type": "entity",
+  "target": "minecraft:zombified_piglin",
+  "display": "",
+  "aspects": [
+    {
+      "id": "exanimis",
+      "amount": 4
+    },
+    {
+      "id": "ignis",
+      "amount": 2
+    }
+  ],
+  "inactive": false,
+  "inactive_reason": null,
+  "legacy": {
+    "legacy_entity_id": "PigZombie",
+    "modern_target": "minecraft:zombified_piglin",
+    "aspects": [
+      {
+        "id": "exanimis",
+        "amount": 4
+      },
+      {
+        "id": "ignis",
+        "amount": 2
+      }
+    ],
+    "nbt_conditions_raw": [],
+    "source_expression": "ThaumcraftApi.registerEntityTag(\"PigZombie\", (new AspectList()).add(Aspect.UNDEAD, 4).add(Aspect.FIRE, 2))"
+  }
+}

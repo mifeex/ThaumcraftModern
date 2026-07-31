@@ -1,0 +1,80 @@
+{
+  "id": "elementalshovel",
+  "legacy_id": "ELEMENTALSHOVEL",
+  "category": "artifice",
+  "icon": "thaumcraftmodern:thaumonomicon",
+  "title": "tc.research_name.ELEMENTALSHOVEL",
+  "subtitle": "tc.research_text.ELEMENTALSHOVEL",
+  "concealed": true,
+  "auto_unlock": false,
+  "parents": [
+    "thaumium",
+    "infusion"
+  ],
+  "hidden_parents": [],
+  "reveal_when": {
+    "type": "always"
+  },
+  "x": -168,
+  "y": 144,
+  "pages": [
+    {
+      "type": "text",
+      "title": "",
+      "body": "tc.research_page.ELEMENTALSHOVEL.1"
+    },
+    {
+      "type": "unavailable",
+      "title": "",
+      "body": "",
+      "legacy_type": "recipe",
+      "legacy_content": "ElementalShovel",
+      "source_expression": "new ResearchPage((InfusionRecipe)recipes.get(\"ElementalShovel\"))"
+    },
+    {
+      "type": "text",
+      "title": "",
+      "body": "tc.research_page.ELEMENTALSHOVEL.2"
+    }
+  ],
+  "inactive": true,
+  "inactive_reason": "referenced gameplay content is not implemented",
+  "legacy": {
+    "x": -7,
+    "y": 6,
+    "complexity": 2,
+    "icon_raw": "new ItemStack(ConfigItems.itemShovelElemental)",
+    "flags": {
+      "special": false,
+      "secondary": false,
+      "round": false,
+      "stub": false,
+      "virtual": false,
+      "concealed": true,
+      "hidden": false,
+      "lost": false,
+      "auto_unlock": false
+    },
+    "hidden_parents": [],
+    "siblings": [],
+    "item_triggers_raw": [],
+    "entity_triggers": [],
+    "aspect_triggers": [],
+    "research_aspects": [
+      {
+        "id": "instrumentum",
+        "amount": 3
+      },
+      {
+        "id": "terra",
+        "amount": 3
+      },
+      {
+        "id": "fabrico",
+        "amount": 3
+      }
+    ],
+    "warp": [],
+    "source_expression": "(new ResearchItem(\"ELEMENTALSHOVEL\", \"ARTIFICE\", (new AspectList()).add(Aspect.TOOL, 3).add(Aspect.EARTH, 3).add(Aspect.CRAFT, 3), -7, 6, 2, new ItemStack(ConfigItems.itemShovelElemental))).setPages(new ResearchPage(\"tc.research_page.ELEMENTALSHOVEL.1\"), new ResearchPage((InfusionRecipe)recipes.get(\"ElementalShovel\")), new ResearchPage(\"tc.research_page.ELEMENTALSHOVEL.2\")).setParents(\"THAUMIUM\", \"INFUSION\").setConcealed().registerResearchItem()"
+  }
+}

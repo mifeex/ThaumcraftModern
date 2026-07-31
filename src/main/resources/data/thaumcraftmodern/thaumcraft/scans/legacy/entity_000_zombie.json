@@ -1,0 +1,41 @@
+{
+  "type": "entity",
+  "target": "minecraft:zombie",
+  "display": "",
+  "aspects": [
+    {
+      "id": "exanimis",
+      "amount": 2
+    },
+    {
+      "id": "humanus",
+      "amount": 1
+    },
+    {
+      "id": "terra",
+      "amount": 1
+    }
+  ],
+  "inactive": false,
+  "inactive_reason": null,
+  "legacy": {
+    "legacy_entity_id": "Zombie",
+    "modern_target": "minecraft:zombie",
+    "aspects": [
+      {
+        "id": "exanimis",
+        "amount": 2
+      },
+      {
+        "id": "humanus",
+        "amount": 1
+      },
+      {
+        "id": "terra",
+        "amount": 1
+      }
+    ],
+    "nbt_conditions_raw": [],
+    "source_expression": "}\n\n   private static void registerEntityAspects() {\n      ThaumcraftApi.registerEntityTag(\"Zombie\", (new AspectList()).add(Aspect.UNDEAD, 2).add(Aspect.MAN, 1).add(Aspect.EARTH, 1))"
+  }
+}

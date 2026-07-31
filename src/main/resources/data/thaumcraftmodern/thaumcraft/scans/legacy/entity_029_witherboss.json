@@ -1,0 +1,41 @@
+{
+  "type": "entity",
+  "target": "minecraft:wither",
+  "display": "",
+  "aspects": [
+    {
+      "id": "exanimis",
+      "amount": 20
+    },
+    {
+      "id": "perditio",
+      "amount": 20
+    },
+    {
+      "id": "ignis",
+      "amount": 15
+    }
+  ],
+  "inactive": false,
+  "inactive_reason": null,
+  "legacy": {
+    "legacy_entity_id": "WitherBoss",
+    "modern_target": "minecraft:wither",
+    "aspects": [
+      {
+        "id": "exanimis",
+        "amount": 20
+      },
+      {
+        "id": "perditio",
+        "amount": 20
+      },
+      {
+        "id": "ignis",
+        "amount": 15
+      }
+    ],
+    "nbt_conditions_raw": [],
+    "source_expression": "ThaumcraftApi.registerEntityTag(\"WitherBoss\", (new AspectList()).add(Aspect.UNDEAD, 20).add(Aspect.ENTROPY, 20).add(Aspect.FIRE, 15))"
+  }
+}

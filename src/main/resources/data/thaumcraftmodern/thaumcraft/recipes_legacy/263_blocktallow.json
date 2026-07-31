@@ -1,0 +1,14 @@
+{
+  "id": "blocktallow",
+  "legacy_id": "BlockTallow",
+  "legacy_kind": "crafting_shaped",
+  "inactive": true,
+  "inactive_reason": "recipe type or referenced content is not implemented",
+  "modern_recipe": "",
+  "required_aspects": [],
+  "legacy": {
+    "source_expression": "GameRegistry.addShapedRecipe(new ItemStack(ConfigBlocks.blockCosmeticSolid, 1, 5), new Object[]{\"KKK\", \"KKK\", \"KKK\", 'K', new ItemStack(ConfigItems.itemResource, 1, 4)})",
+    "source_statement": "ConfigResearch.recipes.put(\"BlockTallow\", GameRegistry.addShapedRecipe(new ItemStack(ConfigBlocks.blockCosmeticSolid, 1, 5), new Object[]{\"KKK\", \"KKK\", \"KKK\", 'K', new ItemStack(ConfigItems.itemResource, 1, 4)}))",
+    "unkeyed": false
+  }
+}

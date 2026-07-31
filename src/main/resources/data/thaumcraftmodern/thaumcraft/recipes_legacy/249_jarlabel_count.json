@@ -1,0 +1,14 @@
+{
+  "id": "jarlabel_count",
+  "legacy_id": "\"JarLabel\" + count",
+  "legacy_kind": "crafting_shapeless_nbt_ore",
+  "inactive": true,
+  "inactive_reason": "recipe type or referenced content is not implemented",
+  "modern_recipe": "",
+  "required_aspects": [],
+  "legacy": {
+    "source_expression": "shapelessNBTOreRecipe(output, new Object[]{new ItemStack(ConfigItems.itemResource, 1, 13), essence})",
+    "source_statement": "ConfigResearch.recipes.put(\"JarLabel\" + count, shapelessNBTOreRecipe(output, new Object[]{new ItemStack(ConfigItems.itemResource, 1, 13), essence}))",
+    "unkeyed": false
+  }
+}

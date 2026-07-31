@@ -1,0 +1,46 @@
+{
+  "type": "item",
+  "target": "minecraft:enchanted_golden_apple",
+  "display": "",
+  "aspects": [
+    {
+      "id": "praecantatio",
+      "amount": 4
+    },
+    {
+      "id": "sano",
+      "amount": 8
+    }
+  ],
+  "inactive": true,
+  "inactive_reason": "recipe-derived base aspects cannot yet be reproduced safely",
+  "legacy": {
+    "registration_mode": "recipe_derived_modifier",
+    "target_kind": "item_stack",
+    "legacy_target": "new ItemStack(Items.field_151153_ao, 1, 1)",
+    "metadata_group_raw": null,
+    "aspects": [
+      {
+        "id": "praecantatio",
+        "amount": 4
+      },
+      {
+        "id": "sano",
+        "amount": 8
+      }
+    ],
+    "aspect_operations": [
+      {
+        "operation": "add",
+        "id": "praecantatio",
+        "amount": 4
+      },
+      {
+        "operation": "add",
+        "id": "sano",
+        "amount": 8
+      }
+    ],
+    "source_expression": "ThaumcraftApi.registerComplexObjectTag(new ItemStack(Items.field_151153_ao, 1, 1), (new AspectList()).add(Aspect.MAGIC, 4).add(Aspect.HEAL, 8))"
+  }
+}

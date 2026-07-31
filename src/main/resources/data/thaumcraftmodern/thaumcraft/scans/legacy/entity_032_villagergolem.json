@@ -1,0 +1,33 @@
+{
+  "type": "entity",
+  "target": "minecraft:iron_golem",
+  "display": "",
+  "aspects": [
+    {
+      "id": "metallum",
+      "amount": 4
+    },
+    {
+      "id": "terra",
+      "amount": 3
+    }
+  ],
+  "inactive": false,
+  "inactive_reason": null,
+  "legacy": {
+    "legacy_entity_id": "VillagerGolem",
+    "modern_target": "minecraft:iron_golem",
+    "aspects": [
+      {
+        "id": "metallum",
+        "amount": 4
+      },
+      {
+        "id": "terra",
+        "amount": 3
+      }
+    ],
+    "nbt_conditions_raw": [],
+    "source_expression": "ThaumcraftApi.registerEntityTag(\"VillagerGolem\", (new AspectList()).add(Aspect.METAL, 4).add(Aspect.EARTH, 3))"
+  }
+}

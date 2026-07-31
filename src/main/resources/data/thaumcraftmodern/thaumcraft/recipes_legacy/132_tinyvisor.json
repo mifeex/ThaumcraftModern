@@ -1,0 +1,23 @@
+{
+  "id": "tinyvisor",
+  "legacy_id": "TinyVisor",
+  "legacy_kind": "arcane_shaped",
+  "inactive": true,
+  "inactive_reason": "recipe type or referenced content is not implemented",
+  "modern_recipe": "",
+  "required_aspects": [
+    {
+      "id": "terra",
+      "amount": 4
+    },
+    {
+      "id": "aqua",
+      "amount": 4
+    }
+  ],
+  "legacy": {
+    "source_expression": "ThaumcraftApi.addArcaneCraftingRecipe(\"TINYVISOR\", new ItemStack(ConfigItems.itemGolemDecoration, 1, 5), (new AspectList()).add(Aspect.EARTH, 4).add(Aspect.WATER, 4), \"IHI\", 'I', Items.field_151042_j, 'H', new ItemStack(Items.field_151028_Y, 1, 32767))",
+    "source_statement": "ConfigResearch.recipes.put(\"TinyVisor\", ThaumcraftApi.addArcaneCraftingRecipe(\"TINYVISOR\", new ItemStack(ConfigItems.itemGolemDecoration, 1, 5), (new AspectList()).add(Aspect.EARTH, 4).add(Aspect.WATER, 4), \"IHI\", 'I', Items.field_151042_j, 'H', new ItemStack(Items.field_151028_Y, 1, 32767)))",
+    "unkeyed": false
+  }
+}

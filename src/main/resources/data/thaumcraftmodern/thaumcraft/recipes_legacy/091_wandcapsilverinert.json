@@ -1,0 +1,27 @@
+{
+  "id": "wandcapsilverinert",
+  "legacy_id": "WandCapSilverInert",
+  "legacy_kind": "arcane_shaped",
+  "inactive": true,
+  "inactive_reason": "recipe type or referenced content is not implemented",
+  "modern_recipe": "",
+  "required_aspects": [
+    {
+      "id": "ordo",
+      "amount": "((WandCap"
+    },
+    {
+      "id": "ignis",
+      "amount": "((WandCap"
+    },
+    {
+      "id": "aer",
+      "amount": "((WandCap"
+    }
+  ],
+  "legacy": {
+    "source_expression": "ThaumcraftApi.addArcaneCraftingRecipe(\"CAP_silver\", new ItemStack(ConfigItems.itemWandCap, 1, 5), (new AspectList()).add(Aspect.ORDER, ((WandCap)WandCap.caps.get(\"silver\")).getCraftCost()).add(Aspect.FIRE, ((WandCap)WandCap.caps.get(\"silver\")).getCraftCost()).add(Aspect.AIR, ((WandCap)WandCap.caps.get(\"silver\")).getCraftCost()), \"NNN\", \"N N\", 'N', \"nuggetSilver\")",
+    "source_statement": "}\n\n      if (Config.foundSilverIngot) {\n         ConfigResearch.recipes.put(\"WandCapSilverInert\", ThaumcraftApi.addArcaneCraftingRecipe(\"CAP_silver\", new ItemStack(ConfigItems.itemWandCap, 1, 5), (new AspectList()).add(Aspect.ORDER, ((WandCap)WandCap.caps.get(\"silver\")).getCraftCost()).add(Aspect.FIRE, ((WandCap)WandCap.caps.get(\"silver\")).getCraftCost()).add(Aspect.AIR, ((WandCap)WandCap.caps.get(\"silver\")).getCraftCost()), \"NNN\", \"N N\", 'N', \"nuggetSilver\"))",
+    "unkeyed": false
+  }
+}

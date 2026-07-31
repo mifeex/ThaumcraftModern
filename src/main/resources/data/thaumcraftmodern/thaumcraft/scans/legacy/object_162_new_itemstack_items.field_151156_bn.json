@@ -1,0 +1,72 @@
+{
+  "type": "item",
+  "target": "minecraft:nether_star",
+  "display": "",
+  "aspects": [
+    {
+      "id": "alienis",
+      "amount": 8
+    },
+    {
+      "id": "praecantatio",
+      "amount": 8
+    },
+    {
+      "id": "ordo",
+      "amount": 8
+    },
+    {
+      "id": "lux",
+      "amount": 8
+    }
+  ],
+  "inactive": false,
+  "inactive_reason": null,
+  "legacy": {
+    "registration_mode": "explicit",
+    "target_kind": "item_stack",
+    "legacy_target": "new ItemStack(Items.field_151156_bN)",
+    "metadata_group_raw": null,
+    "aspects": [
+      {
+        "id": "alienis",
+        "amount": 8
+      },
+      {
+        "id": "praecantatio",
+        "amount": 8
+      },
+      {
+        "id": "ordo",
+        "amount": 8
+      },
+      {
+        "id": "lux",
+        "amount": 8
+      }
+    ],
+    "aspect_operations": [
+      {
+        "operation": "add",
+        "id": "alienis",
+        "amount": 8
+      },
+      {
+        "operation": "add",
+        "id": "praecantatio",
+        "amount": 8
+      },
+      {
+        "operation": "add",
+        "id": "ordo",
+        "amount": 8
+      },
+      {
+        "operation": "add",
+        "id": "lux",
+        "amount": 8
+      }
+    ],
+    "source_expression": "ThaumcraftApi.registerObjectTag(new ItemStack(Items.field_151156_bN), (new AspectList()).add(Aspect.ELDRITCH, 8).add(Aspect.MAGIC, 8).add(Aspect.ORDER, 8).add(Aspect.LIGHT, 8))"
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "id": "clusters_a",
+  "legacy_id": "\"Clusters\" + a",
+  "legacy_kind": "crafting_shapeless_ore",
+  "inactive": true,
+  "inactive_reason": "recipe type or referenced content is not implemented",
+  "modern_recipe": "",
+  "required_aspects": [],
+  "legacy": {
+    "source_expression": "shapelessOreDictRecipe(new ItemStack(ConfigBlocks.blockCrystal, 1, a), new Object[]{new ItemStack(ConfigItems.itemShard, 1, a), new ItemStack(ConfigItems.itemShard, 1, a), new ItemStack(ConfigItems.itemShard, 1, a), new ItemStack(ConfigItems.itemShard, 1, a), new ItemStack(ConfigItems.itemShard, 1, a), new ItemStack(ConfigItems.itemShard, 1, a)})",
+    "source_statement": "for(int a = 0; a < 6; ++a) {\n         ConfigResearch.recipes.put(\"Clusters\" + a, shapelessOreDictRecipe(new ItemStack(ConfigBlocks.blockCrystal, 1, a), new Object[]{new ItemStack(ConfigItems.itemShard, 1, a), new ItemStack(ConfigItems.itemShard, 1, a), new ItemStack(ConfigItems.itemShard, 1, a), new ItemStack(ConfigItems.itemShard, 1, a), new ItemStack(ConfigItems.itemShard, 1, a), new ItemStack(ConfigItems.itemShard, 1, a)}))",
+    "unkeyed": false
+  }
+}

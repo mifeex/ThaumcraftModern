@@ -1,0 +1,560 @@
+[
+  {
+    "id": "aer",
+    "legacy_field": "AIR",
+    "order": 0,
+    "color": "FFFF7E",
+    "components": [],
+    "blend": 1,
+    "icon": "thaumcraft:textures/aspects/aer.png"
+  },
+  {
+    "id": "terra",
+    "legacy_field": "EARTH",
+    "order": 1,
+    "color": "56C000",
+    "components": [],
+    "blend": 1,
+    "icon": "thaumcraft:textures/aspects/terra.png"
+  },
+  {
+    "id": "ignis",
+    "legacy_field": "FIRE",
+    "order": 2,
+    "color": "FF5A01",
+    "components": [],
+    "blend": 1,
+    "icon": "thaumcraft:textures/aspects/ignis.png"
+  },
+  {
+    "id": "aqua",
+    "legacy_field": "WATER",
+    "order": 3,
+    "color": "3CD4FC",
+    "components": [],
+    "blend": 1,
+    "icon": "thaumcraft:textures/aspects/aqua.png"
+  },
+  {
+    "id": "ordo",
+    "legacy_field": "ORDER",
+    "order": 4,
+    "color": "D5D4EC",
+    "components": [],
+    "blend": 1,
+    "icon": "thaumcraft:textures/aspects/ordo.png"
+  },
+  {
+    "id": "perditio",
+    "legacy_field": "ENTROPY",
+    "order": 5,
+    "color": "404040",
+    "components": [],
+    "blend": 771,
+    "icon": "thaumcraft:textures/aspects/perditio.png"
+  },
+  {
+    "id": "vacuos",
+    "legacy_field": "VOID",
+    "order": 6,
+    "color": "888888",
+    "components": [
+      "aer",
+      "perditio"
+    ],
+    "blend": 771,
+    "icon": "thaumcraft:textures/aspects/vacuos.png"
+  },
+  {
+    "id": "lux",
+    "legacy_field": "LIGHT",
+    "order": 7,
+    "color": "FFF663",
+    "components": [
+      "aer",
+      "ignis"
+    ],
+    "blend": 1,
+    "icon": "thaumcraft:textures/aspects/lux.png"
+  },
+  {
+    "id": "tempestas",
+    "legacy_field": "WEATHER",
+    "order": 8,
+    "color": "FFFFFF",
+    "components": [
+      "aer",
+      "aqua"
+    ],
+    "blend": 1,
+    "icon": "thaumcraft:textures/aspects/tempestas.png"
+  },
+  {
+    "id": "motus",
+    "legacy_field": "MOTION",
+    "order": 9,
+    "color": "CDCCF4",
+    "components": [
+      "aer",
+      "ordo"
+    ],
+    "blend": 1,
+    "icon": "thaumcraft:textures/aspects/motus.png"
+  },
+  {
+    "id": "gelum",
+    "legacy_field": "COLD",
+    "order": 10,
+    "color": "E1FFFF",
+    "components": [
+      "ignis",
+      "perditio"
+    ],
+    "blend": 1,
+    "icon": "thaumcraft:textures/aspects/gelum.png"
+  },
+  {
+    "id": "vitreus",
+    "legacy_field": "CRYSTAL",
+    "order": 11,
+    "color": "80FFFF",
+    "components": [
+      "terra",
+      "ordo"
+    ],
+    "blend": 1,
+    "icon": "thaumcraft:textures/aspects/vitreus.png"
+  },
+  {
+    "id": "victus",
+    "legacy_field": "LIFE",
+    "order": 12,
+    "color": "DE0005",
+    "components": [
+      "aqua",
+      "terra"
+    ],
+    "blend": 1,
+    "icon": "thaumcraft:textures/aspects/victus.png"
+  },
+  {
+    "id": "venenum",
+    "legacy_field": "POISON",
+    "order": 13,
+    "color": "89F000",
+    "components": [
+      "aqua",
+      "perditio"
+    ],
+    "blend": 1,
+    "icon": "thaumcraft:textures/aspects/venenum.png"
+  },
+  {
+    "id": "potentia",
+    "legacy_field": "ENERGY",
+    "order": 14,
+    "color": "C0FFFF",
+    "components": [
+      "ordo",
+      "ignis"
+    ],
+    "blend": 1,
+    "icon": "thaumcraft:textures/aspects/potentia.png"
+  },
+  {
+    "id": "permutatio",
+    "legacy_field": "EXCHANGE",
+    "order": 15,
+    "color": "578357",
+    "components": [
+      "perditio",
+      "ordo"
+    ],
+    "blend": 1,
+    "icon": "thaumcraft:textures/aspects/permutatio.png"
+  },
+  {
+    "id": "metallum",
+    "legacy_field": "METAL",
+    "order": 16,
+    "color": "B5B5CD",
+    "components": [
+      "terra",
+      "vitreus"
+    ],
+    "blend": 1,
+    "icon": "thaumcraft:textures/aspects/metallum.png"
+  },
+  {
+    "id": "mortuus",
+    "legacy_field": "DEATH",
+    "order": 17,
+    "color": "887788",
+    "components": [
+      "victus",
+      "perditio"
+    ],
+    "blend": 1,
+    "icon": "thaumcraft:textures/aspects/mortuus.png"
+  },
+  {
+    "id": "volatus",
+    "legacy_field": "FLIGHT",
+    "order": 18,
+    "color": "E7E7D7",
+    "components": [
+      "aer",
+      "motus"
+    ],
+    "blend": 1,
+    "icon": "thaumcraft:textures/aspects/volatus.png"
+  },
+  {
+    "id": "tenebrae",
+    "legacy_field": "DARKNESS",
+    "order": 19,
+    "color": "222222",
+    "components": [
+      "vacuos",
+      "lux"
+    ],
+    "blend": 1,
+    "icon": "thaumcraft:textures/aspects/tenebrae.png"
+  },
+  {
+    "id": "spiritus",
+    "legacy_field": "SOUL",
+    "order": 20,
+    "color": "EBEBFB",
+    "components": [
+      "victus",
+      "mortuus"
+    ],
+    "blend": 1,
+    "icon": "thaumcraft:textures/aspects/spiritus.png"
+  },
+  {
+    "id": "sano",
+    "legacy_field": "HEAL",
+    "order": 21,
+    "color": "FF2F34",
+    "components": [
+      "victus",
+      "ordo"
+    ],
+    "blend": 1,
+    "icon": "thaumcraft:textures/aspects/sano.png"
+  },
+  {
+    "id": "iter",
+    "legacy_field": "TRAVEL",
+    "order": 22,
+    "color": "E0585B",
+    "components": [
+      "motus",
+      "terra"
+    ],
+    "blend": 1,
+    "icon": "thaumcraft:textures/aspects/iter.png"
+  },
+  {
+    "id": "alienis",
+    "legacy_field": "ELDRITCH",
+    "order": 23,
+    "color": "805080",
+    "components": [
+      "vacuos",
+      "tenebrae"
+    ],
+    "blend": 1,
+    "icon": "thaumcraft:textures/aspects/alienis.png"
+  },
+  {
+    "id": "praecantatio",
+    "legacy_field": "MAGIC",
+    "order": 24,
+    "color": "9700C0",
+    "components": [
+      "vacuos",
+      "potentia"
+    ],
+    "blend": 1,
+    "icon": "thaumcraft:textures/aspects/praecantatio.png"
+  },
+  {
+    "id": "auram",
+    "legacy_field": "AURA",
+    "order": 25,
+    "color": "FFC0FF",
+    "components": [
+      "praecantatio",
+      "aer"
+    ],
+    "blend": 1,
+    "icon": "thaumcraft:textures/aspects/auram.png"
+  },
+  {
+    "id": "vitium",
+    "legacy_field": "TAINT",
+    "order": 26,
+    "color": "800080",
+    "components": [
+      "praecantatio",
+      "perditio"
+    ],
+    "blend": 1,
+    "icon": "thaumcraft:textures/aspects/vitium.png"
+  },
+  {
+    "id": "limus",
+    "legacy_field": "SLIME",
+    "order": 27,
+    "color": "01F800",
+    "components": [
+      "victus",
+      "aqua"
+    ],
+    "blend": 1,
+    "icon": "thaumcraft:textures/aspects/limus.png"
+  },
+  {
+    "id": "herba",
+    "legacy_field": "PLANT",
+    "order": 28,
+    "color": "01AC00",
+    "components": [
+      "victus",
+      "terra"
+    ],
+    "blend": 1,
+    "icon": "thaumcraft:textures/aspects/herba.png"
+  },
+  {
+    "id": "arbor",
+    "legacy_field": "TREE",
+    "order": 29,
+    "color": "876531",
+    "components": [
+      "aer",
+      "herba"
+    ],
+    "blend": 1,
+    "icon": "thaumcraft:textures/aspects/arbor.png"
+  },
+  {
+    "id": "bestia",
+    "legacy_field": "BEAST",
+    "order": 30,
+    "color": "9F6409",
+    "components": [
+      "motus",
+      "victus"
+    ],
+    "blend": 1,
+    "icon": "thaumcraft:textures/aspects/bestia.png"
+  },
+  {
+    "id": "corpus",
+    "legacy_field": "FLESH",
+    "order": 31,
+    "color": "EE478D",
+    "components": [
+      "mortuus",
+      "bestia"
+    ],
+    "blend": 1,
+    "icon": "thaumcraft:textures/aspects/corpus.png"
+  },
+  {
+    "id": "exanimis",
+    "legacy_field": "UNDEAD",
+    "order": 32,
+    "color": "3A4000",
+    "components": [
+      "motus",
+      "mortuus"
+    ],
+    "blend": 1,
+    "icon": "thaumcraft:textures/aspects/exanimis.png"
+  },
+  {
+    "id": "cognitio",
+    "legacy_field": "MIND",
+    "order": 33,
+    "color": "FFC2B3",
+    "components": [
+      "ignis",
+      "spiritus"
+    ],
+    "blend": 1,
+    "icon": "thaumcraft:textures/aspects/cognitio.png"
+  },
+  {
+    "id": "sensus",
+    "legacy_field": "SENSES",
+    "order": 34,
+    "color": "0FD9FF",
+    "components": [
+      "aer",
+      "spiritus"
+    ],
+    "blend": 1,
+    "icon": "thaumcraft:textures/aspects/sensus.png"
+  },
+  {
+    "id": "humanus",
+    "legacy_field": "MAN",
+    "order": 35,
+    "color": "FFD7C0",
+    "components": [
+      "bestia",
+      "cognitio"
+    ],
+    "blend": 1,
+    "icon": "thaumcraft:textures/aspects/humanus.png"
+  },
+  {
+    "id": "messis",
+    "legacy_field": "CROP",
+    "order": 36,
+    "color": "E1B371",
+    "components": [
+      "herba",
+      "humanus"
+    ],
+    "blend": 1,
+    "icon": "thaumcraft:textures/aspects/messis.png"
+  },
+  {
+    "id": "perfodio",
+    "legacy_field": "MINE",
+    "order": 37,
+    "color": "DCD2D8",
+    "components": [
+      "humanus",
+      "terra"
+    ],
+    "blend": 1,
+    "icon": "thaumcraft:textures/aspects/perfodio.png"
+  },
+  {
+    "id": "instrumentum",
+    "legacy_field": "TOOL",
+    "order": 38,
+    "color": "4040EE",
+    "components": [
+      "humanus",
+      "ordo"
+    ],
+    "blend": 1,
+    "icon": "thaumcraft:textures/aspects/instrumentum.png"
+  },
+  {
+    "id": "meto",
+    "legacy_field": "HARVEST",
+    "order": 39,
+    "color": "EEAD82",
+    "components": [
+      "messis",
+      "instrumentum"
+    ],
+    "blend": 1,
+    "icon": "thaumcraft:textures/aspects/meto.png"
+  },
+  {
+    "id": "telum",
+    "legacy_field": "WEAPON",
+    "order": 40,
+    "color": "C05050",
+    "components": [
+      "instrumentum",
+      "ignis"
+    ],
+    "blend": 1,
+    "icon": "thaumcraft:textures/aspects/telum.png"
+  },
+  {
+    "id": "tutamen",
+    "legacy_field": "ARMOR",
+    "order": 41,
+    "color": "00C0C0",
+    "components": [
+      "instrumentum",
+      "terra"
+    ],
+    "blend": 1,
+    "icon": "thaumcraft:textures/aspects/tutamen.png"
+  },
+  {
+    "id": "fames",
+    "legacy_field": "HUNGER",
+    "order": 42,
+    "color": "9A0305",
+    "components": [
+      "victus",
+      "vacuos"
+    ],
+    "blend": 1,
+    "icon": "thaumcraft:textures/aspects/fames.png"
+  },
+  {
+    "id": "lucrum",
+    "legacy_field": "GREED",
+    "order": 43,
+    "color": "E6BE44",
+    "components": [
+      "humanus",
+      "fames"
+    ],
+    "blend": 1,
+    "icon": "thaumcraft:textures/aspects/lucrum.png"
+  },
+  {
+    "id": "fabrico",
+    "legacy_field": "CRAFT",
+    "order": 44,
+    "color": "809D80",
+    "components": [
+      "humanus",
+      "instrumentum"
+    ],
+    "blend": 1,
+    "icon": "thaumcraft:textures/aspects/fabrico.png"
+  },
+  {
+    "id": "pannus",
+    "legacy_field": "CLOTH",
+    "order": 45,
+    "color": "EAEAC2",
+    "components": [
+      "instrumentum",
+      "bestia"
+    ],
+    "blend": 1,
+    "icon": "thaumcraft:textures/aspects/pannus.png"
+  },
+  {
+    "id": "machina",
+    "legacy_field": "MECHANISM",
+    "order": 46,
+    "color": "8080A0",
+    "components": [
+      "motus",
+      "instrumentum"
+    ],
+    "blend": 1,
+    "icon": "thaumcraft:textures/aspects/machina.png"
+  },
+  {
+    "id": "vinculum",
+    "legacy_field": "TRAP",
+    "order": 47,
+    "color": "9A8080",
+    "components": [
+      "motus",
+      "perditio"
+    ],
+    "blend": 1,
+    "icon": "thaumcraft:textures/aspects/vinculum.png"
+  }
+]

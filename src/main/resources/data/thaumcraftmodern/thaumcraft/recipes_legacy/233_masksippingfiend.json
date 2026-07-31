@@ -1,0 +1,27 @@
+{
+  "id": "masksippingfiend",
+  "legacy_id": "MaskSippingFiend",
+  "legacy_kind": "infusion",
+  "inactive": true,
+  "inactive_reason": "recipe type or referenced content is not implemented",
+  "modern_recipe": "",
+  "required_aspects": [
+    {
+      "id": "exanimis",
+      "amount": 64
+    },
+    {
+      "id": "victus",
+      "amount": 64
+    },
+    {
+      "id": "tutamen",
+      "amount": 16
+    }
+  ],
+  "legacy": {
+    "source_expression": "ThaumcraftApi.addInfusionCraftingRecipe(\"MASKSIPPINGFIEND\", new Object[]{\"mask\", new NBTTagInt(2)}, 8, (new AspectList()).add(Aspect.UNDEAD, 64).add(Aspect.LIFE, 64).add(Aspect.ARMOR, 16), new ItemStack(ConfigItems.itemHelmetFortress, 1, 32767), new ItemStack[]{new ItemStack(Items.field_151100_aR, 1, 1), new ItemStack(Items.field_151042_j), new ItemStack(Items.field_151116_aA), new ItemStack(Items.field_151073_bk), new ItemStack(Items.field_151117_aB), new ItemStack(Items.field_151042_j)})",
+    "source_statement": "ConfigResearch.recipes.put(\"MaskSippingFiend\", ThaumcraftApi.addInfusionCraftingRecipe(\"MASKSIPPINGFIEND\", new Object[]{\"mask\", new NBTTagInt(2)}, 8, (new AspectList()).add(Aspect.UNDEAD, 64).add(Aspect.LIFE, 64).add(Aspect.ARMOR, 16), new ItemStack(ConfigItems.itemHelmetFortress, 1, 32767), new ItemStack[]{new ItemStack(Items.field_151100_aR, 1, 1), new ItemStack(Items.field_151042_j), new ItemStack(Items.field_151116_aA), new ItemStack(Items.field_151073_bk), new ItemStack(Items.field_151117_aB), new ItemStack(Items.field_151042_j)}))",
+    "unkeyed": false
+  }
+}

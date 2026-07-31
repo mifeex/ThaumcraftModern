@@ -1,0 +1,19 @@
+{
+  "id": "upgradeair",
+  "legacy_id": "UpgradeAir",
+  "legacy_kind": "arcane_shaped",
+  "inactive": true,
+  "inactive_reason": "recipe type or referenced content is not implemented",
+  "modern_recipe": "",
+  "required_aspects": [
+    {
+      "id": "aer",
+      "amount": 10
+    }
+  ],
+  "legacy": {
+    "source_expression": "ThaumcraftApi.addArcaneCraftingRecipe(\"UPGRADEAIR\", new ItemStack(ConfigItems.itemGolemUpgrade, 1, 0), (new AspectList()).add(Aspect.AIR, 10), \"NNN\", \"NCN\", \"NNN\", 'N', Items.field_151074_bl, 'C', new ItemStack(ConfigItems.itemShard, 1, 0))",
+    "source_statement": "ConfigResearch.recipes.put(\"UpgradeAir\", ThaumcraftApi.addArcaneCraftingRecipe(\"UPGRADEAIR\", new ItemStack(ConfigItems.itemGolemUpgrade, 1, 0), (new AspectList()).add(Aspect.AIR, 10), \"NNN\", \"NCN\", \"NNN\", 'N', Items.field_151074_bl, 'C', new ItemStack(ConfigItems.itemShard, 1, 0)))",
+    "unkeyed": false
+  }
+}

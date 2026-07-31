@@ -1,0 +1,9 @@
+{
+  "kind": "rod",
+  "id": "bone",
+  "capacity_vis": 75,
+  "recharge_aspects": ["perditio"],
+  "recharge_interval_ticks": 200,
+  "recharge_centivis": 1,
+  "translation_key": "item.Wand.bone.rod"
+}

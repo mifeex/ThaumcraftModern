@@ -1,0 +1,14 @@
+{
+  "id": "unkeyed_023",
+  "legacy_id": "unkeyed_023",
+  "legacy_kind": "smelting",
+  "inactive": true,
+  "inactive_reason": "recipe type or referenced content is not implemented",
+  "modern_recipe": "",
+  "required_aspects": [],
+  "legacy": {
+    "source_expression": "GameRegistry.addSmelting(ConfigBlocks.blockMagicalLog, new ItemStack(Items.field_151044_h, 1, 1), 0.5F)",
+    "source_statement": "GameRegistry.addSmelting(ConfigBlocks.blockMagicalLog, new ItemStack(Items.field_151044_h, 1, 1), 0.5F)",
+    "unkeyed": true
+  }
+}

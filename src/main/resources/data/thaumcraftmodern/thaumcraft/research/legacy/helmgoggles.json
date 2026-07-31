@@ -1,0 +1,92 @@
+{
+  "id": "helmgoggles",
+  "legacy_id": "HELMGOGGLES",
+  "category": "artifice",
+  "icon": "thaumcraftmodern:thaumonomicon",
+  "title": "tc.research_name.HELMGOGGLES",
+  "subtitle": "tc.research_text.HELMGOGGLES",
+  "concealed": true,
+  "auto_unlock": false,
+  "parents": [
+    "armorfortress"
+  ],
+  "hidden_parents": [
+    "goggles"
+  ],
+  "reveal_when": {
+    "type": "always"
+  },
+  "x": -216,
+  "y": 168,
+  "pages": [
+    {
+      "type": "text",
+      "title": "",
+      "body": "tc.research_page.HELMGOGGLES.1"
+    },
+    {
+      "type": "unavailable",
+      "title": "",
+      "body": "",
+      "legacy_type": "recipe",
+      "legacy_content": "HelmGoggles",
+      "source_expression": "new ResearchPage((InfusionRecipe)recipes.get(\"HelmGoggles\"))"
+    }
+  ],
+  "purchase_cost": [
+    {
+      "id": "sensus",
+      "amount": 5
+    },
+    {
+      "id": "auram",
+      "amount": 3
+    },
+    {
+      "id": "tutamen",
+      "amount": 3
+    }
+  ],
+  "inactive": true,
+  "inactive_reason": "referenced gameplay content is not implemented",
+  "legacy": {
+    "x": -9,
+    "y": 7,
+    "complexity": 2,
+    "icon_raw": "new ItemStack(ConfigItems.itemGoggles)",
+    "flags": {
+      "special": false,
+      "secondary": true,
+      "round": false,
+      "stub": false,
+      "virtual": false,
+      "concealed": true,
+      "hidden": false,
+      "lost": false,
+      "auto_unlock": false
+    },
+    "hidden_parents": [
+      "GOGGLES"
+    ],
+    "siblings": [],
+    "item_triggers_raw": [],
+    "entity_triggers": [],
+    "aspect_triggers": [],
+    "research_aspects": [
+      {
+        "id": "sensus",
+        "amount": 5
+      },
+      {
+        "id": "auram",
+        "amount": 3
+      },
+      {
+        "id": "tutamen",
+        "amount": 3
+      }
+    ],
+    "warp": [],
+    "source_expression": "(new ResearchItem(\"HELMGOGGLES\", \"ARTIFICE\", (new AspectList()).add(Aspect.SENSES, 5).add(Aspect.AURA, 3).add(Aspect.ARMOR, 3), -9, 7, 2, new ItemStack(ConfigItems.itemGoggles))).setPages(new ResearchPage(\"tc.research_page.HELMGOGGLES.1\"), new ResearchPage((InfusionRecipe)recipes.get(\"HelmGoggles\"))).setParentsHidden(\"GOGGLES\").setParents(\"ARMORFORTRESS\").setConcealed().setSecondary().registerResearchItem()"
+  }
+}

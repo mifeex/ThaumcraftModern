@@ -1,0 +1,39 @@
+{
+  "id": "focalmanipulator",
+  "legacy_id": "FocalManipulator",
+  "legacy_kind": "arcane_shaped",
+  "inactive": true,
+  "inactive_reason": "recipe type or referenced content is not implemented",
+  "modern_recipe": "",
+  "required_aspects": [
+    {
+      "id": "ignis",
+      "amount": 32
+    },
+    {
+      "id": "aer",
+      "amount": 32
+    },
+    {
+      "id": "perditio",
+      "amount": 32
+    },
+    {
+      "id": "terra",
+      "amount": 32
+    },
+    {
+      "id": "aqua",
+      "amount": 32
+    },
+    {
+      "id": "ordo",
+      "amount": 32
+    }
+  ],
+  "legacy": {
+    "source_expression": "ThaumcraftApi.addArcaneCraftingRecipe(\"FOCALMANIPULATION\", new ItemStack(ConfigBlocks.blockStoneDevice, 1, 13), (new AspectList()).add(Aspect.FIRE, 32).add(Aspect.AIR, 32).add(Aspect.ENTROPY, 32).add(Aspect.EARTH, 32).add(Aspect.WATER, 32).add(Aspect.ORDER, 32), \"IQI\", \"SPS\", \"GTG\", 'Q', new ItemStack(ConfigBlocks.blockSlabStone, 1, 0), 'S', new ItemStack(ConfigBlocks.blockCosmeticSolid, 1, 6), 'T', new ItemStack(ConfigBlocks.blockTable), 'I', new ItemStack(Items.field_151042_j), 'G', new ItemStack(Items.field_151043_k), 'P', new ItemStack(ConfigItems.itemResource, 1, 15))",
+    "source_statement": "ConfigResearch.recipes.put(\"FocalManipulator\", ThaumcraftApi.addArcaneCraftingRecipe(\"FOCALMANIPULATION\", new ItemStack(ConfigBlocks.blockStoneDevice, 1, 13), (new AspectList()).add(Aspect.FIRE, 32).add(Aspect.AIR, 32).add(Aspect.ENTROPY, 32).add(Aspect.EARTH, 32).add(Aspect.WATER, 32).add(Aspect.ORDER, 32), \"IQI\", \"SPS\", \"GTG\", 'Q', new ItemStack(ConfigBlocks.blockSlabStone, 1, 0), 'S', new ItemStack(ConfigBlocks.blockCosmeticSolid, 1, 6), 'T', new ItemStack(ConfigBlocks.blockTable), 'I', new ItemStack(Items.field_151042_j), 'G', new ItemStack(Items.field_151043_k), 'P', new ItemStack(ConfigItems.itemResource, 1, 15)))",
+    "unkeyed": false
+  }
+}

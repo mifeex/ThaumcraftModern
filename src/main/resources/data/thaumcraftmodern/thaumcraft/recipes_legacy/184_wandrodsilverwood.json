@@ -1,0 +1,43 @@
+{
+  "id": "wandrodsilverwood",
+  "legacy_id": "WandRodSilverwood",
+  "legacy_kind": "infusion",
+  "inactive": true,
+  "inactive_reason": "recipe type or referenced content is not implemented",
+  "modern_recipe": "",
+  "required_aspects": [
+    {
+      "id": "aer",
+      "amount": "((WandRod"
+    },
+    {
+      "id": "ignis",
+      "amount": "((WandRod"
+    },
+    {
+      "id": "aqua",
+      "amount": "((WandRod"
+    },
+    {
+      "id": "terra",
+      "amount": "((WandRod"
+    },
+    {
+      "id": "ordo",
+      "amount": "((WandRod"
+    },
+    {
+      "id": "perditio",
+      "amount": "((WandRod"
+    },
+    {
+      "id": "praecantatio",
+      "amount": "((WandRod"
+    }
+  ],
+  "legacy": {
+    "source_expression": "ThaumcraftApi.addInfusionCraftingRecipe(\"ROD_silverwood\", new ItemStack(ConfigItems.itemWandRod, 1, 2), 5, (new AspectList()).add(Aspect.AIR, ((WandRod)WandRod.rods.get(\"silverwood\")).getCraftCost()).add(Aspect.FIRE, ((WandRod)WandRod.rods.get(\"silverwood\")).getCraftCost()).add(Aspect.WATER, ((WandRod)WandRod.rods.get(\"silverwood\")).getCraftCost()).add(Aspect.EARTH, ((WandRod)WandRod.rods.get(\"silverwood\")).getCraftCost()).add(Aspect.ORDER, ((WandRod)WandRod.rods.get(\"silverwood\")).getCraftCost()).add(Aspect.ENTROPY, ((WandRod)WandRod.rods.get(\"silverwood\")).getCraftCost()).add(Aspect.MAGIC, ((WandRod)WandRod.rods.get(\"silverwood\")).getCraftCost()), new ItemStack(ConfigBlocks.blockMagicalLog, 1, 1), new ItemStack[]{new ItemStack(ConfigItems.itemShard, 1, 6), new ItemStack(ConfigItems.itemShard, 1, 0), new ItemStack(ConfigItems.itemShard, 1, 1), new ItemStack(ConfigItems.itemShard, 1, 2), new ItemStack(ConfigItems.itemShard, 1, 3), new ItemStack(ConfigItems.itemShard, 1, 4), new ItemStack(ConfigItems.itemShard, 1, 5)})",
+    "source_statement": "ConfigResearch.recipes.put(\"WandRodSilverwood\", ThaumcraftApi.addInfusionCraftingRecipe(\"ROD_silverwood\", new ItemStack(ConfigItems.itemWandRod, 1, 2), 5, (new AspectList()).add(Aspect.AIR, ((WandRod)WandRod.rods.get(\"silverwood\")).getCraftCost()).add(Aspect.FIRE, ((WandRod)WandRod.rods.get(\"silverwood\")).getCraftCost()).add(Aspect.WATER, ((WandRod)WandRod.rods.get(\"silverwood\")).getCraftCost()).add(Aspect.EARTH, ((WandRod)WandRod.rods.get(\"silverwood\")).getCraftCost()).add(Aspect.ORDER, ((WandRod)WandRod.rods.get(\"silverwood\")).getCraftCost()).add(Aspect.ENTROPY, ((WandRod)WandRod.rods.get(\"silverwood\")).getCraftCost()).add(Aspect.MAGIC, ((WandRod)WandRod.rods.get(\"silverwood\")).getCraftCost()), new ItemStack(ConfigBlocks.blockMagicalLog, 1, 1), new ItemStack[]{new ItemStack(ConfigItems.itemShard, 1, 6), new ItemStack(ConfigItems.itemShard, 1, 0), new ItemStack(ConfigItems.itemShard, 1, 1), new ItemStack(ConfigItems.itemShard, 1, 2), new ItemStack(ConfigItems.itemShard, 1, 3), new ItemStack(ConfigItems.itemShard, 1, 4), new ItemStack(ConfigItems.itemShard, 1, 5)}))",
+    "unkeyed": false
+  }
+}

@@ -1,0 +1,27 @@
+{
+  "id": "runicringcharged",
+  "legacy_id": "RunicRingCharged",
+  "legacy_kind": "infusion",
+  "inactive": true,
+  "inactive_reason": "recipe type or referenced content is not implemented",
+  "modern_recipe": "",
+  "required_aspects": [
+    {
+      "id": "tutamen",
+      "amount": 16
+    },
+    {
+      "id": "praecantatio",
+      "amount": 16
+    },
+    {
+      "id": "potentia",
+      "amount": 64
+    }
+  ],
+  "legacy": {
+    "source_expression": "ThaumcraftApi.addInfusionCraftingRecipe(\"RUNICCHARGED\", new ItemStack(ConfigItems.itemRingRunic, 1, 2), 6, (new AspectList()).add(Aspect.ARMOR, 16).add(Aspect.MAGIC, 16).add(Aspect.ENERGY, 64), new ItemStack(ConfigItems.itemRingRunic, 1, 1), new ItemStack[]{new ItemStack(ConfigItems.itemShard, 1, 6), new ItemStack(ConfigItems.itemShard, 1, 1), new ItemStack(ConfigItems.itemShard, 1, 1), new ItemStack(Items.field_151068_bn, 1, 8226), new ItemStack(ConfigItems.itemShard, 1, 1), new ItemStack(ConfigItems.itemShard, 1, 1)})",
+    "source_statement": "ConfigResearch.recipes.put(\"RunicRingCharged\", ThaumcraftApi.addInfusionCraftingRecipe(\"RUNICCHARGED\", new ItemStack(ConfigItems.itemRingRunic, 1, 2), 6, (new AspectList()).add(Aspect.ARMOR, 16).add(Aspect.MAGIC, 16).add(Aspect.ENERGY, 64), new ItemStack(ConfigItems.itemRingRunic, 1, 1), new ItemStack[]{new ItemStack(ConfigItems.itemShard, 1, 6), new ItemStack(ConfigItems.itemShard, 1, 1), new ItemStack(ConfigItems.itemShard, 1, 1), new ItemStack(Items.field_151068_bn, 1, 8226), new ItemStack(ConfigItems.itemShard, 1, 1), new ItemStack(ConfigItems.itemShard, 1, 1)}))",
+    "unkeyed": false
+  }
+}

@@ -1,0 +1,9 @@
+{
+  "kind": "rod",
+  "id": "blaze",
+  "capacity_vis": 75,
+  "recharge_aspects": ["ignis"],
+  "recharge_interval_ticks": 200,
+  "recharge_centivis": 1,
+  "translation_key": "item.Wand.blaze.rod"
+}

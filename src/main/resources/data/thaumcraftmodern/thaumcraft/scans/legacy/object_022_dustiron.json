@@ -1,0 +1,45 @@
+{
+  "type": "item_tag",
+  "target": "forge:dusts/iron",
+  "display": "",
+  "aspects": [
+    {
+      "id": "metallum",
+      "amount": 3
+    },
+    {
+      "id": "perditio",
+      "amount": 1
+    }
+  ],
+  "inactive": false,
+  "legacy": {
+    "registration_mode": "explicit",
+    "target_kind": "ore_dictionary",
+    "legacy_target": "dustIron",
+    "metadata_group_raw": null,
+    "aspects": [
+      {
+        "id": "metallum",
+        "amount": 3
+      },
+      {
+        "id": "perditio",
+        "amount": 1
+      }
+    ],
+    "aspect_operations": [
+      {
+        "operation": "add",
+        "id": "metallum",
+        "amount": 3
+      },
+      {
+        "operation": "add",
+        "id": "perditio",
+        "amount": 1
+      }
+    ],
+    "source_expression": "ThaumcraftApi.registerObjectTag(\"dustIron\", (new AspectList()).add(Aspect.METAL, 3).add(Aspect.ENTROPY, 1))"
+  }
+}

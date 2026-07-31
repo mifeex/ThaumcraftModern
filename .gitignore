@@ -1,0 +1,20 @@
+.gradle/
+build/
+out/
+run/
+run-data/
+.idea/
+*.iml
+*.ipr
+*.iws
+.classpath
+.project
+.settings/
+bin/
+logs/
+crash-reports/
+*.log
+.DS_Store
+
+# Local provenance material; never publish the supplied JAR/screenshots.
+reference/

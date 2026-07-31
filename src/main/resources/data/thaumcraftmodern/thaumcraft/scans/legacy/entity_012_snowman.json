@@ -1,0 +1,33 @@
+{
+  "type": "entity",
+  "target": "minecraft:snow_golem",
+  "display": "",
+  "aspects": [
+    {
+      "id": "gelum",
+      "amount": 3
+    },
+    {
+      "id": "aqua",
+      "amount": 1
+    }
+  ],
+  "inactive": false,
+  "inactive_reason": null,
+  "legacy": {
+    "legacy_entity_id": "SnowMan",
+    "modern_target": "minecraft:snow_golem",
+    "aspects": [
+      {
+        "id": "gelum",
+        "amount": 3
+      },
+      {
+        "id": "aqua",
+        "amount": 1
+      }
+    ],
+    "nbt_conditions_raw": [],
+    "source_expression": "ThaumcraftApi.registerEntityTag(\"SnowMan\", (new AspectList()).add(Aspect.COLD, 3).add(Aspect.WATER, 1))"
+  }
+}

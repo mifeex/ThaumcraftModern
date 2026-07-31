@@ -1,0 +1,10 @@
+{
+  "id": "fabrico",
+  "order": 440,
+  "color": "809D80",
+  "icon": "thaumcraftmodern:textures/aspects/fabrico.png",
+  "components": [
+    "humanus",
+    "instrumentum"
+  ]
+}

@@ -1,0 +1,122 @@
+{
+  "id": "armorvoidfortress",
+  "legacy_id": "ARMORVOIDFORTRESS",
+  "category": "eldritch",
+  "icon": "thaumcraftmodern:thaumonomicon",
+  "title": "tc.research_name.ARMORVOIDFORTRESS",
+  "subtitle": "tc.research_text.ARMORVOIDFORTRESS",
+  "concealed": true,
+  "auto_unlock": false,
+  "parents": [
+    "voidmetal",
+    "enchfabric",
+    "eldritchmajor"
+  ],
+  "hidden_parents": [],
+  "reveal_when": {
+    "type": "always"
+  },
+  "x": 0,
+  "y": -72,
+  "pages": [
+    {
+      "type": "text",
+      "title": "",
+      "body": "tc.research_page.ARMORVOIDFORTRESS.1"
+    },
+    {
+      "type": "unavailable",
+      "title": "",
+      "body": "",
+      "legacy_type": "recipe",
+      "legacy_content": "VoidRobeHelm",
+      "source_expression": "new ResearchPage((InfusionRecipe)recipes.get(\"VoidRobeHelm\"))"
+    },
+    {
+      "type": "unavailable",
+      "title": "",
+      "body": "",
+      "legacy_type": "recipe",
+      "legacy_content": "VoidRobeChest",
+      "source_expression": "new ResearchPage((InfusionRecipe)recipes.get(\"VoidRobeChest\"))"
+    },
+    {
+      "type": "unavailable",
+      "title": "",
+      "body": "",
+      "legacy_type": "recipe",
+      "legacy_content": "VoidRobeLegs",
+      "source_expression": "new ResearchPage((InfusionRecipe)recipes.get(\"VoidRobeLegs\"))"
+    }
+  ],
+  "purchase_cost": [
+    {
+      "id": "tutamen",
+      "amount": 5
+    },
+    {
+      "id": "alienis",
+      "amount": 3
+    },
+    {
+      "id": "pannus",
+      "amount": 3
+    },
+    {
+      "id": "tenebrae",
+      "amount": 3
+    },
+    {
+      "id": "vacuos",
+      "amount": 5
+    }
+  ],
+  "inactive": true,
+  "inactive_reason": "referenced gameplay content is not implemented",
+  "legacy": {
+    "x": 0,
+    "y": -3,
+    "complexity": 3,
+    "icon_raw": "new ItemStack(ConfigItems.itemHelmetVoidRobe)",
+    "flags": {
+      "special": false,
+      "secondary": true,
+      "round": false,
+      "stub": false,
+      "virtual": false,
+      "concealed": true,
+      "hidden": false,
+      "lost": false,
+      "auto_unlock": false
+    },
+    "hidden_parents": [],
+    "siblings": [],
+    "item_triggers_raw": [],
+    "entity_triggers": [],
+    "aspect_triggers": [],
+    "research_aspects": [
+      {
+        "id": "tutamen",
+        "amount": 5
+      },
+      {
+        "id": "alienis",
+        "amount": 3
+      },
+      {
+        "id": "pannus",
+        "amount": 3
+      },
+      {
+        "id": "tenebrae",
+        "amount": 3
+      },
+      {
+        "id": "vacuos",
+        "amount": 5
+      }
+    ],
+    "warp": [],
+    "source_expression": "(new ResearchItem(\"ARMORVOIDFORTRESS\", \"ELDRITCH\", (new AspectList()).add(Aspect.ARMOR, 5).add(Aspect.ELDRITCH, 3).add(Aspect.CLOTH, 3).add(Aspect.DARKNESS, 3).add(Aspect.VOID, 5), 0, -3, 3, new ItemStack(ConfigItems.itemHelmetVoidRobe))).setPages(new ResearchPage(\"tc.research_page.ARMORVOIDFORTRESS.1\"), new ResearchPage((InfusionRecipe)recipes.get(\"VoidRobeHelm\")), new ResearchPage((InfusionRecipe)recipes.get(\"VoidRobeChest\")), new ResearchPage((InfusionRecipe)recipes.get(\"VoidRobeLegs\"))).setParents(\"VOIDMETAL\", \"ENCHFABRIC\", \"ELDRITCHMAJOR\").setConcealed().setSecondary().registerResearchItem()"
+  }
+}

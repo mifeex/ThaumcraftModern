@@ -1,0 +1,31 @@
+{
+  "id": "coresorting",
+  "legacy_id": "CoreSorting",
+  "legacy_kind": "infusion",
+  "inactive": true,
+  "inactive_reason": "recipe type or referenced content is not implemented",
+  "modern_recipe": "",
+  "required_aspects": [
+    {
+      "id": "vacuos",
+      "amount": 16
+    },
+    {
+      "id": "permutatio",
+      "amount": 16
+    },
+    {
+      "id": "fames",
+      "amount": 16
+    },
+    {
+      "id": "lucrum",
+      "amount": 16
+    }
+  ],
+  "legacy": {
+    "source_expression": "ThaumcraftApi.addInfusionCraftingRecipe(\"CORESORTING\", new ItemStack(ConfigItems.itemGolemCore, 1, 10), 3, (new AspectList()).add(Aspect.VOID, 16).add(Aspect.EXCHANGE, 16).add(Aspect.HUNGER, 16).add(Aspect.GREED, 16), new ItemStack(ConfigItems.itemZombieBrain), new ItemStack[]{new ItemStack(ConfigItems.itemGolemCore, 1, 0), new ItemStack(Items.field_151132_bS), new ItemStack(ConfigItems.itemGolemCore, 1, 1), new ItemStack(Items.field_151121_aF)})",
+    "source_statement": "ConfigResearch.recipes.put(\"CoreSorting\", ThaumcraftApi.addInfusionCraftingRecipe(\"CORESORTING\", new ItemStack(ConfigItems.itemGolemCore, 1, 10), 3, (new AspectList()).add(Aspect.VOID, 16).add(Aspect.EXCHANGE, 16).add(Aspect.HUNGER, 16).add(Aspect.GREED, 16), new ItemStack(ConfigItems.itemZombieBrain), new ItemStack[]{new ItemStack(ConfigItems.itemGolemCore, 1, 0), new ItemStack(Items.field_151132_bS), new ItemStack(ConfigItems.itemGolemCore, 1, 1), new ItemStack(Items.field_151121_aF)}))",
+    "unkeyed": false
+  }
+}

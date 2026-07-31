@@ -1,0 +1,27 @@
+{
+  "id": "elementalhoe",
+  "legacy_id": "ElementalHoe",
+  "legacy_kind": "infusion",
+  "inactive": true,
+  "inactive_reason": "recipe type or referenced content is not implemented",
+  "modern_recipe": "",
+  "required_aspects": [
+    {
+      "id": "meto",
+      "amount": 8
+    },
+    {
+      "id": "herba",
+      "amount": 8
+    },
+    {
+      "id": "terra",
+      "amount": 8
+    }
+  ],
+  "legacy": {
+    "source_expression": "ThaumcraftApi.addInfusionCraftingRecipe(\"ELEMENTALHOE\", new ItemStack(ConfigItems.itemHoeElemental), 1, (new AspectList()).add(Aspect.HARVEST, 8).add(Aspect.PLANT, 8).add(Aspect.EARTH, 8), new ItemStack(ConfigItems.itemHoeThaumium), new ItemStack[]{new ItemStack(ConfigItems.itemShard, 1, 4), new ItemStack(ConfigItems.itemShard, 1, 5), new ItemStack(Items.field_151045_i), new ItemStack(ConfigBlocks.blockMagicalLog, 1, 0)})",
+    "source_statement": "ConfigResearch.recipes.put(\"ElementalHoe\", ThaumcraftApi.addInfusionCraftingRecipe(\"ELEMENTALHOE\", new ItemStack(ConfigItems.itemHoeElemental), 1, (new AspectList()).add(Aspect.HARVEST, 8).add(Aspect.PLANT, 8).add(Aspect.EARTH, 8), new ItemStack(ConfigItems.itemHoeThaumium), new ItemStack[]{new ItemStack(ConfigItems.itemShard, 1, 4), new ItemStack(ConfigItems.itemShard, 1, 5), new ItemStack(Items.field_151045_i), new ItemStack(ConfigBlocks.blockMagicalLog, 1, 0)}))",
+    "unkeyed": false
+  }
+}

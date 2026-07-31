@@ -1,0 +1,10 @@
+{
+  "replace": false,
+  "values": [
+    "thaumcraftmodern:greatwood_log",
+    "thaumcraftmodern:silverwood_log",
+    "thaumcraftmodern:silverwood_node",
+    "thaumcraftmodern:greatwood_planks",
+    "thaumcraftmodern:silverwood_planks"
+  ]
+}

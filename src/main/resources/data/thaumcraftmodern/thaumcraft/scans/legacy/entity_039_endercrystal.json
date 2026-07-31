@@ -1,0 +1,41 @@
+{
+  "type": "entity",
+  "target": "minecraft:end_crystal",
+  "display": "",
+  "aspects": [
+    {
+      "id": "alienis",
+      "amount": 3
+    },
+    {
+      "id": "praecantatio",
+      "amount": 3
+    },
+    {
+      "id": "sano",
+      "amount": 3
+    }
+  ],
+  "inactive": false,
+  "inactive_reason": null,
+  "legacy": {
+    "legacy_entity_id": "EnderCrystal",
+    "modern_target": "minecraft:end_crystal",
+    "aspects": [
+      {
+        "id": "alienis",
+        "amount": 3
+      },
+      {
+        "id": "praecantatio",
+        "amount": 3
+      },
+      {
+        "id": "sano",
+        "amount": 3
+      }
+    ],
+    "nbt_conditions_raw": [],
+    "source_expression": "ThaumcraftApi.registerEntityTag(\"EnderCrystal\", (new AspectList()).add(Aspect.ELDRITCH, 3).add(Aspect.MAGIC, 3).add(Aspect.HEAL, 3))"
+  }
+}

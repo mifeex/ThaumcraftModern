@@ -1,0 +1,6 @@
+{
+  "kind": "cap",
+  "id": "gold",
+  "cost_modifier": 1.0,
+  "translation_key": "item.Wand.gold.cap"
+}

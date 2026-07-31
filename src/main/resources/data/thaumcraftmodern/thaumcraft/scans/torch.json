@@ -1,0 +1,11 @@
+{
+  "type": "item",
+  "target": "minecraft:torch",
+  "display": "item.minecraft.torch",
+  "aspects": [
+    {
+      "id": "lux",
+      "amount": 1
+    }
+  ]
+}

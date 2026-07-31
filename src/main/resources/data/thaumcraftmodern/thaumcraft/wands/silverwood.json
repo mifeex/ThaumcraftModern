@@ -1,0 +1,6 @@
+{
+  "kind": "rod",
+  "id": "silverwood",
+  "capacity_vis": 100,
+  "translation_key": "item.Wand.silverwood.rod"
+}

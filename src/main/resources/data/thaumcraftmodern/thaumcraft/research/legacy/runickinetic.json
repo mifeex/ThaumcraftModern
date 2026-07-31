@@ -1,0 +1,88 @@
+{
+  "id": "runickinetic",
+  "legacy_id": "RUNICKINETIC",
+  "category": "artifice",
+  "icon": "thaumcraftmodern:thaumonomicon",
+  "title": "tc.research_name.RUNICKINETIC",
+  "subtitle": "tc.research_text.RUNICKINETIC",
+  "concealed": true,
+  "auto_unlock": false,
+  "parents": [
+    "runicarmor"
+  ],
+  "hidden_parents": [],
+  "reveal_when": {
+    "type": "always"
+  },
+  "x": 48,
+  "y": 120,
+  "pages": [
+    {
+      "type": "text",
+      "title": "",
+      "body": "tc.research_page.RUNICKINETIC.1"
+    },
+    {
+      "type": "unavailable",
+      "title": "",
+      "body": "",
+      "legacy_type": "recipe",
+      "legacy_content": "RunicGirdleKinetic",
+      "source_expression": "new ResearchPage((InfusionRecipe)recipes.get(\"RunicGirdleKinetic\"))"
+    }
+  ],
+  "purchase_cost": [
+    {
+      "id": "praecantatio",
+      "amount": 3
+    },
+    {
+      "id": "tutamen",
+      "amount": 3
+    },
+    {
+      "id": "aer",
+      "amount": 6
+    }
+  ],
+  "inactive": true,
+  "inactive_reason": "referenced gameplay content is not implemented",
+  "legacy": {
+    "x": 2,
+    "y": 5,
+    "complexity": 2,
+    "icon_raw": "new ItemStack(ConfigItems.itemGirdleRunic, 1, 1)",
+    "flags": {
+      "special": false,
+      "secondary": true,
+      "round": false,
+      "stub": false,
+      "virtual": false,
+      "concealed": true,
+      "hidden": false,
+      "lost": false,
+      "auto_unlock": false
+    },
+    "hidden_parents": [],
+    "siblings": [],
+    "item_triggers_raw": [],
+    "entity_triggers": [],
+    "aspect_triggers": [],
+    "research_aspects": [
+      {
+        "id": "praecantatio",
+        "amount": 3
+      },
+      {
+        "id": "tutamen",
+        "amount": 3
+      },
+      {
+        "id": "aer",
+        "amount": 6
+      }
+    ],
+    "warp": [],
+    "source_expression": "(new ResearchItem(\"RUNICKINETIC\", \"ARTIFICE\", (new AspectList()).add(Aspect.MAGIC, 3).add(Aspect.ARMOR, 3).add(Aspect.AIR, 6), 2, 5, 2, new ItemStack(ConfigItems.itemGirdleRunic, 1, 1))).setPages(new ResearchPage(\"tc.research_page.RUNICKINETIC.1\"), new ResearchPage((InfusionRecipe)recipes.get(\"RunicGirdleKinetic\"))).setParents(\"RUNICARMOR\").setSecondary().setConcealed().registerResearchItem()"
+  }
+}

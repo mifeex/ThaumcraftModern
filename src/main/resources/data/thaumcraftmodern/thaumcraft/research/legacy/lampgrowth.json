@@ -1,0 +1,92 @@
+{
+  "id": "lampgrowth",
+  "legacy_id": "LAMPGROWTH",
+  "category": "artifice",
+  "icon": "thaumcraftmodern:thaumonomicon",
+  "title": "tc.research_name.LAMPGROWTH",
+  "subtitle": "tc.research_text.LAMPGROWTH",
+  "concealed": true,
+  "auto_unlock": false,
+  "parents": [
+    "arcanelamp",
+    "infusion"
+  ],
+  "hidden_parents": [],
+  "reveal_when": {
+    "type": "any_of",
+    "conditions": [
+      {
+        "type": "scan_aspect",
+        "id": "lux"
+      },
+      {
+        "type": "scan_aspect",
+        "id": "messis"
+      }
+    ]
+  },
+  "x": -96,
+  "y": 72,
+  "pages": [
+    {
+      "type": "text",
+      "title": "",
+      "body": "tc.research_page.LAMPGROWTH.1"
+    },
+    {
+      "type": "unavailable",
+      "title": "",
+      "body": "",
+      "legacy_type": "recipe",
+      "legacy_content": "LampGrowth",
+      "source_expression": "new ResearchPage((InfusionRecipe)recipes.get(\"LampGrowth\"))"
+    }
+  ],
+  "inactive": true,
+  "inactive_reason": "referenced gameplay content is not implemented",
+  "legacy": {
+    "x": -4,
+    "y": 3,
+    "complexity": 2,
+    "icon_raw": "new ItemStack(ConfigBlocks.blockMetalDevice, 1, 8)",
+    "flags": {
+      "special": false,
+      "secondary": false,
+      "round": false,
+      "stub": false,
+      "virtual": false,
+      "concealed": false,
+      "hidden": true,
+      "lost": false,
+      "auto_unlock": false
+    },
+    "hidden_parents": [],
+    "siblings": [],
+    "item_triggers_raw": [],
+    "entity_triggers": [],
+    "aspect_triggers": [
+      "lux",
+      "messis"
+    ],
+    "research_aspects": [
+      {
+        "id": "lux",
+        "amount": 3
+      },
+      {
+        "id": "herba",
+        "amount": 6
+      },
+      {
+        "id": "victus",
+        "amount": 3
+      },
+      {
+        "id": "messis",
+        "amount": 3
+      }
+    ],
+    "warp": [],
+    "source_expression": "(new ResearchItem(\"LAMPGROWTH\", \"ARTIFICE\", (new AspectList()).add(Aspect.LIGHT, 3).add(Aspect.PLANT, 6).add(Aspect.LIFE, 3).add(Aspect.CROP, 3), -4, 3, 2, new ItemStack(ConfigBlocks.blockMetalDevice, 1, 8))).setPages(new ResearchPage(\"tc.research_page.LAMPGROWTH.1\"), new ResearchPage((InfusionRecipe)recipes.get(\"LampGrowth\"))).setHidden().setAspectTriggers(Aspect.LIGHT, Aspect.CROP).setParents(\"ARCANELAMP\", \"INFUSION\").registerResearchItem()"
+  }
+}

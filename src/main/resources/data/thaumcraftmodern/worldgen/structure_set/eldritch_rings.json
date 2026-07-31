@@ -1,0 +1,16 @@
+{
+  "placement": {
+    "type": "minecraft:random_spread",
+    "frequency": 0.8537878788,
+    "frequency_reduction_method": "default",
+    "salt": 14298532,
+    "separation": 2,
+    "spacing": 7
+  },
+  "structures": [
+    {
+      "structure": "thaumcraftmodern:eldritch_ring",
+      "weight": 1
+    }
+  ]
+}

@@ -1,0 +1,58 @@
+{
+  "type": "block",
+  "target": "minecraft:dandelion",
+  "display": "",
+  "aspects": [
+    {
+      "id": "herba",
+      "amount": 1
+    },
+    {
+      "id": "victus",
+      "amount": 1
+    },
+    {
+      "id": "sensus",
+      "amount": 1
+    }
+  ],
+  "inactive": false,
+  "legacy": {
+    "registration_mode": "explicit",
+    "target_kind": "item_stack",
+    "legacy_target": "new ItemStack(Blocks.field_150327_N, 1, 32767)",
+    "metadata_group_raw": null,
+    "aspects": [
+      {
+        "id": "herba",
+        "amount": 1
+      },
+      {
+        "id": "victus",
+        "amount": 1
+      },
+      {
+        "id": "sensus",
+        "amount": 1
+      }
+    ],
+    "aspect_operations": [
+      {
+        "operation": "add",
+        "id": "herba",
+        "amount": 1
+      },
+      {
+        "operation": "add",
+        "id": "victus",
+        "amount": 1
+      },
+      {
+        "operation": "add",
+        "id": "sensus",
+        "amount": 1
+      }
+    ],
+    "source_expression": "ThaumcraftApi.registerObjectTag(new ItemStack(Blocks.field_150327_N, 1, 32767), (new AspectList()).add(Aspect.PLANT, 1).add(Aspect.LIFE, 1).add(Aspect.SENSES, 1))"
+  }
+}

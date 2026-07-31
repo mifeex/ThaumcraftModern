@@ -1,0 +1,23 @@
+{
+  "id": "banner__a",
+  "legacy_id": "\"Banner_\" + a",
+  "legacy_kind": "arcane_shaped",
+  "inactive": true,
+  "inactive_reason": "recipe type or referenced content is not implemented",
+  "modern_recipe": "",
+  "required_aspects": [
+    {
+      "id": "aqua",
+      "amount": 5
+    },
+    {
+      "id": "terra",
+      "amount": 5
+    }
+  ],
+  "legacy": {
+    "source_expression": "ThaumcraftApi.addArcaneCraftingRecipe(\"BANNERS\", banner, (new AspectList()).add(Aspect.WATER, 5).add(Aspect.EARTH, 5), \"WS\", \"WS\", \"WB\", 'W', new ItemStack(Blocks.field_150325_L, 1, a), 'S', \"stickWood\", 'B', \"slabWood\")",
+    "source_statement": "ConfigResearch.recipes.put(\"Banner_\" + a, ThaumcraftApi.addArcaneCraftingRecipe(\"BANNERS\", banner, (new AspectList()).add(Aspect.WATER, 5).add(Aspect.EARTH, 5), \"WS\", \"WS\", \"WB\", 'W', new ItemStack(Blocks.field_150325_L, 1, a), 'S', \"stickWood\", 'B', \"slabWood\"))",
+    "unkeyed": false
+  }
+}

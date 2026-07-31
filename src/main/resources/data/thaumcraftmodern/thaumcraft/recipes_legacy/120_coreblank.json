@@ -1,0 +1,23 @@
+{
+  "id": "coreblank",
+  "legacy_id": "CoreBlank",
+  "legacy_kind": "arcane_shaped",
+  "inactive": true,
+  "inactive_reason": "recipe type or referenced content is not implemented",
+  "modern_recipe": "",
+  "required_aspects": [
+    {
+      "id": "ordo",
+      "amount": 5
+    },
+    {
+      "id": "ignis",
+      "amount": 5
+    }
+  ],
+  "legacy": {
+    "source_expression": "ThaumcraftApi.addArcaneCraftingRecipe(\"COREGATHER\", new ItemStack(ConfigItems.itemGolemCore, 1, 100), (new AspectList()).add(Aspect.ORDER, 5).add(Aspect.FIRE, 5), \" C \", \"CNC\", \" C \", 'C', Items.field_151118_aC, 'N', new ItemStack(ConfigItems.itemResource, 1, 1))",
+    "source_statement": "ConfigResearch.recipes.put(\"CoreBlank\", ThaumcraftApi.addArcaneCraftingRecipe(\"COREGATHER\", new ItemStack(ConfigItems.itemGolemCore, 1, 100), (new AspectList()).add(Aspect.ORDER, 5).add(Aspect.FIRE, 5), \" C \", \"CNC\", \" C \", 'C', Items.field_151118_aC, 'N', new ItemStack(ConfigItems.itemResource, 1, 1)))",
+    "unkeyed": false
+  }
+}

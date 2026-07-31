@@ -1,0 +1,31 @@
+{
+  "id": "eldritcheye",
+  "legacy_id": "EldritchEye",
+  "legacy_kind": "infusion",
+  "inactive": true,
+  "inactive_reason": "recipe type or referenced content is not implemented",
+  "modern_recipe": "",
+  "required_aspects": [
+    {
+      "id": "alienis",
+      "amount": 64
+    },
+    {
+      "id": "vacuos",
+      "amount": 16
+    },
+    {
+      "id": "tenebrae",
+      "amount": 16
+    },
+    {
+      "id": "iter",
+      "amount": 16
+    }
+  ],
+  "legacy": {
+    "source_expression": "ThaumcraftApi.addInfusionCraftingRecipe(\"OCULUS\", new ItemStack(ConfigItems.itemEldritchObject), 5, (new AspectList()).add(Aspect.ELDRITCH, 64).add(Aspect.VOID, 16).add(Aspect.DARKNESS, 16).add(Aspect.TRAVEL, 16), new ItemStack(Items.field_151061_bv), new ItemStack[]{new ItemStack(ConfigItems.itemResource, 1, 17), new ItemStack(Items.field_151043_k)})",
+    "source_statement": "ConfigResearch.recipes.put(\"EldritchEye\", ThaumcraftApi.addInfusionCraftingRecipe(\"OCULUS\", new ItemStack(ConfigItems.itemEldritchObject), 5, (new AspectList()).add(Aspect.ELDRITCH, 64).add(Aspect.VOID, 16).add(Aspect.DARKNESS, 16).add(Aspect.TRAVEL, 16), new ItemStack(Items.field_151061_bv), new ItemStack[]{new ItemStack(ConfigItems.itemResource, 1, 17), new ItemStack(Items.field_151043_k)}))",
+    "unkeyed": false
+  }
+}

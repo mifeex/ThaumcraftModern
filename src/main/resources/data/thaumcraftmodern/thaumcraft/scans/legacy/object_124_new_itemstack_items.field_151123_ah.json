@@ -1,0 +1,33 @@
+{
+  "type": "item",
+  "target": "minecraft:slime_ball",
+  "display": "",
+  "aspects": [
+    {
+      "id": "limus",
+      "amount": 2
+    }
+  ],
+  "inactive": false,
+  "inactive_reason": null,
+  "legacy": {
+    "registration_mode": "explicit",
+    "target_kind": "item_stack",
+    "legacy_target": "new ItemStack(Items.field_151123_aH)",
+    "metadata_group_raw": null,
+    "aspects": [
+      {
+        "id": "limus",
+        "amount": 2
+      }
+    ],
+    "aspect_operations": [
+      {
+        "operation": "add",
+        "id": "limus",
+        "amount": 2
+      }
+    ],
+    "source_expression": "ThaumcraftApi.registerObjectTag(new ItemStack(Items.field_151123_aH), (new AspectList()).add(Aspect.SLIME, 2))"
+  }
+}

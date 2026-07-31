@@ -1,0 +1,27 @@
+{
+  "id": "wandcapthaumiuminert",
+  "legacy_id": "WandCapThaumiumInert",
+  "legacy_kind": "arcane_shaped",
+  "inactive": true,
+  "inactive_reason": "recipe type or referenced content is not implemented",
+  "modern_recipe": "",
+  "required_aspects": [
+    {
+      "id": "ordo",
+      "amount": "((WandCap"
+    },
+    {
+      "id": "ignis",
+      "amount": "((WandCap"
+    },
+    {
+      "id": "aer",
+      "amount": "((WandCap"
+    }
+  ],
+  "legacy": {
+    "source_expression": "ThaumcraftApi.addArcaneCraftingRecipe(\"CAP_thaumium\", new ItemStack(ConfigItems.itemWandCap, 1, 6), (new AspectList()).add(Aspect.ORDER, ((WandCap)WandCap.caps.get(\"thaumium\")).getCraftCost()).add(Aspect.FIRE, ((WandCap)WandCap.caps.get(\"thaumium\")).getCraftCost()).add(Aspect.AIR, ((WandCap)WandCap.caps.get(\"thaumium\")).getCraftCost()), \"NNN\", \"N N\", 'N', \"nuggetThaumium\")",
+    "source_statement": "}\n\n      ConfigResearch.recipes.put(\"WandCapThaumiumInert\", ThaumcraftApi.addArcaneCraftingRecipe(\"CAP_thaumium\", new ItemStack(ConfigItems.itemWandCap, 1, 6), (new AspectList()).add(Aspect.ORDER, ((WandCap)WandCap.caps.get(\"thaumium\")).getCraftCost()).add(Aspect.FIRE, ((WandCap)WandCap.caps.get(\"thaumium\")).getCraftCost()).add(Aspect.AIR, ((WandCap)WandCap.caps.get(\"thaumium\")).getCraftCost()), \"NNN\", \"N N\", 'N', \"nuggetThaumium\"))",
+    "unkeyed": false
+  }
+}

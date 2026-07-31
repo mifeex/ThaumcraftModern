@@ -1,0 +1,11 @@
+{
+  "type": "block",
+  "target": "minecraft:redstone_block",
+  "display": "block.minecraft.redstone_block",
+  "aspects": [
+    {
+      "id": "potentia",
+      "amount": 2
+    }
+  ]
+}

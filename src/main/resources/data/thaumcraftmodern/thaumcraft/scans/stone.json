@@ -1,0 +1,11 @@
+{
+  "type": "block",
+  "target": "minecraft:stone",
+  "display": "block.minecraft.stone",
+  "aspects": [
+    {
+      "id": "terra",
+      "amount": 2
+    }
+  ]
+}

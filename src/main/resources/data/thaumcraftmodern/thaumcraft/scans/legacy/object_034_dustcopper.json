@@ -1,0 +1,58 @@
+{
+  "type": "item_tag",
+  "target": "forge:dusts/copper",
+  "display": "",
+  "aspects": [
+    {
+      "id": "metallum",
+      "amount": 2
+    },
+    {
+      "id": "perditio",
+      "amount": 1
+    },
+    {
+      "id": "permutatio",
+      "amount": 1
+    }
+  ],
+  "inactive": false,
+  "legacy": {
+    "registration_mode": "explicit",
+    "target_kind": "ore_dictionary",
+    "legacy_target": "dustCopper",
+    "metadata_group_raw": null,
+    "aspects": [
+      {
+        "id": "metallum",
+        "amount": 2
+      },
+      {
+        "id": "perditio",
+        "amount": 1
+      },
+      {
+        "id": "permutatio",
+        "amount": 1
+      }
+    ],
+    "aspect_operations": [
+      {
+        "operation": "add",
+        "id": "metallum",
+        "amount": 2
+      },
+      {
+        "operation": "add",
+        "id": "perditio",
+        "amount": 1
+      },
+      {
+        "operation": "add",
+        "id": "permutatio",
+        "amount": 1
+      }
+    ],
+    "source_expression": "ThaumcraftApi.registerObjectTag(\"dustCopper\", (new AspectList()).add(Aspect.METAL, 2).add(Aspect.ENTROPY, 1).add(Aspect.EXCHANGE, 1))"
+  }
+}

@@ -1,0 +1,33 @@
+{
+  "type": "block",
+  "target": "minecraft:water",
+  "display": "",
+  "aspects": [
+    {
+      "id": "aqua",
+      "amount": 4
+    }
+  ],
+  "inactive": false,
+  "inactive_reason": null,
+  "legacy": {
+    "registration_mode": "explicit",
+    "target_kind": "item_stack",
+    "legacy_target": "new ItemStack(Blocks.field_150355_j, 1, 32767)",
+    "metadata_group_raw": null,
+    "aspects": [
+      {
+        "id": "aqua",
+        "amount": 4
+      }
+    ],
+    "aspect_operations": [
+      {
+        "operation": "add",
+        "id": "aqua",
+        "amount": 4
+      }
+    ],
+    "source_expression": "ThaumcraftApi.registerObjectTag(new ItemStack(Blocks.field_150355_j, 1, 32767), (new AspectList()).add(Aspect.WATER, 4))"
+  }
+}

@@ -1,0 +1,32 @@
+{
+  "type": "block",
+  "target": "minecraft:bookshelf",
+  "display": "",
+  "aspects": [
+    {
+      "id": "cognitio",
+      "amount": 8
+    }
+  ],
+  "inactive": false,
+  "legacy": {
+    "registration_mode": "recipe_derived_modifier",
+    "target_kind": "item_stack",
+    "legacy_target": "new ItemStack(Blocks.field_150342_X)",
+    "metadata_group_raw": null,
+    "aspects": [
+      {
+        "id": "cognitio",
+        "amount": 8
+      }
+    ],
+    "aspect_operations": [
+      {
+        "operation": "add",
+        "id": "cognitio",
+        "amount": 8
+      }
+    ],
+    "source_expression": "ThaumcraftApi.registerComplexObjectTag(new ItemStack(Blocks.field_150342_X), (new AspectList()).add(Aspect.MIND, 8))"
+  }
+}

@@ -1,0 +1,24 @@
+{
+  "type": "thaumcraftmodern:arcane_shaped",
+  "research": "primalarrow",
+  "vis": {
+    "ignis": 8
+  },
+  "pattern": [
+    "AAA",
+    "ASA",
+    "AAA"
+  ],
+  "key": {
+    "A": {
+      "item": "minecraft:arrow"
+    },
+    "S": {
+      "item": "thaumcraftmodern:air_shard"
+    }
+  },
+  "result": {
+    "item": "thaumcraftmodern:ignis_primal_arrow",
+    "count": 8
+  }
+}

@@ -1,0 +1,33 @@
+{
+  "type": "entity",
+  "target": "minecraft:spider",
+  "display": "",
+  "aspects": [
+    {
+      "id": "bestia",
+      "amount": 3
+    },
+    {
+      "id": "perditio",
+      "amount": 2
+    }
+  ],
+  "inactive": false,
+  "inactive_reason": null,
+  "legacy": {
+    "legacy_entity_id": "Spider",
+    "modern_target": "minecraft:spider",
+    "aspects": [
+      {
+        "id": "bestia",
+        "amount": 3
+      },
+      {
+        "id": "perditio",
+        "amount": 2
+      }
+    ],
+    "nbt_conditions_raw": [],
+    "source_expression": "ThaumcraftApi.registerEntityTag(\"Spider\", (new AspectList()).add(Aspect.BEAST, 3).add(Aspect.ENTROPY, 2))"
+  }
+}

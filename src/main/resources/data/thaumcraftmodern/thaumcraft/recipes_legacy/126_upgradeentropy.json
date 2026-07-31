@@ -1,0 +1,19 @@
+{
+  "id": "upgradeentropy",
+  "legacy_id": "UpgradeEntropy",
+  "legacy_kind": "arcane_shaped",
+  "inactive": true,
+  "inactive_reason": "recipe type or referenced content is not implemented",
+  "modern_recipe": "",
+  "required_aspects": [
+    {
+      "id": "perditio",
+      "amount": 10
+    }
+  ],
+  "legacy": {
+    "source_expression": "ThaumcraftApi.addArcaneCraftingRecipe(\"UPGRADEENTROPY\", new ItemStack(ConfigItems.itemGolemUpgrade, 1, 5), (new AspectList()).add(Aspect.ENTROPY, 10), \"NNN\", \"NCN\", \"NNN\", 'N', Items.field_151074_bl, 'C', new ItemStack(ConfigItems.itemShard, 1, 5))",
+    "source_statement": "ConfigResearch.recipes.put(\"UpgradeEntropy\", ThaumcraftApi.addArcaneCraftingRecipe(\"UPGRADEENTROPY\", new ItemStack(ConfigItems.itemGolemUpgrade, 1, 5), (new AspectList()).add(Aspect.ENTROPY, 10), \"NNN\", \"NCN\", \"NNN\", 'N', Items.field_151074_bl, 'C', new ItemStack(ConfigItems.itemShard, 1, 5)))",
+    "unkeyed": false
+  }
+}

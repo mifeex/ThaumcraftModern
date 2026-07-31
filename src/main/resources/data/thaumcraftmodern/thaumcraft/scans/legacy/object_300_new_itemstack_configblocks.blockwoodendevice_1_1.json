@@ -1,0 +1,33 @@
+{
+  "type": "legacy_object",
+  "target": "new ItemStack(ConfigBlocks.blockWoodenDevice, 1, 1)",
+  "display": "",
+  "aspects": [
+    {
+      "id": "sensus",
+      "amount": 4
+    }
+  ],
+  "inactive": true,
+  "inactive_reason": "recipe-derived base aspects cannot yet be reproduced safely",
+  "legacy": {
+    "registration_mode": "recipe_derived_modifier",
+    "target_kind": "item_stack",
+    "legacy_target": "new ItemStack(ConfigBlocks.blockWoodenDevice, 1, 1)",
+    "metadata_group_raw": null,
+    "aspects": [
+      {
+        "id": "sensus",
+        "amount": 4
+      }
+    ],
+    "aspect_operations": [
+      {
+        "operation": "add",
+        "id": "sensus",
+        "amount": 4
+      }
+    ],
+    "source_expression": "ThaumcraftApi.registerComplexObjectTag(new ItemStack(ConfigBlocks.blockWoodenDevice, 1, 1), (new AspectList()).add(Aspect.SENSES, 4))"
+  }
+}

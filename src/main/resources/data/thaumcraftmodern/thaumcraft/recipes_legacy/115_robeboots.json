@@ -1,0 +1,19 @@
+{
+  "id": "robeboots",
+  "legacy_id": "RobeBoots",
+  "legacy_kind": "arcane_shaped",
+  "inactive": true,
+  "inactive_reason": "recipe type or referenced content is not implemented",
+  "modern_recipe": "",
+  "required_aspects": [
+    {
+      "id": "terra",
+      "amount": 3
+    }
+  ],
+  "legacy": {
+    "source_expression": "ThaumcraftApi.addArcaneCraftingRecipe(\"ENCHFABRIC\", new ItemStack(ConfigItems.itemBootsRobe, 1), (new AspectList()).add(Aspect.EARTH, 3), \"I I\", \"I I\", 'I', new ItemStack(ConfigItems.itemResource, 1, 7))",
+    "source_statement": "ConfigResearch.recipes.put(\"RobeBoots\", ThaumcraftApi.addArcaneCraftingRecipe(\"ENCHFABRIC\", new ItemStack(ConfigItems.itemBootsRobe, 1), (new AspectList()).add(Aspect.EARTH, 3), \"I I\", \"I I\", 'I', new ItemStack(ConfigItems.itemResource, 1, 7)))",
+    "unkeyed": false
+  }
+}

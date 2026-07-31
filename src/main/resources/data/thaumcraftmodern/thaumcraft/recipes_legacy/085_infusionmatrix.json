@@ -1,0 +1,19 @@
+{
+  "id": "infusionmatrix",
+  "legacy_id": "InfusionMatrix",
+  "legacy_kind": "arcane_shaped",
+  "inactive": true,
+  "inactive_reason": "recipe type or referenced content is not implemented",
+  "modern_recipe": "",
+  "required_aspects": [
+    {
+      "id": "ordo",
+      "amount": 40
+    }
+  ],
+  "legacy": {
+    "source_expression": "ThaumcraftApi.addArcaneCraftingRecipe(\"INFUSION\", new ItemStack(ConfigBlocks.blockStoneDevice, 1, 2), (new AspectList()).add(Aspect.ORDER, 40), \"SBS\", \"BEB\", \"SBS\", 'S', new ItemStack(ConfigBlocks.blockCosmeticSolid, 1, 6), 'E', Items.field_151079_bi, 'B', new ItemStack(ConfigItems.itemShard, 1, 32767))",
+    "source_statement": "}\n\n      ConfigResearch.recipes.put(\"InfusionMatrix\", ThaumcraftApi.addArcaneCraftingRecipe(\"INFUSION\", new ItemStack(ConfigBlocks.blockStoneDevice, 1, 2), (new AspectList()).add(Aspect.ORDER, 40), \"SBS\", \"BEB\", \"SBS\", 'S', new ItemStack(ConfigBlocks.blockCosmeticSolid, 1, 6), 'E', Items.field_151079_bi, 'B', new ItemStack(ConfigItems.itemShard, 1, 32767)))",
+    "unkeyed": false
+  }
+}

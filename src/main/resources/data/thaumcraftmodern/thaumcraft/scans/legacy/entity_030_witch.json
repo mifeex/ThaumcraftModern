@@ -1,0 +1,41 @@
+{
+  "type": "entity",
+  "target": "minecraft:witch",
+  "display": "",
+  "aspects": [
+    {
+      "id": "humanus",
+      "amount": 3
+    },
+    {
+      "id": "praecantatio",
+      "amount": 2
+    },
+    {
+      "id": "ignis",
+      "amount": 1
+    }
+  ],
+  "inactive": false,
+  "inactive_reason": null,
+  "legacy": {
+    "legacy_entity_id": "Witch",
+    "modern_target": "minecraft:witch",
+    "aspects": [
+      {
+        "id": "humanus",
+        "amount": 3
+      },
+      {
+        "id": "praecantatio",
+        "amount": 2
+      },
+      {
+        "id": "ignis",
+        "amount": 1
+      }
+    ],
+    "nbt_conditions_raw": [],
+    "source_expression": "ThaumcraftApi.registerEntityTag(\"Witch\", (new AspectList()).add(Aspect.MAN, 3).add(Aspect.MAGIC, 2).add(Aspect.FIRE, 1))"
+  }
+}

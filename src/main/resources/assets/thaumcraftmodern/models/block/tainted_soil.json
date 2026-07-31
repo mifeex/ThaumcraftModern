@@ -1,0 +1,6 @@
+{
+  "parent": "thaumcraftmodern:block/tainted_cube_all",
+  "textures": {
+    "all": "thaumcraftmodern:block/tainted_soil"
+  }
+}

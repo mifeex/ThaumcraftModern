@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "filled=false": {
+      "model": "thaumcraftmodern:block/crucible"
+    },
+    "filled=true": {
+      "model": "thaumcraftmodern:block/crucible"
+    }
+  }
+}

@@ -1,0 +1,23 @@
+{
+  "id": "tuberestrict",
+  "legacy_id": "TubeRestrict",
+  "legacy_kind": "arcane_shapeless",
+  "inactive": true,
+  "inactive_reason": "recipe type or referenced content is not implemented",
+  "modern_recipe": "",
+  "required_aspects": [
+    {
+      "id": "aqua",
+      "amount": 5
+    },
+    {
+      "id": "terra",
+      "amount": 16
+    }
+  ],
+  "legacy": {
+    "source_expression": "ThaumcraftApi.addShapelessArcaneCraftingRecipe(\"TUBEFILTER\", new ItemStack(ConfigBlocks.blockTube, 1, 5), (new AspectList()).add(Aspect.WATER, 5).add(Aspect.EARTH, 16), new ItemStack(ConfigBlocks.blockTube, 1, 0), \"stone\")",
+    "source_statement": "ConfigResearch.recipes.put(\"TubeRestrict\", ThaumcraftApi.addShapelessArcaneCraftingRecipe(\"TUBEFILTER\", new ItemStack(ConfigBlocks.blockTube, 1, 5), (new AspectList()).add(Aspect.WATER, 5).add(Aspect.EARTH, 16), new ItemStack(ConfigBlocks.blockTube, 1, 0), \"stone\"))",
+    "unkeyed": false
+  }
+}

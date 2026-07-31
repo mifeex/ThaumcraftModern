@@ -1,0 +1,33 @@
+{
+  "type": "block",
+  "target": "minecraft:crafting_table",
+  "display": "",
+  "aspects": [
+    {
+      "id": "fabrico",
+      "amount": 4
+    }
+  ],
+  "inactive": false,
+  "inactive_reason": null,
+  "legacy": {
+    "registration_mode": "explicit",
+    "target_kind": "item_stack",
+    "legacy_target": "new ItemStack(Blocks.field_150462_ai)",
+    "metadata_group_raw": null,
+    "aspects": [
+      {
+        "id": "fabrico",
+        "amount": 4
+      }
+    ],
+    "aspect_operations": [
+      {
+        "operation": "add",
+        "id": "fabrico",
+        "amount": 4
+      }
+    ],
+    "source_expression": "ThaumcraftApi.registerObjectTag(new ItemStack(Blocks.field_150462_ai), (new AspectList()).add(Aspect.CRAFT, 4))"
+  }
+}

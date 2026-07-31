@@ -1,0 +1,59 @@
+{
+  "type": "item",
+  "target": "minecraft:beef",
+  "display": "",
+  "aspects": [
+    {
+      "id": "corpus",
+      "amount": 4
+    },
+    {
+      "id": "victus",
+      "amount": 2
+    },
+    {
+      "id": "bestia",
+      "amount": 1
+    }
+  ],
+  "inactive": false,
+  "inactive_reason": null,
+  "legacy": {
+    "registration_mode": "explicit",
+    "target_kind": "item_stack",
+    "legacy_target": "new ItemStack(Items.field_151082_bd, 1, 32767)",
+    "metadata_group_raw": null,
+    "aspects": [
+      {
+        "id": "corpus",
+        "amount": 4
+      },
+      {
+        "id": "victus",
+        "amount": 2
+      },
+      {
+        "id": "bestia",
+        "amount": 1
+      }
+    ],
+    "aspect_operations": [
+      {
+        "operation": "add",
+        "id": "corpus",
+        "amount": 4
+      },
+      {
+        "operation": "add",
+        "id": "victus",
+        "amount": 2
+      },
+      {
+        "operation": "add",
+        "id": "bestia",
+        "amount": 1
+      }
+    ],
+    "source_expression": "ThaumcraftApi.registerObjectTag(new ItemStack(Items.field_151082_bd, 1, 32767), (new AspectList()).add(Aspect.FLESH, 4).add(Aspect.LIFE, 2).add(Aspect.BEAST, 1))"
+  }
+}

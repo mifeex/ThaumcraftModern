@@ -1,0 +1,27 @@
+{
+  "type": "block",
+  "target": "minecraft:deepslate_copper_ore",
+  "display": "",
+  "aspects": [
+    {
+      "id": "metallum",
+      "amount": 2
+    },
+    {
+      "id": "terra",
+      "amount": 1
+    },
+    {
+      "id": "permutatio",
+      "amount": 1
+    }
+  ],
+  "inactive": false,
+  "legacy": {
+    "registration_mode": "modern_alias",
+    "target_kind": "block",
+    "legacy_target": "oreCopper",
+    "metadata_group_raw": null,
+    "source_expression": "Modern 1.20.1 deepslate alias of the classic oreCopper scan registration"
+  }
+}

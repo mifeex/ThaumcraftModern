@@ -1,0 +1,14 @@
+{
+  "id": "planksilverwood",
+  "legacy_id": "PlankSilverwood",
+  "legacy_kind": "crafting_shaped",
+  "inactive": true,
+  "inactive_reason": "recipe type or referenced content is not implemented",
+  "modern_recipe": "",
+  "required_aspects": [],
+  "legacy": {
+    "source_expression": "GameRegistry.addShapedRecipe(new ItemStack(ConfigBlocks.blockWoodenDevice, 4, 7), new Object[]{\"W\", 'W', new ItemStack(ConfigBlocks.blockMagicalLog, 1, 1)})",
+    "source_statement": "ConfigResearch.recipes.put(\"PlankSilverwood\", GameRegistry.addShapedRecipe(new ItemStack(ConfigBlocks.blockWoodenDevice, 4, 7), new Object[]{\"W\", 'W', new ItemStack(ConfigBlocks.blockMagicalLog, 1, 1)}))",
+    "unkeyed": false
+  }
+}

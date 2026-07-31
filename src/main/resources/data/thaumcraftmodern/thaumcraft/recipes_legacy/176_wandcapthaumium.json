@@ -1,0 +1,23 @@
+{
+  "id": "wandcapthaumium",
+  "legacy_id": "WandCapThaumium",
+  "legacy_kind": "infusion",
+  "inactive": true,
+  "inactive_reason": "recipe type or referenced content is not implemented",
+  "modern_recipe": "",
+  "required_aspects": [
+    {
+      "id": "potentia",
+      "amount": "((WandCap"
+    },
+    {
+      "id": "auram",
+      "amount": "((WandCap"
+    }
+  ],
+  "legacy": {
+    "source_expression": "ThaumcraftApi.addInfusionCraftingRecipe(\"CAP_thaumium\", new ItemStack(ConfigItems.itemWandCap, 1, 2), 5, (new AspectList()).add(Aspect.ENERGY, ((WandCap)WandCap.caps.get(\"thaumium\")).getCraftCost() * 2).add(Aspect.AURA, ((WandCap)WandCap.caps.get(\"thaumium\")).getCraftCost()), new ItemStack(ConfigItems.itemWandCap, 1, 6), new ItemStack[]{new ItemStack(ConfigItems.itemResource, 1, 14), new ItemStack(ConfigItems.itemResource, 1, 14), new ItemStack(ConfigItems.itemResource, 1, 14)})",
+    "source_statement": "}\n\n      ConfigResearch.recipes.put(\"WandCapThaumium\", ThaumcraftApi.addInfusionCraftingRecipe(\"CAP_thaumium\", new ItemStack(ConfigItems.itemWandCap, 1, 2), 5, (new AspectList()).add(Aspect.ENERGY, ((WandCap)WandCap.caps.get(\"thaumium\")).getCraftCost() * 2).add(Aspect.AURA, ((WandCap)WandCap.caps.get(\"thaumium\")).getCraftCost()), new ItemStack(ConfigItems.itemWandCap, 1, 6), new ItemStack[]{new ItemStack(ConfigItems.itemResource, 1, 14), new ItemStack(ConfigItems.itemResource, 1, 14), new ItemStack(ConfigItems.itemResource, 1, 14)}))",
+    "unkeyed": false
+  }
+}

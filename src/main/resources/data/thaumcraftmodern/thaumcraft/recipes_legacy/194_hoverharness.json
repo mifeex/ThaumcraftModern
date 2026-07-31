@@ -1,0 +1,31 @@
+{
+  "id": "hoverharness",
+  "legacy_id": "HoverHarness",
+  "legacy_kind": "infusion",
+  "inactive": true,
+  "inactive_reason": "recipe type or referenced content is not implemented",
+  "modern_recipe": "",
+  "required_aspects": [
+    {
+      "id": "volatus",
+      "amount": 32
+    },
+    {
+      "id": "potentia",
+      "amount": 32
+    },
+    {
+      "id": "machina",
+      "amount": 32
+    },
+    {
+      "id": "iter",
+      "amount": 16
+    }
+  ],
+  "legacy": {
+    "source_expression": "ThaumcraftApi.addInfusionCraftingRecipe(\"HOVERHARNESS\", new ItemStack(ConfigItems.itemHoverHarness), 6, (new AspectList()).add(Aspect.FLIGHT, 32).add(Aspect.ENERGY, 32).add(Aspect.MECHANISM, 32).add(Aspect.TRAVEL, 16), new ItemStack(Items.field_151027_R), new ItemStack[]{new ItemStack(ConfigItems.itemShard, 1, 0), new ItemStack(ConfigItems.itemShard, 1, 0), new ItemStack(ConfigBlocks.blockWoodenDevice, 1, 6), new ItemStack(ConfigBlocks.blockWoodenDevice, 1, 6), new ItemStack(Items.field_151132_bS), new ItemStack(Items.field_151043_k), new ItemStack(Items.field_151043_k), new ItemStack(Items.field_151042_j), new ItemStack(Items.field_151042_j)})",
+    "source_statement": "ConfigResearch.recipes.put(\"HoverHarness\", ThaumcraftApi.addInfusionCraftingRecipe(\"HOVERHARNESS\", new ItemStack(ConfigItems.itemHoverHarness), 6, (new AspectList()).add(Aspect.FLIGHT, 32).add(Aspect.ENERGY, 32).add(Aspect.MECHANISM, 32).add(Aspect.TRAVEL, 16), new ItemStack(Items.field_151027_R), new ItemStack[]{new ItemStack(ConfigItems.itemShard, 1, 0), new ItemStack(ConfigItems.itemShard, 1, 0), new ItemStack(ConfigBlocks.blockWoodenDevice, 1, 6), new ItemStack(ConfigBlocks.blockWoodenDevice, 1, 6), new ItemStack(Items.field_151132_bS), new ItemStack(Items.field_151043_k), new ItemStack(Items.field_151043_k), new ItemStack(Items.field_151042_j), new ItemStack(Items.field_151042_j)}))",
+    "unkeyed": false
+  }
+}

@@ -1,0 +1,27 @@
+{
+  "id": "wandpedfocus",
+  "legacy_id": "WandPedFocus",
+  "legacy_kind": "infusion",
+  "inactive": true,
+  "inactive_reason": "recipe type or referenced content is not implemented",
+  "modern_recipe": "",
+  "required_aspects": [
+    {
+      "id": "ordo",
+      "amount": 10
+    },
+    {
+      "id": "praecantatio",
+      "amount": 15
+    },
+    {
+      "id": "permutatio",
+      "amount": 10
+    }
+  ],
+  "legacy": {
+    "source_expression": "ThaumcraftApi.addInfusionCraftingRecipe(\"WANDPEDFOC\", new ItemStack(ConfigBlocks.blockStoneDevice, 1, 8), 4, (new AspectList()).add(Aspect.ORDER, 10).add(Aspect.MAGIC, 15).add(Aspect.EXCHANGE, 10), new ItemStack(Items.field_151132_bS), new ItemStack[]{new ItemStack(ConfigItems.itemShard, 1, 3), new ItemStack(ConfigItems.itemResource, 1, 8), new ItemStack(ConfigItems.itemShard, 1, 3), new ItemStack(ConfigItems.itemResource, 1, 8), new ItemStack(ConfigItems.itemShard, 1, 3), new ItemStack(ConfigItems.itemResource, 1, 8), new ItemStack(ConfigItems.itemShard, 1, 3), new ItemStack(ConfigItems.itemResource, 1, 8)})",
+    "source_statement": "ConfigResearch.recipes.put(\"WandPedFocus\", ThaumcraftApi.addInfusionCraftingRecipe(\"WANDPEDFOC\", new ItemStack(ConfigBlocks.blockStoneDevice, 1, 8), 4, (new AspectList()).add(Aspect.ORDER, 10).add(Aspect.MAGIC, 15).add(Aspect.EXCHANGE, 10), new ItemStack(Items.field_151132_bS), new ItemStack[]{new ItemStack(ConfigItems.itemShard, 1, 3), new ItemStack(ConfigItems.itemResource, 1, 8), new ItemStack(ConfigItems.itemShard, 1, 3), new ItemStack(ConfigItems.itemResource, 1, 8), new ItemStack(ConfigItems.itemShard, 1, 3), new ItemStack(ConfigItems.itemResource, 1, 8), new ItemStack(ConfigItems.itemShard, 1, 3), new ItemStack(ConfigItems.itemResource, 1, 8)}))",
+    "unkeyed": false
+  }
+}

@@ -1,0 +1,27 @@
+{
+  "id": "focusexcavation",
+  "legacy_id": "FocusExcavation",
+  "legacy_kind": "arcane_shaped",
+  "inactive": true,
+  "inactive_reason": "recipe type or referenced content is not implemented",
+  "modern_recipe": "",
+  "required_aspects": [
+    {
+      "id": "terra",
+      "amount": 20
+    },
+    {
+      "id": "perditio",
+      "amount": 5
+    },
+    {
+      "id": "ordo",
+      "amount": 5
+    }
+  ],
+  "legacy": {
+    "source_expression": "ThaumcraftApi.addArcaneCraftingRecipe(\"FOCUSEXCAVATION\", new ItemStack(ConfigItems.itemFocusExcavation), (new AspectList()).add(Aspect.EARTH, 20).add(Aspect.ENTROPY, 5).add(Aspect.ORDER, 5), \"CQC\", \"Q#Q\", \"CQC\", '#', \"gemEmerald\", 'Q', Items.field_151128_bU, 'C', new ItemStack(ConfigItems.itemShard, 1, 3))",
+    "source_statement": "ConfigResearch.recipes.put(\"FocusExcavation\", ThaumcraftApi.addArcaneCraftingRecipe(\"FOCUSEXCAVATION\", new ItemStack(ConfigItems.itemFocusExcavation), (new AspectList()).add(Aspect.EARTH, 20).add(Aspect.ENTROPY, 5).add(Aspect.ORDER, 5), \"CQC\", \"Q#Q\", \"CQC\", '#', \"gemEmerald\", 'Q', Items.field_151128_bU, 'C', new ItemStack(ConfigItems.itemShard, 1, 3)))",
+    "unkeyed": false
+  }
+}

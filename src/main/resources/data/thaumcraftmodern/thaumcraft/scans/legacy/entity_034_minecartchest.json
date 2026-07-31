@@ -1,0 +1,41 @@
+{
+  "type": "entity",
+  "target": "minecraft:chest_minecart",
+  "display": "",
+  "aspects": [
+    {
+      "id": "machina",
+      "amount": 3
+    },
+    {
+      "id": "aer",
+      "amount": 1
+    },
+    {
+      "id": "vacuos",
+      "amount": 1
+    }
+  ],
+  "inactive": false,
+  "inactive_reason": null,
+  "legacy": {
+    "legacy_entity_id": "MinecartChest",
+    "modern_target": "minecraft:chest_minecart",
+    "aspects": [
+      {
+        "id": "machina",
+        "amount": 3
+      },
+      {
+        "id": "aer",
+        "amount": 1
+      },
+      {
+        "id": "vacuos",
+        "amount": 1
+      }
+    ],
+    "nbt_conditions_raw": [],
+    "source_expression": "ThaumcraftApi.registerEntityTag(\"MinecartChest\", (new AspectList()).add(Aspect.MECHANISM, 3).add(Aspect.AIR, 1).add(Aspect.VOID, 1))"
+  }
+}

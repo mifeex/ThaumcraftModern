@@ -1,0 +1,23 @@
+{
+  "id": "mirrorhand",
+  "legacy_id": "MirrorHand",
+  "legacy_kind": "infusion",
+  "inactive": true,
+  "inactive_reason": "recipe type or referenced content is not implemented",
+  "modern_recipe": "",
+  "required_aspects": [
+    {
+      "id": "instrumentum",
+      "amount": 16
+    },
+    {
+      "id": "iter",
+      "amount": 16
+    }
+  ],
+  "legacy": {
+    "source_expression": "ThaumcraftApi.addInfusionCraftingRecipe(\"MIRRORHAND\", new ItemStack(ConfigItems.itemHandMirror), 5, (new AspectList()).add(Aspect.TOOL, 16).add(Aspect.TRAVEL, 16), new ItemStack(ConfigBlocks.blockMirror, 1, 0), new ItemStack[]{new ItemStack(Items.field_151055_y), new ItemStack(Items.field_151111_aL), new ItemStack(Items.field_151148_bJ)})",
+    "source_statement": "ConfigResearch.recipes.put(\"MirrorHand\", ThaumcraftApi.addInfusionCraftingRecipe(\"MIRRORHAND\", new ItemStack(ConfigItems.itemHandMirror), 5, (new AspectList()).add(Aspect.TOOL, 16).add(Aspect.TRAVEL, 16), new ItemStack(ConfigBlocks.blockMirror, 1, 0), new ItemStack[]{new ItemStack(Items.field_151055_y), new ItemStack(Items.field_151111_aL), new ItemStack(Items.field_151148_bJ)}))",
+    "unkeyed": false
+  }
+}

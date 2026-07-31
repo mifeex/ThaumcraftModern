@@ -1,0 +1,32 @@
+{
+  "type": "block_tag",
+  "target": "minecraft:leaves",
+  "display": "",
+  "aspects": [
+    {
+      "id": "herba",
+      "amount": 1
+    }
+  ],
+  "inactive": false,
+  "legacy": {
+    "registration_mode": "explicit",
+    "target_kind": "ore_dictionary",
+    "legacy_target": "treeLeaves",
+    "metadata_group_raw": null,
+    "aspects": [
+      {
+        "id": "herba",
+        "amount": 1
+      }
+    ],
+    "aspect_operations": [
+      {
+        "operation": "add",
+        "id": "herba",
+        "amount": 1
+      }
+    ],
+    "source_expression": "ThaumcraftApi.registerObjectTag(\"treeLeaves\", (new AspectList()).add(Aspect.PLANT, 1))"
+  }
+}

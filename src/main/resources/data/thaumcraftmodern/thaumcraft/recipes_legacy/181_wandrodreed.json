@@ -1,0 +1,27 @@
+{
+  "id": "wandrodreed",
+  "legacy_id": "WandRodReed",
+  "legacy_kind": "infusion",
+  "inactive": true,
+  "inactive_reason": "recipe type or referenced content is not implemented",
+  "modern_recipe": "",
+  "required_aspects": [
+    {
+      "id": "aer",
+      "amount": "((WandRod"
+    },
+    {
+      "id": "praecantatio",
+      "amount": "((WandRod"
+    },
+    {
+      "id": "motus",
+      "amount": "((WandRod"
+    }
+  ],
+  "legacy": {
+    "source_expression": "ThaumcraftApi.addInfusionCraftingRecipe(\"ROD_reed\", new ItemStack(ConfigItems.itemWandRod, 1, 5), 3, (new AspectList()).add(Aspect.AIR, ((WandRod)WandRod.rods.get(\"reed\")).getCraftCost() * 2).add(Aspect.MAGIC, ((WandRod)WandRod.rods.get(\"reed\")).getCraftCost()).add(Aspect.MOTION, ((WandRod)WandRod.rods.get(\"blaze\")).getCraftCost()), new ItemStack(Items.field_151120_aE), new ItemStack[]{new ItemStack(ConfigItems.itemShard, 1, 6), new ItemStack(ConfigItems.itemShard, 1, 0)})",
+    "source_statement": "ConfigResearch.recipes.put(\"WandRodReed\", ThaumcraftApi.addInfusionCraftingRecipe(\"ROD_reed\", new ItemStack(ConfigItems.itemWandRod, 1, 5), 3, (new AspectList()).add(Aspect.AIR, ((WandRod)WandRod.rods.get(\"reed\")).getCraftCost() * 2).add(Aspect.MAGIC, ((WandRod)WandRod.rods.get(\"reed\")).getCraftCost()).add(Aspect.MOTION, ((WandRod)WandRod.rods.get(\"blaze\")).getCraftCost()), new ItemStack(Items.field_151120_aE), new ItemStack[]{new ItemStack(ConfigItems.itemShard, 1, 6), new ItemStack(ConfigItems.itemShard, 1, 0)}))",
+    "unkeyed": false
+  }
+}

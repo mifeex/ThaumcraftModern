@@ -1,0 +1,41 @@
+{
+  "type": "entity",
+  "target": "minecraft:furnace_minecart",
+  "display": "",
+  "aspects": [
+    {
+      "id": "machina",
+      "amount": 3
+    },
+    {
+      "id": "aer",
+      "amount": 1
+    },
+    {
+      "id": "ignis",
+      "amount": 1
+    }
+  ],
+  "inactive": false,
+  "inactive_reason": null,
+  "legacy": {
+    "legacy_entity_id": "MinecartFurnace",
+    "modern_target": "minecraft:furnace_minecart",
+    "aspects": [
+      {
+        "id": "machina",
+        "amount": 3
+      },
+      {
+        "id": "aer",
+        "amount": 1
+      },
+      {
+        "id": "ignis",
+        "amount": 1
+      }
+    ],
+    "nbt_conditions_raw": [],
+    "source_expression": "ThaumcraftApi.registerEntityTag(\"MinecartFurnace\", (new AspectList()).add(Aspect.MECHANISM, 3).add(Aspect.AIR, 1).add(Aspect.FIRE, 1))"
+  }
+}

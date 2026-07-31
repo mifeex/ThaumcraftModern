@@ -1,0 +1,41 @@
+{
+  "type": "entity",
+  "target": "minecraft:horse",
+  "display": "",
+  "aspects": [
+    {
+      "id": "bestia",
+      "amount": 4
+    },
+    {
+      "id": "terra",
+      "amount": 1
+    },
+    {
+      "id": "aer",
+      "amount": 1
+    }
+  ],
+  "inactive": false,
+  "inactive_reason": null,
+  "legacy": {
+    "legacy_entity_id": "EntityHorse",
+    "modern_target": "minecraft:horse",
+    "aspects": [
+      {
+        "id": "bestia",
+        "amount": 4
+      },
+      {
+        "id": "terra",
+        "amount": 1
+      },
+      {
+        "id": "aer",
+        "amount": 1
+      }
+    ],
+    "nbt_conditions_raw": [],
+    "source_expression": "ThaumcraftApi.registerEntityTag(\"EntityHorse\", (new AspectList()).add(Aspect.BEAST, 4).add(Aspect.EARTH, 1).add(Aspect.AIR, 1))"
+  }
+}

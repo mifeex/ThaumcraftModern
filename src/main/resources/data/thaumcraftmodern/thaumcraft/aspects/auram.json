@@ -1,0 +1,10 @@
+{
+  "id": "auram",
+  "order": 250,
+  "color": "FFC0FF",
+  "icon": "thaumcraftmodern:textures/aspects/auram.png",
+  "components": [
+    "praecantatio",
+    "aer"
+  ]
+}

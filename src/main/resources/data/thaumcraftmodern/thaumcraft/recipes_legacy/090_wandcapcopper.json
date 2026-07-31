@@ -1,0 +1,27 @@
+{
+  "id": "wandcapcopper",
+  "legacy_id": "WandCapCopper",
+  "legacy_kind": "arcane_shaped",
+  "inactive": true,
+  "inactive_reason": "recipe type or referenced content is not implemented",
+  "modern_recipe": "",
+  "required_aspects": [
+    {
+      "id": "ordo",
+      "amount": "((WandCap"
+    },
+    {
+      "id": "ignis",
+      "amount": "((WandCap"
+    },
+    {
+      "id": "aer",
+      "amount": "((WandCap"
+    }
+  ],
+  "legacy": {
+    "source_expression": "ThaumcraftApi.addArcaneCraftingRecipe(\"CAP_copper\", new ItemStack(ConfigItems.itemWandCap, 1, 3), (new AspectList()).add(Aspect.ORDER, ((WandCap)WandCap.caps.get(\"copper\")).getCraftCost()).add(Aspect.FIRE, ((WandCap)WandCap.caps.get(\"copper\")).getCraftCost()).add(Aspect.AIR, ((WandCap)WandCap.caps.get(\"copper\")).getCraftCost()), \"NNN\", \"N N\", 'N', \"nuggetCopper\")",
+    "source_statement": "if (Config.foundCopperIngot) {\n         ConfigResearch.recipes.put(\"WandCapCopper\", ThaumcraftApi.addArcaneCraftingRecipe(\"CAP_copper\", new ItemStack(ConfigItems.itemWandCap, 1, 3), (new AspectList()).add(Aspect.ORDER, ((WandCap)WandCap.caps.get(\"copper\")).getCraftCost()).add(Aspect.FIRE, ((WandCap)WandCap.caps.get(\"copper\")).getCraftCost()).add(Aspect.AIR, ((WandCap)WandCap.caps.get(\"copper\")).getCraftCost()), \"NNN\", \"N N\", 'N', \"nuggetCopper\"))",
+    "unkeyed": false
+  }
+}

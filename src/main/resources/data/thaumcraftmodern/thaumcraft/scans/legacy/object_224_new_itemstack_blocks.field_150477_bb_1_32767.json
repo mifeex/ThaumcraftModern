@@ -1,0 +1,58 @@
+{
+  "type": "block",
+  "target": "minecraft:ender_chest",
+  "display": "",
+  "aspects": [
+    {
+      "id": "permutatio",
+      "amount": 2
+    },
+    {
+      "id": "iter",
+      "amount": 2
+    },
+    {
+      "id": "vacuos",
+      "amount": 4
+    }
+  ],
+  "inactive": false,
+  "legacy": {
+    "registration_mode": "recipe_derived_modifier",
+    "target_kind": "item_stack",
+    "legacy_target": "new ItemStack(Blocks.field_150477_bB, 1, 32767)",
+    "metadata_group_raw": null,
+    "aspects": [
+      {
+        "id": "permutatio",
+        "amount": 2
+      },
+      {
+        "id": "iter",
+        "amount": 2
+      },
+      {
+        "id": "vacuos",
+        "amount": 4
+      }
+    ],
+    "aspect_operations": [
+      {
+        "operation": "merge",
+        "id": "permutatio",
+        "amount": 2
+      },
+      {
+        "operation": "merge",
+        "id": "iter",
+        "amount": 2
+      },
+      {
+        "operation": "merge",
+        "id": "vacuos",
+        "amount": 4
+      }
+    ],
+    "source_expression": "ThaumcraftApi.registerComplexObjectTag(new ItemStack(Blocks.field_150477_bB, 1, 32767), (new AspectList()).merge(Aspect.EXCHANGE, 2).merge(Aspect.TRAVEL, 2).merge(Aspect.VOID, 4))"
+  }
+}

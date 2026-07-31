@@ -1,0 +1,31 @@
+{
+  "id": "wandcapvoid",
+  "legacy_id": "WandCapVoid",
+  "legacy_kind": "infusion",
+  "inactive": true,
+  "inactive_reason": "recipe type or referenced content is not implemented",
+  "modern_recipe": "",
+  "required_aspects": [
+    {
+      "id": "potentia",
+      "amount": "((WandCap"
+    },
+    {
+      "id": "vacuos",
+      "amount": "((WandCap"
+    },
+    {
+      "id": "alienis",
+      "amount": "((WandCap"
+    },
+    {
+      "id": "auram",
+      "amount": "((WandCap"
+    }
+  ],
+  "legacy": {
+    "source_expression": "ThaumcraftApi.addInfusionCraftingRecipe(\"CAP_void\", new ItemStack(ConfigItems.itemWandCap, 1, 7), 8, (new AspectList()).add(Aspect.ENERGY, ((WandCap)WandCap.caps.get(\"void\")).getCraftCost() * 2).add(Aspect.VOID, ((WandCap)WandCap.caps.get(\"void\")).getCraftCost() * 2).add(Aspect.ELDRITCH, ((WandCap)WandCap.caps.get(\"void\")).getCraftCost() * 2).add(Aspect.AURA, ((WandCap)WandCap.caps.get(\"void\")).getCraftCost() * 2), new ItemStack(ConfigItems.itemWandCap, 1, 8), new ItemStack[]{new ItemStack(ConfigItems.itemResource, 1, 14), new ItemStack(ConfigItems.itemResource, 1, 14), new ItemStack(ConfigItems.itemResource, 1, 14), new ItemStack(ConfigItems.itemResource, 1, 14)})",
+    "source_statement": "ConfigResearch.recipes.put(\"WandCapVoid\", ThaumcraftApi.addInfusionCraftingRecipe(\"CAP_void\", new ItemStack(ConfigItems.itemWandCap, 1, 7), 8, (new AspectList()).add(Aspect.ENERGY, ((WandCap)WandCap.caps.get(\"void\")).getCraftCost() * 2).add(Aspect.VOID, ((WandCap)WandCap.caps.get(\"void\")).getCraftCost() * 2).add(Aspect.ELDRITCH, ((WandCap)WandCap.caps.get(\"void\")).getCraftCost() * 2).add(Aspect.AURA, ((WandCap)WandCap.caps.get(\"void\")).getCraftCost() * 2), new ItemStack(ConfigItems.itemWandCap, 1, 8), new ItemStack[]{new ItemStack(ConfigItems.itemResource, 1, 14), new ItemStack(ConfigItems.itemResource, 1, 14), new ItemStack(ConfigItems.itemResource, 1, 14), new ItemStack(ConfigItems.itemResource, 1, 14)}))",
+    "unkeyed": false
+  }
+}

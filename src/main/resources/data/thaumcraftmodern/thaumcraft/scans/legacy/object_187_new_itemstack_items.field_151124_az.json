@@ -1,0 +1,46 @@
+{
+  "type": "item",
+  "target": "minecraft:oak_boat",
+  "display": "",
+  "aspects": [
+    {
+      "id": "aqua",
+      "amount": 4
+    },
+    {
+      "id": "iter",
+      "amount": 4
+    }
+  ],
+  "inactive": true,
+  "inactive_reason": "recipe-derived base aspects cannot yet be reproduced safely",
+  "legacy": {
+    "registration_mode": "recipe_derived_modifier",
+    "target_kind": "item_stack",
+    "legacy_target": "new ItemStack(Items.field_151124_az)",
+    "metadata_group_raw": null,
+    "aspects": [
+      {
+        "id": "aqua",
+        "amount": 4
+      },
+      {
+        "id": "iter",
+        "amount": 4
+      }
+    ],
+    "aspect_operations": [
+      {
+        "operation": "add",
+        "id": "aqua",
+        "amount": 4
+      },
+      {
+        "operation": "add",
+        "id": "iter",
+        "amount": 4
+      }
+    ],
+    "source_expression": "ThaumcraftApi.registerComplexObjectTag(new ItemStack(Items.field_151124_az), (new AspectList()).add(Aspect.WATER, 4).add(Aspect.TRAVEL, 4))"
+  }
+}

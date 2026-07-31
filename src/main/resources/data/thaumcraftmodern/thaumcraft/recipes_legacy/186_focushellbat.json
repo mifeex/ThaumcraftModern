@@ -1,0 +1,31 @@
+{
+  "id": "focushellbat",
+  "legacy_id": "FocusHellbat",
+  "legacy_kind": "infusion",
+  "inactive": true,
+  "inactive_reason": "recipe type or referenced content is not implemented",
+  "modern_recipe": "",
+  "required_aspects": [
+    {
+      "id": "ignis",
+      "amount": 25
+    },
+    {
+      "id": "aer",
+      "amount": 15
+    },
+    {
+      "id": "bestia",
+      "amount": 15
+    },
+    {
+      "id": "perditio",
+      "amount": 25
+    }
+  ],
+  "legacy": {
+    "source_expression": "ThaumcraftApi.addInfusionCraftingRecipe(\"FOCUSHELLBAT\", new ItemStack(ConfigItems.itemFocusHellbat), 3, (new AspectList()).add(Aspect.FIRE, 25).add(Aspect.AIR, 15).add(Aspect.BEAST, 15).add(Aspect.ENTROPY, 25), new ItemStack(Items.field_151064_bs), new ItemStack[]{new ItemStack(Items.field_151128_bU), new ItemStack(ConfigItems.itemShard, 1, 1), new ItemStack(Items.field_151128_bU), new ItemStack(ConfigItems.itemShard, 1, 0), new ItemStack(Items.field_151128_bU), new ItemStack(ConfigItems.itemShard, 1, 5)})",
+    "source_statement": "ConfigResearch.recipes.put(\"FocusHellbat\", ThaumcraftApi.addInfusionCraftingRecipe(\"FOCUSHELLBAT\", new ItemStack(ConfigItems.itemFocusHellbat), 3, (new AspectList()).add(Aspect.FIRE, 25).add(Aspect.AIR, 15).add(Aspect.BEAST, 15).add(Aspect.ENTROPY, 25), new ItemStack(Items.field_151064_bs), new ItemStack[]{new ItemStack(Items.field_151128_bU), new ItemStack(ConfigItems.itemShard, 1, 1), new ItemStack(Items.field_151128_bU), new ItemStack(ConfigItems.itemShard, 1, 0), new ItemStack(Items.field_151128_bU), new ItemStack(ConfigItems.itemShard, 1, 5)}))",
+    "unkeyed": false
+  }
+}

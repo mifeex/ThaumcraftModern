@@ -1,0 +1,23 @@
+{
+  "id": "bonebow",
+  "legacy_id": "BoneBow",
+  "legacy_kind": "arcane_shaped",
+  "inactive": true,
+  "inactive_reason": "recipe type or referenced content is not implemented",
+  "modern_recipe": "",
+  "required_aspects": [
+    {
+      "id": "aer",
+      "amount": 16
+    },
+    {
+      "id": "perditio",
+      "amount": 32
+    }
+  ],
+  "legacy": {
+    "source_expression": "ThaumcraftApi.addArcaneCraftingRecipe(\"BONEBOW\", new ItemStack(ConfigItems.itemBowBone), (new AspectList()).add(Aspect.AIR, 16).add(Aspect.ENTROPY, 32), \"SB \", \"SEB\", \"SB \", 'E', new ItemStack(ConfigItems.itemShard, 1, 5), 'B', Items.field_151103_aS, 'S', Items.field_151007_F)",
+    "source_statement": "ConfigResearch.recipes.put(\"BoneBow\", ThaumcraftApi.addArcaneCraftingRecipe(\"BONEBOW\", new ItemStack(ConfigItems.itemBowBone), (new AspectList()).add(Aspect.AIR, 16).add(Aspect.ENTROPY, 32), \"SB \", \"SEB\", \"SB \", 'E', new ItemStack(ConfigItems.itemShard, 1, 5), 'B', Items.field_151103_aS, 'S', Items.field_151007_F))",
+    "unkeyed": false
+  }
+}

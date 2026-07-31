@@ -1,0 +1,23 @@
+{
+  "id": "alchemicalconstruct",
+  "legacy_id": "AlchemicalConstruct",
+  "legacy_kind": "arcane_shaped",
+  "inactive": true,
+  "inactive_reason": "recipe type or referenced content is not implemented",
+  "modern_recipe": "",
+  "required_aspects": [
+    {
+      "id": "aqua",
+      "amount": 5
+    },
+    {
+      "id": "ordo",
+      "amount": 5
+    }
+  ],
+  "legacy": {
+    "source_expression": "ThaumcraftApi.addArcaneCraftingRecipe(\"DISTILESSENTIA\", new ItemStack(ConfigBlocks.blockMetalDevice, 1, 9), (new AspectList()).add(Aspect.WATER, 5).add(Aspect.ORDER, 5), \"VTF\", \"TWT\", \"FTV\", 'W', new ItemStack(ConfigBlocks.blockWoodenDevice, 1, 6), 'V', new ItemStack(ConfigBlocks.blockTube, 1, 1), 'T', new ItemStack(ConfigBlocks.blockTube, 1, 0), 'F', new ItemStack(ConfigItems.itemResource, 1, 8))",
+    "source_statement": "ConfigResearch.recipes.put(\"AlchemicalConstruct\", ThaumcraftApi.addArcaneCraftingRecipe(\"DISTILESSENTIA\", new ItemStack(ConfigBlocks.blockMetalDevice, 1, 9), (new AspectList()).add(Aspect.WATER, 5).add(Aspect.ORDER, 5), \"VTF\", \"TWT\", \"FTV\", 'W', new ItemStack(ConfigBlocks.blockWoodenDevice, 1, 6), 'V', new ItemStack(ConfigBlocks.blockTube, 1, 1), 'T', new ItemStack(ConfigBlocks.blockTube, 1, 0), 'F', new ItemStack(ConfigItems.itemResource, 1, 8)))",
+    "unkeyed": false
+  }
+}

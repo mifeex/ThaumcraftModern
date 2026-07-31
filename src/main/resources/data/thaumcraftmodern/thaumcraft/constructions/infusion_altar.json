@@ -1,0 +1,14 @@
+{
+  "id": "infusion_altar",
+  "handler": "infusion_altar",
+  "trigger": {"type": "wand", "consume": 0},
+  "research": "infusion",
+  "vis": {
+    "aer": 25,
+    "terra": 25,
+    "ignis": 25,
+    "aqua": 25,
+    "ordo": 25,
+    "perditio": 25
+  }
+}

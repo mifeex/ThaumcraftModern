@@ -1,0 +1,32 @@
+{
+  "type": "item_tag",
+  "target": "forge:nuggets/tin",
+  "display": "",
+  "aspects": [
+    {
+      "id": "metallum",
+      "amount": 1
+    }
+  ],
+  "inactive": false,
+  "legacy": {
+    "registration_mode": "explicit",
+    "target_kind": "ore_dictionary",
+    "legacy_target": "nuggetTin",
+    "metadata_group_raw": null,
+    "aspects": [
+      {
+        "id": "metallum",
+        "amount": 1
+      }
+    ],
+    "aspect_operations": [
+      {
+        "operation": "add",
+        "id": "metallum",
+        "amount": 1
+      }
+    ],
+    "source_expression": "}\n\n      if (Config.foundTinIngot) {\n         ThaumcraftApi.registerObjectTag(\"nuggetTin\", (new AspectList()).add(Aspect.METAL, 1))"
+  }
+}

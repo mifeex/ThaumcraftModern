@@ -1,0 +1,33 @@
+{
+  "type": "entity",
+  "target": "minecraft:blaze",
+  "display": "",
+  "aspects": [
+    {
+      "id": "alienis",
+      "amount": 4
+    },
+    {
+      "id": "ignis",
+      "amount": 1
+    }
+  ],
+  "inactive": false,
+  "inactive_reason": null,
+  "legacy": {
+    "legacy_entity_id": "Blaze",
+    "modern_target": "minecraft:blaze",
+    "aspects": [
+      {
+        "id": "alienis",
+        "amount": 4
+      },
+      {
+        "id": "ignis",
+        "amount": 1
+      }
+    ],
+    "nbt_conditions_raw": [],
+    "source_expression": "ThaumcraftApi.registerEntityTag(\"Blaze\", (new AspectList()).add(Aspect.ELDRITCH, 4).add(Aspect.FIRE, 1))"
+  }
+}

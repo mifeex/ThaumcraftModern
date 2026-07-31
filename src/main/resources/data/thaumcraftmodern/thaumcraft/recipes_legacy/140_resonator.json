@@ -1,0 +1,23 @@
+{
+  "id": "resonator",
+  "legacy_id": "Resonator",
+  "legacy_kind": "arcane_shaped",
+  "inactive": true,
+  "inactive_reason": "recipe type or referenced content is not implemented",
+  "modern_recipe": "",
+  "required_aspects": [
+    {
+      "id": "aqua",
+      "amount": 5
+    },
+    {
+      "id": "aer",
+      "amount": 5
+    }
+  ],
+  "legacy": {
+    "source_expression": "ThaumcraftApi.addArcaneCraftingRecipe(\"TUBES\", new ItemStack(ConfigItems.itemResonator), (new AspectList()).add(Aspect.WATER, 5).add(Aspect.AIR, 5), \"I I\", \"INI\", \" S \", 'I', Items.field_151042_j, 'N', Items.field_151128_bU, 'S', \"stickWood\")",
+    "source_statement": "ConfigResearch.recipes.put(\"Resonator\", ThaumcraftApi.addArcaneCraftingRecipe(\"TUBES\", new ItemStack(ConfigItems.itemResonator), (new AspectList()).add(Aspect.WATER, 5).add(Aspect.AIR, 5), \"I I\", \"INI\", \" S \", 'I', Items.field_151042_j, 'N', Items.field_151128_bU, 'S', \"stickWood\"))",
+    "unkeyed": false
+  }
+}

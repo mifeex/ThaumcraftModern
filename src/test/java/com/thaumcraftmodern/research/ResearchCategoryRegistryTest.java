@@ -1,0 +1,55 @@
+package com.thaumcraftmodern.research;
+
+import org.junit.jupiter.api.Test;
+
+import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
+class ResearchCategoryRegistryTest {
+    @Test
+    void categoriesKeepDataDrivenOrderThroughNetworkSerialization() {
+        ResearchCategoryDefinition later = new ResearchCategoryDefinition(
+                "research",
+                "category.research",
+                "minecraft:book",
+                "minecraft:textures/gui/options_background.png",
+                10
+        );
+        ResearchCategoryDefinition first = new ResearchCategoryDefinition(
+                "basics",
+                "category.basics",
+                "minecraft:paper",
+                "minecraft:textures/gui/options_background.png",
+                0
+        );
+        ResearchCategoryRegistry.replace(List.of(later, first));
+
+        List<ResearchCategoryDefinition> restored = ResearchCategoryRegistry.deserialize(
+                ResearchCategoryRegistry.serialize()
+        );
+
+        assertEquals(List.of(first, later), restored);
+    }
+
+    @Test
+    void categoryResourceIconSurvivesNetworkSerialization() {
+        ResearchCategoryDefinition original = new ResearchCategoryDefinition(
+                "alchemy",
+                "category.alchemy",
+                "",
+                "thaumcraftmodern:textures/misc/r_crucible.png",
+                "thaumcraftmodern:textures/gui/gui_researchback.png",
+                2
+        );
+        ResearchCategoryRegistry.replace(List.of(original));
+
+        ResearchCategoryDefinition restored = ResearchCategoryRegistry.deserialize(
+                ResearchCategoryRegistry.serialize()
+        ).get(0);
+
+        assertEquals(original, restored);
+        assertTrue(restored.iconItem().isBlank());
+    }
+}

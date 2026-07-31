@@ -1,0 +1,1272 @@
+[
+  {
+    "type": "entity",
+    "target": "minecraft:zombie",
+    "aspects": [
+      {
+        "id": "exanimis",
+        "amount": 2
+      },
+      {
+        "id": "humanus",
+        "amount": 1
+      },
+      {
+        "id": "terra",
+        "amount": 1
+      }
+    ],
+    "legacy_entity_id": "Zombie",
+    "migration_status": "mapped"
+  },
+  {
+    "type": "entity",
+    "target": "minecraft:giant",
+    "aspects": [
+      {
+        "id": "exanimis",
+        "amount": 4
+      },
+      {
+        "id": "humanus",
+        "amount": 3
+      },
+      {
+        "id": "terra",
+        "amount": 3
+      }
+    ],
+    "legacy_entity_id": "Giant",
+    "migration_status": "mapped"
+  },
+  {
+    "type": "entity",
+    "target": "minecraft:skeleton",
+    "aspects": [
+      {
+        "id": "exanimis",
+        "amount": 3
+      },
+      {
+        "id": "humanus",
+        "amount": 1
+      },
+      {
+        "id": "terra",
+        "amount": 1
+      }
+    ],
+    "legacy_entity_id": "Skeleton",
+    "migration_status": "mapped"
+  },
+  {
+    "type": "entity",
+    "target": "minecraft:skeleton",
+    "aspects": [
+      {
+        "id": "exanimis",
+        "amount": 4
+      },
+      {
+        "id": "humanus",
+        "amount": 1
+      },
+      {
+        "id": "ignis",
+        "amount": 2
+      }
+    ],
+    "legacy_entity_id": "Skeleton",
+    "migration_status": "mapped",
+    "nbt_conditions_raw": [
+      "new ThaumcraftApi.EntityTagsNBT(\"SkeletonType\", (byte)1)"
+    ]
+  },
+  {
+    "type": "entity",
+    "target": "minecraft:creeper",
+    "aspects": [
+      {
+        "id": "herba",
+        "amount": 2
+      },
+      {
+        "id": "ignis",
+        "amount": 2
+      }
+    ],
+    "legacy_entity_id": "Creeper",
+    "migration_status": "mapped"
+  },
+  {
+    "type": "entity",
+    "target": "minecraft:creeper",
+    "aspects": [
+      {
+        "id": "herba",
+        "amount": 3
+      },
+      {
+        "id": "ignis",
+        "amount": 3
+      },
+      {
+        "id": "potentia",
+        "amount": 3
+      }
+    ],
+    "legacy_entity_id": "Creeper",
+    "migration_status": "mapped",
+    "nbt_conditions_raw": [
+      "new ThaumcraftApi.EntityTagsNBT(\"powered\", (byte)1)"
+    ]
+  },
+  {
+    "type": "entity",
+    "target": "minecraft:horse",
+    "aspects": [
+      {
+        "id": "bestia",
+        "amount": 4
+      },
+      {
+        "id": "terra",
+        "amount": 1
+      },
+      {
+        "id": "aer",
+        "amount": 1
+      }
+    ],
+    "legacy_entity_id": "EntityHorse",
+    "migration_status": "mapped"
+  },
+  {
+    "type": "entity",
+    "target": "minecraft:pig",
+    "aspects": [
+      {
+        "id": "bestia",
+        "amount": 2
+      },
+      {
+        "id": "terra",
+        "amount": 2
+      }
+    ],
+    "legacy_entity_id": "Pig",
+    "migration_status": "mapped"
+  },
+  {
+    "type": "entity",
+    "target": "minecraft:experience_orb",
+    "aspects": [
+      {
+        "id": "cognitio",
+        "amount": 5
+      }
+    ],
+    "legacy_entity_id": "XPOrb",
+    "migration_status": "mapped"
+  },
+  {
+    "type": "entity",
+    "target": "minecraft:sheep",
+    "aspects": [
+      {
+        "id": "bestia",
+        "amount": 2
+      },
+      {
+        "id": "terra",
+        "amount": 2
+      }
+    ],
+    "legacy_entity_id": "Sheep",
+    "migration_status": "mapped"
+  },
+  {
+    "type": "entity",
+    "target": "minecraft:cow",
+    "aspects": [
+      {
+        "id": "bestia",
+        "amount": 3
+      },
+      {
+        "id": "terra",
+        "amount": 3
+      }
+    ],
+    "legacy_entity_id": "Cow",
+    "migration_status": "mapped"
+  },
+  {
+    "type": "entity",
+    "target": "minecraft:mooshroom",
+    "aspects": [
+      {
+        "id": "bestia",
+        "amount": 3
+      },
+      {
+        "id": "herba",
+        "amount": 1
+      },
+      {
+        "id": "terra",
+        "amount": 2
+      }
+    ],
+    "legacy_entity_id": "MushroomCow",
+    "migration_status": "mapped"
+  },
+  {
+    "type": "entity",
+    "target": "minecraft:snow_golem",
+    "aspects": [
+      {
+        "id": "gelum",
+        "amount": 3
+      },
+      {
+        "id": "aqua",
+        "amount": 1
+      }
+    ],
+    "legacy_entity_id": "SnowMan",
+    "migration_status": "mapped"
+  },
+  {
+    "type": "entity",
+    "target": "minecraft:ocelot",
+    "aspects": [
+      {
+        "id": "bestia",
+        "amount": 3
+      },
+      {
+        "id": "perditio",
+        "amount": 3
+      }
+    ],
+    "legacy_entity_id": "Ozelot",
+    "migration_status": "mapped"
+  },
+  {
+    "type": "entity",
+    "target": "minecraft:chicken",
+    "aspects": [
+      {
+        "id": "bestia",
+        "amount": 2
+      },
+      {
+        "id": "volatus",
+        "amount": 2
+      },
+      {
+        "id": "aer",
+        "amount": 1
+      }
+    ],
+    "legacy_entity_id": "Chicken",
+    "migration_status": "mapped"
+  },
+  {
+    "type": "entity",
+    "target": "minecraft:squid",
+    "aspects": [
+      {
+        "id": "bestia",
+        "amount": 2
+      },
+      {
+        "id": "aqua",
+        "amount": 2
+      }
+    ],
+    "legacy_entity_id": "Squid",
+    "migration_status": "mapped"
+  },
+  {
+    "type": "entity",
+    "target": "minecraft:wolf",
+    "aspects": [
+      {
+        "id": "bestia",
+        "amount": 3
+      },
+      {
+        "id": "terra",
+        "amount": 3
+      }
+    ],
+    "legacy_entity_id": "Wolf",
+    "migration_status": "mapped"
+  },
+  {
+    "type": "entity",
+    "target": "minecraft:bat",
+    "aspects": [
+      {
+        "id": "bestia",
+        "amount": 1
+      },
+      {
+        "id": "volatus",
+        "amount": 1
+      },
+      {
+        "id": "aer",
+        "amount": 1
+      }
+    ],
+    "legacy_entity_id": "Bat",
+    "migration_status": "mapped"
+  },
+  {
+    "type": "entity",
+    "target": "minecraft:boat",
+    "aspects": [
+      {
+        "id": "machina",
+        "amount": 2
+      },
+      {
+        "id": "aqua",
+        "amount": 2
+      }
+    ],
+    "legacy_entity_id": "Boat",
+    "migration_status": "mapped"
+  },
+  {
+    "type": "entity",
+    "target": "minecraft:spider",
+    "aspects": [
+      {
+        "id": "bestia",
+        "amount": 3
+      },
+      {
+        "id": "perditio",
+        "amount": 2
+      }
+    ],
+    "legacy_entity_id": "Spider",
+    "migration_status": "mapped"
+  },
+  {
+    "type": "entity",
+    "target": "minecraft:slime",
+    "aspects": [
+      {
+        "id": "limus",
+        "amount": 2
+      },
+      {
+        "id": "aqua",
+        "amount": 2
+      }
+    ],
+    "legacy_entity_id": "Slime",
+    "migration_status": "mapped"
+  },
+  {
+    "type": "entity",
+    "target": "minecraft:ghast",
+    "aspects": [
+      {
+        "id": "exanimis",
+        "amount": 3
+      },
+      {
+        "id": "ignis",
+        "amount": 2
+      }
+    ],
+    "legacy_entity_id": "Ghast",
+    "migration_status": "mapped"
+  },
+  {
+    "type": "entity",
+    "target": "minecraft:zombified_piglin",
+    "aspects": [
+      {
+        "id": "exanimis",
+        "amount": 4
+      },
+      {
+        "id": "ignis",
+        "amount": 2
+      }
+    ],
+    "legacy_entity_id": "PigZombie",
+    "migration_status": "mapped"
+  },
+  {
+    "type": "entity",
+    "target": "minecraft:enderman",
+    "aspects": [
+      {
+        "id": "alienis",
+        "amount": 4
+      },
+      {
+        "id": "iter",
+        "amount": 2
+      },
+      {
+        "id": "aer",
+        "amount": 2
+      }
+    ],
+    "legacy_entity_id": "Enderman",
+    "migration_status": "mapped"
+  },
+  {
+    "type": "entity",
+    "target": "minecraft:cave_spider",
+    "aspects": [
+      {
+        "id": "bestia",
+        "amount": 2
+      },
+      {
+        "id": "venenum",
+        "amount": 2
+      },
+      {
+        "id": "terra",
+        "amount": 1
+      }
+    ],
+    "legacy_entity_id": "CaveSpider",
+    "migration_status": "mapped"
+  },
+  {
+    "type": "entity",
+    "target": "minecraft:silverfish",
+    "aspects": [
+      {
+        "id": "bestia",
+        "amount": 1
+      },
+      {
+        "id": "terra",
+        "amount": 1
+      }
+    ],
+    "legacy_entity_id": "Silverfish",
+    "migration_status": "mapped"
+  },
+  {
+    "type": "entity",
+    "target": "minecraft:blaze",
+    "aspects": [
+      {
+        "id": "alienis",
+        "amount": 4
+      },
+      {
+        "id": "ignis",
+        "amount": 1
+      }
+    ],
+    "legacy_entity_id": "Blaze",
+    "migration_status": "mapped"
+  },
+  {
+    "type": "entity",
+    "target": "minecraft:magma_cube",
+    "aspects": [
+      {
+        "id": "limus",
+        "amount": 3
+      },
+      {
+        "id": "ignis",
+        "amount": 2
+      }
+    ],
+    "legacy_entity_id": "LavaSlime",
+    "migration_status": "mapped"
+  },
+  {
+    "type": "entity",
+    "target": "minecraft:ender_dragon",
+    "aspects": [
+      {
+        "id": "alienis",
+        "amount": 20
+      },
+      {
+        "id": "bestia",
+        "amount": 20
+      },
+      {
+        "id": "perditio",
+        "amount": 20
+      }
+    ],
+    "legacy_entity_id": "EnderDragon",
+    "migration_status": "mapped"
+  },
+  {
+    "type": "entity",
+    "target": "minecraft:wither",
+    "aspects": [
+      {
+        "id": "exanimis",
+        "amount": 20
+      },
+      {
+        "id": "perditio",
+        "amount": 20
+      },
+      {
+        "id": "ignis",
+        "amount": 15
+      }
+    ],
+    "legacy_entity_id": "WitherBoss",
+    "migration_status": "mapped"
+  },
+  {
+    "type": "entity",
+    "target": "minecraft:witch",
+    "aspects": [
+      {
+        "id": "humanus",
+        "amount": 3
+      },
+      {
+        "id": "praecantatio",
+        "amount": 2
+      },
+      {
+        "id": "ignis",
+        "amount": 1
+      }
+    ],
+    "legacy_entity_id": "Witch",
+    "migration_status": "mapped"
+  },
+  {
+    "type": "entity",
+    "target": "minecraft:villager",
+    "aspects": [
+      {
+        "id": "humanus",
+        "amount": 3
+      },
+      {
+        "id": "aer",
+        "amount": 2
+      }
+    ],
+    "legacy_entity_id": "Villager",
+    "migration_status": "mapped"
+  },
+  {
+    "type": "entity",
+    "target": "minecraft:iron_golem",
+    "aspects": [
+      {
+        "id": "metallum",
+        "amount": 4
+      },
+      {
+        "id": "terra",
+        "amount": 3
+      }
+    ],
+    "legacy_entity_id": "VillagerGolem",
+    "migration_status": "mapped"
+  },
+  {
+    "type": "entity",
+    "target": "minecraft:minecart",
+    "aspects": [
+      {
+        "id": "machina",
+        "amount": 3
+      },
+      {
+        "id": "aer",
+        "amount": 2
+      }
+    ],
+    "legacy_entity_id": "MinecartRideable",
+    "migration_status": "mapped"
+  },
+  {
+    "type": "entity",
+    "target": "minecraft:chest_minecart",
+    "aspects": [
+      {
+        "id": "machina",
+        "amount": 3
+      },
+      {
+        "id": "aer",
+        "amount": 1
+      },
+      {
+        "id": "vacuos",
+        "amount": 1
+      }
+    ],
+    "legacy_entity_id": "MinecartChest",
+    "migration_status": "mapped"
+  },
+  {
+    "type": "entity",
+    "target": "minecraft:furnace_minecart",
+    "aspects": [
+      {
+        "id": "machina",
+        "amount": 3
+      },
+      {
+        "id": "aer",
+        "amount": 1
+      },
+      {
+        "id": "ignis",
+        "amount": 1
+      }
+    ],
+    "legacy_entity_id": "MinecartFurnace",
+    "migration_status": "mapped"
+  },
+  {
+    "type": "entity",
+    "target": "minecraft:tnt_minecart",
+    "aspects": [
+      {
+        "id": "machina",
+        "amount": 3
+      },
+      {
+        "id": "aer",
+        "amount": 1
+      },
+      {
+        "id": "ignis",
+        "amount": 1
+      }
+    ],
+    "legacy_entity_id": "MinecartTNT",
+    "migration_status": "mapped"
+  },
+  {
+    "type": "entity",
+    "target": "minecraft:hopper_minecart",
+    "aspects": [
+      {
+        "id": "machina",
+        "amount": 3
+      },
+      {
+        "id": "aer",
+        "amount": 1
+      },
+      {
+        "id": "permutatio",
+        "amount": 1
+      }
+    ],
+    "legacy_entity_id": "MinecartHopper",
+    "migration_status": "mapped"
+  },
+  {
+    "type": "entity",
+    "target": "minecraft:spawner_minecart",
+    "aspects": [
+      {
+        "id": "machina",
+        "amount": 3
+      },
+      {
+        "id": "aer",
+        "amount": 1
+      },
+      {
+        "id": "praecantatio",
+        "amount": 1
+      }
+    ],
+    "legacy_entity_id": "MinecartSpawner",
+    "migration_status": "mapped"
+  },
+  {
+    "type": "entity",
+    "target": "minecraft:end_crystal",
+    "aspects": [
+      {
+        "id": "alienis",
+        "amount": 3
+      },
+      {
+        "id": "praecantatio",
+        "amount": 3
+      },
+      {
+        "id": "sano",
+        "amount": 3
+      }
+    ],
+    "legacy_entity_id": "EnderCrystal",
+    "migration_status": "mapped"
+  },
+  {
+    "type": "entity",
+    "target": "minecraft:item_frame",
+    "aspects": [
+      {
+        "id": "sensus",
+        "amount": 3
+      },
+      {
+        "id": "pannus",
+        "amount": 1
+      }
+    ],
+    "legacy_entity_id": "ItemFrame",
+    "migration_status": "mapped"
+  },
+  {
+    "type": "entity",
+    "target": "minecraft:painting",
+    "aspects": [
+      {
+        "id": "sensus",
+        "amount": 5
+      },
+      {
+        "id": "pannus",
+        "amount": 3
+      }
+    ],
+    "legacy_entity_id": "Painting",
+    "migration_status": "mapped"
+  },
+  {
+    "type": "entity",
+    "target": null,
+    "aspects": [
+      {
+        "id": "aer",
+        "amount": 5
+      },
+      {
+        "id": "perditio",
+        "amount": 10
+      },
+      {
+        "id": "praecantatio",
+        "amount": 10
+      },
+      {
+        "id": "potentia",
+        "amount": 10
+      }
+    ],
+    "legacy_entity_id": "Thaumcraft.PrimalOrb",
+    "migration_status": "requires_target_mapping"
+  },
+  {
+    "type": "entity",
+    "target": null,
+    "aspects": [
+      {
+        "id": "bestia",
+        "amount": 2
+      },
+      {
+        "id": "volatus",
+        "amount": 1
+      },
+      {
+        "id": "ignis",
+        "amount": 2
+      }
+    ],
+    "legacy_entity_id": "Thaumcraft.Firebat",
+    "migration_status": "requires_target_mapping"
+  },
+  {
+    "type": "entity",
+    "target": null,
+    "aspects": [
+      {
+        "id": "humanus",
+        "amount": 2
+      },
+      {
+        "id": "praecantatio",
+        "amount": 2
+      },
+      {
+        "id": "permutatio",
+        "amount": 2
+      },
+      {
+        "id": "lucrum",
+        "amount": 2
+      }
+    ],
+    "legacy_entity_id": "Thaumcraft.Pech",
+    "migration_status": "requires_target_mapping",
+    "nbt_conditions_raw": [
+      "new ThaumcraftApi.EntityTagsNBT(\"PechType\", (byte)0)"
+    ]
+  },
+  {
+    "type": "entity",
+    "target": null,
+    "aspects": [
+      {
+        "id": "humanus",
+        "amount": 2
+      },
+      {
+        "id": "praecantatio",
+        "amount": 2
+      },
+      {
+        "id": "permutatio",
+        "amount": 2
+      },
+      {
+        "id": "telum",
+        "amount": 2
+      }
+    ],
+    "legacy_entity_id": "Thaumcraft.Pech",
+    "migration_status": "requires_target_mapping",
+    "nbt_conditions_raw": [
+      "new ThaumcraftApi.EntityTagsNBT(\"PechType\", (byte)1)"
+    ]
+  },
+  {
+    "type": "entity",
+    "target": null,
+    "aspects": [
+      {
+        "id": "humanus",
+        "amount": 2
+      },
+      {
+        "id": "praecantatio",
+        "amount": 4
+      },
+      {
+        "id": "permutatio",
+        "amount": 2
+      }
+    ],
+    "legacy_entity_id": "Thaumcraft.Pech",
+    "migration_status": "requires_target_mapping",
+    "nbt_conditions_raw": [
+      "new ThaumcraftApi.EntityTagsNBT(\"PechType\", (byte)2)"
+    ]
+  },
+  {
+    "type": "entity",
+    "target": null,
+    "aspects": [
+      {
+        "id": "limus",
+        "amount": 2
+      },
+      {
+        "id": "praecantatio",
+        "amount": 1
+      },
+      {
+        "id": "aqua",
+        "amount": 1
+      }
+    ],
+    "legacy_entity_id": "Thaumcraft.ThaumSlime",
+    "migration_status": "requires_target_mapping"
+  },
+  {
+    "type": "entity",
+    "target": null,
+    "aspects": [
+      {
+        "id": "exanimis",
+        "amount": 3
+      },
+      {
+        "id": "humanus",
+        "amount": 1
+      },
+      {
+        "id": "cognitio",
+        "amount": 1
+      },
+      {
+        "id": "terra",
+        "amount": 1
+      }
+    ],
+    "legacy_entity_id": "Thaumcraft.BrainyZombie",
+    "migration_status": "requires_target_mapping"
+  },
+  {
+    "type": "entity",
+    "target": null,
+    "aspects": [
+      {
+        "id": "exanimis",
+        "amount": 4
+      },
+      {
+        "id": "humanus",
+        "amount": 2
+      },
+      {
+        "id": "cognitio",
+        "amount": 1
+      },
+      {
+        "id": "terra",
+        "amount": 2
+      }
+    ],
+    "legacy_entity_id": "Thaumcraft.GiantBrainyZombie",
+    "migration_status": "requires_target_mapping"
+  },
+  {
+    "type": "entity",
+    "target": null,
+    "aspects": [
+      {
+        "id": "vitium",
+        "amount": 3
+      },
+      {
+        "id": "aqua",
+        "amount": 2
+      }
+    ],
+    "legacy_entity_id": "Thaumcraft.Taintacle",
+    "migration_status": "requires_target_mapping"
+  },
+  {
+    "type": "entity",
+    "target": null,
+    "aspects": [
+      {
+        "id": "vitium",
+        "amount": 1
+      },
+      {
+        "id": "aqua",
+        "amount": 1
+      }
+    ],
+    "legacy_entity_id": "Thaumcraft.TaintacleTiny",
+    "migration_status": "requires_target_mapping"
+  },
+  {
+    "type": "entity",
+    "target": null,
+    "aspects": [
+      {
+        "id": "vitium",
+        "amount": 1
+      },
+      {
+        "id": "terra",
+        "amount": 1
+      }
+    ],
+    "legacy_entity_id": "Thaumcraft.TaintSpider",
+    "migration_status": "requires_target_mapping"
+  },
+  {
+    "type": "entity",
+    "target": null,
+    "aspects": [
+      {
+        "id": "vitium",
+        "amount": 2
+      },
+      {
+        "id": "aer",
+        "amount": 2
+      }
+    ],
+    "legacy_entity_id": "Thaumcraft.TaintSpore",
+    "migration_status": "requires_target_mapping"
+  },
+  {
+    "type": "entity",
+    "target": null,
+    "aspects": [
+      {
+        "id": "vitium",
+        "amount": 2
+      },
+      {
+        "id": "aer",
+        "amount": 2
+      }
+    ],
+    "legacy_entity_id": "Thaumcraft.TaintSwarmer",
+    "migration_status": "requires_target_mapping"
+  },
+  {
+    "type": "entity",
+    "target": null,
+    "aspects": [
+      {
+        "id": "vitium",
+        "amount": 3
+      },
+      {
+        "id": "aer",
+        "amount": 3
+      }
+    ],
+    "legacy_entity_id": "Thaumcraft.TaintSwarm",
+    "migration_status": "requires_target_mapping"
+  },
+  {
+    "type": "entity",
+    "target": null,
+    "aspects": [
+      {
+        "id": "vitium",
+        "amount": 2
+      },
+      {
+        "id": "terra",
+        "amount": 2
+      }
+    ],
+    "legacy_entity_id": "Thaumcraft.TaintedPig",
+    "migration_status": "requires_target_mapping"
+  },
+  {
+    "type": "entity",
+    "target": null,
+    "aspects": [
+      {
+        "id": "vitium",
+        "amount": 2
+      },
+      {
+        "id": "terra",
+        "amount": 2
+      }
+    ],
+    "legacy_entity_id": "Thaumcraft.TaintedSheep",
+    "migration_status": "requires_target_mapping"
+  },
+  {
+    "type": "entity",
+    "target": null,
+    "aspects": [
+      {
+        "id": "vitium",
+        "amount": 3
+      },
+      {
+        "id": "terra",
+        "amount": 3
+      }
+    ],
+    "legacy_entity_id": "Thaumcraft.TaintedCow",
+    "migration_status": "requires_target_mapping"
+  },
+  {
+    "type": "entity",
+    "target": null,
+    "aspects": [
+      {
+        "id": "vitium",
+        "amount": 2
+      },
+      {
+        "id": "volatus",
+        "amount": 2
+      },
+      {
+        "id": "aer",
+        "amount": 1
+      }
+    ],
+    "legacy_entity_id": "Thaumcraft.TaintedChicken",
+    "migration_status": "requires_target_mapping"
+  },
+  {
+    "type": "entity",
+    "target": null,
+    "aspects": [
+      {
+        "id": "vitium",
+        "amount": 3
+      },
+      {
+        "id": "aer",
+        "amount": 2
+      }
+    ],
+    "legacy_entity_id": "Thaumcraft.TaintedVillager",
+    "migration_status": "requires_target_mapping"
+  },
+  {
+    "type": "entity",
+    "target": null,
+    "aspects": [
+      {
+        "id": "vitium",
+        "amount": 2
+      },
+      {
+        "id": "ignis",
+        "amount": 2
+      }
+    ],
+    "legacy_entity_id": "Thaumcraft.TaintedCreeper",
+    "migration_status": "requires_target_mapping"
+  },
+  {
+    "type": "entity",
+    "target": null,
+    "aspects": [
+      {
+        "id": "vitium",
+        "amount": 2
+      },
+      {
+        "id": "ignis",
+        "amount": 2
+      }
+    ],
+    "legacy_entity_id": "Thaumcraft.MindSpider",
+    "migration_status": "requires_target_mapping"
+  },
+  {
+    "type": "entity",
+    "target": null,
+    "aspects": [
+      {
+        "id": "alienis",
+        "amount": 4
+      },
+      {
+        "id": "mortuus",
+        "amount": 2
+      },
+      {
+        "id": "exanimis",
+        "amount": 4
+      }
+    ],
+    "legacy_entity_id": "Thaumcraft.EldritchGuardian",
+    "migration_status": "requires_target_mapping"
+  },
+  {
+    "type": "entity",
+    "target": null,
+    "aspects": [
+      {
+        "id": "alienis",
+        "amount": 2
+      },
+      {
+        "id": "mortuus",
+        "amount": 2
+      }
+    ],
+    "legacy_entity_id": "Thaumcraft.EldritchOrb",
+    "migration_status": "requires_target_mapping"
+  },
+  {
+    "type": "entity",
+    "target": null,
+    "aspects": [
+      {
+        "id": "alienis",
+        "amount": 1
+      },
+      {
+        "id": "humanus",
+        "amount": 2
+      },
+      {
+        "id": "perditio",
+        "amount": 1
+      }
+    ],
+    "legacy_entity_id": "Thaumcraft.CultistKnight",
+    "migration_status": "requires_target_mapping"
+  },
+  {
+    "type": "entity",
+    "target": null,
+    "aspects": [
+      {
+        "id": "alienis",
+        "amount": 1
+      },
+      {
+        "id": "humanus",
+        "amount": 2
+      },
+      {
+        "id": "perditio",
+        "amount": 1
+      }
+    ],
+    "legacy_entity_id": "Thaumcraft.CultistCleric",
+    "migration_status": "requires_target_mapping"
+  },
+  {
+    "type": "entity",
+    "target": null,
+    "aspects": [
+      {
+        "id": "praecantatio",
+        "amount": 1
+      },
+      {
+        "id": "aer",
+        "amount": 1
+      }
+    ],
+    "legacy_entity_id": "Thaumcraft.Wisp",
+    "migration_status": "requires_target_mapping",
+    "nbt_conditions_raw": [
+      "new ThaumcraftApi.EntityTagsNBT(\"Type\", tag.getTag())"
+    ]
+  },
+  {
+    "type": "entity",
+    "target": null,
+    "aspects": [
+      {
+        "id": "aer",
+        "amount": 2
+      },
+      {
+        "id": "terra",
+        "amount": 2
+      },
+      {
+        "id": "praecantatio",
+        "amount": 2
+      }
+    ],
+    "legacy_entity_id": "Thaumcraft.Golem",
+    "migration_status": "requires_target_mapping"
+  }
+]

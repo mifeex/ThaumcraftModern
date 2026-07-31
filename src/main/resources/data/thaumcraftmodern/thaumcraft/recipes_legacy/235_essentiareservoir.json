@@ -1,0 +1,31 @@
+{
+  "id": "essentiareservoir",
+  "legacy_id": "EssentiaReservoir",
+  "legacy_kind": "infusion",
+  "inactive": true,
+  "inactive_reason": "recipe type or referenced content is not implemented",
+  "modern_recipe": "",
+  "required_aspects": [
+    {
+      "id": "aqua",
+      "amount": 8
+    },
+    {
+      "id": "vacuos",
+      "amount": 8
+    },
+    {
+      "id": "praecantatio",
+      "amount": 8
+    },
+    {
+      "id": "permutatio",
+      "amount": 8
+    }
+  ],
+  "legacy": {
+    "source_expression": "ThaumcraftApi.addInfusionCraftingRecipe(\"ESSENTIARESERVOIR\", new ItemStack(ConfigBlocks.blockEssentiaReservoir), 6, (new AspectList()).add(Aspect.WATER, 8).add(Aspect.VOID, 8).add(Aspect.MAGIC, 8).add(Aspect.EXCHANGE, 8), new ItemStack(ConfigBlocks.blockTube, 1, 4), new ItemStack[]{new ItemStack(ConfigItems.itemResource, 1, 16), new ItemStack(ConfigBlocks.blockJar, 1, 0), new ItemStack(ConfigBlocks.blockJar, 1, 0), new ItemStack(ConfigItems.itemResource, 1, 16), new ItemStack(ConfigBlocks.blockJar, 1, 0), new ItemStack(ConfigBlocks.blockJar, 1, 0)})",
+    "source_statement": "ConfigResearch.recipes.put(\"EssentiaReservoir\", ThaumcraftApi.addInfusionCraftingRecipe(\"ESSENTIARESERVOIR\", new ItemStack(ConfigBlocks.blockEssentiaReservoir), 6, (new AspectList()).add(Aspect.WATER, 8).add(Aspect.VOID, 8).add(Aspect.MAGIC, 8).add(Aspect.EXCHANGE, 8), new ItemStack(ConfigBlocks.blockTube, 1, 4), new ItemStack[]{new ItemStack(ConfigItems.itemResource, 1, 16), new ItemStack(ConfigBlocks.blockJar, 1, 0), new ItemStack(ConfigBlocks.blockJar, 1, 0), new ItemStack(ConfigItems.itemResource, 1, 16), new ItemStack(ConfigBlocks.blockJar, 1, 0), new ItemStack(ConfigBlocks.blockJar, 1, 0)}))",
+    "unkeyed": false
+  }
+}

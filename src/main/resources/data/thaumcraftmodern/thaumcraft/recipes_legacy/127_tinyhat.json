@@ -1,0 +1,23 @@
+{
+  "id": "tinyhat",
+  "legacy_id": "TinyHat",
+  "legacy_kind": "arcane_shaped",
+  "inactive": true,
+  "inactive_reason": "recipe type or referenced content is not implemented",
+  "modern_recipe": "",
+  "required_aspects": [
+    {
+      "id": "ordo",
+      "amount": 8
+    },
+    {
+      "id": "ignis",
+      "amount": 8
+    }
+  ],
+  "legacy": {
+    "source_expression": "ThaumcraftApi.addArcaneCraftingRecipe(\"TINYHAT\", new ItemStack(ConfigItems.itemGolemDecoration, 1, 0), (new AspectList()).add(Aspect.ORDER, 8).add(Aspect.FIRE, 8), \" C \", \" G \", \"CCC\", 'C', new ItemStack(Blocks.field_150325_L, 1, 15), 'G', Items.field_151043_k)",
+    "source_statement": "ConfigResearch.recipes.put(\"TinyHat\", ThaumcraftApi.addArcaneCraftingRecipe(\"TINYHAT\", new ItemStack(ConfigItems.itemGolemDecoration, 1, 0), (new AspectList()).add(Aspect.ORDER, 8).add(Aspect.FIRE, 8), \" C \", \" G \", \"CCC\", 'C', new ItemStack(Blocks.field_150325_L, 1, 15), 'G', Items.field_151043_k))",
+    "unkeyed": false
+  }
+}

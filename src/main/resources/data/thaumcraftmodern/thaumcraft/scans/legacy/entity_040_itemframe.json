@@ -1,0 +1,33 @@
+{
+  "type": "entity",
+  "target": "minecraft:item_frame",
+  "display": "",
+  "aspects": [
+    {
+      "id": "sensus",
+      "amount": 3
+    },
+    {
+      "id": "pannus",
+      "amount": 1
+    }
+  ],
+  "inactive": false,
+  "inactive_reason": null,
+  "legacy": {
+    "legacy_entity_id": "ItemFrame",
+    "modern_target": "minecraft:item_frame",
+    "aspects": [
+      {
+        "id": "sensus",
+        "amount": 3
+      },
+      {
+        "id": "pannus",
+        "amount": 1
+      }
+    ],
+    "nbt_conditions_raw": [],
+    "source_expression": "ThaumcraftApi.registerEntityTag(\"ItemFrame\", (new AspectList()).add(Aspect.SENSES, 3).add(Aspect.CLOTH, 1))"
+  }
+}

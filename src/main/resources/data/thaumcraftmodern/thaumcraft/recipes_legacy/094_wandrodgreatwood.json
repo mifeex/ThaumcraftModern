@@ -1,0 +1,19 @@
+{
+  "id": "wandrodgreatwood",
+  "legacy_id": "WandRodGreatwood",
+  "legacy_kind": "arcane_shaped",
+  "inactive": true,
+  "inactive_reason": "recipe type or referenced content is not implemented",
+  "modern_recipe": "",
+  "required_aspects": [
+    {
+      "id": "perditio",
+      "amount": "((WandRod"
+    }
+  ],
+  "legacy": {
+    "source_expression": "ThaumcraftApi.addArcaneCraftingRecipe(\"ROD_greatwood\", new ItemStack(ConfigItems.itemWandRod, 1, 0), (new AspectList()).add(Aspect.ENTROPY, ((WandRod)WandRod.rods.get(\"greatwood\")).getCraftCost()), \" G\", \"G \", 'G', new ItemStack(ConfigBlocks.blockMagicalLog, 1, 0))",
+    "source_statement": "ConfigResearch.recipes.put(\"WandRodGreatwood\", ThaumcraftApi.addArcaneCraftingRecipe(\"ROD_greatwood\", new ItemStack(ConfigItems.itemWandRod, 1, 0), (new AspectList()).add(Aspect.ENTROPY, ((WandRod)WandRod.rods.get(\"greatwood\")).getCraftCost()), \" G\", \"G \", 'G', new ItemStack(ConfigBlocks.blockMagicalLog, 1, 0)))",
+    "unkeyed": false
+  }
+}

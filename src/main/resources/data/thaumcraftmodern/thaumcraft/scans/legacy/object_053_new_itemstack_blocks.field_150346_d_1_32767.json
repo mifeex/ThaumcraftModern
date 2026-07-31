@@ -1,0 +1,33 @@
+{
+  "type": "block",
+  "target": "minecraft:dirt",
+  "display": "",
+  "aspects": [
+    {
+      "id": "terra",
+      "amount": 2
+    }
+  ],
+  "inactive": false,
+  "inactive_reason": null,
+  "legacy": {
+    "registration_mode": "explicit",
+    "target_kind": "item_stack",
+    "legacy_target": "new ItemStack(Blocks.field_150346_d, 1, 32767)",
+    "metadata_group_raw": null,
+    "aspects": [
+      {
+        "id": "terra",
+        "amount": 2
+      }
+    ],
+    "aspect_operations": [
+      {
+        "operation": "add",
+        "id": "terra",
+        "amount": 2
+      }
+    ],
+    "source_expression": "ThaumcraftApi.registerObjectTag(new ItemStack(Blocks.field_150346_d, 1, 32767), (new AspectList()).add(Aspect.EARTH, 2))"
+  }
+}

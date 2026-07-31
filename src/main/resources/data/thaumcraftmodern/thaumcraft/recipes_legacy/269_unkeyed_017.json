@@ -1,0 +1,14 @@
+{
+  "id": "unkeyed_017",
+  "legacy_id": "unkeyed_017",
+  "legacy_kind": "legacy_java",
+  "inactive": true,
+  "inactive_reason": "recipe type or referenced content is not implemented",
+  "modern_recipe": "",
+  "required_aspects": [],
+  "legacy": {
+    "source_expression": "GameRegistry.addRecipe(new ItemStack(ConfigBlocks.blockCosmeticSolid, 4, 1), new Object[]{\"##\", \"##\", '#', Blocks.field_150343_Z})",
+    "source_statement": "GameRegistry.addRecipe(new ItemStack(ConfigBlocks.blockCosmeticSolid, 4, 1), new Object[]{\"##\", \"##\", '#', Blocks.field_150343_Z})",
+    "unkeyed": true
+  }
+}

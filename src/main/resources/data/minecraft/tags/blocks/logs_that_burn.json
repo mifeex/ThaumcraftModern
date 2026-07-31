@@ -1,0 +1,8 @@
+{
+  "replace": false,
+  "values": [
+    "thaumcraftmodern:greatwood_log",
+    "thaumcraftmodern:silverwood_log",
+    "thaumcraftmodern:silverwood_node"
+  ]
+}

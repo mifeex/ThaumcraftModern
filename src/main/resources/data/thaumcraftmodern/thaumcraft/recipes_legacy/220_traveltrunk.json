@@ -1,0 +1,31 @@
+{
+  "id": "traveltrunk",
+  "legacy_id": "TravelTrunk",
+  "legacy_kind": "infusion",
+  "inactive": true,
+  "inactive_reason": "recipe type or referenced content is not implemented",
+  "modern_recipe": "",
+  "required_aspects": [
+    {
+      "id": "motus",
+      "amount": 4
+    },
+    {
+      "id": "spiritus",
+      "amount": 4
+    },
+    {
+      "id": "iter",
+      "amount": 4
+    },
+    {
+      "id": "vacuos",
+      "amount": 16
+    }
+  ],
+  "legacy": {
+    "source_expression": "ThaumcraftApi.addInfusionCraftingRecipe(\"TRAVELTRUNK\", new ItemStack(ConfigItems.itemTrunkSpawner), 3, (new AspectList()).add(Aspect.MOTION, 4).add(Aspect.SOUL, 4).add(Aspect.TRAVEL, 4).add(Aspect.VOID, 16), new ItemStack(ConfigBlocks.blockChestHungry), new ItemStack[]{new ItemStack(Items.field_151042_j), new ItemStack(ConfigBlocks.blockWoodenDevice, 1, 6), new ItemStack(ConfigItems.itemGolemPlacer, 1, 1), new ItemStack(ConfigBlocks.blockWoodenDevice, 1, 6)})",
+    "source_statement": "ConfigResearch.recipes.put(\"TravelTrunk\", ThaumcraftApi.addInfusionCraftingRecipe(\"TRAVELTRUNK\", new ItemStack(ConfigItems.itemTrunkSpawner), 3, (new AspectList()).add(Aspect.MOTION, 4).add(Aspect.SOUL, 4).add(Aspect.TRAVEL, 4).add(Aspect.VOID, 16), new ItemStack(ConfigBlocks.blockChestHungry), new ItemStack[]{new ItemStack(Items.field_151042_j), new ItemStack(ConfigBlocks.blockWoodenDevice, 1, 6), new ItemStack(ConfigItems.itemGolemPlacer, 1, 1), new ItemStack(ConfigBlocks.blockWoodenDevice, 1, 6)}))",
+    "unkeyed": false
+  }
+}

@@ -1,0 +1,27 @@
+{
+  "id": "thaumiumfortresschest",
+  "legacy_id": "ThaumiumFortressChest",
+  "legacy_kind": "infusion",
+  "inactive": true,
+  "inactive_reason": "recipe type or referenced content is not implemented",
+  "modern_recipe": "",
+  "required_aspects": [
+    {
+      "id": "metallum",
+      "amount": 24
+    },
+    {
+      "id": "tutamen",
+      "amount": 24
+    },
+    {
+      "id": "praecantatio",
+      "amount": 16
+    }
+  ],
+  "legacy": {
+    "source_expression": "ThaumcraftApi.addInfusionCraftingRecipe(\"ARMORFORTRESS\", new ItemStack(ConfigItems.itemChestFortress), 3, (new AspectList()).add(Aspect.METAL, 24).add(Aspect.ARMOR, 24).add(Aspect.MAGIC, 16), new ItemStack(ConfigItems.itemChestThaumium), new ItemStack[]{new ItemStack(ConfigItems.itemResource, 1, 2), new ItemStack(ConfigItems.itemResource, 1, 2), new ItemStack(ConfigItems.itemResource, 1, 2), new ItemStack(ConfigItems.itemResource, 1, 2), new ItemStack(Items.field_151043_k), new ItemStack(Items.field_151116_aA)})",
+    "source_statement": "ConfigResearch.recipes.put(\"ThaumiumFortressChest\", ThaumcraftApi.addInfusionCraftingRecipe(\"ARMORFORTRESS\", new ItemStack(ConfigItems.itemChestFortress), 3, (new AspectList()).add(Aspect.METAL, 24).add(Aspect.ARMOR, 24).add(Aspect.MAGIC, 16), new ItemStack(ConfigItems.itemChestThaumium), new ItemStack[]{new ItemStack(ConfigItems.itemResource, 1, 2), new ItemStack(ConfigItems.itemResource, 1, 2), new ItemStack(ConfigItems.itemResource, 1, 2), new ItemStack(ConfigItems.itemResource, 1, 2), new ItemStack(Items.field_151043_k), new ItemStack(Items.field_151116_aA)}))",
+    "unkeyed": false
+  }
+}

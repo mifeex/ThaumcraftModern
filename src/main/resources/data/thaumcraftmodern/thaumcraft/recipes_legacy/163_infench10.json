@@ -1,0 +1,27 @@
+{
+  "id": "infench10",
+  "legacy_id": "InfEnch10",
+  "legacy_kind": "infusion_enchantment",
+  "inactive": true,
+  "inactive_reason": "recipe type or referenced content is not implemented",
+  "modern_recipe": "",
+  "required_aspects": [
+    {
+      "id": "praecantatio",
+      "amount": 4
+    },
+    {
+      "id": "telum",
+      "amount": 4
+    },
+    {
+      "id": "bestia",
+      "amount": 4
+    }
+  ],
+  "legacy": {
+    "source_expression": "ThaumcraftApi.addInfusionEnchantmentRecipe(\"INFUSIONENCHANTMENT\", Enchantment.field_77336_l, 2, (new AspectList()).add(Aspect.MAGIC, 4).add(Aspect.WEAPON, 4).add(Aspect.BEAST, 4), new ItemStack[]{new ItemStack(Items.field_151040_l), new ItemStack(ConfigItems.itemResource, 1, 6), new ItemStack(ConfigItems.itemResource, 1, 14)})",
+    "source_statement": "ConfigResearch.recipes.put(\"InfEnch10\", ThaumcraftApi.addInfusionEnchantmentRecipe(\"INFUSIONENCHANTMENT\", Enchantment.field_77336_l, 2, (new AspectList()).add(Aspect.MAGIC, 4).add(Aspect.WEAPON, 4).add(Aspect.BEAST, 4), new ItemStack[]{new ItemStack(Items.field_151040_l), new ItemStack(ConfigItems.itemResource, 1, 6), new ItemStack(ConfigItems.itemResource, 1, 14)}))",
+    "unkeyed": false
+  }
+}

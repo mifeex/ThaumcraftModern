@@ -1,0 +1,23 @@
+{
+  "id": "tinyglasses",
+  "legacy_id": "TinyGlasses",
+  "legacy_kind": "arcane_shaped",
+  "inactive": true,
+  "inactive_reason": "recipe type or referenced content is not implemented",
+  "modern_recipe": "",
+  "required_aspects": [
+    {
+      "id": "aer",
+      "amount": 4
+    },
+    {
+      "id": "aqua",
+      "amount": 4
+    }
+  ],
+  "legacy": {
+    "source_expression": "ThaumcraftApi.addArcaneCraftingRecipe(\"TINYGLASSES\", new ItemStack(ConfigItems.itemGolemDecoration, 1, 1), (new AspectList()).add(Aspect.AIR, 4).add(Aspect.WATER, 4), \"GIG\", 'G', Blocks.field_150359_w, 'I', Items.field_151042_j)",
+    "source_statement": "ConfigResearch.recipes.put(\"TinyGlasses\", ThaumcraftApi.addArcaneCraftingRecipe(\"TINYGLASSES\", new ItemStack(ConfigItems.itemGolemDecoration, 1, 1), (new AspectList()).add(Aspect.AIR, 4).add(Aspect.WATER, 4), \"GIG\", 'G', Blocks.field_150359_w, 'I', Items.field_151042_j))",
+    "unkeyed": false
+  }
+}

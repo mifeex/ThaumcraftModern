@@ -1,0 +1,23 @@
+{
+  "id": "golemfetter",
+  "legacy_id": "GolemFetter",
+  "legacy_kind": "arcane_shaped",
+  "inactive": true,
+  "inactive_reason": "recipe type or referenced content is not implemented",
+  "modern_recipe": "",
+  "required_aspects": [
+    {
+      "id": "terra",
+      "amount": 5
+    },
+    {
+      "id": "ordo",
+      "amount": 5
+    }
+  ],
+  "legacy": {
+    "source_expression": "ThaumcraftApi.addArcaneCraftingRecipe(\"GOLEMFETTER\", new ItemStack(ConfigBlocks.blockCosmeticSolid, 1, 9), (new AspectList()).add(Aspect.EARTH, 5).add(Aspect.ORDER, 5), \"SSS\", \"IRI\", \"BBB\", 'S', new ItemStack(ConfigBlocks.blockCosmeticSolid, 1, 6), 'I', new ItemStack(Items.field_151042_j), 'B', new ItemStack(ConfigBlocks.blockCosmeticSolid, 1, 7), 'R', new ItemStack(Blocks.field_150451_bX))",
+    "source_statement": "ConfigResearch.recipes.put(\"GolemFetter\", ThaumcraftApi.addArcaneCraftingRecipe(\"GOLEMFETTER\", new ItemStack(ConfigBlocks.blockCosmeticSolid, 1, 9), (new AspectList()).add(Aspect.EARTH, 5).add(Aspect.ORDER, 5), \"SSS\", \"IRI\", \"BBB\", 'S', new ItemStack(ConfigBlocks.blockCosmeticSolid, 1, 6), 'I', new ItemStack(Items.field_151042_j), 'B', new ItemStack(ConfigBlocks.blockCosmeticSolid, 1, 7), 'R', new ItemStack(Blocks.field_150451_bX)))",
+    "unkeyed": false
+  }
+}

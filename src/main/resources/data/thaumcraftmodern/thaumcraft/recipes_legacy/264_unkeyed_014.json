@@ -1,0 +1,14 @@
+{
+  "id": "unkeyed_014",
+  "legacy_id": "unkeyed_014",
+  "legacy_kind": "crafting_shaped",
+  "inactive": true,
+  "inactive_reason": "recipe type or referenced content is not implemented",
+  "modern_recipe": "",
+  "required_aspects": [],
+  "legacy": {
+    "source_expression": "GameRegistry.addShapedRecipe(new ItemStack(ConfigItems.itemResource, 9, 4), new Object[]{\"K\", 'K', new ItemStack(ConfigBlocks.blockCosmeticSolid, 1, 5)})",
+    "source_statement": "GameRegistry.addShapedRecipe(new ItemStack(ConfigItems.itemResource, 9, 4), new Object[]{\"K\", 'K', new ItemStack(ConfigBlocks.blockCosmeticSolid, 1, 5)})",
+    "unkeyed": true
+  }
+}

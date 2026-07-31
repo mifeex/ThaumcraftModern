@@ -1,0 +1,31 @@
+{
+  "id": "infench21",
+  "legacy_id": "InfEnch21",
+  "legacy_kind": "infusion_enchantment",
+  "inactive": true,
+  "inactive_reason": "recipe type or referenced content is not implemented",
+  "modern_recipe": "",
+  "required_aspects": [
+    {
+      "id": "praecantatio",
+      "amount": 8
+    },
+    {
+      "id": "telum",
+      "amount": 16
+    },
+    {
+      "id": "vacuos",
+      "amount": 16
+    },
+    {
+      "id": "permutatio",
+      "amount": 16
+    }
+  ],
+  "legacy": {
+    "source_expression": "ThaumcraftApi.addInfusionEnchantmentRecipe(\"INFUSIONENCHANTMENT\", Enchantment.field_77342_w, 5, (new AspectList()).add(Aspect.MAGIC, 8).add(Aspect.WEAPON, 16).add(Aspect.VOID, 16).add(Aspect.EXCHANGE, 16), new ItemStack[]{new ItemStack(Items.field_151031_f), new ItemStack(Items.field_151032_g), new ItemStack(ConfigItems.itemResource, 1, 14)})",
+    "source_statement": "ConfigResearch.recipes.put(\"InfEnch21\", ThaumcraftApi.addInfusionEnchantmentRecipe(\"INFUSIONENCHANTMENT\", Enchantment.field_77342_w, 5, (new AspectList()).add(Aspect.MAGIC, 8).add(Aspect.WEAPON, 16).add(Aspect.VOID, 16).add(Aspect.EXCHANGE, 16), new ItemStack[]{new ItemStack(Items.field_151031_f), new ItemStack(Items.field_151032_g), new ItemStack(ConfigItems.itemResource, 1, 14)}))",
+    "unkeyed": false
+  }
+}

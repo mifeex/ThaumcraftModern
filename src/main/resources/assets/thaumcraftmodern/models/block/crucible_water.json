@@ -1,0 +1,24 @@
+{
+  "parent": "minecraft:block/block",
+  "render_type": "minecraft:translucent",
+  "ambientocclusion": false,
+  "textures": {
+    "water": "minecraft:block/water_still",
+    "particle": "minecraft:block/water_still"
+  },
+  "elements": [
+    {
+      "name": "classic_full_tank_1000mb",
+      "from": [2, 12.79, 2],
+      "to": [14, 12.8, 14],
+      "shade": false,
+      "faces": {
+        "up": {
+          "texture": "#water",
+          "uv": [2, 2, 14, 14],
+          "tintindex": 0
+        }
+      }
+    }
+  ]
+}

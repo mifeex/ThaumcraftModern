@@ -1,0 +1,14 @@
+{
+  "id": "unkeyed_002",
+  "legacy_id": "unkeyed_002",
+  "legacy_kind": "legacy_java",
+  "inactive": true,
+  "inactive_reason": "recipe type or referenced content is not implemented",
+  "modern_recipe": "",
+  "required_aspects": [],
+  "legacy": {
+    "source_expression": "GameRegistry.addRecipe(new RecipesVoidRobeArmorDyes())",
+    "source_statement": "GameRegistry.addRecipe(new RecipesVoidRobeArmorDyes())",
+    "unkeyed": true
+  }
+}

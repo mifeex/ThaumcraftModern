@@ -1,0 +1,11 @@
+{
+  "feature": "thaumcraftmodern:aura_node",
+  "placement": [
+    {
+      "type": "minecraft:in_square"
+    },
+    {
+      "type": "minecraft:biome"
+    }
+  ]
+}

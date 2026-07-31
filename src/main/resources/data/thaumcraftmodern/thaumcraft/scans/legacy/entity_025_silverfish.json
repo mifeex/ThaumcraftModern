@@ -1,0 +1,33 @@
+{
+  "type": "entity",
+  "target": "minecraft:silverfish",
+  "display": "",
+  "aspects": [
+    {
+      "id": "bestia",
+      "amount": 1
+    },
+    {
+      "id": "terra",
+      "amount": 1
+    }
+  ],
+  "inactive": false,
+  "inactive_reason": null,
+  "legacy": {
+    "legacy_entity_id": "Silverfish",
+    "modern_target": "minecraft:silverfish",
+    "aspects": [
+      {
+        "id": "bestia",
+        "amount": 1
+      },
+      {
+        "id": "terra",
+        "amount": 1
+      }
+    ],
+    "nbt_conditions_raw": [],
+    "source_expression": "ThaumcraftApi.registerEntityTag(\"Silverfish\", (new AspectList()).add(Aspect.BEAST, 1).add(Aspect.EARTH, 1))"
+  }
+}

@@ -1,0 +1,23 @@
+{
+  "id": "focusfire",
+  "legacy_id": "FocusFire",
+  "legacy_kind": "arcane_shaped",
+  "inactive": true,
+  "inactive_reason": "recipe type or referenced content is not implemented",
+  "modern_recipe": "",
+  "required_aspects": [
+    {
+      "id": "ignis",
+      "amount": 20
+    },
+    {
+      "id": "perditio",
+      "amount": 10
+    }
+  ],
+  "legacy": {
+    "source_expression": "ThaumcraftApi.addArcaneCraftingRecipe(\"FOCUSFIRE\", new ItemStack(ConfigItems.itemFocusFire), (new AspectList()).add(Aspect.FIRE, 20).add(Aspect.ENTROPY, 10), \"CQC\", \"Q#Q\", \"CQC\", '#', Items.field_151059_bz, 'Q', Items.field_151128_bU, 'C', new ItemStack(ConfigItems.itemShard, 1, 1))",
+    "source_statement": "ConfigResearch.recipes.put(\"FocusFire\", ThaumcraftApi.addArcaneCraftingRecipe(\"FOCUSFIRE\", new ItemStack(ConfigItems.itemFocusFire), (new AspectList()).add(Aspect.FIRE, 20).add(Aspect.ENTROPY, 10), \"CQC\", \"Q#Q\", \"CQC\", '#', Items.field_151059_bz, 'Q', Items.field_151128_bU, 'C', new ItemStack(ConfigItems.itemShard, 1, 1)))",
+    "unkeyed": false
+  }
+}

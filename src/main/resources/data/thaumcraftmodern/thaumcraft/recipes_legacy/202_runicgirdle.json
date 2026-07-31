@@ -1,0 +1,27 @@
+{
+  "id": "runicgirdle",
+  "legacy_id": "RunicGirdle",
+  "legacy_kind": "infusion",
+  "inactive": true,
+  "inactive_reason": "recipe type or referenced content is not implemented",
+  "modern_recipe": "",
+  "required_aspects": [
+    {
+      "id": "tutamen",
+      "amount": 30
+    },
+    {
+      "id": "praecantatio",
+      "amount": 50
+    },
+    {
+      "id": "potentia",
+      "amount": 50
+    }
+  ],
+  "legacy": {
+    "source_expression": "ThaumcraftApi.addInfusionCraftingRecipe(\"RUNICARMOR\", new ItemStack(ConfigItems.itemGirdleRunic, 1, 0), 4, (new AspectList()).add(Aspect.ARMOR, 30).add(Aspect.MAGIC, 50).add(Aspect.ENERGY, 50), new ItemStack(ConfigItems.itemBaubleBlanks, 1, 2), new ItemStack[]{new ItemStack(ConfigItems.itemResource, 1, 15), new ItemStack(ConfigItems.itemResource, 1, 6), new ItemStack(ConfigItems.itemResource, 1, 7), new ItemStack(ConfigItems.itemResource, 1, 1), new ItemStack(ConfigItems.itemResource, 1, 1), new ItemStack(ConfigItems.itemResource, 1, 1), new ItemStack(ConfigItems.itemInkwell)})",
+    "source_statement": "ConfigResearch.recipes.put(\"RunicGirdle\", ThaumcraftApi.addInfusionCraftingRecipe(\"RUNICARMOR\", new ItemStack(ConfigItems.itemGirdleRunic, 1, 0), 4, (new AspectList()).add(Aspect.ARMOR, 30).add(Aspect.MAGIC, 50).add(Aspect.ENERGY, 50), new ItemStack(ConfigItems.itemBaubleBlanks, 1, 2), new ItemStack[]{new ItemStack(ConfigItems.itemResource, 1, 15), new ItemStack(ConfigItems.itemResource, 1, 6), new ItemStack(ConfigItems.itemResource, 1, 7), new ItemStack(ConfigItems.itemResource, 1, 1), new ItemStack(ConfigItems.itemResource, 1, 1), new ItemStack(ConfigItems.itemResource, 1, 1), new ItemStack(ConfigItems.itemInkwell)}))",
+    "unkeyed": false
+  }
+}

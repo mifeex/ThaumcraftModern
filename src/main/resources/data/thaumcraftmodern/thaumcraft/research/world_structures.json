@@ -1,0 +1,40 @@
+{
+  "id": "world_structures",
+  "category": "basics",
+  "icon": "thaumcraftmodern:obsidian_totem",
+  "title": "research.thaumcraftmodern.world_structures.title",
+  "subtitle": "research.thaumcraftmodern.world_structures.subtitle",
+  "concealed": false,
+  "auto_unlock": true,
+  "inactive": false,
+  "node_style": {
+    "frame": "primary",
+    "special": false
+  },
+  "parents": [
+    "basics"
+  ],
+  "hidden_parents": [],
+  "reveal_when": {
+    "type": "always"
+  },
+  "x": 48,
+  "y": 96,
+  "pages": [
+    {
+      "type": "text",
+      "title": "research.thaumcraftmodern.world_structures.page.overworld.title",
+      "body": "research.thaumcraftmodern.world_structures.page.overworld.body"
+    },
+    {
+      "type": "text",
+      "title": "research.thaumcraftmodern.world_structures.page.settlements.title",
+      "body": "research.thaumcraftmodern.world_structures.page.settlements.body"
+    },
+    {
+      "type": "text",
+      "title": "research.thaumcraftmodern.world_structures.page.config.title",
+      "body": "research.thaumcraftmodern.world_structures.page.config.body"
+    }
+  ]
+}

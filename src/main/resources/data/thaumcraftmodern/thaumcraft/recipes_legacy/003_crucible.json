@@ -1,0 +1,14 @@
+{
+  "id": "crucible",
+  "legacy_id": "Crucible",
+  "legacy_kind": "multiblock",
+  "inactive": true,
+  "inactive_reason": "recipe type or referenced content is not implemented",
+  "modern_recipe": "",
+  "required_aspects": [],
+  "legacy": {
+    "source_expression": "Arrays.asList(new AspectList(), 1, 2, 1, Arrays.asList(basicWand, new ItemStack(Items.field_151066_bu)))",
+    "source_statement": "ConfigResearch.recipes.put(\"Crucible\", Arrays.asList(new AspectList(), 1, 2, 1, Arrays.asList(basicWand, new ItemStack(Items.field_151066_bu))))",
+    "unkeyed": false
+  }
+}

@@ -1,0 +1,72 @@
+package com.thaumcraftmodern.world.block.entity;
+
+import com.thaumcraftmodern.registry.ModBlockEntities;
+import com.thaumcraftmodern.world.menu.ArcaneWorkbenchMenu;
+import net.minecraft.core.BlockPos;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.Tag;
+import net.minecraft.network.chat.Component;
+import net.minecraft.world.Containers;
+import net.minecraft.world.MenuProvider;
+import net.minecraft.world.SimpleContainer;
+import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.inventory.AbstractContainerMenu;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.state.BlockState;
+import org.jetbrains.annotations.Nullable;
+
+public final class ArcaneWorkbenchBlockEntity extends BlockEntity implements MenuProvider {
+    private final ArcaneCraftingInventory crafting = new ArcaneCraftingInventory();
+    private final SimpleContainer wand = new SimpleContainer(1);
+
+    public ArcaneWorkbenchBlockEntity(BlockPos position, BlockState state) {
+        super(ModBlockEntities.ARCANE_WORKBENCH.get(), position, state);
+        crafting.addListener(ignored -> setChanged());
+        wand.addListener(ignored -> setChanged());
+    }
+
+    public ArcaneCraftingInventory crafting() {
+        return crafting;
+    }
+
+    public SimpleContainer wand() {
+        return wand;
+    }
+
+    @Override
+    protected void saveAdditional(CompoundTag tag) {
+        super.saveAdditional(tag);
+        tag.put("Crafting", crafting.createTag());
+        tag.put("Wand", wand.createTag());
+    }
+
+    @Override
+    public void load(CompoundTag tag) {
+        super.load(tag);
+        crafting.fromTag(tag.getList("Crafting", Tag.TAG_COMPOUND));
+        wand.fromTag(tag.getList("Wand", Tag.TAG_COMPOUND));
+    }
+
+    public void dropContents() {
+        if (level == null || level.isClientSide) {
+            return;
+        }
+        Containers.dropContents(level, worldPosition, crafting);
+        Containers.dropContents(level, worldPosition, wand);
+    }
+
+    @Override
+    public Component getDisplayName() {
+        return Component.translatable("container.thaumcraftmodern.arcane_workbench");
+    }
+
+    @Override
+    public @Nullable AbstractContainerMenu createMenu(
+            int containerId,
+            Inventory inventory,
+            Player player
+    ) {
+        return new ArcaneWorkbenchMenu(containerId, inventory, this);
+    }
+}

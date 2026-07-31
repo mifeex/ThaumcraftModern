@@ -1,0 +1,14 @@
+{
+  "id": "blockthaumium",
+  "legacy_id": "BlockThaumium",
+  "legacy_kind": "crafting_shaped_ore",
+  "inactive": true,
+  "inactive_reason": "recipe type or referenced content is not implemented",
+  "modern_recipe": "",
+  "required_aspects": [],
+  "legacy": {
+    "source_expression": "oreDictRecipe(new ItemStack(ConfigBlocks.blockCosmeticSolid, 1, 4), new Object[]{\"KKK\", \"KKK\", \"KKK\", 'K', \"ingotThaumium\"})",
+    "source_statement": "ConfigResearch.recipes.put(\"BlockThaumium\", oreDictRecipe(new ItemStack(ConfigBlocks.blockCosmeticSolid, 1, 4), new Object[]{\"KKK\", \"KKK\", \"KKK\", 'K', \"ingotThaumium\"}))",
+    "unkeyed": false
+  }
+}

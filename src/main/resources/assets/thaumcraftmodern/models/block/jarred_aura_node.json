@@ -1,0 +1,39 @@
+{
+  "parent": "minecraft:block/block",
+  "ambientocclusion": false,
+  "render_type": "minecraft:translucent",
+  "textures": {
+    "bottom": "thaumcraftmodern:block/jar_bottom",
+    "side": "thaumcraftmodern:block/jar_side",
+    "top": "thaumcraftmodern:block/jar_top",
+    "particle": "thaumcraftmodern:block/jar_side"
+  },
+  "elements": [
+    {
+      "name": "jar_body",
+      "from": [3, 0, 3],
+      "to": [13, 12, 13],
+      "faces": {
+        "down": {"texture": "#bottom"},
+        "up": {"texture": "#top"},
+        "north": {"texture": "#side"},
+        "south": {"texture": "#side"},
+        "west": {"texture": "#side"},
+        "east": {"texture": "#side"}
+      }
+    },
+    {
+      "name": "jar_lid",
+      "from": [5, 12, 5],
+      "to": [11, 14, 11],
+      "faces": {
+        "down": {"texture": "#bottom"},
+        "up": {"texture": "#top"},
+        "north": {"texture": "#side"},
+        "south": {"texture": "#side"},
+        "west": {"texture": "#side"},
+        "east": {"texture": "#side"}
+      }
+    }
+  ]
+}

@@ -1,0 +1,59 @@
+{
+  "type": "block",
+  "target": "minecraft:anvil",
+  "display": "",
+  "aspects": [
+    {
+      "id": "metallum",
+      "amount": 64
+    },
+    {
+      "id": "fabrico",
+      "amount": 2
+    },
+    {
+      "id": "instrumentum",
+      "amount": 2
+    }
+  ],
+  "inactive": false,
+  "inactive_reason": null,
+  "legacy": {
+    "registration_mode": "explicit",
+    "target_kind": "item_stack",
+    "legacy_target": "new ItemStack(Blocks.field_150467_bQ)",
+    "metadata_group_raw": "new int[]{0, 1, 2}",
+    "aspects": [
+      {
+        "id": "metallum",
+        "amount": 64
+      },
+      {
+        "id": "fabrico",
+        "amount": 2
+      },
+      {
+        "id": "instrumentum",
+        "amount": 2
+      }
+    ],
+    "aspect_operations": [
+      {
+        "operation": "add",
+        "id": "metallum",
+        "amount": 64
+      },
+      {
+        "operation": "add",
+        "id": "fabrico",
+        "amount": 2
+      },
+      {
+        "operation": "add",
+        "id": "instrumentum",
+        "amount": 2
+      }
+    ],
+    "source_expression": "ThaumcraftApi.registerObjectTag(new ItemStack(Blocks.field_150467_bQ), new int[]{0, 1, 2}, (new AspectList()).add(Aspect.METAL, 64).add(Aspect.CRAFT, 2).add(Aspect.TOOL, 2))"
+  }
+}

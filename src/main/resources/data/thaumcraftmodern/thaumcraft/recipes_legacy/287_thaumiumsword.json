@@ -1,0 +1,14 @@
+{
+  "id": "thaumiumsword",
+  "legacy_id": "ThaumiumSword",
+  "legacy_kind": "crafting_shaped_ore",
+  "inactive": true,
+  "inactive_reason": "recipe type or referenced content is not implemented",
+  "modern_recipe": "",
+  "required_aspects": [],
+  "legacy": {
+    "source_expression": "oreDictRecipe(new ItemStack(ConfigItems.itemSwordThaumium, 1), new Object[]{\"I\", \"I\", \"S\", 'I', \"ingotThaumium\", 'S', \"stickWood\"})",
+    "source_statement": "ConfigResearch.recipes.put(\"ThaumiumSword\", oreDictRecipe(new ItemStack(ConfigItems.itemSwordThaumium, 1), new Object[]{\"I\", \"I\", \"S\", 'I', \"ingotThaumium\", 'S', \"stickWood\"}))",
+    "unkeyed": false
+  }
+}

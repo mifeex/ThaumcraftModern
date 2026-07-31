@@ -1,0 +1,10 @@
+{
+  "id": "mortuus",
+  "order": 170,
+  "color": "887788",
+  "icon": "thaumcraftmodern:textures/aspects/mortuus.png",
+  "components": [
+    "victus",
+    "perditio"
+  ]
+}

@@ -1,0 +1,23 @@
+{
+  "id": "bootstraveller",
+  "legacy_id": "BootsTraveller",
+  "legacy_kind": "infusion",
+  "inactive": true,
+  "inactive_reason": "recipe type or referenced content is not implemented",
+  "modern_recipe": "",
+  "required_aspects": [
+    {
+      "id": "volatus",
+      "amount": 25
+    },
+    {
+      "id": "iter",
+      "amount": 25
+    }
+  ],
+  "legacy": {
+    "source_expression": "ThaumcraftApi.addInfusionCraftingRecipe(\"BOOTSTRAVELLER\", new ItemStack(ConfigItems.itemBootsTraveller), 1, (new AspectList()).add(Aspect.FLIGHT, 25).add(Aspect.TRAVEL, 25), new ItemStack(Items.field_151021_T), new ItemStack[]{new ItemStack(ConfigItems.itemShard, 1, 0), new ItemStack(ConfigItems.itemShard, 1, 0), new ItemStack(ConfigItems.itemResource, 1, 7), new ItemStack(ConfigItems.itemResource, 1, 7), new ItemStack(Items.field_151008_G), new ItemStack(Items.field_151115_aP, 1, 32767)})",
+    "source_statement": "ConfigResearch.recipes.put(\"BootsTraveller\", ThaumcraftApi.addInfusionCraftingRecipe(\"BOOTSTRAVELLER\", new ItemStack(ConfigItems.itemBootsTraveller), 1, (new AspectList()).add(Aspect.FLIGHT, 25).add(Aspect.TRAVEL, 25), new ItemStack(Items.field_151021_T), new ItemStack[]{new ItemStack(ConfigItems.itemShard, 1, 0), new ItemStack(ConfigItems.itemShard, 1, 0), new ItemStack(ConfigItems.itemResource, 1, 7), new ItemStack(ConfigItems.itemResource, 1, 7), new ItemStack(Items.field_151008_G), new ItemStack(Items.field_151115_aP, 1, 32767)}))",
+    "unkeyed": false
+  }
+}

@@ -1,0 +1,45 @@
+{
+  "type": "block",
+  "target": "minecraft:terracotta",
+  "display": "",
+  "aspects": [
+    {
+      "id": "terra",
+      "amount": 4
+    },
+    {
+      "id": "ignis",
+      "amount": 1
+    }
+  ],
+  "inactive": false,
+  "legacy": {
+    "registration_mode": "explicit",
+    "target_kind": "item_stack",
+    "legacy_target": "new ItemStack(Blocks.field_150405_ch, 1, 32767)",
+    "metadata_group_raw": null,
+    "aspects": [
+      {
+        "id": "terra",
+        "amount": 4
+      },
+      {
+        "id": "ignis",
+        "amount": 1
+      }
+    ],
+    "aspect_operations": [
+      {
+        "operation": "add",
+        "id": "terra",
+        "amount": 4
+      },
+      {
+        "operation": "add",
+        "id": "ignis",
+        "amount": 1
+      }
+    ],
+    "source_expression": "ThaumcraftApi.registerObjectTag(new ItemStack(Blocks.field_150405_ch, 1, 32767), (new AspectList()).add(Aspect.EARTH, 4).add(Aspect.FIRE, 1))"
+  }
+}

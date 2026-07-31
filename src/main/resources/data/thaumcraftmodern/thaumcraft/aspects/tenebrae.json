@@ -1,0 +1,10 @@
+{
+  "id": "tenebrae",
+  "order": 190,
+  "color": "222222",
+  "icon": "thaumcraftmodern:textures/aspects/tenebrae.png",
+  "components": [
+    "vacuos",
+    "lux"
+  ]
+}

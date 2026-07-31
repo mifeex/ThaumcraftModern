@@ -1,0 +1,27 @@
+{
+  "id": "focustrade",
+  "legacy_id": "FocusTrade",
+  "legacy_kind": "arcane_shaped",
+  "inactive": true,
+  "inactive_reason": "recipe type or referenced content is not implemented",
+  "modern_recipe": "",
+  "required_aspects": [
+    {
+      "id": "ordo",
+      "amount": 15
+    },
+    {
+      "id": "perditio",
+      "amount": 15
+    },
+    {
+      "id": "terra",
+      "amount": 10
+    }
+  ],
+  "legacy": {
+    "source_expression": "ThaumcraftApi.addArcaneCraftingRecipe(\"FOCUSTRADE\", new ItemStack(ConfigItems.itemFocusTrade), (new AspectList()).add(Aspect.ORDER, 15).add(Aspect.ENTROPY, 15).add(Aspect.EARTH, 10), \"CQE\", \"Q#Q\", \"CQE\", '#', new ItemStack(ConfigItems.itemResource, 1, 3), 'Q', Items.field_151128_bU, 'C', new ItemStack(ConfigItems.itemShard, 1, 6), 'E', new ItemStack(ConfigItems.itemShard, 1, 6))",
+    "source_statement": "ConfigResearch.recipes.put(\"FocusTrade\", ThaumcraftApi.addArcaneCraftingRecipe(\"FOCUSTRADE\", new ItemStack(ConfigItems.itemFocusTrade), (new AspectList()).add(Aspect.ORDER, 15).add(Aspect.ENTROPY, 15).add(Aspect.EARTH, 10), \"CQE\", \"Q#Q\", \"CQE\", '#', new ItemStack(ConfigItems.itemResource, 1, 3), 'Q', Items.field_151128_bU, 'C', new ItemStack(ConfigItems.itemShard, 1, 6), 'E', new ItemStack(ConfigItems.itemShard, 1, 6)))",
+    "unkeyed": false
+  }
+}

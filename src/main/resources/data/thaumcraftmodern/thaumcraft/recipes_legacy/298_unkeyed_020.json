@@ -1,0 +1,14 @@
+{
+  "id": "unkeyed_020",
+  "legacy_id": "unkeyed_020",
+  "legacy_kind": "crafting_shapeless",
+  "inactive": true,
+  "inactive_reason": "recipe type or referenced content is not implemented",
+  "modern_recipe": "",
+  "required_aspects": [],
+  "legacy": {
+    "source_expression": "GameRegistry.addShapelessRecipe(new ItemStack(ConfigBlocks.blockCandle, 1, 0), new Object[]{new ItemStack(Items.field_151100_aR, 1, 15), new ItemStack(ConfigBlocks.blockCandle, 1, 32767)})",
+    "source_statement": "}\n\n      GameRegistry.addShapelessRecipe(new ItemStack(ConfigBlocks.blockCandle, 1, 0), new Object[]{new ItemStack(Items.field_151100_aR, 1, 15), new ItemStack(ConfigBlocks.blockCandle, 1, 32767)})",
+    "unkeyed": true
+  }
+}

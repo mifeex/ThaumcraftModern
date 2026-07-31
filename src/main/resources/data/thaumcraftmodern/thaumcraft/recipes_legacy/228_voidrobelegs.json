@@ -1,0 +1,39 @@
+{
+  "id": "voidrobelegs",
+  "legacy_id": "VoidRobeLegs",
+  "legacy_kind": "infusion",
+  "inactive": true,
+  "inactive_reason": "recipe type or referenced content is not implemented",
+  "modern_recipe": "",
+  "required_aspects": [
+    {
+      "id": "metallum",
+      "amount": 20
+    },
+    {
+      "id": "tutamen",
+      "amount": 20
+    },
+    {
+      "id": "pannus",
+      "amount": 20
+    },
+    {
+      "id": "praecantatio",
+      "amount": 16
+    },
+    {
+      "id": "alienis",
+      "amount": 16
+    },
+    {
+      "id": "vacuos",
+      "amount": 20
+    }
+  ],
+  "legacy": {
+    "source_expression": "ThaumcraftApi.addInfusionCraftingRecipe(\"ARMORVOIDFORTRESS\", new ItemStack(ConfigItems.itemLegsVoidRobe), 6, (new AspectList()).add(Aspect.METAL, 20).add(Aspect.ARMOR, 20).add(Aspect.CLOTH, 20).add(Aspect.MAGIC, 16).add(Aspect.ELDRITCH, 16).add(Aspect.VOID, 20), new ItemStack(ConfigItems.itemLegsVoid), new ItemStack[]{new ItemStack(ConfigItems.itemLegsRobe), new ItemStack(ConfigItems.itemResource, 1, 16), new ItemStack(ConfigItems.itemResource, 1, 2), new ItemStack(ConfigItems.itemResource, 1, 14), new ItemStack(ConfigItems.itemResource, 1, 7), new ItemStack(Items.field_151116_aA)})",
+    "source_statement": "ConfigResearch.recipes.put(\"VoidRobeLegs\", ThaumcraftApi.addInfusionCraftingRecipe(\"ARMORVOIDFORTRESS\", new ItemStack(ConfigItems.itemLegsVoidRobe), 6, (new AspectList()).add(Aspect.METAL, 20).add(Aspect.ARMOR, 20).add(Aspect.CLOTH, 20).add(Aspect.MAGIC, 16).add(Aspect.ELDRITCH, 16).add(Aspect.VOID, 20), new ItemStack(ConfigItems.itemLegsVoid), new ItemStack[]{new ItemStack(ConfigItems.itemLegsRobe), new ItemStack(ConfigItems.itemResource, 1, 16), new ItemStack(ConfigItems.itemResource, 1, 2), new ItemStack(ConfigItems.itemResource, 1, 14), new ItemStack(ConfigItems.itemResource, 1, 7), new ItemStack(Items.field_151116_aA)}))",
+    "unkeyed": false
+  }
+}

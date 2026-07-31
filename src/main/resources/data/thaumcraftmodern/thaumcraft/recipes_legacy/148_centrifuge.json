@@ -1,0 +1,27 @@
+{
+  "id": "centrifuge",
+  "legacy_id": "Centrifuge",
+  "legacy_kind": "arcane_shaped",
+  "inactive": true,
+  "inactive_reason": "recipe type or referenced content is not implemented",
+  "modern_recipe": "",
+  "required_aspects": [
+    {
+      "id": "aqua",
+      "amount": 5
+    },
+    {
+      "id": "ordo",
+      "amount": 5
+    },
+    {
+      "id": "perditio",
+      "amount": 5
+    }
+  ],
+  "legacy": {
+    "source_expression": "ThaumcraftApi.addArcaneCraftingRecipe(\"CENTRIFUGE\", new ItemStack(ConfigBlocks.blockTube, 1, 2), (new AspectList()).add(Aspect.WATER, 5).add(Aspect.ORDER, 5).add(Aspect.ENTROPY, 5), \" T \", \"ACP\", \" T \", 'T', new ItemStack(ConfigBlocks.blockTube, 1, 0), 'P', new ItemStack(Blocks.field_150331_J), 'A', new ItemStack(ConfigBlocks.blockMetalDevice, 1, 1), 'C', new ItemStack(ConfigBlocks.blockMetalDevice, 1, 9))",
+    "source_statement": "ConfigResearch.recipes.put(\"Centrifuge\", ThaumcraftApi.addArcaneCraftingRecipe(\"CENTRIFUGE\", new ItemStack(ConfigBlocks.blockTube, 1, 2), (new AspectList()).add(Aspect.WATER, 5).add(Aspect.ORDER, 5).add(Aspect.ENTROPY, 5), \" T \", \"ACP\", \" T \", 'T', new ItemStack(ConfigBlocks.blockTube, 1, 0), 'P', new ItemStack(Blocks.field_150331_J), 'A', new ItemStack(ConfigBlocks.blockMetalDevice, 1, 1), 'C', new ItemStack(ConfigBlocks.blockMetalDevice, 1, 9)))",
+    "unkeyed": false
+  }
+}

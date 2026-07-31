@@ -1,0 +1,9 @@
+{
+  "kind": "rod",
+  "id": "obsidian",
+  "capacity_vis": 75,
+  "recharge_aspects": ["terra"],
+  "recharge_interval_ticks": 200,
+  "recharge_centivis": 1,
+  "translation_key": "item.Wand.obsidian.rod"
+}

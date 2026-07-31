@@ -1,0 +1,14 @@
+{
+  "id": "unkeyed_015",
+  "legacy_id": "unkeyed_015",
+  "legacy_kind": "legacy_java",
+  "inactive": true,
+  "inactive_reason": "recipe type or referenced content is not implemented",
+  "modern_recipe": "",
+  "required_aspects": [],
+  "legacy": {
+    "source_expression": "GameRegistry.addRecipe(new ItemStack(ConfigBlocks.blockCosmeticOpaque, 1, 0), new Object[]{\"##\", \"##\", '#', new ItemStack(ConfigItems.itemResource, 1, 6)})",
+    "source_statement": "GameRegistry.addRecipe(new ItemStack(ConfigBlocks.blockCosmeticOpaque, 1, 0), new Object[]{\"##\", \"##\", '#', new ItemStack(ConfigItems.itemResource, 1, 6)})",
+    "unkeyed": true
+  }
+}

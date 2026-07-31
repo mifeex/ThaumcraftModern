@@ -1,0 +1,27 @@
+{
+  "id": "runicgirdlekinetic_2",
+  "legacy_id": "RunicGirdleKinetic_2",
+  "legacy_kind": "infusion",
+  "inactive": true,
+  "inactive_reason": "recipe type or referenced content is not implemented",
+  "modern_recipe": "",
+  "required_aspects": [
+    {
+      "id": "tutamen",
+      "amount": 33
+    },
+    {
+      "id": "praecantatio",
+      "amount": 55
+    },
+    {
+      "id": "aer",
+      "amount": 64
+    }
+  ],
+  "legacy": {
+    "source_expression": "ThaumcraftApi.addInfusionCraftingRecipe(\"RUNICKINETIC\", new ItemStack(ConfigItems.itemGirdleRunic, 1, 1), 7, (new AspectList()).add(Aspect.ARMOR, 33).add(Aspect.MAGIC, 55).add(Aspect.AIR, 64), new ItemStack(ConfigItems.itemGirdleRunic, 1, 0), new ItemStack[]{new ItemStack(ConfigItems.itemShard, 1, 6), new ItemStack(ConfigItems.itemShard, 1, 0), new ItemStack(ConfigItems.itemShard, 1, 0), new ItemStack(Items.field_151068_bn, 1, 24620), new ItemStack(ConfigItems.itemShard, 1, 0), new ItemStack(ConfigItems.itemShard, 1, 0)})",
+    "source_statement": "ConfigResearch.recipes.put(\"RunicGirdleKinetic_2\", ThaumcraftApi.addInfusionCraftingRecipe(\"RUNICKINETIC\", new ItemStack(ConfigItems.itemGirdleRunic, 1, 1), 7, (new AspectList()).add(Aspect.ARMOR, 33).add(Aspect.MAGIC, 55).add(Aspect.AIR, 64), new ItemStack(ConfigItems.itemGirdleRunic, 1, 0), new ItemStack[]{new ItemStack(ConfigItems.itemShard, 1, 6), new ItemStack(ConfigItems.itemShard, 1, 0), new ItemStack(ConfigItems.itemShard, 1, 0), new ItemStack(Items.field_151068_bn, 1, 24620), new ItemStack(ConfigItems.itemShard, 1, 0), new ItemStack(ConfigItems.itemShard, 1, 0)}))",
+    "unkeyed": false
+  }
+}

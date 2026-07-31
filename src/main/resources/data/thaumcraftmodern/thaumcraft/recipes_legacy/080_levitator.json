@@ -1,0 +1,23 @@
+{
+  "id": "levitator",
+  "legacy_id": "Levitator",
+  "legacy_kind": "arcane_shaped",
+  "inactive": true,
+  "inactive_reason": "recipe type or referenced content is not implemented",
+  "modern_recipe": "",
+  "required_aspects": [
+    {
+      "id": "aer",
+      "amount": 10
+    },
+    {
+      "id": "terra",
+      "amount": 5
+    }
+  ],
+  "legacy": {
+    "source_expression": "ThaumcraftApi.addArcaneCraftingRecipe(\"LEVITATOR\", new ItemStack(ConfigBlocks.blockLifter), (new AspectList()).add(Aspect.AIR, 10).add(Aspect.EARTH, 5), \"WEW\", \"BNB\", \"WAW\", 'W', new ItemStack(ConfigBlocks.blockWoodenDevice, 1, 6), 'E', new ItemStack(ConfigItems.itemShard, 1, 3), 'A', new ItemStack(ConfigItems.itemShard, 1, 0), 'N', new ItemStack(ConfigItems.itemResource, 1, 1), 'B', Items.field_151042_j)",
+    "source_statement": "ConfigResearch.recipes.put(\"Levitator\", ThaumcraftApi.addArcaneCraftingRecipe(\"LEVITATOR\", new ItemStack(ConfigBlocks.blockLifter), (new AspectList()).add(Aspect.AIR, 10).add(Aspect.EARTH, 5), \"WEW\", \"BNB\", \"WAW\", 'W', new ItemStack(ConfigBlocks.blockWoodenDevice, 1, 6), 'E', new ItemStack(ConfigItems.itemShard, 1, 3), 'A', new ItemStack(ConfigItems.itemShard, 1, 0), 'N', new ItemStack(ConfigItems.itemResource, 1, 1), 'B', Items.field_151042_j))",
+    "unkeyed": false
+  }
+}

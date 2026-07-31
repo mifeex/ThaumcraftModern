@@ -1,0 +1,8 @@
+{
+  "feature": "thaumcraftmodern:legacy_structures",
+  "placement": [
+    {
+      "type": "minecraft:biome"
+    }
+  ]
+}

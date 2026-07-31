@@ -1,0 +1,7 @@
+{
+  "id": "crucible",
+  "handler": "crucible",
+  "trigger": {"type": "wand", "consume": 0},
+  "research": "",
+  "vis": {}
+}

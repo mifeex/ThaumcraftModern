@@ -1,0 +1,58 @@
+{
+  "type": "block_tag",
+  "target": "forge:ores/redstone",
+  "display": "",
+  "aspects": [
+    {
+      "id": "terra",
+      "amount": 1
+    },
+    {
+      "id": "potentia",
+      "amount": 2
+    },
+    {
+      "id": "machina",
+      "amount": 2
+    }
+  ],
+  "inactive": false,
+  "legacy": {
+    "registration_mode": "explicit",
+    "target_kind": "ore_dictionary",
+    "legacy_target": "oreRedstone",
+    "metadata_group_raw": null,
+    "aspects": [
+      {
+        "id": "terra",
+        "amount": 1
+      },
+      {
+        "id": "potentia",
+        "amount": 2
+      },
+      {
+        "id": "machina",
+        "amount": 2
+      }
+    ],
+    "aspect_operations": [
+      {
+        "operation": "add",
+        "id": "terra",
+        "amount": 1
+      },
+      {
+        "operation": "add",
+        "id": "potentia",
+        "amount": 2
+      },
+      {
+        "operation": "add",
+        "id": "machina",
+        "amount": 2
+      }
+    ],
+    "source_expression": "ThaumcraftApi.registerObjectTag(\"oreRedstone\", (new AspectList()).add(Aspect.EARTH, 1).add(Aspect.ENERGY, 2).add(Aspect.MECHANISM, 2))"
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "id": "wandrodobsidianstaff",
+  "legacy_id": "WandRodObsidianStaff",
+  "legacy_kind": "arcane_shaped",
+  "inactive": true,
+  "inactive_reason": "recipe type or referenced content is not implemented",
+  "modern_recipe": "",
+  "required_aspects": [
+    {
+      "id": "ordo",
+      "amount": "((WandRod"
+    }
+  ],
+  "legacy": {
+    "source_expression": "ThaumcraftApi.addArcaneCraftingRecipe(\"ROD_obsidian_staff\", new ItemStack(ConfigItems.itemWandRod, 1, 51), (new AspectList()).add(Aspect.ORDER, ((WandRod)WandRod.rods.get(\"obsidian_staff\")).getCraftCost()), \"  S\", \" G \", \"G  \", 'S', new ItemStack(ConfigItems.itemResource, 1, 15), 'G', new ItemStack(ConfigItems.itemWandRod, 1, 1))",
+    "source_statement": "ConfigResearch.recipes.put(\"WandRodObsidianStaff\", ThaumcraftApi.addArcaneCraftingRecipe(\"ROD_obsidian_staff\", new ItemStack(ConfigItems.itemWandRod, 1, 51), (new AspectList()).add(Aspect.ORDER, ((WandRod)WandRod.rods.get(\"obsidian_staff\")).getCraftCost()), \"  S\", \" G \", \"G  \", 'S', new ItemStack(ConfigItems.itemResource, 1, 15), 'G', new ItemStack(ConfigItems.itemWandRod, 1, 1)))",
+    "unkeyed": false
+  }
+}

@@ -1,0 +1,46 @@
+{
+  "type": "item",
+  "target": "minecraft:rotten_flesh",
+  "display": "",
+  "aspects": [
+    {
+      "id": "humanus",
+      "amount": 1
+    },
+    {
+      "id": "corpus",
+      "amount": 2
+    }
+  ],
+  "inactive": false,
+  "inactive_reason": null,
+  "legacy": {
+    "registration_mode": "explicit",
+    "target_kind": "item_stack",
+    "legacy_target": "new ItemStack(Items.field_151078_bh, 1, 32767)",
+    "metadata_group_raw": null,
+    "aspects": [
+      {
+        "id": "humanus",
+        "amount": 1
+      },
+      {
+        "id": "corpus",
+        "amount": 2
+      }
+    ],
+    "aspect_operations": [
+      {
+        "operation": "add",
+        "id": "humanus",
+        "amount": 1
+      },
+      {
+        "operation": "add",
+        "id": "corpus",
+        "amount": 2
+      }
+    ],
+    "source_expression": "ThaumcraftApi.registerObjectTag(new ItemStack(Items.field_151078_bh, 1, 32767), (new AspectList()).add(Aspect.MAN, 1).add(Aspect.FLESH, 2))"
+  }
+}

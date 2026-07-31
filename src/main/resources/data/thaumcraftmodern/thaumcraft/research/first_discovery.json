@@ -1,0 +1,22 @@
+{
+  "id": "first_discovery",
+  "category": "basics",
+  "icon": "thaumcraftmodern:discovery",
+  "title": "research.thaumcraftmodern.first_discovery.title",
+  "subtitle": "research.thaumcraftmodern.first_discovery.subtitle",
+  "concealed": false,
+  "x": -48,
+  "y": 48,
+  "pages": [
+    {
+      "type": "text",
+      "title": "research.thaumcraftmodern.first_discovery.page.title",
+      "body": "research.thaumcraftmodern.first_discovery.page.body"
+    },
+    {
+      "type": "recipe",
+      "title": "research.thaumcraftmodern.first_discovery.recipe.title",
+      "recipe": "thaumcraftmodern:knowledge_fragment"
+    }
+  ]
+}

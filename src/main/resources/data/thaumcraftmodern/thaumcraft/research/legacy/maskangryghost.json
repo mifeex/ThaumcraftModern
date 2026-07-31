@@ -1,0 +1,90 @@
+{
+  "id": "maskangryghost",
+  "legacy_id": "MASKANGRYGHOST",
+  "category": "artifice",
+  "icon": "thaumcraftmodern:thaumonomicon",
+  "title": "tc.research_name.MASKANGRYGHOST",
+  "subtitle": "tc.research_text.MASKANGRYGHOST",
+  "concealed": true,
+  "auto_unlock": false,
+  "parents": [
+    "armorfortress"
+  ],
+  "hidden_parents": [],
+  "reveal_when": {
+    "type": "always"
+  },
+  "x": -240,
+  "y": 216,
+  "pages": [
+    {
+      "type": "text",
+      "title": "",
+      "body": "tc.research_page.MASKANGRYGHOST.1"
+    },
+    {
+      "type": "unavailable",
+      "title": "",
+      "body": "",
+      "legacy_type": "recipe",
+      "legacy_content": "MaskAngryGhost",
+      "source_expression": "new ResearchPage((InfusionRecipe)recipes.get(\"MaskAngryGhost\"))"
+    }
+  ],
+  "purchase_cost": [
+    {
+      "id": "perditio",
+      "amount": 5
+    },
+    {
+      "id": "mortuus",
+      "amount": 5
+    },
+    {
+      "id": "tutamen",
+      "amount": 3
+    }
+  ],
+  "inactive": true,
+  "inactive_reason": "referenced gameplay content is not implemented",
+  "legacy": {
+    "x": -10,
+    "y": 9,
+    "complexity": 2,
+    "icon_raw": "new ResourceLocation(\"thaumcraft\", \"textures/misc/r_mask1.png\")",
+    "flags": {
+      "special": false,
+      "secondary": true,
+      "round": false,
+      "stub": false,
+      "virtual": false,
+      "concealed": true,
+      "hidden": false,
+      "lost": false,
+      "auto_unlock": false
+    },
+    "hidden_parents": [],
+    "siblings": [],
+    "item_triggers_raw": [],
+    "entity_triggers": [],
+    "aspect_triggers": [],
+    "research_aspects": [
+      {
+        "id": "perditio",
+        "amount": 5
+      },
+      {
+        "id": "mortuus",
+        "amount": 5
+      },
+      {
+        "id": "tutamen",
+        "amount": 3
+      }
+    ],
+    "warp": [
+      1
+    ],
+    "source_expression": "(new ResearchItem(\"MASKANGRYGHOST\", \"ARTIFICE\", (new AspectList()).add(Aspect.ENTROPY, 5).add(Aspect.DEATH, 5).add(Aspect.ARMOR, 3), -10, 9, 2, new ResourceLocation(\"thaumcraft\", \"textures/misc/r_mask1.png\"))).setPages(new ResearchPage(\"tc.research_page.MASKANGRYGHOST.1\"), new ResearchPage((InfusionRecipe)recipes.get(\"MaskAngryGhost\"))).setParents(\"ARMORFORTRESS\").setConcealed().setSecondary().registerResearchItem()"
+  }
+}

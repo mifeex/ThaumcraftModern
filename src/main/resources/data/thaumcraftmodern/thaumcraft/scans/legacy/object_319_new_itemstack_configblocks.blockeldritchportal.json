@@ -1,0 +1,59 @@
+{
+  "type": "legacy_object",
+  "target": "new ItemStack(ConfigBlocks.blockEldritchPortal)",
+  "display": "",
+  "aspects": [
+    {
+      "id": "vacuos",
+      "amount": 8
+    },
+    {
+      "id": "alienis",
+      "amount": 8
+    },
+    {
+      "id": "iter",
+      "amount": 8
+    }
+  ],
+  "inactive": true,
+  "inactive_reason": "legacy item, metadata, or Ore Dictionary target is not mapped",
+  "legacy": {
+    "registration_mode": "explicit",
+    "target_kind": "item_stack",
+    "legacy_target": "new ItemStack(ConfigBlocks.blockEldritchPortal)",
+    "metadata_group_raw": null,
+    "aspects": [
+      {
+        "id": "vacuos",
+        "amount": 8
+      },
+      {
+        "id": "alienis",
+        "amount": 8
+      },
+      {
+        "id": "iter",
+        "amount": 8
+      }
+    ],
+    "aspect_operations": [
+      {
+        "operation": "add",
+        "id": "vacuos",
+        "amount": 8
+      },
+      {
+        "operation": "add",
+        "id": "alienis",
+        "amount": 8
+      },
+      {
+        "operation": "add",
+        "id": "iter",
+        "amount": 8
+      }
+    ],
+    "source_expression": "ThaumcraftApi.registerObjectTag(new ItemStack(ConfigBlocks.blockEldritchPortal), (new AspectList()).add(Aspect.VOID, 8).add(Aspect.ELDRITCH, 8).add(Aspect.TRAVEL, 8))"
+  }
+}

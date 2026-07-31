@@ -1,0 +1,59 @@
+{
+  "type": "item",
+  "target": "minecraft:leather",
+  "display": "",
+  "aspects": [
+    {
+      "id": "pannus",
+      "amount": 2
+    },
+    {
+      "id": "bestia",
+      "amount": 1
+    },
+    {
+      "id": "tutamen",
+      "amount": 1
+    }
+  ],
+  "inactive": false,
+  "inactive_reason": null,
+  "legacy": {
+    "registration_mode": "explicit",
+    "target_kind": "item_stack",
+    "legacy_target": "new ItemStack(Items.field_151116_aA, 1, 32767)",
+    "metadata_group_raw": null,
+    "aspects": [
+      {
+        "id": "pannus",
+        "amount": 2
+      },
+      {
+        "id": "bestia",
+        "amount": 1
+      },
+      {
+        "id": "tutamen",
+        "amount": 1
+      }
+    ],
+    "aspect_operations": [
+      {
+        "operation": "add",
+        "id": "pannus",
+        "amount": 2
+      },
+      {
+        "operation": "add",
+        "id": "bestia",
+        "amount": 1
+      },
+      {
+        "operation": "add",
+        "id": "tutamen",
+        "amount": 1
+      }
+    ],
+    "source_expression": "ThaumcraftApi.registerObjectTag(new ItemStack(Items.field_151116_aA, 1, 32767), (new AspectList()).add(Aspect.CLOTH, 2).add(Aspect.BEAST, 1).add(Aspect.ARMOR, 1))"
+  }
+}

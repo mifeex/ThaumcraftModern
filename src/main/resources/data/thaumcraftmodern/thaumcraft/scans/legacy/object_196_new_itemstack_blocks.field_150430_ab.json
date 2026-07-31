@@ -1,0 +1,32 @@
+{
+  "type": "block",
+  "target": "minecraft:stone_button",
+  "display": "",
+  "aspects": [
+    {
+      "id": "machina",
+      "amount": 1
+    }
+  ],
+  "inactive": false,
+  "legacy": {
+    "registration_mode": "recipe_derived_modifier",
+    "target_kind": "item_stack",
+    "legacy_target": "new ItemStack(Blocks.field_150430_aB)",
+    "metadata_group_raw": null,
+    "aspects": [
+      {
+        "id": "machina",
+        "amount": 1
+      }
+    ],
+    "aspect_operations": [
+      {
+        "operation": "add",
+        "id": "machina",
+        "amount": 1
+      }
+    ],
+    "source_expression": "ThaumcraftApi.registerComplexObjectTag(new ItemStack(Blocks.field_150430_aB), (new AspectList()).add(Aspect.MECHANISM, 1))"
+  }
+}

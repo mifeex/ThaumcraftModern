@@ -1,0 +1,33 @@
+{
+  "type": "item",
+  "target": "minecraft:chainmail_boots",
+  "display": "",
+  "aspects": [
+    {
+      "id": "metallum",
+      "amount": 7
+    }
+  ],
+  "inactive": false,
+  "inactive_reason": null,
+  "legacy": {
+    "registration_mode": "explicit",
+    "target_kind": "item_stack",
+    "legacy_target": "new ItemStack(Items.field_151029_X, 1, 32767)",
+    "metadata_group_raw": null,
+    "aspects": [
+      {
+        "id": "metallum",
+        "amount": 7
+      }
+    ],
+    "aspect_operations": [
+      {
+        "operation": "add",
+        "id": "metallum",
+        "amount": 7
+      }
+    ],
+    "source_expression": "ThaumcraftApi.registerObjectTag(new ItemStack(Items.field_151029_X, 1, 32767), (new AspectList()).add(Aspect.METAL, 7))"
+  }
+}

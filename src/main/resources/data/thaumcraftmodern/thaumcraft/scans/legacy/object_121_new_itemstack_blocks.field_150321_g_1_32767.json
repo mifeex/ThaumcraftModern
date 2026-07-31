@@ -1,0 +1,46 @@
+{
+  "type": "block",
+  "target": "minecraft:cobweb",
+  "display": "",
+  "aspects": [
+    {
+      "id": "vinculum",
+      "amount": 2
+    },
+    {
+      "id": "pannus",
+      "amount": 1
+    }
+  ],
+  "inactive": false,
+  "inactive_reason": null,
+  "legacy": {
+    "registration_mode": "explicit",
+    "target_kind": "item_stack",
+    "legacy_target": "new ItemStack(Blocks.field_150321_G, 1, 32767)",
+    "metadata_group_raw": null,
+    "aspects": [
+      {
+        "id": "vinculum",
+        "amount": 2
+      },
+      {
+        "id": "pannus",
+        "amount": 1
+      }
+    ],
+    "aspect_operations": [
+      {
+        "operation": "add",
+        "id": "vinculum",
+        "amount": 2
+      },
+      {
+        "operation": "add",
+        "id": "pannus",
+        "amount": 1
+      }
+    ],
+    "source_expression": "ThaumcraftApi.registerObjectTag(new ItemStack(Blocks.field_150321_G, 1, 32767), (new AspectList()).add(Aspect.TRAP, 2).add(Aspect.CLOTH, 1))"
+  }
+}

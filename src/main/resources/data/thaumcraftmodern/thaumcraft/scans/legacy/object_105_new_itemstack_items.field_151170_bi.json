@@ -1,0 +1,46 @@
+{
+  "type": "item",
+  "target": "minecraft:poisonous_potato",
+  "display": "",
+  "aspects": [
+    {
+      "id": "messis",
+      "amount": 1
+    },
+    {
+      "id": "venenum",
+      "amount": 2
+    }
+  ],
+  "inactive": false,
+  "inactive_reason": null,
+  "legacy": {
+    "registration_mode": "explicit",
+    "target_kind": "item_stack",
+    "legacy_target": "new ItemStack(Items.field_151170_bI)",
+    "metadata_group_raw": null,
+    "aspects": [
+      {
+        "id": "messis",
+        "amount": 1
+      },
+      {
+        "id": "venenum",
+        "amount": 2
+      }
+    ],
+    "aspect_operations": [
+      {
+        "operation": "add",
+        "id": "messis",
+        "amount": 1
+      },
+      {
+        "operation": "add",
+        "id": "venenum",
+        "amount": 2
+      }
+    ],
+    "source_expression": "ThaumcraftApi.registerObjectTag(new ItemStack(Items.field_151170_bI), (new AspectList()).add(Aspect.CROP, 1).add(Aspect.POISON, 2))"
+  }
+}

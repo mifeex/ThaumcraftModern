@@ -1,0 +1,14 @@
+{
+  "id": "thaumiumboots",
+  "legacy_id": "ThaumiumBoots",
+  "legacy_kind": "crafting_shaped_ore",
+  "inactive": true,
+  "inactive_reason": "recipe type or referenced content is not implemented",
+  "modern_recipe": "",
+  "required_aspects": [],
+  "legacy": {
+    "source_expression": "oreDictRecipe(new ItemStack(ConfigItems.itemBootsThaumium, 1), new Object[]{\"I I\", \"I I\", 'I', \"ingotThaumium\"})",
+    "source_statement": "ConfigResearch.recipes.put(\"ThaumiumBoots\", oreDictRecipe(new ItemStack(ConfigItems.itemBootsThaumium, 1), new Object[]{\"I I\", \"I I\", 'I', \"ingotThaumium\"}))",
+    "unkeyed": false
+  }
+}

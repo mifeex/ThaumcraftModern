@@ -1,0 +1,16 @@
+{
+  "replace": false,
+  "values": [
+    "thaumcraftmodern:cinnabar_ore",
+    "thaumcraftmodern:air_infused_stone",
+    "thaumcraftmodern:fire_infused_stone",
+    "thaumcraftmodern:water_infused_stone",
+    "thaumcraftmodern:earth_infused_stone",
+    "thaumcraftmodern:order_infused_stone",
+    "thaumcraftmodern:entropy_infused_stone",
+    "thaumcraftmodern:amber_ore",
+    "thaumcraftmodern:obsidian_totem",
+    "thaumcraftmodern:obsidian_totem_node",
+    "thaumcraftmodern:ancient_stone"
+  ]
+}

@@ -1,0 +1,33 @@
+{
+  "type": "entity",
+  "target": "minecraft:magma_cube",
+  "display": "",
+  "aspects": [
+    {
+      "id": "limus",
+      "amount": 3
+    },
+    {
+      "id": "ignis",
+      "amount": 2
+    }
+  ],
+  "inactive": false,
+  "inactive_reason": null,
+  "legacy": {
+    "legacy_entity_id": "LavaSlime",
+    "modern_target": "minecraft:magma_cube",
+    "aspects": [
+      {
+        "id": "limus",
+        "amount": 3
+      },
+      {
+        "id": "ignis",
+        "amount": 2
+      }
+    ],
+    "nbt_conditions_raw": [],
+    "source_expression": "ThaumcraftApi.registerEntityTag(\"LavaSlime\", (new AspectList()).add(Aspect.SLIME, 3).add(Aspect.FIRE, 2))"
+  }
+}

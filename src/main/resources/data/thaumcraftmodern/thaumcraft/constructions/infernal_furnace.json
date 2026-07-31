@@ -1,0 +1,7 @@
+{
+  "id": "infernal_furnace",
+  "handler": "infernal_furnace",
+  "trigger": {"type": "wand", "consume": 0},
+  "research": "infernalfurnace",
+  "vis": {"ignis": 50, "terra": 50}
+}

@@ -1,0 +1,14 @@
+{
+  "id": "balancedshard__a",
+  "legacy_id": "\"BalancedShard_\" + a",
+  "legacy_kind": "crucible",
+  "inactive": true,
+  "inactive_reason": "recipe type or referenced content is not implemented",
+  "modern_recipe": "",
+  "required_aspects": [],
+  "legacy": {
+    "source_expression": "ThaumcraftApi.addCrucibleRecipe(\"CRUCIBLE\", new ItemStack(ConfigItems.itemShard, 1, 6), new ItemStack(ConfigItems.itemShard, 1, a), al)",
+    "source_statement": "}\n         }\n\n         ConfigResearch.recipes.put(\"BalancedShard_\" + a, ThaumcraftApi.addCrucibleRecipe(\"CRUCIBLE\", new ItemStack(ConfigItems.itemShard, 1, 6), new ItemStack(ConfigItems.itemShard, 1, a), al))",
+    "unkeyed": false
+  }
+}

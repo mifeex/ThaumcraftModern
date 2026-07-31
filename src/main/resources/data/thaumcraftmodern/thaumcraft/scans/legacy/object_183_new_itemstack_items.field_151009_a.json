@@ -1,0 +1,33 @@
+{
+  "type": "item",
+  "target": "minecraft:mushroom_stew",
+  "display": "",
+  "aspects": [
+    {
+      "id": "fames",
+      "amount": 4
+    }
+  ],
+  "inactive": true,
+  "inactive_reason": "recipe-derived base aspects cannot yet be reproduced safely",
+  "legacy": {
+    "registration_mode": "recipe_derived_modifier",
+    "target_kind": "item_stack",
+    "legacy_target": "new ItemStack(Items.field_151009_A)",
+    "metadata_group_raw": null,
+    "aspects": [
+      {
+        "id": "fames",
+        "amount": 4
+      }
+    ],
+    "aspect_operations": [
+      {
+        "operation": "add",
+        "id": "fames",
+        "amount": 4
+      }
+    ],
+    "source_expression": "ThaumcraftApi.registerComplexObjectTag(new ItemStack(Items.field_151009_A), (new AspectList()).add(Aspect.HUNGER, 4))"
+  }
+}

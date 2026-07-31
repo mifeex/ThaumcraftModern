@@ -1,0 +1,14 @@
+{
+  "id": "arcanestone4",
+  "legacy_id": "ArcaneStone4",
+  "legacy_kind": "crafting_shaped",
+  "inactive": true,
+  "inactive_reason": "recipe type or referenced content is not implemented",
+  "modern_recipe": "",
+  "required_aspects": [],
+  "legacy": {
+    "source_expression": "GameRegistry.addShapedRecipe(new ItemStack(ConfigBlocks.blockSlabStone, 6, 0), new Object[]{\"KKK\", 'K', new ItemStack(ConfigBlocks.blockCosmeticSolid, 1, 7)})",
+    "source_statement": "ConfigResearch.recipes.put(\"ArcaneStone4\", GameRegistry.addShapedRecipe(new ItemStack(ConfigBlocks.blockSlabStone, 6, 0), new Object[]{\"KKK\", 'K', new ItemStack(ConfigBlocks.blockCosmeticSolid, 1, 7)}))",
+    "unkeyed": false
+  }
+}

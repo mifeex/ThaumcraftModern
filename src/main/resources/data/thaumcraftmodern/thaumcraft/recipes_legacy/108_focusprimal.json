@@ -1,0 +1,39 @@
+{
+  "id": "focusprimal",
+  "legacy_id": "FocusPrimal",
+  "legacy_kind": "arcane_shaped",
+  "inactive": true,
+  "inactive_reason": "recipe type or referenced content is not implemented",
+  "modern_recipe": "",
+  "required_aspects": [
+    {
+      "id": "terra",
+      "amount": 25
+    },
+    {
+      "id": "perditio",
+      "amount": 25
+    },
+    {
+      "id": "ordo",
+      "amount": 25
+    },
+    {
+      "id": "aer",
+      "amount": 25
+    },
+    {
+      "id": "ignis",
+      "amount": 25
+    },
+    {
+      "id": "aqua",
+      "amount": 25
+    }
+  ],
+  "legacy": {
+    "source_expression": "ThaumcraftApi.addArcaneCraftingRecipe(\"FOCUSPRIMAL\", new ItemStack(ConfigItems.itemFocusPrimal), (new AspectList()).add(Aspect.EARTH, 25).add(Aspect.ENTROPY, 25).add(Aspect.ORDER, 25).add(Aspect.AIR, 25).add(Aspect.FIRE, 25).add(Aspect.WATER, 25), \"CQC\", \"Q#Q\", \"CQC\", '#', new ItemStack(ConfigItems.itemResource, 1, 15), 'Q', Items.field_151128_bU, 'C', Items.field_151045_i)",
+    "source_statement": "ConfigResearch.recipes.put(\"FocusPrimal\", ThaumcraftApi.addArcaneCraftingRecipe(\"FOCUSPRIMAL\", new ItemStack(ConfigItems.itemFocusPrimal), (new AspectList()).add(Aspect.EARTH, 25).add(Aspect.ENTROPY, 25).add(Aspect.ORDER, 25).add(Aspect.AIR, 25).add(Aspect.FIRE, 25).add(Aspect.WATER, 25), \"CQC\", \"Q#Q\", \"CQC\", '#', new ItemStack(ConfigItems.itemResource, 1, 15), 'Q', Items.field_151128_bU, 'C', Items.field_151045_i))",
+    "unkeyed": false
+  }
+}

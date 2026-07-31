@@ -1,0 +1,11 @@
+{
+  "kind": "rod",
+  "id": "primal_staff",
+  "capacity_vis": 250,
+  "recharge_aspects": ["aer", "terra", "ignis", "aqua", "ordo", "perditio"],
+  "recharge_interval_ticks": 50,
+  "recharge_centivis": 1,
+  "staff": true,
+  "runes": true,
+  "translation_key": "item.Wand.primal.rod"
+}

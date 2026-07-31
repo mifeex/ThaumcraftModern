@@ -1,0 +1,10 @@
+{
+  "id": "vacuos",
+  "order": 60,
+  "color": "888888",
+  "icon": "thaumcraftmodern:textures/aspects/vacuos.png",
+  "components": [
+    "aer",
+    "perditio"
+  ]
+}

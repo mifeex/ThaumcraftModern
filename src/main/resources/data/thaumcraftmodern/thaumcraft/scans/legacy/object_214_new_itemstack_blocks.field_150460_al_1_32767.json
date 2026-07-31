@@ -1,0 +1,33 @@
+{
+  "type": "block",
+  "target": "minecraft:furnace",
+  "display": "",
+  "aspects": [
+    {
+      "id": "ignis",
+      "amount": 2
+    }
+  ],
+  "inactive": true,
+  "legacy": {
+    "registration_mode": "recipe_derived_modifier",
+    "target_kind": "item_stack",
+    "legacy_target": "new ItemStack(Blocks.field_150460_al, 1, 32767)",
+    "metadata_group_raw": null,
+    "aspects": [
+      {
+        "id": "ignis",
+        "amount": 2
+      }
+    ],
+    "aspect_operations": [
+      {
+        "operation": "add",
+        "id": "ignis",
+        "amount": 2
+      }
+    ],
+    "source_expression": "ThaumcraftApi.registerComplexObjectTag(new ItemStack(Blocks.field_150460_al, 1, 32767), (new AspectList()).add(Aspect.FIRE, 2))"
+  },
+  "inactive_reason": "multiple legacy registrations collapse to one modern target"
+}

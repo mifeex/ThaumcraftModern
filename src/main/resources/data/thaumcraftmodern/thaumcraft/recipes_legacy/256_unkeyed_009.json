@@ -1,0 +1,14 @@
+{
+  "id": "unkeyed_009",
+  "legacy_id": "unkeyed_009",
+  "legacy_kind": "crafting_shaped",
+  "inactive": true,
+  "inactive_reason": "recipe type or referenced content is not implemented",
+  "modern_recipe": "",
+  "required_aspects": [],
+  "legacy": {
+    "source_expression": "GameRegistry.addShapedRecipe(new ItemStack(ConfigBlocks.blockStairsGreatwood, 4, 0), new Object[]{\"K  \", \"KK \", \"KKK\", 'K', new ItemStack(ConfigBlocks.blockWoodenDevice, 1, 6)})",
+    "source_statement": "GameRegistry.addShapedRecipe(new ItemStack(ConfigBlocks.blockStairsGreatwood, 4, 0), new Object[]{\"K  \", \"KK \", \"KKK\", 'K', new ItemStack(ConfigBlocks.blockWoodenDevice, 1, 6)})",
+    "unkeyed": true
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "id": "unkeyed_028",
+  "legacy_id": "unkeyed_028",
+  "legacy_kind": "smelting",
+  "inactive": true,
+  "inactive_reason": "recipe type or referenced content is not implemented",
+  "modern_recipe": "",
+  "required_aspects": [],
+  "legacy": {
+    "source_expression": "FurnaceRecipes.func_77602_a().func_151394_a(new ItemStack(ConfigItems.itemResource, 1, 18), new ItemStack(Items.field_151074_bl), 0.0F)",
+    "source_statement": "FurnaceRecipes.func_77602_a().func_151394_a(new ItemStack(ConfigItems.itemResource, 1, 18), new ItemStack(Items.field_151074_bl), 0.0F)",
+    "unkeyed": true
+  }
+}

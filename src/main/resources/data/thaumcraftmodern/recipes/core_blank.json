@@ -1,0 +1,24 @@
+{
+  "type": "thaumcraftmodern:arcane_shaped",
+  "research": "coregather",
+  "vis": {
+    "ordo": 5,
+    "ignis": 5
+  },
+  "pattern": [
+    " C ",
+    "CNC",
+    " C "
+  ],
+  "key": {
+    "C": {
+      "item": "minecraft:brick"
+    },
+    "N": {
+      "item": "thaumcraftmodern:nitor"
+    }
+  },
+  "result": {
+    "item": "thaumcraftmodern:blank_golem_core"
+  }
+}

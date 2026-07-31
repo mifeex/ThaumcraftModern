@@ -1,0 +1,58 @@
+{
+  "type": "item_tag",
+  "target": "forge:dusts/gold",
+  "display": "",
+  "aspects": [
+    {
+      "id": "metallum",
+      "amount": 2
+    },
+    {
+      "id": "perditio",
+      "amount": 1
+    },
+    {
+      "id": "lucrum",
+      "amount": 1
+    }
+  ],
+  "inactive": false,
+  "legacy": {
+    "registration_mode": "explicit",
+    "target_kind": "ore_dictionary",
+    "legacy_target": "dustGold",
+    "metadata_group_raw": null,
+    "aspects": [
+      {
+        "id": "metallum",
+        "amount": 2
+      },
+      {
+        "id": "perditio",
+        "amount": 1
+      },
+      {
+        "id": "lucrum",
+        "amount": 1
+      }
+    ],
+    "aspect_operations": [
+      {
+        "operation": "add",
+        "id": "metallum",
+        "amount": 2
+      },
+      {
+        "operation": "add",
+        "id": "perditio",
+        "amount": 1
+      },
+      {
+        "operation": "add",
+        "id": "lucrum",
+        "amount": 1
+      }
+    ],
+    "source_expression": "ThaumcraftApi.registerObjectTag(\"dustGold\", (new AspectList()).add(Aspect.METAL, 2).add(Aspect.ENTROPY, 1).add(Aspect.GREED, 1))"
+  }
+}

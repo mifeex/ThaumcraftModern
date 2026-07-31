@@ -1,0 +1,27 @@
+{
+  "id": "tubeoneway",
+  "legacy_id": "TubeOneway",
+  "legacy_kind": "arcane_shapeless",
+  "inactive": true,
+  "inactive_reason": "recipe type or referenced content is not implemented",
+  "modern_recipe": "",
+  "required_aspects": [
+    {
+      "id": "aqua",
+      "amount": 5
+    },
+    {
+      "id": "ordo",
+      "amount": 8
+    },
+    {
+      "id": "perditio",
+      "amount": 8
+    }
+  ],
+  "legacy": {
+    "source_expression": "ThaumcraftApi.addShapelessArcaneCraftingRecipe(\"TUBEFILTER\", new ItemStack(ConfigBlocks.blockTube, 1, 6), (new AspectList()).add(Aspect.WATER, 5).add(Aspect.ORDER, 8).add(Aspect.ENTROPY, 8), new ItemStack(ConfigBlocks.blockTube, 1, 0), \"dyeBlue\")",
+    "source_statement": "ConfigResearch.recipes.put(\"TubeOneway\", ThaumcraftApi.addShapelessArcaneCraftingRecipe(\"TUBEFILTER\", new ItemStack(ConfigBlocks.blockTube, 1, 6), (new AspectList()).add(Aspect.WATER, 5).add(Aspect.ORDER, 8).add(Aspect.ENTROPY, 8), new ItemStack(ConfigBlocks.blockTube, 1, 0), \"dyeBlue\"))",
+    "unkeyed": false
+  }
+}

@@ -1,0 +1,27 @@
+{
+  "id": "nodestabilizer",
+  "legacy_id": "NodeStabilizer",
+  "legacy_kind": "arcane_shaped",
+  "inactive": true,
+  "inactive_reason": "recipe type or referenced content is not implemented",
+  "modern_recipe": "",
+  "required_aspects": [
+    {
+      "id": "aqua",
+      "amount": 32
+    },
+    {
+      "id": "terra",
+      "amount": 32
+    },
+    {
+      "id": "ordo",
+      "amount": 32
+    }
+  ],
+  "legacy": {
+    "source_expression": "ThaumcraftApi.addArcaneCraftingRecipe(\"NODESTABILIZER\", new ItemStack(ConfigBlocks.blockStoneDevice, 1, 9), (new AspectList()).add(Aspect.WATER, 32).add(Aspect.EARTH, 32).add(Aspect.ORDER, 32), \" G \", \"QPQ\", \"SNS\", 'S', new ItemStack(ConfigBlocks.blockCosmeticSolid, 1, 7), 'G', new ItemStack(Items.field_151043_k), 'P', new ItemStack(Blocks.field_150331_J), 'Q', new ItemStack(Blocks.field_150371_ca), 'N', new ItemStack(ConfigItems.itemResource, 1, 1))",
+    "source_statement": "}\n\n      ConfigResearch.recipes.put(\"NodeStabilizer\", ThaumcraftApi.addArcaneCraftingRecipe(\"NODESTABILIZER\", new ItemStack(ConfigBlocks.blockStoneDevice, 1, 9), (new AspectList()).add(Aspect.WATER, 32).add(Aspect.EARTH, 32).add(Aspect.ORDER, 32), \" G \", \"QPQ\", \"SNS\", 'S', new ItemStack(ConfigBlocks.blockCosmeticSolid, 1, 7), 'G', new ItemStack(Items.field_151043_k), 'P', new ItemStack(Blocks.field_150331_J), 'Q', new ItemStack(Blocks.field_150371_ca), 'N', new ItemStack(ConfigItems.itemResource, 1, 1)))",
+    "unkeyed": false
+  }
+}

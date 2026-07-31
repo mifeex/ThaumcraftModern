@@ -1,0 +1,32 @@
+{
+  "type": "item_tag",
+  "target": "forge:rods/wooden",
+  "display": "",
+  "aspects": [
+    {
+      "id": "arbor",
+      "amount": 1
+    }
+  ],
+  "inactive": false,
+  "legacy": {
+    "registration_mode": "explicit",
+    "target_kind": "ore_dictionary",
+    "legacy_target": "stickWood",
+    "metadata_group_raw": null,
+    "aspects": [
+      {
+        "id": "arbor",
+        "amount": 1
+      }
+    ],
+    "aspect_operations": [
+      {
+        "operation": "add",
+        "id": "arbor",
+        "amount": 1
+      }
+    ],
+    "source_expression": "ThaumcraftApi.registerObjectTag(\"stickWood\", (new AspectList()).add(Aspect.TREE, 1))"
+  }
+}

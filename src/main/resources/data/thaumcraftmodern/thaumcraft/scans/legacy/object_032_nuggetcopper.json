@@ -1,0 +1,32 @@
+{
+  "type": "item",
+  "target": "thaumcraftmodern:copper_nugget",
+  "display": "",
+  "aspects": [
+    {
+      "id": "metallum",
+      "amount": 1
+    }
+  ],
+  "inactive": false,
+  "legacy": {
+    "registration_mode": "explicit",
+    "target_kind": "ore_dictionary",
+    "legacy_target": "nuggetCopper",
+    "metadata_group_raw": null,
+    "aspects": [
+      {
+        "id": "metallum",
+        "amount": 1
+      }
+    ],
+    "aspect_operations": [
+      {
+        "operation": "add",
+        "id": "metallum",
+        "amount": 1
+      }
+    ],
+    "source_expression": "if (Config.foundCopperIngot) {\n         ThaumcraftApi.registerObjectTag(\"nuggetCopper\", (new AspectList()).add(Aspect.METAL, 1))"
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "id": "instrumentum",
+  "order": 380,
+  "color": "4040EE",
+  "icon": "thaumcraftmodern:textures/aspects/instrumentum.png",
+  "components": [
+    "humanus",
+    "ordo"
+  ]
+}

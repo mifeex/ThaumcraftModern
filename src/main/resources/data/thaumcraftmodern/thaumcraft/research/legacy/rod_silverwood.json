@@ -1,0 +1,75 @@
+{
+  "id": "rod_silverwood",
+  "legacy_id": "ROD_silverwood",
+  "category": "thaumaturgy",
+  "icon": "thaumcraftmodern:silverwood_wand_rod",
+  "title": "tc.research_name.ROD_silverwood",
+  "subtitle": "tc.research_text.ROD_silverwood",
+  "concealed": true,
+  "auto_unlock": false,
+  "parents": [
+    "rod_greatwood",
+    "infusion"
+  ],
+  "hidden_parents": [],
+  "reveal_when": {
+    "type": "always"
+  },
+  "x": -48,
+  "y": 120,
+  "pages": [
+    {
+      "type": "text",
+      "title": "",
+      "body": "tc.research_page.ROD_silverwood.1"
+    },
+    {
+      "type": "unavailable",
+      "title": "",
+      "body": "",
+      "legacy_type": "recipe",
+      "legacy_content": "WandRodSilverwood",
+      "source_expression": "new ResearchPage((InfusionRecipe)recipes.get(\"WandRodSilverwood\"))"
+    }
+  ],
+  "inactive": true,
+  "inactive_reason": "referenced gameplay content is not implemented",
+  "legacy": {
+    "x": -2,
+    "y": 5,
+    "complexity": 3,
+    "icon_raw": "new ItemStack(ConfigItems.itemWandRod, 1, 2)",
+    "flags": {
+      "special": false,
+      "secondary": false,
+      "round": false,
+      "stub": false,
+      "virtual": false,
+      "concealed": false,
+      "hidden": false,
+      "lost": false,
+      "auto_unlock": false
+    },
+    "hidden_parents": [],
+    "siblings": [],
+    "item_triggers_raw": [],
+    "entity_triggers": [],
+    "aspect_triggers": [],
+    "research_aspects": [
+      {
+        "id": "instrumentum",
+        "amount": 6
+      },
+      {
+        "id": "arbor",
+        "amount": 6
+      },
+      {
+        "id": "praecantatio",
+        "amount": 9
+      }
+    ],
+    "warp": [],
+    "source_expression": "(new ResearchItem(\"ROD_silverwood\", \"THAUMATURGY\", (new AspectList()).add(Aspect.TOOL, 6).add(Aspect.TREE, 6).add(Aspect.MAGIC, 9), -2, 5, 3, new ItemStack(ConfigItems.itemWandRod, 1, 2))).setPages(new ResearchPage(\"tc.research_page.ROD_silverwood.1\"), new ResearchPage((InfusionRecipe)recipes.get(\"WandRodSilverwood\"))).setParents(\"ROD_greatwood\", \"INFUSION\").registerResearchItem()"
+  }
+}

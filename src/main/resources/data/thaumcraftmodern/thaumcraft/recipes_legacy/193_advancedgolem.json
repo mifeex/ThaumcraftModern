@@ -1,0 +1,27 @@
+{
+  "id": "advancedgolem",
+  "legacy_id": "AdvancedGolem",
+  "legacy_kind": "infusion",
+  "inactive": true,
+  "inactive_reason": "recipe type or referenced content is not implemented",
+  "modern_recipe": "",
+  "required_aspects": [
+    {
+      "id": "cognitio",
+      "amount": 8
+    },
+    {
+      "id": "sensus",
+      "amount": 8
+    },
+    {
+      "id": "victus",
+      "amount": 8
+    }
+  ],
+  "legacy": {
+    "source_expression": "ThaumcraftApi.addInfusionCraftingRecipe(\"ADVANCEDGOLEM\", new Object[]{\"advanced\", new NBTTagByte((byte)1)}, 3, (new AspectList()).add(Aspect.MIND, 8).add(Aspect.SENSES, 8).add(Aspect.LIFE, 8), new ItemStack(ConfigItems.itemGolemPlacer, 1, 32767), new ItemStack[]{new ItemStack(Items.field_151137_ax), new ItemStack(Items.field_151114_aO), new ItemStack(Items.field_151016_H), new ItemStack(ConfigBlocks.blockJar, 1, 0), new ItemStack(ConfigItems.itemZombieBrain)})",
+    "source_statement": "ConfigResearch.recipes.put(\"AdvancedGolem\", ThaumcraftApi.addInfusionCraftingRecipe(\"ADVANCEDGOLEM\", new Object[]{\"advanced\", new NBTTagByte((byte)1)}, 3, (new AspectList()).add(Aspect.MIND, 8).add(Aspect.SENSES, 8).add(Aspect.LIFE, 8), new ItemStack(ConfigItems.itemGolemPlacer, 1, 32767), new ItemStack[]{new ItemStack(Items.field_151137_ax), new ItemStack(Items.field_151114_aO), new ItemStack(Items.field_151016_H), new ItemStack(ConfigBlocks.blockJar, 1, 0), new ItemStack(ConfigItems.itemZombieBrain)}))",
+    "unkeyed": false
+  }
+}

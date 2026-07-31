@@ -1,0 +1,6 @@
+{
+  "kind": "cap",
+  "id": "void",
+  "cost_modifier": 0.8,
+  "translation_key": "item.Wand.void.cap"
+}

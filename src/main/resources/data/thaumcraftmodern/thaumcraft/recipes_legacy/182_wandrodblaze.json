@@ -1,0 +1,27 @@
+{
+  "id": "wandrodblaze",
+  "legacy_id": "WandRodBlaze",
+  "legacy_kind": "infusion",
+  "inactive": true,
+  "inactive_reason": "recipe type or referenced content is not implemented",
+  "modern_recipe": "",
+  "required_aspects": [
+    {
+      "id": "ignis",
+      "amount": "((WandRod"
+    },
+    {
+      "id": "praecantatio",
+      "amount": "((WandRod"
+    },
+    {
+      "id": "bestia",
+      "amount": "((WandRod"
+    }
+  ],
+  "legacy": {
+    "source_expression": "ThaumcraftApi.addInfusionCraftingRecipe(\"ROD_blaze\", new ItemStack(ConfigItems.itemWandRod, 1, 6), 3, (new AspectList()).add(Aspect.FIRE, ((WandRod)WandRod.rods.get(\"blaze\")).getCraftCost() * 2).add(Aspect.MAGIC, ((WandRod)WandRod.rods.get(\"blaze\")).getCraftCost()).add(Aspect.BEAST, ((WandRod)WandRod.rods.get(\"blaze\")).getCraftCost()), new ItemStack(Items.field_151072_bj), new ItemStack[]{new ItemStack(ConfigItems.itemShard, 1, 6), new ItemStack(ConfigItems.itemShard, 1, 1)})",
+    "source_statement": "ConfigResearch.recipes.put(\"WandRodBlaze\", ThaumcraftApi.addInfusionCraftingRecipe(\"ROD_blaze\", new ItemStack(ConfigItems.itemWandRod, 1, 6), 3, (new AspectList()).add(Aspect.FIRE, ((WandRod)WandRod.rods.get(\"blaze\")).getCraftCost() * 2).add(Aspect.MAGIC, ((WandRod)WandRod.rods.get(\"blaze\")).getCraftCost()).add(Aspect.BEAST, ((WandRod)WandRod.rods.get(\"blaze\")).getCraftCost()), new ItemStack(Items.field_151072_bj), new ItemStack[]{new ItemStack(ConfigItems.itemShard, 1, 6), new ItemStack(ConfigItems.itemShard, 1, 1)}))",
+    "unkeyed": false
+  }
+}

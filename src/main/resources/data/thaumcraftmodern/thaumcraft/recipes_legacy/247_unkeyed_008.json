@@ -1,0 +1,14 @@
+{
+  "id": "unkeyed_008",
+  "legacy_id": "unkeyed_008",
+  "legacy_kind": "legacy_java",
+  "inactive": true,
+  "inactive_reason": "recipe type or referenced content is not implemented",
+  "modern_recipe": "",
+  "required_aspects": [],
+  "legacy": {
+    "source_expression": "CraftingManager.func_77594_a().func_92103_a(new ItemStack(Items.field_151065_br), new Object[]{\"#\", '#', new ItemStack(ConfigBlocks.blockCustomPlant, 1, 3)})",
+    "source_statement": "CraftingManager.func_77594_a().func_92103_a(new ItemStack(Items.field_151065_br), new Object[]{\"#\", '#', new ItemStack(ConfigBlocks.blockCustomPlant, 1, 3)})",
+    "unkeyed": true
+  }
+}
