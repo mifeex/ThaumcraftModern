@@ -1,6 +1,7 @@
 # Thaumcraft Modern
 
 An unofficial community port of Azanor's Thaumcraft 4.2.3.5 for Minecraft Forge 1.20.1 / Java 17.
+
 Сейчас реализованы первая вертикаль, следующая gameplay-вертикаль и
 world-content foundation из
 [`docs/MASTER_PROMPT_1.4.19.md`](docs/MASTER_PROMPT_1.4.19.md):
