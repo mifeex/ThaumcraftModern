@@ -10,32 +10,49 @@ import com.thaumcraftmodern.client.render.ReloadSafeObjLoader;
 import com.thaumcraftmodern.client.render.EldritchAltarPartRenderer;
 import com.thaumcraftmodern.client.render.EtherealBloomBlockEntityRenderer;
 import com.thaumcraftmodern.client.render.EssentiaJarBlockEntityRenderer;
+import com.thaumcraftmodern.client.render.EssentiaBufferBlockEntityRenderer;
+import com.thaumcraftmodern.client.render.AdvancedEssentiaBufferBlockEntityRenderer;
 import com.thaumcraftmodern.client.render.EssentiaTubeBlockEntityRenderer;
+import com.thaumcraftmodern.client.render.VoidJarBlockEntityRenderer;
+import com.thaumcraftmodern.client.render.EssentiaCentrifugeBlockEntityRenderer;
+import com.thaumcraftmodern.client.render.ClassicCentrifugeModel;
+import com.thaumcraftmodern.client.render.EssentiaCrystallizerBlockEntityRenderer;
+import com.thaumcraftmodern.client.render.EssentiaReservoirBlockEntityRenderer;
+import com.thaumcraftmodern.client.render.ThaumatoriumBlockEntityRenderer;
+import com.thaumcraftmodern.client.render.ClassicManaPodModel;
+import com.thaumcraftmodern.client.render.ManaPodBlockEntityRenderer;
+import com.thaumcraftmodern.item.EssentiaCrystalItem;
 import com.thaumcraftmodern.client.render.ArcaneAlembicBlockEntityRenderer;
 import com.thaumcraftmodern.client.render.EtherealBloomCrystalModel;
 import com.thaumcraftmodern.client.screen.ArcaneWorkbenchScreen;
 import com.thaumcraftmodern.client.screen.AlchemicalFurnaceScreen;
 import com.thaumcraftmodern.client.screen.ResearchTableScreen;
 import com.thaumcraftmodern.client.screen.PechScreen;
+import com.thaumcraftmodern.client.screen.ThaumatoriumScreen;
 import com.thaumcraftmodern.item.AspectShardItem;
 import com.thaumcraftmodern.item.EtherealEssenceItem;
 import com.thaumcraftmodern.item.EssentiaPhialItem;
+import com.thaumcraftmodern.item.ManaBeanItem;
 import com.thaumcraftmodern.registry.ModBlockEntities;
 import com.thaumcraftmodern.registry.ModBlocks;
 import com.thaumcraftmodern.registry.ModItems;
 import com.thaumcraftmodern.registry.ModMenus;
 import com.thaumcraftmodern.registry.ModParticles;
 import com.thaumcraftmodern.client.particle.NodeBurstParticle;
+import com.thaumcraftmodern.client.particle.NitorWispParticle;
 import com.thaumcraftmodern.client.particle.EldritchHealParticle;
 import com.thaumcraftmodern.client.particle.CrucibleBubbleParticle;
 import com.thaumcraftmodern.client.particle.TubeVentParticle;
 import net.minecraft.client.gui.screens.MenuScreens;
+import net.minecraft.client.renderer.item.ItemProperties;
 import net.minecraft.client.renderer.BiomeColors;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.EntityRenderersEvent;
 import net.minecraftforge.client.event.RegisterColorHandlersEvent;
 import com.thaumcraftmodern.aspect.AspectDefinition;
 import com.thaumcraftmodern.aspect.AspectRegistryRuntime;
+import com.thaumcraftmodern.world.block.entity.AdvancedEssentiaBufferBlockEntity;
 import com.thaumcraftmodern.world.block.entity.EssentiaTubeBlockEntity;
 import net.minecraftforge.client.event.RegisterClientReloadListenersEvent;
 import net.minecraftforge.client.event.RegisterGuiOverlaysEvent;
@@ -59,6 +76,17 @@ public final class ClientModEvents {
                     ModMenus.ALCHEMICAL_FURNACE.get(),
                     AlchemicalFurnaceScreen::new
             );
+            MenuScreens.register(ModMenus.THAUMATORIUM.get(), ThaumatoriumScreen::new);
+            ItemProperties.register(
+                    ModItems.ESSENTIA_PHIAL.get(),
+                    ResourceLocation.fromNamespaceAndPath(
+                            ThaumcraftModern.MOD_ID,
+                            "filled"
+                    ),
+                    (stack, level, entity, seed) ->
+                            EssentiaPhialItem.aspect(stack).isPresent()
+                                    ? 1.0F : 0.0F
+            );
         });
     }
 
@@ -67,6 +95,11 @@ public final class ClientModEvents {
             ModelEvent.RegisterGeometryLoaders event
     ) {
         event.register("reload_safe_obj", ReloadSafeObjLoader.INSTANCE);
+    }
+
+    @SubscribeEvent
+    public static void registerAdditionalModels(ModelEvent.RegisterAdditional event) {
+        event.register(EssentiaCrystallizerBlockEntityRenderer.CRYSTAL_MODEL);
     }
 
     @SubscribeEvent
@@ -92,6 +125,16 @@ public final class ClientModEvents {
                         ? 0xFF000000 | EssentiaPhialItem.color(stack)
                         : 0xFFFFFFFF,
                 ModItems.ESSENTIA_PHIAL.get()
+        );
+        event.register(
+                (stack, tintIndex) -> 0xFF000000
+                        | EssentiaCrystalItem.color(stack),
+                ModItems.ESSENTIA_CRYSTAL.get()
+        );
+        event.register(
+                (stack, tintIndex) -> 0xFF000000
+                        | ManaBeanItem.color(stack),
+                ModItems.MANA_BEAN.get()
         );
     }
 
@@ -122,6 +165,19 @@ public final class ClientModEvents {
                 },
                 ModBlocks.FILTERED_ESSENTIA_TUBE.get()
         );
+        event.register(
+                (state, level, position, tintIndex) -> {
+                    if (tintIndex < 0 || tintIndex >= net.minecraft.core.Direction.values().length
+                            || level == null || position == null
+                            || !(level.getBlockEntity(position)
+                            instanceof AdvancedEssentiaBufferBlockEntity buffer)) {
+                        return 0xFFFFFF;
+                    }
+                    return buffer.role(net.minecraft.core.Direction.values()[tintIndex])
+                            .indicatorColor();
+                },
+                ModBlocks.ADVANCED_ESSENTIA_BUFFER.get()
+        );
     }
 
     @SubscribeEvent
@@ -148,6 +204,34 @@ public final class ClientModEvents {
                 EssentiaJarBlockEntityRenderer::new
         );
         event.registerBlockEntityRenderer(
+                ModBlockEntities.ESSENTIA_BUFFER.get(),
+                EssentiaBufferBlockEntityRenderer::new
+        );
+        event.registerBlockEntityRenderer(
+                ModBlockEntities.ADVANCED_ESSENTIA_BUFFER.get(),
+                AdvancedEssentiaBufferBlockEntityRenderer::new
+        );
+        event.registerBlockEntityRenderer(
+                ModBlockEntities.VOID_JAR.get(),
+                VoidJarBlockEntityRenderer::new
+        );
+        event.registerBlockEntityRenderer(
+                ModBlockEntities.ESSENTIA_CENTRIFUGE.get(),
+                EssentiaCentrifugeBlockEntityRenderer::new
+        );
+        event.registerBlockEntityRenderer(
+                ModBlockEntities.ESSENTIA_CRYSTALLIZER.get(),
+                EssentiaCrystallizerBlockEntityRenderer::new
+        );
+        event.registerBlockEntityRenderer(
+                ModBlockEntities.ESSENTIA_RESERVOIR.get(),
+                EssentiaReservoirBlockEntityRenderer::new
+        );
+        event.registerBlockEntityRenderer(
+                ModBlockEntities.THAUMATORIUM.get(),
+                ThaumatoriumBlockEntityRenderer::new
+        );
+        event.registerBlockEntityRenderer(
                 ModBlockEntities.ESSENTIA_TUBE.get(),
                 EssentiaTubeBlockEntityRenderer::new
         );
@@ -163,6 +247,10 @@ public final class ClientModEvents {
                 ModBlockEntities.ETHEREAL_BLOOM.get(),
                 EtherealBloomBlockEntityRenderer::new
         );
+        event.registerBlockEntityRenderer(
+                ModBlockEntities.MANA_POD.get(),
+                ManaPodBlockEntityRenderer::new
+        );
     }
 
     @SubscribeEvent
@@ -170,8 +258,16 @@ public final class ClientModEvents {
             EntityRenderersEvent.RegisterLayerDefinitions event
     ) {
         event.registerLayerDefinition(
+                ClassicManaPodModel.LAYER,
+                ClassicManaPodModel::createBodyLayer
+        );
+        event.registerLayerDefinition(
                 ResearchTableBlockEntityRenderer.LAYER,
                 ResearchTableModel::createBodyLayer
+        );
+        event.registerLayerDefinition(
+                ClassicCentrifugeModel.LAYER,
+                ClassicCentrifugeModel::createBodyLayer
         );
         event.registerLayerDefinition(
                 EtherealBloomCrystalModel.LAYER,
@@ -199,6 +295,14 @@ public final class ClientModEvents {
 
     @SubscribeEvent
     public static void registerParticles(RegisterParticleProvidersEvent event) {
+        event.registerSpriteSet(
+                ModParticles.NITOR_WISP_LARGE.get(),
+                sprites -> new NitorWispParticle.Provider(sprites, true)
+        );
+        event.registerSpriteSet(
+                ModParticles.NITOR_WISP_SMALL.get(),
+                sprites -> new NitorWispParticle.Provider(sprites, false)
+        );
         event.registerSpriteSet(
                 ModParticles.NODE_BURST.get(),
                 NodeBurstParticle.Provider::new

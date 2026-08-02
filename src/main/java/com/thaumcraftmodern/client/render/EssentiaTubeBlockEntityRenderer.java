@@ -37,6 +37,8 @@ public final class EssentiaTubeBlockEntityRenderer
             ThaumcraftModern.MOD_ID, "textures/block/pipe_valve.png");
     private static final ResourceLocation VALVE_MODEL = new ResourceLocation(
             ThaumcraftModern.MOD_ID, "textures/model/valve.png");
+    private static final ResourceLocation REVERSE_ARROW = new ResourceLocation(
+            ThaumcraftModern.MOD_ID, "textures/block/pipe_reverse_arrow.png");
     private static final float ARM_MIN = 7.0F / 16.0F;
     private static final float ARM_MAX = 9.0F / 16.0F;
     private static final float EXTENSION = 6.0F / 16.0F;
@@ -95,8 +97,12 @@ public final class EssentiaTubeBlockEntityRenderer
             tubeCuboid(out, poses.last(), minX, minY, minZ, maxX, maxY, maxZ,
                     light, overlay);
         }
-        if (tube.policy().directional()) {
+        if (tube.policy().directional()
+                && !tube.policy().reversibleController()) {
             renderOneWayRings(tube, poses, buffers, light, overlay);
+        }
+        if (tube.policy().reversibleController()) {
+            renderReversibleArrow(tube, poses, buffers, light, overlay);
         }
         if (tube.policy().filtered()) {
             renderFilterCore(tube, poses, buffers, light, overlay);
@@ -235,6 +241,9 @@ public final class EssentiaTubeBlockEntityRenderer
         // the BE field here leaves an already placed vertical tube stuck on
         // its old default NORTH axis until the chunk is reloaded.
         Direction face = tube.getBlockState().getValue(EssentiaTubeBlock.FACING);
+        // TC4 only draws the three directional rings when a connectable
+        // transport exists on the input side. Without this guard, exposed
+        // one-way tubes leave a detached stack of rings in mid-air.
         if (EssentiaConnections.neighbour(
                 tube.getLevel(), tube.getBlockPos(), face.getOpposite()
         ).isEmpty()) {
@@ -288,6 +297,76 @@ public final class EssentiaTubeBlockEntityRenderer
                 .getChild("valve_rod");
     }
 
+    /** Transparent direction decal on the four longitudinal faces of the arm. */
+    private static void renderReversibleArrow(EssentiaTubeBlockEntity tube,
+            PoseStack poses, MultiBufferSource buffers, int light, int overlay) {
+        if (!tube.reversibleArrowVisible()) return;
+        Direction face = tube.getBlockState().getValue(EssentiaTubeBlock.FACING);
+        if (!tube.isConnectable(face) || EssentiaConnections.neighbour(
+                tube.getLevel(), tube.getBlockPos(), face).isEmpty()) {
+            return;
+        }
+        float[] axis = {face.getStepX(), face.getStepY(), face.getStepZ()};
+        float[] first = face.getAxis() == Direction.Axis.Y
+                ? new float[]{1.0F, 0.0F, 0.0F}
+                : new float[]{0.0F, 1.0F, 0.0F};
+        float[] second = {
+                axis[1] * first[2] - axis[2] * first[1],
+                axis[2] * first[0] - axis[0] * first[2],
+                axis[0] * first[1] - axis[1] * first[0]
+        };
+        float along = 4.0F / 16.0F;
+        float halfLength = 2.5F / 16.0F;
+        float halfWidth = 1.12F / 16.0F;
+        float radius = 1.01F / 16.0F;
+        float cx = 0.5F + axis[0] * along;
+        float cy = 0.5F + axis[1] * along;
+        float cz = 0.5F + axis[2] * along;
+        VertexConsumer out = buffers.getBuffer(
+                RenderType.entityCutoutNoCull(REVERSE_ARROW));
+        arrowQuad(out, poses.last(), cx, cy, cz, second, axis, first,
+                halfWidth, halfLength, radius, light, overlay);
+        arrowQuad(out, poses.last(), cx, cy, cz, negate(second), axis,
+                negate(first), halfWidth, halfLength, radius, light, overlay);
+        arrowQuad(out, poses.last(), cx, cy, cz, first, axis, second,
+                halfWidth, halfLength, radius, light, overlay);
+        arrowQuad(out, poses.last(), cx, cy, cz, negate(first), axis,
+                negate(second), halfWidth, halfLength, radius, light, overlay);
+    }
+
+    private static float[] negate(float[] vector) {
+        return new float[]{-vector[0], -vector[1], -vector[2]};
+    }
+
+    private static void arrowQuad(VertexConsumer out, PoseStack.Pose pose,
+            float cx, float cy, float cz, float[] width, float[] axis,
+            float[] normal, float halfWidth, float halfLength, float radius,
+            int light, int overlay) {
+        float px = cx + normal[0] * radius;
+        float py = cy + normal[1] * radius;
+        float pz = cz + normal[2] * radius;
+        vertex(out, pose,
+                px-width[0]*halfWidth-axis[0]*halfLength,
+                py-width[1]*halfWidth-axis[1]*halfLength,
+                pz-width[2]*halfWidth-axis[2]*halfLength,
+                0,1,normal[0],normal[1],normal[2],1,1,1,light,overlay);
+        vertex(out, pose,
+                px+width[0]*halfWidth-axis[0]*halfLength,
+                py+width[1]*halfWidth-axis[1]*halfLength,
+                pz+width[2]*halfWidth-axis[2]*halfLength,
+                1,1,normal[0],normal[1],normal[2],1,1,1,light,overlay);
+        vertex(out, pose,
+                px+width[0]*halfWidth+axis[0]*halfLength,
+                py+width[1]*halfWidth+axis[1]*halfLength,
+                pz+width[2]*halfWidth+axis[2]*halfLength,
+                1,0,normal[0],normal[1],normal[2],1,1,1,light,overlay);
+        vertex(out, pose,
+                px-width[0]*halfWidth+axis[0]*halfLength,
+                py-width[1]*halfWidth+axis[1]*halfLength,
+                pz-width[2]*halfWidth+axis[2]*halfLength,
+                0,0,normal[0],normal[1],normal[2],1,1,1,light,overlay);
+    }
+
     @Override
     public boolean shouldRenderOffScreen(EssentiaTubeBlockEntity tube) {
         return true;
@@ -300,7 +379,7 @@ public final class EssentiaTubeBlockEntityRenderer
     }
 
     /** Matches TC4 TubeConduitRenderHelper's coordinate-derived pipe UVs. */
-    private static void tubeCuboid(VertexConsumer out, PoseStack.Pose pose,
+    static void tubeCuboid(VertexConsumer out, PoseStack.Pose pose,
             float x0,float y0,float z0,float x1,float y1,float z1,
             int light,int overlay) {
         cuboid(out, pose, x0,y0,z0,x1,y1,z1, 1,1,1,light,overlay);

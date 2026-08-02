@@ -1,6 +1,8 @@
 package com.thaumcraftmodern.world.block.entity;
 
+import com.thaumcraftmodern.aspect.AspectRegistryRuntime;
 import com.thaumcraftmodern.essentia.EssentiaConnections;
+import com.thaumcraftmodern.essentia.JarRedstoneSignal;
 import com.thaumcraftmodern.essentia.EssentiaSync;
 import com.thaumcraftmodern.essentia.EssentiaTransport;
 import com.thaumcraftmodern.registry.ModBlockEntities;
@@ -11,6 +13,7 @@ import net.minecraft.network.Connection;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.Mth;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.Nullable;
@@ -55,7 +58,8 @@ public final class EssentiaJarBlockEntity extends BlockEntity
             wanted = remote.essentiaType(Direction.DOWN);
         }
         if (wanted != null
-                && remote.suctionAmount(Direction.DOWN) < suctionAmount(Direction.UP)) {
+                && remote.suctionAmount(Direction.DOWN) < suctionAmount(Direction.UP)
+                && suctionAmount(Direction.UP) >= remote.minimumSuction()) {
             int taken = remote.takeEssentia(wanted, 1, Direction.DOWN);
             if (taken > 0) addEssentia(wanted, taken, Direction.UP);
         }
@@ -89,13 +93,15 @@ public final class EssentiaJarBlockEntity extends BlockEntity
     }
 
     public void emptyContents() {
+        int previousSignal = comparatorSignal();
         amount = 0;
         aspect = filter;
         EssentiaSync.changed(this);
+        notifyRedstoneChange(previousSignal);
     }
 
     public int comparatorSignal() {
-        return amount <= 0 ? 0 : Mth.floor(amount / (float) CAPACITY * 14.0F) + 1;
+        return JarRedstoneSignal.forAmount(amount);
     }
 
     @Override
@@ -147,23 +153,44 @@ public final class EssentiaJarBlockEntity extends BlockEntity
     public int takeEssentia(String aspect, int requested, Direction side) {
         if (!canOutputTo(side) || requested <= 0 || !Objects.equals(this.aspect, aspect)
                 || amount < requested) return 0;
+        int previousSignal = comparatorSignal();
         amount -= requested;
         if (amount == 0) this.aspect = filter;
         EssentiaSync.changed(this);
+        notifyRedstoneChange(previousSignal);
         return requested;
     }
 
     @Override
     public int addEssentia(String aspect, int requested, Direction side) {
-        if (!canInputFrom(side) || requested <= 0
-                || filter != null && !filter.equals(aspect)
-                || amount > 0 && !Objects.equals(this.aspect, aspect)) return 0;
+        if (!canInputFrom(side) || !acceptsAspect(aspect, requested)) return 0;
         int accepted = Math.min(requested, CAPACITY - amount);
         if (accepted <= 0) return 0;
+        int previousSignal = comparatorSignal();
         this.aspect = aspect;
         amount += accepted;
         EssentiaSync.changed(this);
+        notifyRedstoneChange(previousSignal);
         return accepted;
+    }
+
+    private void notifyRedstoneChange(int previousSignal) {
+        if (level != null && !level.isClientSide
+                && previousSignal != comparatorSignal()) {
+            getBlockState().updateNeighbourShapes(
+                    level, worldPosition, Block.UPDATE_ALL);
+            level.updateNeighborsAt(worldPosition, getBlockState().getBlock());
+            level.updateNeighbourForOutputSignal(
+                    worldPosition, getBlockState().getBlock());
+        }
+    }
+
+    public boolean acceptsAspect(@Nullable String incoming, int requested) {
+        return incoming != null && requested > 0
+                && AspectRegistryRuntime.find(incoming).isPresent()
+                && amount <= CAPACITY - requested
+                && (filter == null || filter.equals(incoming))
+                && (amount == 0 || Objects.equals(aspect, incoming));
     }
 
     @Override

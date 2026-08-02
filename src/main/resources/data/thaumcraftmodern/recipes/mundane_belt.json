@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [" L ", "L L", " I "],
+  "key": {
+    "L": {"item": "minecraft:leather"},
+    "I": {"item": "minecraft:iron_ingot"}
+  },
+  "result": {"item": "thaumcraftmodern:blank_belt"}
+}

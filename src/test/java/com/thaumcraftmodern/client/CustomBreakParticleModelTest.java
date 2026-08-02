@@ -2,6 +2,7 @@ package com.thaumcraftmodern.client;
 
 import org.junit.jupiter.api.Test;
 
+import javax.imageio.ImageIO;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -84,7 +85,6 @@ class CustomBreakParticleModelTest {
         List<String> models = List.of(
                 "infusion_pillar.json",
                 "infusion_pillar_cap.json",
-                "thaumatorium_lower.json",
                 "advanced_alchemical_furnace_tank.json",
                 "advanced_alchemical_furnace_core.json",
                 "advanced_alchemical_furnace_upper.json"
@@ -100,6 +100,73 @@ class CustomBreakParticleModelTest {
         assertTrue(Files.exists(ASSETS.resolve("textures/block/alch_furnace.png")));
         assertTrue(Files.exists(ASSETS.resolve("textures/block/alch_furnace_on.png")));
         assertTrue(Files.exists(ASSETS.resolve("textures/block/alch_furnace_tank.png")));
+    }
+
+    @Test
+    void thaumatoriumKeepsItsClassicObjAndUsesAtlasTexture()
+            throws IOException {
+        String source = read("models/block/thaumatorium_lower.json");
+
+        assertTrue(source.contains(
+                "thaumcraftmodern:textures/models/thaumatorium_block.obj"
+        ));
+        assertTrue(source.contains(
+                "\"particle\":\"thaumcraftmodern:block/thaumatorium\""
+        ));
+        assertTrue(source.contains(
+                "\"texture0\":\"thaumcraftmodern:block/thaumatorium\""
+        ));
+        assertFalse(source.contains("thaumcraftmodern:models/thaumatorium"));
+        assertTrue(Files.exists(ASSETS.resolve(
+                "textures/models/thaumatorium.png"
+        )));
+        assertTrue(Files.exists(ASSETS.resolve(
+                "textures/models/thaumatorium_block.obj"
+        )));
+        assertTrue(Files.exists(ASSETS.resolve(
+                "textures/block/thaumatorium.png"
+        )));
+        String upper = read("models/block/thaumatorium_upper.json");
+        assertTrue(upper.contains(
+                "thaumcraftmodern:block/thaumatorium"
+        ));
+        assertFalse(upper.contains("thaumcraftmodern:models/thaumatorium"));
+    }
+
+    @Test
+    void crystallizerUsesItsClassicTextureFromTheBlockAtlas()
+            throws IOException {
+        String source = read("models/block/essentia_crystallizer.json");
+
+        assertTrue(source.contains(
+                "thaumcraftmodern:textures/models/crystalizer.obj"
+        ));
+        assertTrue(source.contains(
+                "\"texture0\":\"thaumcraftmodern:block/crystalizer\""
+        ));
+        assertTrue(source.contains(
+                "\"particle\":\"thaumcraftmodern:block/crystalizer_particle\""
+        ));
+        assertFalse(source.contains("thaumcraftmodern:models/crystalizer"));
+        assertTrue(Files.exists(ASSETS.resolve(
+                "textures/block/crystalizer.png"
+        )));
+        assertTrue(Files.exists(ASSETS.resolve(
+                "textures/block/crystalizer_particle.png"
+        )));
+        var atlasTexture = ImageIO.read(ASSETS.resolve(
+                "textures/block/crystalizer.png"
+        ).toFile());
+        for (int y = 0; y < atlasTexture.getHeight(); y++) {
+            for (int x = 0; x < atlasTexture.getWidth(); x++) {
+                int colour = atlasTexture.getRGB(x, y);
+                int red = colour >> 16 & 255;
+                int green = colour >> 8 & 255;
+                int blue = colour & 255;
+                assertFalse(red >= 254 && green == 0 && blue >= 254,
+                        "TC4 chroma key must not bleed from the block atlas");
+            }
+        }
     }
 
     private static String read(String relativePath) throws IOException {

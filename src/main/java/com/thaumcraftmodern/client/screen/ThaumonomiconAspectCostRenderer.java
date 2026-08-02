@@ -99,6 +99,33 @@ final class ThaumonomiconAspectCostRenderer {
         return hovered;
     }
 
+    /** TC4 research-browser secondary cost row: 16px icons, no gap. */
+    static void renderMaskedRow(
+            GuiGraphics graphics,
+            Font font,
+            List<AspectCost> costs,
+            Predicate<String> knowsAspect,
+            int left,
+            int top
+    ) {
+        for (int index = 0; index < costs.size(); index++) {
+            AspectCost cost = costs.get(index);
+            int x = left + index * ThaumonomiconAspectCostLayout.ICON_SIZE;
+            if (knowsAspect.test(cost.aspectId())) {
+                renderCost(graphics, font, cost, x, top);
+            } else {
+                ClassicUiRender.drawAspect(
+                        graphics,
+                        UNKNOWN_ASPECT,
+                        x,
+                        top,
+                        ThaumonomiconAspectCostLayout.ICON_SIZE,
+                        0x777777
+                );
+            }
+        }
+    }
+
     static String renderCrucibleGrid(
             GuiGraphics graphics,
             Font font,

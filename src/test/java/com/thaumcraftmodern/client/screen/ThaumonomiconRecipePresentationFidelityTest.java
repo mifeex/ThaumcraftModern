@@ -8,6 +8,7 @@ import java.security.MessageDigest;
 import java.util.HexFormat;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 final class ThaumonomiconRecipePresentationFidelityTest {
@@ -51,7 +52,9 @@ final class ThaumonomiconRecipePresentationFidelityTest {
         assertTrue(renderer.contains("static final int ITEM_OFFSET_X = 48"));
         assertTrue(renderer.contains("static final int ITEM_OFFSET_Y = 8"));
         assertTrue(renderer.contains("graphics.renderItemDecorations("));
-        assertTrue(renderer.contains("graphics.renderTooltip("));
+        assertFalse(renderer.contains("graphics.renderTooltip("));
+        assertTrue(screen.contains("renderItemLinkTooltip("));
+        assertTrue(screen.contains("tooltip.add(hovered.stack().getHoverName())"));
     }
 
     @Test

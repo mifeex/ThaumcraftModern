@@ -22,7 +22,7 @@ class MagicalForestGenerationPolicyTest {
                 MagicalForestGenerationPolicy.GIANT_MUSHROOM_GRID_SIZE
         );
         assertEquals(
-                30,
+                40,
                 MagicalForestGenerationPolicy.GIANT_MUSHROOM_CHANCE
         );
         assertEquals(10, MagicalForestGenerationPolicy.MANA_POD_ATTEMPTS);

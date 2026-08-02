@@ -24,11 +24,14 @@ import com.thaumcraftmodern.enchantment.ThaumcraftEnchantmentEvents;
 import com.thaumcraftmodern.worldgen.LegacyVillagePoolInjector;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.IEventBus;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.config.ModConfig;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import org.slf4j.Logger;
+import net.minecraft.core.registries.Registries;
+import net.minecraftforge.registries.MissingMappingsEvent;
 
 @Mod(ThaumcraftModern.MOD_ID)
 public final class ThaumcraftModern {
@@ -73,5 +76,18 @@ public final class ThaumcraftModern {
 
     private void commonSetup(FMLCommonSetupEvent event) {
         event.enqueueWork(ModNetwork::register);
+    }
+
+    /** Migrates worlds that contained the removed standalone emergency vent. */
+    @SubscribeEvent
+    public void remapRemovedEmergencyVent(MissingMappingsEvent event) {
+        event.getMappings(Registries.BLOCK, MOD_ID).stream()
+                .filter(mapping -> mapping.getKey().getPath()
+                        .equals("emergency_essentia_vent"))
+                .forEach(mapping -> mapping.remap(ModBlocks.ESSENTIA_TUBE.get()));
+        event.getMappings(Registries.ITEM, MOD_ID).stream()
+                .filter(mapping -> mapping.getKey().getPath()
+                        .equals("emergency_essentia_vent"))
+                .forEach(mapping -> mapping.remap(ModItems.ESSENTIA_TUBE.get()));
     }
 }

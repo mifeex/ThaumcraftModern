@@ -8,6 +8,8 @@ import com.thaumcraftmodern.item.DiscoveryItem;
 import com.thaumcraftmodern.item.ManaBeanItem;
 import com.thaumcraftmodern.item.EtherealEssenceItem;
 import com.thaumcraftmodern.item.EssentiaPhialItem;
+import com.thaumcraftmodern.item.EssentiaResonatorItem;
+import com.thaumcraftmodern.item.EssentiaCrystalItem;
 import com.thaumcraftmodern.item.FluxGooBlockItem;
 import com.thaumcraftmodern.item.GogglesOfRevealingItem;
 import com.thaumcraftmodern.item.JarredAuraNodeItem;
@@ -77,6 +79,11 @@ public final class ModItems {
             );
     public static final RegistryObject<Item> QUICKSILVER =
             ITEMS.register("quicksilver", () -> new Item(new Item.Properties()));
+    public static final RegistryObject<Item> QUICKSILVER_NUGGET =
+            ITEMS.register(
+                    "quicksilver_nugget",
+                    () -> new Item(new Item.Properties())
+            );
     public static final RegistryObject<Item> AMBER =
             ITEMS.register("amber", () -> new Item(new Item.Properties()));
     public static final RegistryObject<Item> MANA_BEAN =
@@ -316,6 +323,10 @@ public final class ModItems {
     public static final RegistryObject<Item> WARDED_JAR =
             ITEMS.register("warded_jar", () -> new WardedJarItem(
                     ModBlocks.WARDED_JAR.get(), new Item.Properties()));
+    /** TC4 ItemJarFilled equivalent; intentionally hidden from the creative tab. */
+    public static final RegistryObject<Item> FILLED_WARDED_JAR =
+            ITEMS.register("filled_warded_jar", () -> new WardedJarItem(
+                    ModBlocks.WARDED_JAR.get(), new Item.Properties().stacksTo(1)));
     public static final RegistryObject<Item> ESSENTIA_TUBE =
             blockItem("essentia_tube", ModBlocks.ESSENTIA_TUBE);
     public static final RegistryObject<Item> FILTERED_ESSENTIA_TUBE =
@@ -326,6 +337,12 @@ public final class ModItems {
             blockItem("one_way_essentia_tube", ModBlocks.ONE_WAY_ESSENTIA_TUBE);
     public static final RegistryObject<Item> ESSENTIA_VALVE =
             blockItem("essentia_valve", ModBlocks.ESSENTIA_VALVE);
+    public static final RegistryObject<Item> REVERSIBLE_ESSENTIA_TUBE =
+            blockItem("reversible_essentia_tube",
+                    ModBlocks.REVERSIBLE_ESSENTIA_TUBE);
+    public static final RegistryObject<Item> ADVANCED_ESSENTIA_BUFFER =
+            blockItem("advanced_essentia_buffer",
+                    ModBlocks.ADVANCED_ESSENTIA_BUFFER);
     public static final RegistryObject<Item> ALCHEMICAL_CONSTRUCT =
             blockItem("alchemical_construct", ModBlocks.ALCHEMICAL_CONSTRUCT);
     public static final RegistryObject<Item> ADVANCED_ALCHEMICAL_CONSTRUCT =
@@ -370,6 +387,14 @@ public final class ModItems {
             blockItem("greatwood_planks", ModBlocks.GREATWOOD_PLANKS);
     public static final RegistryObject<Item> SILVERWOOD_PLANKS =
             blockItem("silverwood_planks", ModBlocks.SILVERWOOD_PLANKS);
+    public static final RegistryObject<Item> GREATWOOD_STAIRS =
+            blockItem("greatwood_stairs", ModBlocks.GREATWOOD_STAIRS);
+    public static final RegistryObject<Item> SILVERWOOD_STAIRS =
+            blockItem("silverwood_stairs", ModBlocks.SILVERWOOD_STAIRS);
+    public static final RegistryObject<Item> GREATWOOD_SLAB =
+            blockItem("greatwood_slab", ModBlocks.GREATWOOD_SLAB);
+    public static final RegistryObject<Item> SILVERWOOD_SLAB =
+            blockItem("silverwood_slab", ModBlocks.SILVERWOOD_SLAB);
     public static final RegistryObject<Item> GREATWOOD_SAPLING =
             blockItem("greatwood_sapling", ModBlocks.GREATWOOD_SAPLING);
     public static final RegistryObject<Item> SILVERWOOD_SAPLING =
@@ -448,6 +473,9 @@ public final class ModItems {
                             new Item.Properties()
                     )
             );
+    public static final RegistryObject<EssentiaCrystalItem> ESSENTIA_CRYSTAL =
+            ITEMS.register("essentia_crystal",
+                    () -> new EssentiaCrystalItem(new Item.Properties()));
     /**
      * Stable 1.20 registry identities for classic arcane-recipe components.
      * Items whose gameplay class has not been ported yet deliberately remain
@@ -455,6 +483,22 @@ public final class ModItems {
      */
     public static final Map<String, RegistryObject<Item>> ARCANE_RECIPE_COMPONENTS =
             registerArcaneRecipeComponents();
+    public static final RegistryObject<Item> ESSENTIA_BUFFER =
+            ARCANE_RECIPE_COMPONENTS.get("essentia_buffer");
+    public static final RegistryObject<Item> ESSENTIA_CENTRIFUGE =
+            ARCANE_RECIPE_COMPONENTS.get("essentia_centrifuge");
+    public static final RegistryObject<Item> ESSENTIA_CRYSTALLIZER =
+            ARCANE_RECIPE_COMPONENTS.get("essentia_crystallizer");
+    public static final RegistryObject<Item> ESSENTIA_RESERVOIR =
+            ARCANE_RECIPE_COMPONENTS.get("essentia_reservoir");
+    public static final RegistryObject<Item> VOID_JAR =
+            ARCANE_RECIPE_COMPONENTS.get("void_jar");
+    /** Filled void-jar counterpart with the same hard non-stacking limit. */
+    public static final RegistryObject<Item> FILLED_VOID_JAR =
+            ITEMS.register("filled_void_jar", () -> new WardedJarItem(
+                    ModBlocks.VOID_JAR.get(), new Item.Properties().stacksTo(1)));
+    public static final RegistryObject<Item> MNEMONIC_MATRIX =
+            ARCANE_RECIPE_COMPONENTS.get("mnemonic_matrix");
 
     private ModItems() {
     }
@@ -485,7 +529,7 @@ public final class ModItems {
                 "arcane_lamp", "arcane_levitator", "arcane_pressure_plate", "arcane_spa",
                 "arcane_stone_slab", "blank_belt", "blank_golem_core",
                 "bone_bow", "deconstruction_table", "enchanted_fabric", "essentia_buffer",
-                "essentia_centrifuge", "essentia_crystallizer",
+                "essentia_centrifuge", "essentia_crystallizer", "essentia_reservoir",
                 "essentia_resonator", "flux_scrubber", "focal_manipulator",
                 "focus_excavation", "focus_fire", "focus_frost", "focus_pouch",
                 "focus_primal", "focus_shock", "focus_trade", "gold_key", "golem_bell",
@@ -501,7 +545,7 @@ public final class ModItems {
                 "paving_stone_of_travel", "paving_stone_of_warding", "primal_charm",
                 "thaumaturge_boots", "thaumaturge_leggings",
                 "thaumaturge_robe", "thaumium_ingot", "thaumium_nugget",
-                "copper_nugget", "silver_nugget", "void_nugget",
+                "silver_nugget", "void_nugget",
                 "vis_charge_relay", "vis_filter", "vis_relay", "void_jar",
                 "void_metal_ingot", "warded_glass",
                 "white_thaumcraft_banner", "orange_thaumcraft_banner",
@@ -514,10 +558,18 @@ public final class ModItems {
                 "red_thaumcraft_banner", "black_thaumcraft_banner"
         );
         Map<String, RegistryObject<Item>> registered = new LinkedHashMap<>();
-        names.forEach(name -> registered.put(
-                name,
-                ITEMS.register(name, () -> new Item(new Item.Properties()))
-        ));
+        names.forEach(name -> registered.put(name, switch (name) {
+            case "essentia_buffer" -> blockItem(name, ModBlocks.ESSENTIA_BUFFER);
+            case "essentia_centrifuge" -> blockItem(name, ModBlocks.ESSENTIA_CENTRIFUGE);
+            case "essentia_crystallizer" -> blockItem(name, ModBlocks.ESSENTIA_CRYSTALLIZER);
+            case "essentia_reservoir" -> blockItem(name, ModBlocks.ESSENTIA_RESERVOIR);
+            case "essentia_resonator" -> ITEMS.register(name,
+                    () -> new EssentiaResonatorItem(new Item.Properties()));
+            case "mnemonic_matrix" -> blockItem(name, ModBlocks.MNEMONIC_MATRIX);
+            case "void_jar" -> ITEMS.register(name, () -> new WardedJarItem(
+                    ModBlocks.VOID_JAR.get(), new Item.Properties()));
+            default -> ITEMS.register(name, () -> new Item(new Item.Properties()));
+        }));
         return Collections.unmodifiableMap(registered);
     }
 

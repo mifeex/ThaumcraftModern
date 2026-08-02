@@ -97,6 +97,15 @@ public final class ModCreativeTabs {
                         output.accept(ModItems.RESTRICTED_ESSENTIA_TUBE.get());
                         output.accept(ModItems.ONE_WAY_ESSENTIA_TUBE.get());
                         output.accept(ModItems.ESSENTIA_VALVE.get());
+                        output.accept(ModItems.REVERSIBLE_ESSENTIA_TUBE.get());
+                        output.accept(ModItems.ESSENTIA_BUFFER.get());
+                        output.accept(ModItems.ADVANCED_ESSENTIA_BUFFER.get());
+                        output.accept(ModItems.VOID_JAR.get());
+                        output.accept(ModItems.ESSENTIA_CENTRIFUGE.get());
+                        output.accept(ModItems.ESSENTIA_CRYSTALLIZER.get());
+                        output.accept(ModItems.ESSENTIA_RESERVOIR.get());
+                        output.accept(ModItems.ESSENTIA_CRYSTAL.get());
+                        output.accept(ModItems.MNEMONIC_MATRIX.get());
                         output.accept(ModItems.ALCHEMICAL_CONSTRUCT.get());
                         output.accept(
                                 ModItems.ADVANCED_ALCHEMICAL_CONSTRUCT.get()
@@ -123,6 +132,7 @@ public final class ModCreativeTabs {
                         }
                         output.accept(ModItems.KNOWLEDGE_FRAGMENT.get());
                         output.accept(ModItems.QUICKSILVER.get());
+                        output.accept(ModItems.QUICKSILVER_NUGGET.get());
                         output.accept(ModItems.AMBER.get());
                         output.accept(ModItems.MANA_BEAN.get());
                         output.accept(ModItems.ZOMBIE_BRAIN.get());
@@ -149,10 +159,14 @@ public final class ModCreativeTabs {
                         output.accept(ModItems.GREATWOOD_LEAVES.get());
                         output.accept(ModItems.GREATWOOD_SAPLING.get());
                         output.accept(ModItems.GREATWOOD_PLANKS.get());
+                        output.accept(ModItems.GREATWOOD_STAIRS.get());
+                        output.accept(ModItems.GREATWOOD_SLAB.get());
                         output.accept(ModItems.SILVERWOOD_LOG.get());
                         output.accept(ModItems.SILVERWOOD_LEAVES.get());
                         output.accept(ModItems.SILVERWOOD_SAPLING.get());
                         output.accept(ModItems.SILVERWOOD_PLANKS.get());
+                        output.accept(ModItems.SILVERWOOD_STAIRS.get());
+                        output.accept(ModItems.SILVERWOOD_SLAB.get());
                         output.accept(ModItems.SHIMMERLEAF.get());
                         output.accept(ModItems.CINDERPEARL.get());
                         output.accept(ModItems.VISHROOM.get());

@@ -41,6 +41,19 @@ public interface EssentiaTransport {
         return true;
     }
 
+    /** Whether the suction visible on this side belongs to a return cycle. */
+    default EssentiaFlowMode suctionFlowMode(Direction side) {
+        return EssentiaFlowMode.SUPPLY;
+    }
+
+    /**
+     * Stable owner propagated with return suction. Zero means ordinary supply
+     * suction. Competing non-zero owners are rejected by tubes.
+     */
+    default long suctionController(Direction side) {
+        return 0L;
+    }
+
     default boolean renderExtendedTube() {
         return false;
     }

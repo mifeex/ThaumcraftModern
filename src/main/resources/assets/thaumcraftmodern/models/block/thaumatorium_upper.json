@@ -1,1 +1,1 @@
-{"parent":"thaumcraftmodern:block/thaumatorium_lower"}
+{"parent":"minecraft:block/block","textures":{"particle":"thaumcraftmodern:block/thaumatorium"},"elements":[]}

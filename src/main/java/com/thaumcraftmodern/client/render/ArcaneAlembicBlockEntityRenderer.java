@@ -22,8 +22,6 @@ public final class ArcaneAlembicBlockEntityRenderer
         implements BlockEntityRenderer<ArcaneAlembicBlockEntity> {
     private static final ResourceLocation LABEL = new ResourceLocation(
             ThaumcraftModern.MOD_ID, "textures/models/label.png");
-    private static final ResourceLocation LIQUID = new ResourceLocation(
-            ThaumcraftModern.MOD_ID, "textures/block/animatedglow.png");
     private static final float CENTER_Y = 0.468F;
     private static final float PANEL_OFFSET = 0.409F;
 
@@ -35,8 +33,6 @@ public final class ArcaneAlembicBlockEntityRenderer
     public void render(ArcaneAlembicBlockEntity alembic, float partialTick,
             PoseStack poseStack, MultiBufferSource buffers,
             int packedLight, int packedOverlay) {
-        renderEssentiaLevel(alembic, poseStack, buffers, packedLight,
-                packedOverlay);
         String aspectId = alembic.filterAspect();
         if (aspectId == null) return;
         AspectDefinition aspect = AspectRegistryRuntime.find(aspectId).orElse(null);
@@ -52,44 +48,6 @@ public final class ArcaneAlembicBlockEntityRenderer
                 packedLight, packedOverlay);
         draw(facing, 0.060F, PANEL_OFFSET + 0.002F, icon, poseStack, buffers,
                 packedLight, packedOverlay);
-    }
-
-    private static void renderEssentiaLevel(ArcaneAlembicBlockEntity alembic,
-            PoseStack poseStack, MultiBufferSource buffers, int packedLight,
-            int packedOverlay) {
-        if (alembic.storedAmount() <= 0 || alembic.storedAspect() == null) return;
-        AspectDefinition aspect = AspectRegistryRuntime.find(
-                alembic.storedAspect()).orElse(null);
-        if (aspect == null) return;
-        int color = aspect.color();
-        float red = ((color >> 16) & 255) / 255.0F;
-        float green = ((color >> 8) & 255) / 255.0F;
-        float blue = (color & 255) / 255.0F;
-        float y = 0.1F + 0.72F * Math.min(1.0F,
-                alembic.storedAmount() / (float) ArcaneAlembicBlockEntity.CAPACITY);
-        float min = 0.30F;
-        float max = 0.70F;
-        PoseStack.Pose pose = poseStack.last();
-        Matrix4f matrix = pose.pose();
-        Matrix3f normal = pose.normal();
-        VertexConsumer out = buffers.getBuffer(RenderType.entityTranslucent(LIQUID));
-        liquidVertex(out, matrix, normal, min, y, min, 0, 0,
-                red, green, blue, packedLight, packedOverlay);
-        liquidVertex(out, matrix, normal, min, y, max, 0, 1,
-                red, green, blue, packedLight, packedOverlay);
-        liquidVertex(out, matrix, normal, max, y, max, 1, 1,
-                red, green, blue, packedLight, packedOverlay);
-        liquidVertex(out, matrix, normal, max, y, min, 1, 0,
-                red, green, blue, packedLight, packedOverlay);
-    }
-
-    private static void liquidVertex(VertexConsumer out, Matrix4f matrix,
-            Matrix3f normal, float x, float y, float z, float u, float v,
-            float red, float green, float blue, int packedLight,
-            int packedOverlay) {
-        out.vertex(matrix, x, y, z).color(red, green, blue, 0.8F).uv(u, v)
-                .overlayCoords(packedOverlay).uv2(packedLight)
-                .normal(normal, 0, 1, 0).endVertex();
     }
 
     private static void draw(Direction facing, float halfSize, float offset,

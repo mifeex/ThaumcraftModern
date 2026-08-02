@@ -381,6 +381,10 @@ public final class WorldContentClientEvents {
             ItemBlockRenderTypes.setRenderLayer(ModBlocks.MANA_POD.get(), cutout);
             RenderType translucent = RenderType.translucent();
             ItemBlockRenderTypes.setRenderLayer(
+                    ModBlocks.ESSENTIA_RESERVOIR.get(),
+                    translucent
+            );
+            ItemBlockRenderTypes.setRenderLayer(
                     ModBlocks.FLUX_GOO.get(),
                     translucent
             );

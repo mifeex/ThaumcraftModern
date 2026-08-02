@@ -1,10 +1,18 @@
 {
   "replace": false,
   "values": [
+    "thaumcraftmodern:research_table",
+    "thaumcraftmodern:thaumcraft_table",
+    "thaumcraftmodern:arcane_workbench",
+    "thaumcraftmodern:loot_crate",
     "thaumcraftmodern:greatwood_log",
     "thaumcraftmodern:silverwood_log",
     "thaumcraftmodern:silverwood_node",
     "thaumcraftmodern:greatwood_planks",
-    "thaumcraftmodern:silverwood_planks"
+    "thaumcraftmodern:silverwood_planks",
+    "thaumcraftmodern:greatwood_stairs",
+    "thaumcraftmodern:silverwood_stairs",
+    "thaumcraftmodern:greatwood_slab",
+    "thaumcraftmodern:silverwood_slab"
   ]
 }

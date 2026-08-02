@@ -1,6 +1,7 @@
 package com.thaumcraftmodern.world.block.entity;
 
 import com.thaumcraftmodern.essentia.EssentiaConnections;
+import com.thaumcraftmodern.essentia.EssentiaFlowMode;
 import com.thaumcraftmodern.essentia.EssentiaSync;
 import com.thaumcraftmodern.essentia.EssentiaTransport;
 import com.thaumcraftmodern.essentia.tube.TubeFlowRules;
@@ -10,6 +11,7 @@ import com.thaumcraftmodern.essentia.tube.TubePolicyRegistry;
 import com.thaumcraftmodern.aspect.AspectRegistryRuntime;
 import com.thaumcraftmodern.particle.TubeVentParticleOptions;
 import com.thaumcraftmodern.registry.ModBlockEntities;
+import com.thaumcraftmodern.registry.ModBlocks;
 import com.thaumcraftmodern.registry.ModSounds;
 import com.thaumcraftmodern.world.block.EssentiaTubeBlock;
 import net.minecraft.core.BlockPos;
@@ -26,7 +28,10 @@ import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Arrays;
+import java.util.ArrayDeque;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 
@@ -49,6 +54,14 @@ public final class EssentiaTubeBlockEntity extends BlockEntity
     private boolean tickInitialized;
     private boolean flowAllowed = true;
     private boolean poweredLastTick;
+    private boolean manualReturnRequested;
+    private boolean reverseTarget;
+    private boolean returnEnabled;
+    private boolean reversibleArrowVisible = true;
+    private int reverseSwitchTicks;
+    private EssentiaFlowMode suctionFlowMode = EssentiaFlowMode.SUPPLY;
+    private long suctionController;
+    private boolean controllerConflict;
     private float valveRotation;
     private float previousValveRotation;
     private final float[] sideRetraction = new float[6];
@@ -56,6 +69,12 @@ public final class EssentiaTubeBlockEntity extends BlockEntity
 
     public EssentiaTubeBlockEntity(BlockPos pos, BlockState state) {
         super(ModBlockEntities.ESSENTIA_TUBE.get(), pos, state);
+        if (state.getBlock() instanceof EssentiaTubeBlock tube
+                && tube.policyId().equals(TubePolicyRegistry.REVERSIBLE)) {
+            facing = Direction.DOWN;
+        } else if (state.hasProperty(EssentiaTubeBlock.FACING)) {
+            facing = state.getValue(EssentiaTubeBlock.FACING);
+        }
     }
 
     public TubePolicy policy() {
@@ -83,6 +102,9 @@ public final class EssentiaTubeBlockEntity extends BlockEntity
         }
         tube.count++;
         TubePolicy policy = tube.policy();
+        if (policy.reversibleController()) {
+            tube.tickReversibleControl(level);
+        }
         if (policy.redstoneValve() && tube.count % TRANSFER_INTERVAL == 0) {
             boolean powered = level.hasNeighborSignal(pos);
             if (powered != tube.poweredLastTick) {
@@ -152,8 +174,11 @@ public final class EssentiaTubeBlockEntity extends BlockEntity
     private void calculateSuction() {
         suction = 0;
         suctionType = null;
+        suctionFlowMode = EssentiaFlowMode.SUPPLY;
+        suctionController = 0L;
+        controllerConflict = false;
         TubePolicy policy = policy();
-        if (!flowAllowed) {
+        if (!flowAllowed || reverseSwitchTicks > 0) {
             return;
         }
         for (Direction direction : Direction.values()) {
@@ -185,11 +210,37 @@ public final class EssentiaTubeBlockEntity extends BlockEntity
                 continue;
             }
             int remoteAmount = remote.suctionAmount(remoteSide);
-            if (remoteAmount <= 0 || remoteAmount <= suction + 1) {
+            EssentiaFlowMode remoteMode = remote.suctionFlowMode(remoteSide);
+            if (policy.reversibleController()
+                    && (remoteMode == EssentiaFlowMode.RETURN) != returnEnabled) {
+                continue;
+            }
+            long remoteController = remoteMode == EssentiaFlowMode.RETURN
+                    ? remote.suctionController(remoteSide)
+                    : 0L;
+            if (remoteMode == EssentiaFlowMode.RETURN
+                    && policy.reversibleController()) {
+                remoteController = worldPosition.asLong();
+            }
+            int propagated = TubeFlowRules.propagatedSuction(policy, remoteAmount);
+            if (remoteMode == EssentiaFlowMode.RETURN
+                    && suctionFlowMode == EssentiaFlowMode.RETURN
+                    && suctionController != 0L && remoteController != 0L
+                    && suctionController != remoteController
+                    && propagated == suction) {
+                controllerConflict = true;
+                suction = 0;
+                suctionType = null;
+                suctionController = 0L;
+                return;
+            }
+            if (remoteAmount <= 0 || propagated <= suction) {
                 continue;
             }
             setSuction(remoteSuction == null ? filter : remoteSuction,
-                    TubeFlowRules.propagatedSuction(policy, remoteAmount));
+                    propagated);
+            suctionFlowMode = remoteMode;
+            suctionController = remoteController;
         }
     }
 
@@ -239,6 +290,10 @@ public final class EssentiaTubeBlockEntity extends BlockEntity
             EssentiaTransport remote = EssentiaConnections.neighbour(
                     level, worldPosition, direction).orElse(null);
             if (remote == null || !remote.canOutputTo(direction.getOpposite())) {
+                continue;
+            }
+            if (suctionFlowMode == EssentiaFlowMode.RETURN
+                    && !remote.canReturnEssentia()) {
                 continue;
             }
             String wanted = suctionType;
@@ -296,9 +351,10 @@ public final class EssentiaTubeBlockEntity extends BlockEntity
 
     public void rotateFacing() {
         if (level == null) return;
-        facing = TubeFacingRules.nextFreeSide(facing,
-                side -> level.getBlockEntity(worldPosition.relative(side))
-                        instanceof EssentiaTransport);
+        facing = TubeFacingRules.nextConnectedFacing(facing,
+                side -> isSideOpen(side)
+                        && level.getBlockEntity(worldPosition.relative(side))
+                                instanceof EssentiaTransport);
         EssentiaSync.changed(this);
         refreshVisualConnections();
     }
@@ -348,6 +404,150 @@ public final class EssentiaTubeBlockEntity extends BlockEntity
             suctionType = null;
         }
         EssentiaSync.changed(this);
+    }
+
+    private void tickReversibleControl(ServerLevel level) {
+        boolean powered = level.hasNeighborSignal(worldPosition);
+        if (powered != poweredLastTick) {
+            poweredLastTick = powered;
+            level.playSound(null, worldPosition, ModSounds.SQUEEK.get(),
+                    SoundSource.BLOCKS, 0.7F,
+                    0.9F + level.random.nextFloat() * 0.2F);
+        }
+        boolean desired = reversibleArrowVisible
+                && (manualReturnRequested || powered);
+        if (desired != reverseTarget) {
+            reverseTarget = desired;
+            reverseSwitchTicks = switchDelayTicks(worldPosition);
+            EssentiaSync.changed(this);
+        }
+        if (reverseSwitchTicks > 0 && --reverseSwitchTicks == 0) {
+            if (returnEnabled != reverseTarget) {
+                returnEnabled = reverseTarget;
+                facing = facing.getOpposite();
+                refreshVisualConnections();
+            }
+            suction = 0;
+            suctionType = null;
+            suctionFlowMode = EssentiaFlowMode.SUPPLY;
+            suctionController = 0L;
+            level.playSound(null, worldPosition, ModSounds.SQUEEK.get(),
+                    SoundSource.BLOCKS, 0.8F,
+                    returnEnabled ? 0.75F : 1.15F);
+            EssentiaSync.changed(this);
+        }
+    }
+
+    public static int switchDelayTicks(BlockPos pos) {
+        return 20 + Math.floorMod(Long.hashCode(pos.asLong()), 21);
+    }
+
+    public void toggleManualReturn() {
+        manualReturnRequested = !reverseTarget;
+        EssentiaSync.changed(this);
+    }
+
+    public void toggleManualReturnFromWand() {
+        selectReversibleHead();
+        toggleManualReturn();
+    }
+
+    public void selectReversibleHead() {
+        if (!policy().reversibleController()) return;
+        boolean wasVisible = reversibleArrowVisible;
+        if (level != null && !level.isClientSide) {
+            ArrayDeque<BlockPos> queue = new ArrayDeque<>();
+            Set<BlockPos> visited = new HashSet<>();
+            queue.add(worldPosition);
+            visited.add(worldPosition);
+            while (!queue.isEmpty() && visited.size() <= 64) {
+                BlockPos current = queue.removeFirst();
+                for (Direction direction : Direction.values()) {
+                    BlockPos neighbour = current.relative(direction);
+                    if (!visited.add(neighbour) || !level.hasChunkAt(neighbour)
+                            || !(level.getBlockEntity(neighbour)
+                                    instanceof EssentiaTubeBlockEntity other)
+                            || !other.policy().reversibleController()) continue;
+                    queue.addLast(neighbour);
+                    if (other != this) other.resetReversibleHead();
+                }
+            }
+        }
+        if (!wasVisible) resetReversibleControl(true);
+        reversibleArrowVisible = true;
+        EssentiaSync.changed(this);
+    }
+
+    private void resetReversibleHead() {
+        resetReversibleControl(false);
+    }
+
+    private void resetReversibleControl(boolean arrowVisible) {
+        reversibleArrowVisible = arrowVisible;
+        manualReturnRequested = false;
+        reverseTarget = false;
+        returnEnabled = false;
+        reverseSwitchTicks = 0;
+        facing = Direction.DOWN;
+        suction = 0;
+        suctionType = null;
+        suctionFlowMode = EssentiaFlowMode.SUPPLY;
+        suctionController = 0L;
+        refreshVisualConnections();
+        EssentiaSync.changed(this);
+    }
+
+    public boolean reversibleArrowVisible() {
+        return policy().reversibleController() && reversibleArrowVisible;
+    }
+
+    public boolean returnEnabled() {
+        return returnEnabled && reverseSwitchTicks == 0;
+    }
+
+    public boolean externalReturnRequested() {
+        return reversibleArrowVisible
+                && (manualReturnRequested || poweredLastTick);
+    }
+
+    public int reverseSwitchTicks() {
+        return reverseSwitchTicks;
+    }
+
+    public boolean controllerConflict() {
+        return controllerConflict;
+    }
+
+    public boolean releaseCloggedEssentia(
+            ServerLevel level,
+            boolean createsFlux
+    ) {
+        String vented = essentiaType;
+        if (vented == null || vented.isBlank() || essentiaAmount <= 0) return false;
+        essentiaAmount = 0;
+        essentiaType = null;
+        int color = AspectRegistryRuntime.find(vented)
+                .map(definition -> definition.color()).orElse(0x8A3D8F);
+        ventColor = color;
+        venting = VENT_TICKS;
+        level.blockEvent(worldPosition, getBlockState().getBlock(), 1, color);
+        if (createsFlux) placeFluxGas(level);
+        EssentiaSync.changed(this);
+        return true;
+    }
+
+    private void placeFluxGas(ServerLevel level) {
+        Direction[] order = {
+                Direction.UP, Direction.NORTH, Direction.SOUTH,
+                Direction.WEST, Direction.EAST, Direction.DOWN
+        };
+        for (Direction direction : order) {
+            BlockPos gasPos = worldPosition.relative(direction);
+            if (!level.getBlockState(gasPos).isAir()) continue;
+            level.setBlock(gasPos,
+                    ModBlocks.FLUX_GAS.get().defaultBlockState(), 3);
+            return;
+        }
     }
 
     private void refreshVisualConnections() {
@@ -443,6 +643,17 @@ public final class EssentiaTubeBlockEntity extends BlockEntity
     }
 
     @Override
+    public EssentiaFlowMode suctionFlowMode(Direction side) {
+        return suctionFlowMode;
+    }
+
+    @Override
+    public long suctionController(Direction side) {
+        return suctionFlowMode == EssentiaFlowMode.RETURN
+                ? suctionController : 0L;
+    }
+
+    @Override
     public @Nullable String essentiaType(Direction side) {
         return essentiaType;
     }
@@ -495,6 +706,14 @@ public final class EssentiaTubeBlockEntity extends BlockEntity
         tag.putInt("VentColor", ventColor);
         tag.putBoolean("Flow", flowAllowed);
         tag.putBoolean("Powered", poweredLastTick);
+        tag.putBoolean("ManualReturn", manualReturnRequested);
+        tag.putBoolean("ReverseTarget", reverseTarget);
+        tag.putBoolean("ReturnEnabled", returnEnabled);
+        tag.putBoolean("ReverseArrowVisible", reversibleArrowVisible);
+        tag.putInt("ReverseSwitch", reverseSwitchTicks);
+        tag.putString("FlowMode", suctionFlowMode.name());
+        tag.putLong("FlowController", suctionController);
+        tag.putBoolean("ControllerConflict", controllerConflict);
     }
 
     @Override
@@ -503,7 +722,9 @@ public final class EssentiaTubeBlockEntity extends BlockEntity
         Direction[] directions = Direction.values();
         int side = tag.getInt("Side");
         facing = side >= 0 && side < directions.length
-                ? directions[side] : Direction.NORTH;
+                ? directions[side]
+                : policy().reversibleController()
+                        ? Direction.DOWN : Direction.NORTH;
         byte[] open = tag.getByteArray("Open");
         if (open.length == openSides.length) {
             for (int i = 0; i < open.length; i++) openSides[i] = open[i] != 0;
@@ -519,6 +740,19 @@ public final class EssentiaTubeBlockEntity extends BlockEntity
                 : 0xAAAAAA;
         flowAllowed = !tag.contains("Flow") || tag.getBoolean("Flow");
         poweredLastTick = tag.getBoolean("Powered");
+        manualReturnRequested = tag.getBoolean("ManualReturn");
+        reverseTarget = tag.getBoolean("ReverseTarget");
+        returnEnabled = tag.getBoolean("ReturnEnabled");
+        reversibleArrowVisible = !tag.contains("ReverseArrowVisible")
+                || tag.getBoolean("ReverseArrowVisible");
+        reverseSwitchTicks = Math.max(0, tag.getInt("ReverseSwitch"));
+        try {
+            suctionFlowMode = EssentiaFlowMode.valueOf(tag.getString("FlowMode"));
+        } catch (IllegalArgumentException ignored) {
+            suctionFlowMode = EssentiaFlowMode.SUPPLY;
+        }
+        suctionController = tag.getLong("FlowController");
+        controllerConflict = tag.getBoolean("ControllerConflict");
     }
 
     private byte[] openBytes() {

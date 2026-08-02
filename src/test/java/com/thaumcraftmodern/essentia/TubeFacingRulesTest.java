@@ -10,17 +10,25 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 final class TubeFacingRulesTest {
     @Test
-    void advancesToFirstSideWithoutAdjacentTransportInTc4Order() {
-        EnumSet<Direction> occupied = EnumSet.of(
-                Direction.SOUTH, Direction.WEST);
+    void advancesToFirstFacingWhoseOppositeSideIsConnectedAndOpen() {
+        EnumSet<Direction> connectedOpenSides = EnumSet.of(
+                Direction.EAST, Direction.UP);
 
-        assertEquals(Direction.EAST, TubeFacingRules.nextFreeSide(
-                Direction.NORTH, occupied::contains));
+        // After NORTH the candidates are SOUTH, WEST, EAST, DOWN, UP.
+        // WEST wins because its controlled side EAST is connected and open.
+        assertEquals(Direction.WEST, TubeFacingRules.nextConnectedFacing(
+                Direction.NORTH, connectedOpenSides::contains));
     }
 
     @Test
-    void keepsFacingWhenEverySideHasTransport() {
-        assertEquals(Direction.UP, TubeFacingRules.nextFreeSide(
-                Direction.UP, side -> true));
+    void keepsFacingWhenItIsTheOnlyConnectedOpenDirection() {
+        assertEquals(Direction.UP, TubeFacingRules.nextConnectedFacing(
+                Direction.UP, side -> side == Direction.DOWN));
+    }
+
+    @Test
+    void keepsFacingWhenNoSideCanAcceptTheOutline() {
+        assertEquals(Direction.SOUTH, TubeFacingRules.nextConnectedFacing(
+                Direction.SOUTH, side -> false));
     }
 }

@@ -18,11 +18,11 @@ import java.util.Optional;
 import java.util.function.Consumer;
 
 /** TC4 filled warded jar item: exact contents, label and in-GUI liquid. */
-public final class WardedJarItem extends BlockItem {
+public class WardedJarItem extends BlockItem {
     public static final String BLOCK_ENTITY_TAG = "BlockEntityTag";
 
     public WardedJarItem(Block block, Properties properties) {
-        super(block, properties.stacksTo(1));
+        super(block, properties);
     }
 
     @Override

@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": ["#"],
+  "key": {
+    "#": {"item": "thaumcraftmodern:thaumium_ingot"}
+  },
+  "result": {
+    "item": "thaumcraftmodern:thaumium_nugget",
+    "count": 9
+  }
+}

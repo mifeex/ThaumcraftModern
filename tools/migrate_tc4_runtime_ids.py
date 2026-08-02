@@ -193,7 +193,7 @@ TC_STACKS: dict[tuple[str, int | None], tuple[str, str]] = {
     ("ConfigItems.itemResource", 12): ("item", "thaumcraftmodern:taint_tendril"),
     ("ConfigItems.itemResource", 18): ("item", "thaumcraftmodern:gold_coin"),
     ("ConfigItems.itemNugget", 0): ("item", "minecraft:iron_nugget"),
-    ("ConfigItems.itemNugget", 1): ("item", "thaumcraftmodern:copper_nugget"),
+    ("ConfigItems.itemNugget", 1): ("item", "minecraft:copper_ingot"),
     ("ConfigItems.itemNugget", 3): ("item", "thaumcraftmodern:silver_nugget"),
     ("ConfigItems.itemNugget", 5): ("item", "thaumcraftmodern:quicksilver"),
     ("ConfigItems.itemNugget", 6): ("item", "thaumcraftmodern:thaumium_nugget"),

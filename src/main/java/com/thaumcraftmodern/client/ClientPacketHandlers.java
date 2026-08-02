@@ -6,6 +6,7 @@ import com.thaumcraftmodern.knowledge.KnowledgeCapabilities;
 import com.thaumcraftmodern.knowledge.WarpType;
 import com.thaumcraftmodern.network.packet.KnowledgeSyncPacket;
 import com.thaumcraftmodern.network.packet.ScanFeedbackPacket;
+import com.thaumcraftmodern.network.packet.ThaumatoriumEssentiaSyncPacket;
 import com.thaumcraftmodern.network.packet.WarpFeedbackPacket;
 import com.thaumcraftmodern.network.packet.WispZapPacket;
 import com.thaumcraftmodern.client.render.ClientWispZapRenderer;
@@ -15,6 +16,7 @@ import com.thaumcraftmodern.research.ResearchRegistry;
 import com.thaumcraftmodern.scan.ScanRegistry;
 import com.thaumcraftmodern.wand.WandComponentRegistry;
 import net.minecraft.client.Minecraft;
+import com.thaumcraftmodern.world.block.entity.ThaumatoriumBlockEntity;
 
 public final class ClientPacketHandlers {
     private ClientPacketHandlers() {
@@ -75,6 +77,17 @@ public final class ClientPacketHandlers {
 
     public static void handleWispZap(WispZapPacket packet) {
         ClientWispZapRenderer.accept(packet);
+    }
+
+    public static void handleThaumatoriumEssentia(
+            ThaumatoriumEssentiaSyncPacket packet
+    ) {
+        Minecraft minecraft = Minecraft.getInstance();
+        if (minecraft.level != null
+                && minecraft.level.getBlockEntity(packet.position())
+                instanceof ThaumatoriumBlockEntity machine) {
+            machine.applyClientEssentiaSnapshot(packet.essentia());
+        }
     }
 
     public static void openThaumonomicon() {

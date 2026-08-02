@@ -11,19 +11,22 @@ public final class TubeFacingRules {
     }
 
     /**
-     * TC4 advances through ForgeDirection order and stops at the first side
-     * without an adjacent essentia transport. If all six sides are occupied,
-     * the current facing is retained.
+     * TC4 advances through ForgeDirection order and accepts a candidate only
+     * when the side opposite that facing both contains an essentia transport
+     * and is locally open. If no other connected side is available, the loop
+     * reaches the current facing again and keeps it.
+     *
+     * @param connectedOpenSide tests the controlled side opposite a candidate
      */
-    public static Direction nextFreeSide(Direction current,
-            Predicate<Direction> occupied) {
+    public static Direction nextConnectedFacing(Direction current,
+            Predicate<Direction> connectedOpenSide) {
         Objects.requireNonNull(current, "current");
-        Objects.requireNonNull(occupied, "occupied");
+        Objects.requireNonNull(connectedOpenSide, "connectedOpenSide");
         Direction[] directions = Direction.values();
         int start = current.ordinal();
         for (int step = 1; step <= directions.length; step++) {
             Direction candidate = directions[(start + step) % directions.length];
-            if (!occupied.test(candidate)) {
+            if (connectedOpenSide.test(candidate.getOpposite())) {
                 return candidate;
             }
         }

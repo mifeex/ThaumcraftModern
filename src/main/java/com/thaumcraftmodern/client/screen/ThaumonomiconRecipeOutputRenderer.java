@@ -57,7 +57,7 @@ final class ThaumonomiconRecipeOutputRenderer {
         int itemY = top + ITEM_OFFSET_Y;
         graphics.renderItem(output, itemX, itemY);
         graphics.renderItemDecorations(font, output, itemX, itemY);
-        boolean hovered = contains(
+        return contains(
                 itemX,
                 itemY,
                 16,
@@ -65,10 +65,6 @@ final class ThaumonomiconRecipeOutputRenderer {
                 mouseX,
                 mouseY
         );
-        if (hovered) {
-            graphics.renderTooltip(font, output, mouseX, mouseY);
-        }
-        return hovered;
     }
 
     private static boolean contains(

@@ -87,7 +87,7 @@ final class EssentiaTubeModelFidelityTest {
         assertEquals(List.of(0, 0, 16, 16),
                 vector(elements.get(3).getAsJsonObject()
                         .getAsJsonObject("faces").get("north"), "uv"));
-        assertEquals(List.of(0, 2, 0), vector(valve.getAsJsonObject("display")
+        assertEquals(List.of(0, 0, 0), vector(valve.getAsJsonObject("display")
                 .getAsJsonObject("gui"), "translation"));
     }
 
@@ -144,13 +144,23 @@ final class EssentiaTubeModelFidelityTest {
         assertFalse(oneWay.contains("one_way_essentia_tube_indicator"));
         assertTrue(renderer.contains("renderOneWayRings(tube"));
         assertTrue(renderer.contains("getValue(EssentiaTubeBlock.FACING)"));
-        assertTrue(renderer.contains("face.getOpposite()"));
+        assertTrue(renderer.contains("face.getOpposite()\n        ).isEmpty()"));
         assertTrue(renderer.contains("Axis.XP.rotationDegrees(-90.0F)"));
         assertTrue(renderer.contains("90.0F * face.getStepY()"));
         assertTrue(renderer.contains("for (int ring = 0; ring < 3; ring++)"));
         assertTrue(renderer.contains(".texOffs(0, 10)"));
         assertFalse(renderer.contains("BLUE_RIB"));
         assertFalse(renderer.contains("renderRestrictedRibs"));
+
+        String block = Files.readString(Path.of(
+                "src/main/java/com/thaumcraftmodern/world/block/EssentiaTubeBlock.java"));
+        String entity = Files.readString(Path.of(
+                "src/main/java/com/thaumcraftmodern/world/block/entity/"
+                        + "EssentiaTubeBlockEntity.java"));
+        assertTrue(block.contains(
+                "setValue(FACING, context.getClickedFace())"));
+        assertTrue(entity.contains(
+                "facing = state.getValue(EssentiaTubeBlock.FACING)"));
 
         String valve = read("blockstates/essentia_valve.json").toString();
         assertTrue(renderer.contains("renderValve(tube"));
@@ -188,7 +198,9 @@ final class EssentiaTubeModelFidelityTest {
         assertTrue(entity.contains("0.9F + level.random.nextFloat() * 0.2F"));
         assertTrue(entity.contains("tube.valveRotation + 20.0F"));
         assertTrue(entity.contains("tube.valveRotation - 20.0F"));
-        assertTrue(entity.contains("TubeFacingRules.nextFreeSide"));
+        assertTrue(entity.contains("TubeFacingRules.nextConnectedFacing"));
+        assertTrue(entity.contains("side -> isSideOpen(side)"));
+        assertTrue(entity.contains("instanceof EssentiaTransport"));
         assertEquals("3ca72a307104786730e6993db9a232aec9d433fc0f0f5c0348a4165746a0936f",
                 sha256(ASSETS.resolve("sounds/squeek1.ogg")));
         assertEquals("320dbe9cf411452788af2b3db8bcbdb0d7a102078020c1f5f013896461d19296",

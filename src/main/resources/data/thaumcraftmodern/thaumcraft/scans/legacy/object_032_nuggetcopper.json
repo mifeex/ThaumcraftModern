@@ -1,6 +1,6 @@
 {
   "type": "item",
-  "target": "thaumcraftmodern:copper_nugget",
+  "target": "minecraft:copper_ingot",
   "display": "",
   "aspects": [
     {
@@ -8,7 +8,8 @@
       "amount": 1
     }
   ],
-  "inactive": false,
+  "inactive": true,
+  "inactive_reason": "Minecraft 1.20.1 has no copper nugget; consolidated into the vanilla copper ingot scan",
   "legacy": {
     "registration_mode": "explicit",
     "target_kind": "ore_dictionary",

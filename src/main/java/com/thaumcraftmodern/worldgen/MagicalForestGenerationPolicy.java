@@ -16,7 +16,7 @@ final class MagicalForestGenerationPolicy {
     static final int GREATWOOD_CHANCE_AFTER_SILVERWOOD = 7;
     static final int BOULDER_VARIANTS = 3;
     static final int GIANT_MUSHROOM_GRID_SIZE = 4;
-    static final int GIANT_MUSHROOM_CHANCE = 30;
+    static final int GIANT_MUSHROOM_CHANCE = 40;
     static final int MANA_POD_ATTEMPTS = 10;
     static final int VISHROOM_ATTEMPTS = 8;
     static final int SHIMMERLEAF_ATTEMPTS = 18;

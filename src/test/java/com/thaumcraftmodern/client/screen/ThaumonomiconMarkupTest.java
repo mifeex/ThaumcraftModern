@@ -56,7 +56,7 @@ class ThaumonomiconMarkupTest {
 
     @Test
     void malformedOrUnknownTagsRemainVisibleInsteadOfDeletingText() {
-        String source = "A<b>B</b><IMG>broken:image</IMG>C";
+        String source = "A<unknown>B</unknown><IMG>broken:image</IMG>C";
 
         List<ThaumonomiconMarkup.Node> nodes = ThaumonomiconMarkup.parse(source);
 
@@ -65,5 +65,31 @@ class ThaumonomiconMarkupTest {
                 source,
                 assertInstanceOf(ThaumonomiconMarkup.Text.class, nodes.get(0)).value()
         );
+    }
+
+    @Test
+    void parsesItalicAndBoldTextCaseInsensitivelyAndAllowsNesting() {
+        List<ThaumonomiconMarkup.Node> nodes = ThaumonomiconMarkup.parse(
+                "Обычный <I>курсив <B>оба</B></I> <b>жирный</B>"
+        );
+
+        assertEquals(5, nodes.size());
+        ThaumonomiconMarkup.Text italic = assertInstanceOf(
+                ThaumonomiconMarkup.Text.class, nodes.get(1));
+        assertEquals("курсив ", italic.value());
+        assertEquals(true, italic.italic());
+        assertEquals(false, italic.bold());
+
+        ThaumonomiconMarkup.Text both = assertInstanceOf(
+                ThaumonomiconMarkup.Text.class, nodes.get(2));
+        assertEquals("оба", both.value());
+        assertEquals(true, both.italic());
+        assertEquals(true, both.bold());
+
+        ThaumonomiconMarkup.Text bold = assertInstanceOf(
+                ThaumonomiconMarkup.Text.class, nodes.get(4));
+        assertEquals("жирный", bold.value());
+        assertEquals(false, bold.italic());
+        assertEquals(true, bold.bold());
     }
 }

@@ -5,6 +5,7 @@ import com.thaumcraftmodern.world.menu.ArcaneWorkbenchMenu;
 import com.thaumcraftmodern.world.menu.AlchemicalFurnaceMenu;
 import com.thaumcraftmodern.world.menu.ResearchTableMenu;
 import com.thaumcraftmodern.world.menu.PechMenu;
+import com.thaumcraftmodern.world.menu.ThaumatoriumMenu;
 import net.minecraft.world.inventory.MenuType;
 import net.minecraftforge.common.extensions.IForgeMenuType;
 import net.minecraftforge.eventbus.api.IEventBus;
@@ -35,6 +36,9 @@ public final class ModMenus {
                             AlchemicalFurnaceMenu::fromNetwork
                     )
             );
+    public static final RegistryObject<MenuType<ThaumatoriumMenu>> THAUMATORIUM =
+            MENUS.register("thaumatorium",
+                    () -> IForgeMenuType.create(ThaumatoriumMenu::fromNetwork));
 
     private ModMenus() {
     }

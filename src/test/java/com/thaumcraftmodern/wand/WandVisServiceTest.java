@@ -59,6 +59,18 @@ class WandVisServiceTest {
     }
 
     @Test
+    void fractionalTubeReleaseCostReceivesTheSameDiscountPipeline() {
+        assertEquals(131, WandVisService.adjustFractionalCostCentivis(
+                IRON, Map.of("perditio", 125), 5).get("perditio"));
+        assertEquals(262, WandVisService.adjustFractionalCostCentivis(
+                IRON, Map.of("perditio", 250), 5).get("perditio"));
+        assertEquals(525, WandVisService.adjustFractionalCostCentivis(
+                IRON, Map.of("perditio", 500), 5).get("perditio"));
+        assertEquals(787, WandVisService.adjustFractionalCostCentivis(
+                IRON, Map.of("perditio", 750), 5).get("perditio"));
+    }
+
+    @Test
     void classicFormsKeepSceptreCapacityDiscountAndStaffRestrictions() {
         assertEquals(150, WandForm.SCEPTRE.applyCapacity(100));
         assertEquals(10, WandForm.SCEPTRE.inherentDiscountPercent());

@@ -41,8 +41,8 @@ final class ArcaneAlembicModelFidelityTest {
                         + "ArcaneAlembicBlockEntityRenderer.java"));
         assertTrue(renderer.contains("textures/models/label.png"));
         assertTrue(renderer.contains("alembic.filterAspect()"));
-        assertTrue(renderer.contains("alembic.storedAmount()"));
-        assertTrue(renderer.contains("0.1F + 0.72F"));
+        assertFalse(renderer.contains("renderEssentiaLevel"));
+        assertFalse(renderer.contains("animatedglow.png"));
         assertFalse(renderer.contains("font.drawInBatch"));
 
         String readout = Files.readString(Path.of(

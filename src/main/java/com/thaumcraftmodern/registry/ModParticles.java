@@ -21,6 +21,16 @@ public final class ModParticles {
                     "node_burst",
                     () -> new SimpleParticleType(false)
             );
+    public static final RegistryObject<SimpleParticleType> NITOR_WISP_LARGE =
+            PARTICLES.register(
+                    "nitor_wisp_large",
+                    () -> new SimpleParticleType(false)
+            );
+    public static final RegistryObject<SimpleParticleType> NITOR_WISP_SMALL =
+            PARTICLES.register(
+                    "nitor_wisp_small",
+                    () -> new SimpleParticleType(false)
+            );
     public static final RegistryObject<SimpleParticleType> ELDRITCH_HEAL =
             PARTICLES.register(
                     "eldritch_heal",

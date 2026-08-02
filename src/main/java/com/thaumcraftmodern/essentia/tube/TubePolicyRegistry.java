@@ -12,6 +12,7 @@ public final class TubePolicyRegistry {
     public static final ResourceLocation RESTRICTED = id("restricted");
     public static final ResourceLocation ONE_WAY = id("one_way");
     public static final ResourceLocation VALVE = id("valve");
+    public static final ResourceLocation REVERSIBLE = id("reversible");
 
     private static final Map<ResourceLocation, TubePolicy> POLICIES =
             new ConcurrentHashMap<>();
@@ -22,6 +23,8 @@ public final class TubePolicyRegistry {
         register(RESTRICTED, new TubePolicy(false, true, false, false));
         register(ONE_WAY, new TubePolicy(false, false, true, false));
         register(VALVE, new TubePolicy(false, false, false, true));
+        register(REVERSIBLE,
+                new TubePolicy(false, false, true, false, true));
     }
 
     private TubePolicyRegistry() {

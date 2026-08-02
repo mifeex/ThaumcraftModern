@@ -127,7 +127,10 @@ public final class NodeChargingService {
         PrimalAspect selected = candidates.get(
                 serverLevel.getRandom().nextInt(candidates.size())
         );
-        int rate = hasResearch(player, "nodetapper1") ? 2 : 1;
+        int rate = drainRate(
+                hasResearch(player, "nodetapper1"),
+                hasResearch(player, "nodetapper2")
+        );
         UUID operationId = UUID.nameUUIDFromBytes(
                 ("node-drain:"
                         + player.getUUID() + ":"
@@ -222,6 +225,13 @@ public final class NodeChargingService {
         return KnowledgeAccess.get(player)
                 .map(knowledge -> knowledge.hasCompletedResearch(id))
                 .orElse(false);
+    }
+
+    static int drainRate(boolean hasNodeTapper1, boolean hasNodeTapper2) {
+        if (hasNodeTapper2) {
+            return 3;
+        }
+        return hasNodeTapper1 ? 2 : 1;
     }
 
     private static Session readSession(ItemStack stack) {

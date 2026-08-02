@@ -75,7 +75,7 @@ MC = {
 ORE = {
     "stickWood": "#minecraft:wooden_rods", "slabWood": "#minecraft:wooden_slabs",
     "plankWood": "#minecraft:planks", "stone": "#forge:stone",
-    "nuggetIron": "#forge:nuggets/iron", "nuggetCopper": "#forge:nuggets/copper",
+    "nuggetIron": "#forge:nuggets/iron", "nuggetCopper": "minecraft:copper_ingot",
     "nuggetSilver": "#forge:nuggets/silver", "nuggetThaumium": "#forge:nuggets/thaumium",
     "nuggetVoid": "#forge:nuggets/void", "ingotThaumium": "#forge:ingots/thaumium",
     "ingotIron": "#forge:ingots/iron", "gemEmerald": "#forge:gems/emerald",
@@ -125,7 +125,9 @@ TC = {
     ("ConfigItems.itemResource", 10): "thaumcraftmodern:mirrored_glass",
     ("ConfigItems.itemResource", 15): "thaumcraftmodern:primal_charm",
     ("ConfigItems.itemResource", 16): "thaumcraftmodern:void_metal_ingot",
-    ("ConfigItems.itemNugget", 5): "thaumcraftmodern:thaumium_nugget",
+    ("ConfigItems.itemNugget", 5): "thaumcraftmodern:quicksilver_nugget",
+    ("ConfigItems.itemNugget", 6): "thaumcraftmodern:thaumium_nugget",
+    ("ConfigItems.itemNugget", 7): "thaumcraftmodern:void_nugget",
     ("ConfigItems.itemEssence", 0): "thaumcraftmodern:essentia_phial",
     ("ConfigItems.itemEldritchObject", 3): "thaumcraftmodern:primordial_pearl",
     ("ConfigItems.itemBaubleBlanks", 2): "thaumcraftmodern:blank_belt",
@@ -169,7 +171,7 @@ TC = {
     ("ConfigBlocks.blockWoodenDevice", 2): "thaumcraftmodern:arcane_pressure_plate",
     ("ConfigBlocks.blockWoodenDevice", 4): "thaumcraftmodern:arcane_bore_base",
     ("ConfigBlocks.blockWoodenDevice", 6): "thaumcraftmodern:greatwood_planks",
-    ("ConfigBlocks.blockWoodenDevice", 7): "thaumcraftmodern:vis_filter",
+    ("ConfigBlocks.blockWoodenDevice", 7): "thaumcraftmodern:silverwood_planks",
     ("ConfigBlocks.blockJar", 0): "thaumcraftmodern:warded_jar",
     ("ConfigBlocks.blockJar", -1): "thaumcraftmodern:warded_jar",
     ("ConfigBlocks.blockJar", 3): "thaumcraftmodern:void_jar",
@@ -397,7 +399,7 @@ def main() -> None:
                 pending.extend(value.values())
             elif isinstance(value, list):
                 pending.extend(value)
-    referenced_items.update({"copper_nugget", "silver_nugget", "thaumium_nugget", "void_nugget"})
+    referenced_items.update({"silver_nugget", "thaumium_nugget", "void_nugget"})
     for item_id in referenced_items:
         model = MODELS / f"{item_id}.json"
         if not model.exists():

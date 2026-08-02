@@ -12,7 +12,7 @@
   ],
   "key": {
     "N": {
-      "tag": "forge:nuggets/copper"
+      "item": "minecraft:copper_ingot"
     }
   },
   "result": {

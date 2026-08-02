@@ -21,6 +21,7 @@ import com.thaumcraftmodern.entity.PechBehavior;
 import com.thaumcraftmodern.item.DiscoveryItem;
 import com.thaumcraftmodern.item.EtherealEssenceItem;
 import com.thaumcraftmodern.item.EssentiaPhialItem;
+import com.thaumcraftmodern.item.EssentiaCrystalItem;
 import com.thaumcraftmodern.item.ResearchNotesItem;
 import com.thaumcraftmodern.item.WardedJarItem;
 import com.thaumcraftmodern.knowledge.KnowledgeAccess;
@@ -54,7 +55,10 @@ import com.thaumcraftmodern.world.block.ClassicPartBlock;
 import com.thaumcraftmodern.world.block.CrucibleBlock;
 import com.thaumcraftmodern.world.block.EerieBiomeService;
 import com.thaumcraftmodern.world.block.EssentiaTubeBlock;
+import com.thaumcraftmodern.world.block.EssentiaCrystallizerBlock;
+import com.thaumcraftmodern.world.block.EssentiaReservoirBlock;
 import com.thaumcraftmodern.world.block.MagicalForestBiomeService;
+import com.thaumcraftmodern.world.block.MnemonicMatrixBlock;
 import com.thaumcraftmodern.world.block.RunicMatrixBlock;
 import com.thaumcraftmodern.world.block.ThaumatoriumBlock;
 import com.thaumcraftmodern.world.block.TaintBiomeService;
@@ -67,6 +71,13 @@ import com.thaumcraftmodern.world.block.entity.AlchemicalFurnaceBlockEntity;
 import com.thaumcraftmodern.world.block.entity.ArcaneAlembicBlockEntity;
 import com.thaumcraftmodern.world.block.entity.EssentiaJarBlockEntity;
 import com.thaumcraftmodern.world.block.entity.EssentiaTubeBlockEntity;
+import com.thaumcraftmodern.world.block.entity.EssentiaBufferBlockEntity;
+import com.thaumcraftmodern.world.block.entity.EssentiaCentrifugeBlockEntity;
+import com.thaumcraftmodern.world.block.entity.EssentiaCrystallizerBlockEntity;
+import com.thaumcraftmodern.world.block.entity.EssentiaReservoirBlockEntity;
+import com.thaumcraftmodern.world.block.entity.MnemonicMatrixBlockEntity;
+import com.thaumcraftmodern.world.block.entity.ThaumatoriumBlockEntity;
+import com.thaumcraftmodern.world.block.entity.VoidJarBlockEntity;
 import com.thaumcraftmodern.world.block.entity.ResearchTableBlockEntity;
 import com.thaumcraftmodern.world.block.entity.EldritchAltarPartBlockEntity;
 import com.thaumcraftmodern.world.menu.ArcaneWorkbenchMenu;
@@ -764,10 +775,6 @@ public final class FirstDiscoveryGameTests {
                         ScanTargetType.ITEM,
                         "minecraft:copper_ingot"
                 ).isPresent()
-                        && ScanRegistry.find(
-                                ScanTargetType.ITEM,
-                                "thaumcraftmodern:copper_nugget"
-                        ).isPresent()
                         && ScanRegistry.find(
                                 ScanTargetType.ITEM,
                                 "minecraft:raw_copper"
@@ -2029,6 +2036,35 @@ public final class FirstDiscoveryGameTests {
     }
 
     @GameTest(template = "empty")
+    public static void thaumatoriumFoundationOpensControllerMenu(
+            GameTestHelper helper
+    ) {
+        BlockPos furnacePos = new BlockPos(2, 1, 2);
+        BlockPos controllerPos = furnacePos.above();
+        helper.setBlock(furnacePos, ModBlocks.ALCHEMICAL_FURNACE.get());
+        helper.setBlock(controllerPos,
+                ModBlocks.THAUMATORIUM.get().defaultBlockState()
+                        .setValue(ThaumatoriumBlock.HALF,
+                                DoubleBlockHalf.LOWER));
+        ServerPlayer player = fakePlayer(helper, "thaumatorium-foundation-menu");
+        BlockPos absoluteFurnace = helper.absolutePos(furnacePos);
+        InteractionResult result = ModBlocks.ALCHEMICAL_FURNACE.get().use(
+                helper.getBlockState(furnacePos),
+                helper.getLevel(),
+                absoluteFurnace,
+                player,
+                InteractionHand.MAIN_HAND,
+                new BlockHitResult(Vec3.atCenterOf(absoluteFurnace),
+                        Direction.UP, absoluteFurnace, false)
+        );
+        helper.assertTrue(result.consumesAction()
+                        && player.containerMenu
+                        instanceof com.thaumcraftmodern.world.menu.ThaumatoriumMenu,
+                "Thaumatorium foundation opened the standalone furnace menu");
+        helper.succeed();
+    }
+
+    @GameTest(template = "empty")
     public static void discoveryCompletionRejectsForgedPayloads(GameTestHelper helper) {
         Player player = helper.makeMockSurvivalPlayer();
         PlayerThaumKnowledge knowledge = KnowledgeAccess.get(player).orElseThrow();
@@ -3004,6 +3040,441 @@ public final class FirstDiscoveryGameTests {
     }
 
     @GameTest(template = "empty")
+    public static void bufferVoidJarAndCentrifugeFollowTransferRules(
+            GameTestHelper helper) {
+        BlockPos bufferPos = new BlockPos(1, 1, 1);
+        BlockPos jarPos = new BlockPos(3, 1, 1);
+        BlockPos centrifugePos = new BlockPos(5, 1, 1);
+        helper.setBlock(bufferPos, ModBlocks.ESSENTIA_BUFFER.get());
+        helper.setBlock(jarPos, ModBlocks.VOID_JAR.get());
+        helper.setBlock(centrifugePos, ModBlocks.ESSENTIA_CENTRIFUGE.get());
+        EssentiaBufferBlockEntity buffer = (EssentiaBufferBlockEntity) helper.getBlockEntity(bufferPos);
+        VoidJarBlockEntity jar = (VoidJarBlockEntity) helper.getBlockEntity(jarPos);
+        EssentiaCentrifugeBlockEntity centrifuge = (EssentiaCentrifugeBlockEntity) helper.getBlockEntity(centrifugePos);
+
+        for (int i = 0; i < EssentiaBufferBlockEntity.CAPACITY_PER_ASPECT; i++) {
+            helper.assertTrue(buffer.addEssentia("aer", 1, Direction.UP) == 1,
+                    "Buffer rejected valid aer point");
+            helper.assertTrue(buffer.addEssentia("ignis", 1, Direction.UP) == 1,
+                    "Buffer rejected valid mixed ignis point");
+        }
+        helper.assertTrue(buffer.addEssentia("aer", 1, Direction.UP) == 0
+                        && buffer.addEssentia("ignis", 1, Direction.UP) == 0,
+                "Buffer accepted more than 8 points of one aspect");
+        helper.assertTrue(buffer.addEssentia("aqua", 1, Direction.UP) == 1
+                        && buffer.totalAmount() == 17
+                        && buffer.contents().getOrDefault("aer", 0) == 8
+                        && buffer.contents().getOrDefault("ignis", 0) == 8,
+                "Buffer did not provide an independent eight-point capacity per aspect");
+        buffer.cycleChoke(Direction.NORTH);
+        helper.assertTrue(buffer.chokeMode(Direction.NORTH) == 1
+                        && buffer.suctionAmount(Direction.NORTH) == 1,
+                "Buffer weak choke mode changed classic suction");
+        buffer.cycleChoke(Direction.NORTH);
+        helper.assertTrue(buffer.chokeMode(Direction.NORTH) == 2
+                        && buffer.suctionAmount(Direction.NORTH) == 0,
+                "Buffer closed choke mode did not stop suction");
+
+        jar.setFilter("aer", Direction.EAST);
+        helper.assertTrue(jar.addEssentia("aer", 80, Direction.UP) == 80
+                        && jar.amount() == 64,
+                "Void jar did not accept and destroy matching overflow");
+        helper.assertTrue(jar.addEssentia("ignis", 1, Direction.UP) == 0,
+                "Void jar accepted an aspect that contradicts its label");
+
+        helper.assertTrue(centrifuge.addEssentia("motus", 1, Direction.DOWN) == 1,
+                "Centrifuge rejected a compound aspect");
+        for (int tick = 0; tick <= EssentiaCentrifugeBlockEntity.PROCESS_TICKS; tick++) {
+            EssentiaCentrifugeBlockEntity.serverTick(helper.getLevel(),
+                    helper.absolutePos(centrifugePos), helper.getBlockState(centrifugePos), centrifuge);
+        }
+        var components = AspectRegistryRuntime.find("motus").orElseThrow().components();
+        helper.assertTrue(centrifuge.inputAspect() == null
+                        && components.contains(centrifuge.outputAspect()),
+                "Centrifuge output was not one direct TC4 component");
+        helper.succeed();
+    }
+
+    @GameTest(template = "empty")
+    public static void reservoirConnectsToBufferAndTubeThroughSelectedFace(
+            GameTestHelper helper) {
+        BlockPos reservoirPos = new BlockPos(2, 2, 2);
+        BlockPos neighbourPos = reservoirPos.east();
+        helper.setBlock(reservoirPos, ModBlocks.ESSENTIA_RESERVOIR.get()
+                .defaultBlockState().setValue(EssentiaReservoirBlock.FACING,
+                        Direction.EAST));
+        helper.setBlock(neighbourPos, ModBlocks.ESSENTIA_BUFFER.get());
+        EssentiaReservoirBlockEntity reservoir =
+                (EssentiaReservoirBlockEntity) helper.getBlockEntity(reservoirPos);
+        EssentiaBufferBlockEntity buffer =
+                (EssentiaBufferBlockEntity) helper.getBlockEntity(neighbourPos);
+        helper.assertTrue(reservoir.isConnectable(Direction.EAST)
+                        && !reservoir.isConnectable(Direction.DOWN),
+                "Reservoir exposed more than its selected TC4 port");
+        helper.assertTrue(buffer.addEssentia("aer", 1, Direction.WEST) == 1,
+                "Buffer rejected the transfer fixture");
+        for (int tick = 0; tick < 5; tick++) {
+            EssentiaReservoirBlockEntity.serverTick(helper.getLevel(),
+                    helper.absolutePos(reservoirPos),
+                    helper.getBlockState(reservoirPos), reservoir);
+        }
+        helper.assertTrue(reservoir.contents().getOrDefault("aer", 0) == 1
+                        && buffer.contents().getOrDefault("aer", 0) == 0,
+                "Reservoir did not pull essentia from an adjacent buffer");
+
+        helper.setBlock(neighbourPos, ModBlocks.ESSENTIA_TUBE.get());
+        EssentiaTubeBlockEntity tube =
+                (EssentiaTubeBlockEntity) helper.getBlockEntity(neighbourPos);
+        EssentiaTubeBlock.refreshConnections(helper.getLevel(),
+                helper.absolutePos(neighbourPos));
+        helper.assertTrue(tube.isConnectable(Direction.WEST)
+                        && reservoir.isConnectable(Direction.EAST)
+                        && helper.getBlockState(neighbourPos)
+                                .getValue(EssentiaTubeBlock.WEST),
+                "Reservoir and ordinary tube did not expose matching ports");
+
+        EssentiaReservoirBlockEntity restored = new EssentiaReservoirBlockEntity(
+                helper.absolutePos(reservoirPos), helper.getBlockState(reservoirPos));
+        restored.load(reservoir.saveWithFullMetadata());
+        helper.assertTrue(restored.totalAmount() == 1
+                        && restored.contents().getOrDefault("aer", 0) == 1,
+                "Reservoir lost its mixed store during NBT round-trip");
+        helper.succeed();
+    }
+
+    @GameTest(template = "empty", timeoutTicks = 1200)
+    public static void crystallizerCreatesAspectCrystalOnServer(GameTestHelper helper) {
+        BlockPos pos = new BlockPos(2, 2, 2);
+        helper.setBlock(pos, ModBlocks.ESSENTIA_CRYSTALLIZER.get());
+        EssentiaCrystallizerBlockEntity machine =
+                (EssentiaCrystallizerBlockEntity) helper.getBlockEntity(pos);
+        helper.assertTrue(machine.addEssentia("aer", 1, Direction.DOWN) == 1,
+                "Crystallizer rejected one essentia point");
+        for (int tick = 0; tick < EssentiaCrystallizerBlockEntity.PROGRESS_MAX * 5; tick++) {
+            EssentiaCrystallizerBlockEntity.serverTick(helper.getLevel(),
+                    helper.absolutePos(pos), helper.getBlockState(pos), machine);
+        }
+        helper.assertTrue(machine.aspect() == null,
+                "Crystallizer did not consume its one-point reservoir");
+        helper.assertTrue(helper.getEntities(EntityType.ITEM, pos.above(), 2.0D).stream()
+                        .map(ItemEntity::getItem)
+                        .anyMatch(stack -> "aer".equals(EssentiaCrystalItem.aspect(stack).orElse(null))),
+                "Crystallizer did not create the corresponding server-owned crystal");
+        helper.succeed();
+    }
+
+    @GameTest(template = "empty")
+    public static void crystallizerTurnsItsInputTowardAdjacentTransport(
+            GameTestHelper helper) {
+        BlockPos crystalPos = new BlockPos(2, 2, 2);
+        BlockPos bufferPos = crystalPos.east();
+        helper.setBlock(crystalPos, ModBlocks.ESSENTIA_CRYSTALLIZER.get());
+        helper.setBlock(bufferPos, ModBlocks.ESSENTIA_BUFFER.get());
+        BlockPos absoluteCrystal = helper.absolutePos(crystalPos);
+        EssentiaCrystallizerBlockEntity machine =
+                (EssentiaCrystallizerBlockEntity) helper.getBlockEntity(crystalPos);
+        EssentiaCrystallizerBlockEntity.serverTick(helper.getLevel(),
+                absoluteCrystal, helper.getBlockState(crystalPos), machine);
+        helper.assertTrue(helper.getBlockState(crystalPos).getValue(
+                        EssentiaCrystallizerBlock.FACING) == Direction.EAST,
+                "Crystallizer tick did not turn its input toward the adjacent buffer");
+
+        helper.setBlock(bufferPos, Blocks.AIR);
+        BlockPos tubePos = crystalPos.west();
+        helper.setBlock(tubePos, ModBlocks.ESSENTIA_TUBE.get());
+        EssentiaCrystallizerBlockEntity.serverTick(helper.getLevel(),
+                absoluteCrystal, helper.getBlockState(crystalPos), machine);
+        helper.assertTrue(helper.getBlockState(crystalPos).getValue(
+                        EssentiaCrystallizerBlock.FACING) == Direction.WEST,
+                "Crystallizer tick did not turn its input toward the adjacent tube");
+        helper.succeed();
+    }
+
+    @GameTest(template = "empty")
+    public static void thaumatoriumReservesEssentiaAndCompletesKnownRecipe(GameTestHelper helper) {
+        BlockPos pos = new BlockPos(3, 3, 3);
+        helper.setBlock(pos.below(2), Blocks.LAVA);
+        helper.setBlock(pos, ModBlocks.THAUMATORIUM.get().defaultBlockState()
+                .setValue(ThaumatoriumBlock.HALF, DoubleBlockHalf.LOWER));
+        ThaumatoriumBlockEntity machine = (ThaumatoriumBlockEntity) helper.getBlockEntity(pos);
+        ServerPlayer player = fakePlayer(helper, "thaumatorium-known-recipe");
+        KnowledgeAccess.get(player).orElseThrow().completeResearch("nitor");
+        ItemStack catalyst = new ItemStack(Items.GLOWSTONE_DUST);
+        helper.assertTrue(machine.insertCatalyst(player, catalyst) && catalyst.isEmpty(),
+                "Thaumatorium did not server-reserve a catalyst for known recipe");
+        helper.assertTrue(machine.addEssentia("potentia", 3, Direction.WEST) == 3
+                        && machine.addEssentia("ignis", 3, Direction.WEST) == 3
+                        && machine.addEssentia("lux", 3, Direction.WEST) == 3,
+                "Thaumatorium did not reserve the exact selected recipe costs");
+        for (int tick = 0; tick < 5; tick++) {
+            ThaumatoriumBlockEntity.serverTick(helper.getLevel(), helper.absolutePos(pos),
+                    helper.getBlockState(pos), machine);
+        }
+        helper.assertTrue(machine.catalyst().isEmpty() && machine.reservedEssentia().isEmpty(),
+                "Thaumatorium did not atomically consume catalyst and reserved essentia");
+        helper.assertTrue(helper.getEntities(EntityType.ITEM, pos.north(), 2.0D).stream()
+                        .anyMatch(entity -> entity.getItem().is(ModItems.NITOR.get())),
+                "Thaumatorium did not create the selected crucible result");
+        helper.succeed();
+    }
+
+    @GameTest(template = "empty")
+    public static void constructedThaumatoriumPullsPotentiaFromJarThroughTube(
+            GameTestHelper helper) {
+        BlockPos machinePos = new BlockPos(3, 2, 3);
+        BlockPos tubePos = machinePos.above().west();
+        BlockPos jarPos = tubePos.below();
+        helper.setBlock(machinePos.below(), ModBlocks.ALCHEMICAL_FURNACE.get());
+        helper.setBlock(machinePos, ModBlocks.THAUMATORIUM.get().defaultBlockState()
+                .setValue(ThaumatoriumBlock.HALF, DoubleBlockHalf.LOWER)
+                .setValue(ThaumatoriumBlock.FACING, Direction.NORTH));
+        helper.setBlock(machinePos.above(), ModBlocks.THAUMATORIUM.get().defaultBlockState()
+                .setValue(ThaumatoriumBlock.HALF, DoubleBlockHalf.UPPER)
+                .setValue(ThaumatoriumBlock.FACING, Direction.NORTH));
+        helper.setBlock(tubePos, ModBlocks.ESSENTIA_TUBE.get());
+        helper.setBlock(jarPos, ModBlocks.WARDED_JAR.get());
+
+        ThaumatoriumBlockEntity machine = (ThaumatoriumBlockEntity)
+                helper.getBlockEntity(machinePos);
+        EssentiaTubeBlockEntity tube = (EssentiaTubeBlockEntity)
+                helper.getBlockEntity(tubePos);
+        EssentiaJarBlockEntity jar = (EssentiaJarBlockEntity)
+                helper.getBlockEntity(jarPos);
+        ServerPlayer player = fakePlayer(helper, "thaumatorium-potentia-pull");
+        KnowledgeAccess.get(player).orElseThrow().completeResearch("nitor");
+        helper.assertTrue(machine.insertCatalyst(
+                        player, new ItemStack(Items.GLOWSTONE_DUST)),
+                "Constructed Thaumatorium rejected the Nitor catalyst");
+        helper.assertTrue(machine.addEssentia("ignis", 3, Direction.EAST) == 3
+                        && machine.addEssentia("lux", 3, Direction.EAST) == 3,
+                "Could not advance the recipe to its Potentia stage");
+        helper.assertTrue(jar.addEssentia("potentia", 1, Direction.UP) == 1,
+                "Test jar rejected Potentia");
+
+        for (int tick = 0; tick < 40; tick++) {
+            ThaumatoriumBlockEntity.serverTick(
+                    helper.getLevel(), helper.absolutePos(machinePos),
+                    helper.getBlockState(machinePos), machine);
+            EssentiaTubeBlockEntity.serverTick(
+                    helper.getLevel(), helper.absolutePos(tubePos),
+                    helper.getBlockState(tubePos), tube);
+        }
+        helper.assertTrue(jar.amount() == 0
+                        && machine.reservedEssentia()
+                        .getOrDefault("potentia", 0) == 1,
+                "Constructed Thaumatorium did not pull Potentia through its tube");
+        helper.succeed();
+    }
+
+    @GameTest(template = "empty")
+    public static void cancelledThaumatoriumCraftReturnsEssentiaThroughTube(
+            GameTestHelper helper) {
+        BlockPos machinePos = new BlockPos(3, 2, 3);
+        BlockPos tubePos = machinePos.above().west();
+        BlockPos jarPos = tubePos.below();
+        helper.setBlock(machinePos.below(), ModBlocks.ALCHEMICAL_FURNACE.get());
+        helper.setBlock(machinePos, ModBlocks.THAUMATORIUM.get().defaultBlockState()
+                .setValue(ThaumatoriumBlock.HALF, DoubleBlockHalf.LOWER)
+                .setValue(ThaumatoriumBlock.FACING, Direction.NORTH));
+        helper.setBlock(machinePos.above(), ModBlocks.THAUMATORIUM.get().defaultBlockState()
+                .setValue(ThaumatoriumBlock.HALF, DoubleBlockHalf.UPPER)
+                .setValue(ThaumatoriumBlock.FACING, Direction.NORTH));
+        helper.setBlock(tubePos, ModBlocks.ESSENTIA_TUBE.get());
+        helper.setBlock(jarPos, ModBlocks.WARDED_JAR.get());
+
+        ThaumatoriumBlockEntity machine = (ThaumatoriumBlockEntity)
+                helper.getBlockEntity(machinePos);
+        EssentiaTubeBlockEntity tube = (EssentiaTubeBlockEntity)
+                helper.getBlockEntity(tubePos);
+        EssentiaJarBlockEntity jar = (EssentiaJarBlockEntity)
+                helper.getBlockEntity(jarPos);
+        ServerPlayer player = fakePlayer(helper, "thaumatorium-refund");
+        KnowledgeAccess.get(player).orElseThrow().completeResearch("nitor");
+        helper.assertTrue(jar.addEssentia("potentia", 12, Direction.UP) == 12,
+                "Test jar rejected its initial Potentia");
+        helper.assertTrue(machine.insertCatalyst(
+                        player, new ItemStack(Items.GLOWSTONE_DUST)),
+                "Thaumatorium rejected the refund test catalyst");
+
+        for (int tick = 0; tick < 160
+                && machine.reservedEssentia().getOrDefault("potentia", 0) < 3;
+                tick++) {
+            ThaumatoriumBlockEntity.serverTick(
+                    helper.getLevel(), helper.absolutePos(machinePos),
+                    helper.getBlockState(machinePos), machine);
+            EssentiaTubeBlockEntity.serverTick(
+                    helper.getLevel(), helper.absolutePos(tubePos),
+                    helper.getBlockState(tubePos), tube);
+        }
+        helper.assertTrue(
+                machine.reservedEssentia().getOrDefault("potentia", 0) == 3,
+                "Thaumatorium did not reserve Potentia before cancellation");
+
+        ItemStack returnedCatalyst = machine.removeCatalyst();
+        helper.assertTrue(returnedCatalyst.is(Items.GLOWSTONE_DUST),
+                "Cancelling the craft did not return its catalyst");
+        for (int tick = 0; tick < 320 && jar.amount() < 12; tick++) {
+            EssentiaTubeBlockEntity.serverTick(
+                    helper.getLevel(), helper.absolutePos(tubePos),
+                    helper.getBlockState(tubePos), tube);
+            EssentiaJarBlockEntity.serverTick(
+                    helper.getLevel(), helper.absolutePos(jarPos),
+                    helper.getBlockState(jarPos), jar);
+        }
+        helper.assertTrue(jar.amount() == 12
+                        && machine.reservedEssentia().isEmpty(),
+                "Cancelling the craft did not return all reserved Potentia to the jar");
+        helper.succeed();
+    }
+
+    @GameTest(template = "empty")
+    public static void mnemonicMatrixConnectsToBufferAndTubeWithoutMovingEssentia(
+            GameTestHelper helper) {
+        BlockPos matrixPos = new BlockPos(2, 2, 2);
+        BlockPos neighbourPos = matrixPos.east();
+        helper.setBlock(matrixPos, ModBlocks.MNEMONIC_MATRIX.get()
+                .defaultBlockState().setValue(MnemonicMatrixBlock.FACING,
+                        Direction.EAST));
+        helper.setBlock(neighbourPos, ModBlocks.ESSENTIA_BUFFER.get());
+        MnemonicMatrixBlockEntity matrix =
+                (MnemonicMatrixBlockEntity) helper.getBlockEntity(matrixPos);
+        EssentiaBufferBlockEntity buffer =
+                (EssentiaBufferBlockEntity) helper.getBlockEntity(neighbourPos);
+
+        helper.assertTrue(matrix.isConnectable(Direction.EAST)
+                        && !matrix.isConnectable(Direction.WEST),
+                "Mnemonic Matrix exposed a socket on the wrong face");
+        helper.assertTrue(com.thaumcraftmodern.essentia.EssentiaConnections
+                        .connected(helper.getLevel(), helper.absolutePos(neighbourPos),
+                                Direction.WEST, buffer),
+                "Essentia Buffer did not recognize the Mnemonic Matrix socket");
+        helper.assertTrue(matrix.addEssentia("aer", 1, Direction.EAST) == 0
+                        && matrix.takeEssentia("aer", 1, Direction.EAST) == 0
+                        && matrix.essentiaAmount(Direction.EAST) == 0,
+                "Mnemonic Matrix incorrectly became an essentia inventory");
+
+        helper.setBlock(neighbourPos, ModBlocks.ESSENTIA_TUBE.get());
+        EssentiaTubeBlock.refreshConnections(helper.getLevel(),
+                helper.absolutePos(neighbourPos));
+        helper.assertTrue(helper.getBlockState(neighbourPos)
+                        .getValue(EssentiaTubeBlock.WEST),
+                "Ordinary tube did not render its arm to the Mnemonic Matrix");
+        helper.succeed();
+    }
+
+    @GameTest(template = "empty")
+    public static void mnemonicMatricesAddAndRemoveTwoFormulaSlots(GameTestHelper helper) {
+        BlockPos machinePos = new BlockPos(3, 2, 3);
+        BlockPos matrixPos = machinePos.east();
+        helper.setBlock(machinePos, ModBlocks.THAUMATORIUM.get().defaultBlockState()
+                .setValue(ThaumatoriumBlock.HALF, DoubleBlockHalf.LOWER)
+                .setValue(ThaumatoriumBlock.FACING, Direction.NORTH));
+        helper.setBlock(matrixPos, ModBlocks.MNEMONIC_MATRIX.get().defaultBlockState()
+                .setValue(MnemonicMatrixBlock.FACING, Direction.WEST));
+        ThaumatoriumBlockEntity machine = (ThaumatoriumBlockEntity)
+                helper.getBlockEntity(machinePos);
+        helper.assertTrue(machine.formulaCapacity() == 3,
+                "One correctly facing Mnemonic Matrix did not add two slots");
+
+        ServerPlayer player = fakePlayer(helper, "mnemonic-matrix-capacity");
+        var recipes = com.thaumcraftmodern.crucible.CrucibleRecipeRegistry.all()
+                .stream().limit(3).toList();
+        helper.assertTrue(recipes.size() == 3,
+                "Not enough crucible recipes to test matrix capacity");
+        for (var recipe : recipes) {
+            if (!recipe.research().isBlank()) {
+                KnowledgeAccess.get(player).orElseThrow()
+                        .completeResearch(recipe.research());
+            }
+            helper.assertTrue(machine.selectRecipe(player, recipe.id()),
+                    "Mnemonic Matrix rejected a formula within capacity");
+        }
+        helper.assertTrue(machine.formulaCount() == 3,
+                "Thaumatorium did not retain all Matrix formula slots");
+
+        helper.setBlock(matrixPos, Blocks.AIR);
+        for (int tick = 0; tick < 41; tick++) {
+            ThaumatoriumBlockEntity.serverTick(helper.getLevel(),
+                    helper.absolutePos(machinePos), helper.getBlockState(machinePos), machine);
+        }
+        helper.assertTrue(machine.formulaCapacity() == 1
+                        && machine.formulaCount() == 1,
+                "Removing Mnemonic Matrix did not trim formulae to base capacity");
+        helper.succeed();
+    }
+
+    @GameTest(template = "empty")
+    public static void automatedEssentiaVerticalSurvivesNbtRoundTrip(GameTestHelper helper) {
+        BlockPos bufferPos = new BlockPos(1, 1, 1);
+        BlockPos jarPos = new BlockPos(2, 1, 1);
+        BlockPos centrifugePos = new BlockPos(3, 1, 1);
+        BlockPos crystalPos = new BlockPos(4, 1, 1);
+        BlockPos thaumatoriumPos = new BlockPos(5, 1, 1);
+        helper.setBlock(bufferPos, ModBlocks.ESSENTIA_BUFFER.get());
+        helper.setBlock(jarPos, ModBlocks.VOID_JAR.get());
+        helper.setBlock(centrifugePos, ModBlocks.ESSENTIA_CENTRIFUGE.get());
+        helper.setBlock(crystalPos, ModBlocks.ESSENTIA_CRYSTALLIZER.get());
+        helper.setBlock(thaumatoriumPos, ModBlocks.THAUMATORIUM.get());
+        EssentiaBufferBlockEntity buffer = (EssentiaBufferBlockEntity) helper.getBlockEntity(bufferPos);
+        VoidJarBlockEntity jar = (VoidJarBlockEntity) helper.getBlockEntity(jarPos);
+        EssentiaCentrifugeBlockEntity centrifuge = (EssentiaCentrifugeBlockEntity) helper.getBlockEntity(centrifugePos);
+        EssentiaCrystallizerBlockEntity crystal = (EssentiaCrystallizerBlockEntity) helper.getBlockEntity(crystalPos);
+        ThaumatoriumBlockEntity thaumatorium = (ThaumatoriumBlockEntity) helper.getBlockEntity(thaumatoriumPos);
+        for (int i = 0; i < EssentiaBufferBlockEntity.CAPACITY_PER_ASPECT; i++) {
+            buffer.addEssentia("aer", 1, Direction.UP);
+            buffer.addEssentia("ignis", 1, Direction.UP);
+        }
+        buffer.toggleSide(Direction.WEST);
+        buffer.cycleChoke(Direction.EAST);
+        jar.setFilter("aqua", Direction.SOUTH);
+        jar.addEssentia("aqua", 72, Direction.UP);
+        centrifuge.addEssentia("motus", 1, Direction.DOWN);
+        crystal.addEssentia("ordo", 1, Direction.DOWN);
+        ServerPlayer player = fakePlayer(helper, "automated-essentia-nbt");
+        KnowledgeAccess.get(player).orElseThrow().completeResearch("nitor");
+        thaumatorium.insertCatalyst(player, new ItemStack(Items.GLOWSTONE_DUST));
+        thaumatorium.addEssentia("ignis", 2, Direction.WEST);
+
+        EssentiaBufferBlockEntity restoredBuffer = new EssentiaBufferBlockEntity(
+                helper.absolutePos(bufferPos), ModBlocks.ESSENTIA_BUFFER.get().defaultBlockState());
+        VoidJarBlockEntity restoredJar = new VoidJarBlockEntity(
+                helper.absolutePos(jarPos), ModBlocks.VOID_JAR.get().defaultBlockState());
+        EssentiaCentrifugeBlockEntity restoredCentrifuge = new EssentiaCentrifugeBlockEntity(
+                helper.absolutePos(centrifugePos), ModBlocks.ESSENTIA_CENTRIFUGE.get().defaultBlockState());
+        EssentiaCrystallizerBlockEntity restoredCrystal = new EssentiaCrystallizerBlockEntity(
+                helper.absolutePos(crystalPos), ModBlocks.ESSENTIA_CRYSTALLIZER.get().defaultBlockState());
+        ThaumatoriumBlockEntity restoredThaumatorium = new ThaumatoriumBlockEntity(
+                helper.absolutePos(thaumatoriumPos), ModBlocks.THAUMATORIUM.get().defaultBlockState());
+        restoredBuffer.load(buffer.saveWithFullMetadata());
+        restoredJar.load(jar.saveWithFullMetadata());
+        restoredCentrifuge.load(centrifuge.saveWithFullMetadata());
+        restoredCrystal.load(crystal.saveWithFullMetadata());
+        restoredThaumatorium.load(thaumatorium.saveWithFullMetadata());
+        helper.assertTrue(restoredBuffer.totalAmount() == 16
+                        && restoredBuffer.contents().getOrDefault("aer", 0) == 8
+                        && restoredBuffer.contents().getOrDefault("ignis", 0) == 8
+                        && !restoredBuffer.sideOpen(Direction.WEST)
+                        && restoredBuffer.chokeMode(Direction.EAST) == 1,
+                "Buffer lost mixed contents or independent side state");
+        helper.assertTrue(restoredJar.amount() == 64
+                        && "aqua".equals(restoredJar.aspect())
+                        && "aqua".equals(restoredJar.filter())
+                        && restoredJar.filterFacing() == Direction.SOUTH,
+                "Void jar lost capped contents, label or facing");
+        helper.assertTrue("motus".equals(restoredCentrifuge.inputAspect())
+                        && restoredCentrifuge.processTicks() == EssentiaCentrifugeBlockEntity.PROCESS_TICKS,
+                "Centrifuge lost its in-flight compound aspect");
+        helper.assertTrue("ordo".equals(restoredCrystal.aspect())
+                        && restoredCrystal.progress() == 0,
+                "Crystallizer lost its in-flight aspect");
+        helper.assertTrue(restoredThaumatorium.selectedRecipe() != null
+                        && restoredThaumatorium.catalyst().is(Items.GLOWSTONE_DUST)
+                        && restoredThaumatorium.reservedEssentia().getOrDefault("ignis", 0) == 2,
+                "Thaumatorium lost recipe, catalyst or reserved essentia");
+        helper.succeed();
+    }
+
+    @GameTest(template = "empty")
     public static void phialsAndJarLabelsFollowClassicTransactions(
             GameTestHelper helper
     ) {
@@ -3063,6 +3534,7 @@ public final class FirstDiscoveryGameTests {
 
         ItemStack label = new ItemStack(ModItems.JAR_LABEL.get());
         player.setItemInHand(InteractionHand.MAIN_HAND, label);
+        player.setYRot(90.0F);
         BlockPos absoluteJar = helper.absolutePos(jarPos);
         BlockHitResult eastHit = new BlockHitResult(
                 Vec3.atCenterOf(absoluteJar), Direction.EAST, absoluteJar, false);
@@ -3072,7 +3544,7 @@ public final class FirstDiscoveryGameTests {
                 player, InteractionHand.MAIN_HAND, eastHit);
         helper.assertTrue("aer".equals(jar.filter())
                         && jar.filterFacing() == Direction.EAST && label.isEmpty(),
-                "Jar label was not consumed and tuned from the filled jar");
+                "Jar label did not face the player and tune from the filled jar");
 
         player.setItemInHand(InteractionHand.MAIN_HAND, ItemStack.EMPTY);
         player.setShiftKeyDown(true);
@@ -3080,7 +3552,19 @@ public final class FirstDiscoveryGameTests {
                 player, InteractionHand.MAIN_HAND, westHit);
         helper.assertTrue(jar.amount() == 0 && "aer".equals(jar.filter()),
                 "Wrong-side sneak click removed the label instead of emptying the jar");
-        jar.addEssentia("aer", 8, Direction.UP);
+        player.setShiftKeyDown(false);
+        player.setItemInHand(InteractionHand.MAIN_HAND,
+                EssentiaPhialItem.filled(ModItems.ESSENTIA_PHIAL.get(), "aer"));
+        helper.assertTrue(useOn(helper, player, jarPos).consumesAction()
+                        && jar.amount() == 8,
+                "Matching filled phial was not accepted by an empty labeled jar");
+        player.setItemInHand(InteractionHand.MAIN_HAND,
+                EssentiaPhialItem.filled(ModItems.ESSENTIA_PHIAL.get(), "ignis"));
+        helper.assertTrue(!useOn(helper, player, jarPos).consumesAction()
+                        && jar.amount() == 8 && "aer".equals(jar.aspect()),
+                "Labeled jar accepted a mismatched aspect");
+        player.setItemInHand(InteractionHand.MAIN_HAND, ItemStack.EMPTY);
+        player.setShiftKeyDown(true);
         helper.getLevel().getBlockState(absoluteJar).use(helper.getLevel(),
                 player, InteractionHand.MAIN_HAND, eastHit);
         helper.assertTrue(jar.filter() == null && jar.amount() == 8,
@@ -3102,9 +3586,94 @@ public final class FirstDiscoveryGameTests {
     }
 
     @GameTest(template = "empty")
+    public static void labeledJarPullsOnlyItsAspectFromTheTubeAbove(
+            GameTestHelper helper) {
+        BlockPos jarPos = new BlockPos(2, 1, 2);
+        BlockPos tubePos = jarPos.above();
+        helper.setBlock(jarPos, ModBlocks.WARDED_JAR.get());
+        helper.setBlock(tubePos, ModBlocks.ESSENTIA_TUBE.get());
+        EssentiaJarBlockEntity jar = (EssentiaJarBlockEntity)
+                helper.getBlockEntity(jarPos);
+        EssentiaTubeBlockEntity tube = (EssentiaTubeBlockEntity)
+                helper.getBlockEntity(tubePos);
+        jar.setFilter("aer", Direction.EAST);
+        helper.assertTrue(tube.addEssentia("aer", 1, Direction.UP) == 1,
+                "Test tube rejected matching essentia");
+        for (int tick = 0; tick < 5; tick++) {
+            EssentiaJarBlockEntity.serverTick(helper.getLevel(),
+                    helper.absolutePos(jarPos), helper.getBlockState(jarPos), jar);
+        }
+        helper.assertTrue(jar.amount() == 1 && "aer".equals(jar.aspect())
+                        && tube.essentiaAmount(Direction.DOWN) == 0,
+                "Labeled jar did not pull its matching aspect from above");
+
+        helper.assertTrue(tube.addEssentia("ignis", 1, Direction.UP) == 1,
+                "Test tube rejected mismatched essentia setup");
+        for (int tick = 0; tick < 5; tick++) {
+            EssentiaJarBlockEntity.serverTick(helper.getLevel(),
+                    helper.absolutePos(jarPos), helper.getBlockState(jarPos), jar);
+        }
+        helper.assertTrue(jar.amount() == 1 && "aer".equals(jar.aspect())
+                        && "ignis".equals(tube.essentiaType(Direction.DOWN)),
+                "Labeled jar pulled an aspect that contradicts its label");
+        helper.succeed();
+    }
+
+    @GameTest(template = "empty")
+    public static void creativeFilledPhialAddsEightOnEveryClick(
+            GameTestHelper helper
+    ) {
+        BlockPos jarPos = new BlockPos(1, 1, 1);
+        BlockPos voidJarPos = new BlockPos(3, 1, 1);
+        helper.setBlock(jarPos, ModBlocks.WARDED_JAR.get());
+        helper.setBlock(voidJarPos, ModBlocks.VOID_JAR.get());
+        EssentiaJarBlockEntity jar = (EssentiaJarBlockEntity)
+                helper.getBlockEntity(jarPos);
+        VoidJarBlockEntity voidJar = (VoidJarBlockEntity)
+                helper.getBlockEntity(voidJarPos);
+
+        ServerPlayer player = fakePlayer(helper, "creative-phial-repeated-fill");
+        player.getAbilities().instabuild = true;
+        player.onUpdateAbilities();
+        player.setItemInHand(
+                InteractionHand.MAIN_HAND,
+                EssentiaPhialItem.filled(ModItems.ESSENTIA_PHIAL.get(), "aer")
+        );
+
+        helper.assertTrue(useOn(helper, player, jarPos).consumesAction(),
+                "First creative phial click was rejected");
+        helper.assertTrue(useOn(helper, player, jarPos).consumesAction(),
+                "Second creative phial click was rejected");
+        helper.assertTrue(jar.amount() == 16,
+                "Creative filled phial did not add eight essentia per click");
+        helper.assertTrue("aer".equals(EssentiaPhialItem.aspect(
+                        player.getMainHandItem()).orElse(null)),
+                "Creative filled phial was consumed after one click");
+
+        voidJar.addEssentia("aer", 64, Direction.UP);
+        helper.assertTrue(useOn(helper, player, voidJarPos).consumesAction(),
+                "Full Void Jar rejected matching phial overflow");
+        helper.assertTrue(voidJar.amount() == 64,
+                "Void Jar exposed destroyed phial overflow above its cap");
+        helper.succeed();
+    }
+
+    @GameTest(template = "empty")
     public static void brokenWardedJarPreservesExactContentsAndPlacesThemBack(
             GameTestHelper helper
     ) {
+        helper.assertTrue(new ItemStack(ModItems.WARDED_JAR.get())
+                        .getMaxStackSize() == 64,
+                "Empty warded jars did not stack to 64");
+        helper.assertTrue(new ItemStack(ModItems.VOID_JAR.get())
+                        .getMaxStackSize() == 64,
+                "Empty void jars did not stack to 64");
+        helper.assertTrue(new ItemStack(ModItems.FILLED_WARDED_JAR.get())
+                        .getMaxStackSize() == 1,
+                "Filled warded jar item was stackable");
+        helper.assertTrue(new ItemStack(ModItems.FILLED_VOID_JAR.get())
+                        .getMaxStackSize() == 1,
+                "Filled void jar item was stackable");
         BlockPos jarPosition = new BlockPos(1, 1, 1);
         helper.setBlock(jarPosition, ModBlocks.WARDED_JAR.get());
         EssentiaJarBlockEntity jar = (EssentiaJarBlockEntity)
@@ -3116,8 +3685,10 @@ public final class FirstDiscoveryGameTests {
         helper.getLevel().destroyBlock(helper.absolutePos(jarPosition), true);
         ItemStack dropped = helper.getEntities(EntityType.ITEM, jarPosition, 2.0D)
                 .stream().map(ItemEntity::getItem)
-                .filter(stack -> stack.is(ModItems.WARDED_JAR.get()))
+                .filter(stack -> stack.is(ModItems.FILLED_WARDED_JAR.get()))
                 .findFirst().orElseThrow();
+        helper.assertTrue(dropped.getMaxStackSize() == 1,
+                "Filled warded jar remained stackable");
         var contents = WardedJarItem.contents(dropped).orElseThrow();
         helper.assertTrue("ignis".equals(contents.aspect())
                         && contents.amount() == 37,
@@ -3185,6 +3756,34 @@ public final class FirstDiscoveryGameTests {
                             && isolatedOutline.max(axis) == 0.625D,
                     "Isolated tube exposed a phantom " + axis + " branch");
         }
+
+        BlockPos endpointTubePos = new BlockPos(4, 1, 3);
+        BlockPos alembicPos = endpointTubePos.east();
+        helper.setBlock(endpointTubePos, ModBlocks.ESSENTIA_TUBE.get());
+        helper.setBlock(alembicPos, ModBlocks.ARCANE_ALEMBIC.get());
+        EssentiaTubeBlockEntity endpointTube = (EssentiaTubeBlockEntity)
+                helper.getBlockEntity(endpointTubePos);
+        endpointTube.toggleSide(Direction.EAST);
+        net.minecraft.world.phys.shapes.VoxelShape endpointOutline =
+                helper.getLevel().getBlockState(helper.absolutePos(endpointTubePos))
+                        .getShape(helper.getLevel(), helper.absolutePos(endpointTubePos));
+        helper.assertTrue(endpointOutline.max(Direction.Axis.X) == 1.0D,
+                "Retracted branch toward the adjacent alembic is not selectable");
+        BlockPos absoluteEndpointTube = helper.absolutePos(endpointTubePos);
+        Vec3 endpointEye = new Vec3(
+                absoluteEndpointTube.getX() - 2.0D,
+                absoluteEndpointTube.getY() + 0.5D,
+                absoluteEndpointTube.getZ() + 0.5D
+        );
+        Direction endpointReconnect = EssentiaTubeBlock.selectReconnectDirection(
+                helper.getLevel().getBlockState(absoluteEndpointTube),
+                helper.getLevel(), absoluteEndpointTube, endpointEye,
+                endpointEye.add(16.0D, 0.0D, 0.0D));
+        helper.assertTrue(endpointReconnect == Direction.EAST,
+                "View ray could not retarget the closed alembic branch");
+        endpointTube.toggleSide(endpointReconnect);
+        helper.assertTrue(endpointTube.isSideOpen(Direction.EAST),
+                "Closed alembic branch did not reopen");
 
         BlockPos upperPos = leftPos.above();
         helper.setBlock(upperPos, ModBlocks.ESSENTIA_TUBE.get());

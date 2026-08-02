@@ -30,5 +30,12 @@ final class WardedJarItemRenderer extends BlockEntityWithoutLevelRenderer {
         Minecraft.getInstance().getBlockRenderer().renderSingleBlock(
                 ModBlocks.WARDED_JAR.get().defaultBlockState(),
                 poses, buffers, packedLight, packedOverlay);
+        WardedJarItem.contents(stack).ifPresent(contents -> {
+            if (contents.filter() != null) {
+                ClassicJarLabelRenderer.render(contents.filter(),
+                        contents.filterFacing(), poses, buffers, packedLight,
+                        packedOverlay);
+            }
+        });
     }
 }

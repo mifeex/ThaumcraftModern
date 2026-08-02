@@ -1,6 +1,8 @@
 {
   "replace": false,
   "values": [
+    "thaumcraftmodern:infernal_furnace",
+    "thaumcraftmodern:advanced_alchemical_furnace",
     "thaumcraftmodern:cinnabar_ore",
     "thaumcraftmodern:air_infused_stone",
     "thaumcraftmodern:fire_infused_stone",
@@ -9,6 +11,7 @@
     "thaumcraftmodern:order_infused_stone",
     "thaumcraftmodern:entropy_infused_stone",
     "thaumcraftmodern:amber_ore",
+    "thaumcraftmodern:eldritch_altar_part",
     "thaumcraftmodern:ancient_stone"
   ]
 }

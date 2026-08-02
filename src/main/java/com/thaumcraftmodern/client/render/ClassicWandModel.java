@@ -87,6 +87,8 @@ final class ClassicWandModel {
             int overlay
     ) {
         topCap.render(poseStack, vertices, light, overlay);
+        renderCapClosure(poseStack.last(), vertices, light, overlay,
+                -1.01F / 16.0F, -1.0F);
     }
 
     void renderBottomCap(
@@ -96,6 +98,58 @@ final class ClassicWandModel {
             int overlay
     ) {
         bottomCap.render(poseStack, vertices, light, overlay);
+        renderCapClosure(poseStack.last(), vertices, light, overlay,
+                21.01F / 16.0F, 1.0F);
+    }
+
+    /**
+     * The original cap atlas leaves transparent pixels around the automatic
+     * ModelPart end-face UV. A dedicated end plate prevents the rod/background
+     * from showing through the centre of wand, sceptre and staff caps. Pixels
+     * x=3..4, y=2..3 are opaque in every original TC4 cap texture.
+     */
+    private static void renderCapClosure(
+            PoseStack.Pose pose,
+            VertexConsumer vertices,
+            int light,
+            int overlay,
+            float y,
+            float normalY
+    ) {
+        float half = 1.0F / 16.0F;
+        float u0 = 3.0F / 32.0F;
+        float u1 = 5.0F / 32.0F;
+        float v0 = 2.0F / 32.0F;
+        float v1 = 4.0F / 32.0F;
+        capClosureVertex(vertices, pose, -half, y, -half,
+                u0, v0, normalY, light, overlay);
+        capClosureVertex(vertices, pose, -half, y, half,
+                u0, v1, normalY, light, overlay);
+        capClosureVertex(vertices, pose, half, y, half,
+                u1, v1, normalY, light, overlay);
+        capClosureVertex(vertices, pose, half, y, -half,
+                u1, v0, normalY, light, overlay);
+    }
+
+    private static void capClosureVertex(
+            VertexConsumer vertices,
+            PoseStack.Pose pose,
+            float x,
+            float y,
+            float z,
+            float u,
+            float v,
+            float normalY,
+            int light,
+            int overlay
+    ) {
+        vertices.vertex(pose.pose(), x, y, z)
+                .color(255, 255, 255, 255)
+                .uv(u, v)
+                .overlayCoords(overlay)
+                .uv2(light)
+                .normal(pose.normal(), 0.0F, normalY, 0.0F)
+                .endVertex();
     }
 
     void renderRune(

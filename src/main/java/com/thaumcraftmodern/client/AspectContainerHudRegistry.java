@@ -4,9 +4,16 @@ import com.thaumcraftmodern.aura.AuraNodeBlockEntity;
 import com.thaumcraftmodern.nodejar.JarredAuraNodeBlockEntity;
 import com.thaumcraftmodern.scan.AspectReward;
 import com.thaumcraftmodern.world.block.entity.ArcaneAlembicBlockEntity;
+import com.thaumcraftmodern.world.block.entity.AdvancedEssentiaBufferBlockEntity;
 import com.thaumcraftmodern.world.block.entity.CrucibleBlockEntity;
 import com.thaumcraftmodern.world.block.entity.EssentiaJarBlockEntity;
 import com.thaumcraftmodern.world.block.entity.EssentiaTubeBlockEntity;
+import com.thaumcraftmodern.world.block.entity.EssentiaBufferBlockEntity;
+import com.thaumcraftmodern.world.block.entity.EssentiaCentrifugeBlockEntity;
+import com.thaumcraftmodern.world.block.entity.EssentiaCrystallizerBlockEntity;
+import com.thaumcraftmodern.world.block.entity.EssentiaReservoirBlockEntity;
+import com.thaumcraftmodern.world.block.entity.ThaumatoriumBlockEntity;
+import com.thaumcraftmodern.world.block.entity.VoidJarBlockEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.phys.BlockHitResult;
@@ -60,6 +67,36 @@ public final class AspectContainerHudRegistry {
                                 ClientAspectContainerReadout.singleAspectContents(
                                         jar.aspect(), jar.amount()),
                                 onHitFace(hit))));
+        register(VoidJarBlockEntity.class, (jar, hit) ->
+                jar.aspect() == null || jar.amount() <= 0
+                        ? Optional.empty()
+                        : Optional.of(new Readout(
+                                ClientAspectContainerReadout.singleAspectContents(
+                                        jar.aspect(), jar.amount()), onHitFace(hit))));
+        register(EssentiaBufferBlockEntity.class, (buffer, hit) -> Optional.of(
+                new Readout(ClientAspectContainerReadout.crucibleContents(
+                        buffer.contents()), onHitFace(hit))));
+        register(AdvancedEssentiaBufferBlockEntity.class,
+                (buffer, hit) -> Optional.of(new Readout(
+                        ClientAspectContainerReadout.crucibleContents(
+                                buffer.contents()), onHitFace(hit))));
+        register(EssentiaReservoirBlockEntity.class, (reservoir, hit) -> Optional.of(
+                new Readout(ClientAspectContainerReadout.crucibleContents(
+                        reservoir.contents()), onHitFace(hit))));
+        register(EssentiaCentrifugeBlockEntity.class, (centrifuge, hit) -> {
+            String aspect = centrifuge.outputAspect() != null
+                    ? centrifuge.outputAspect() : centrifuge.inputAspect();
+            return aspect == null ? Optional.empty() : Optional.of(new Readout(
+                    ClientAspectContainerReadout.singleAspectContents(aspect, 1),
+                    onHitFace(hit)));
+        });
+        register(EssentiaCrystallizerBlockEntity.class, (machine, hit) ->
+                machine.aspect() == null ? Optional.empty() : Optional.of(new Readout(
+                        ClientAspectContainerReadout.singleAspectContents(machine.aspect(), 1),
+                        onHitFace(hit))));
+        register(ThaumatoriumBlockEntity.class, (machine, hit) -> Optional.of(
+                new Readout(ClientAspectContainerReadout.crucibleContents(
+                        machine.reservedEssentia()), onHitFace(hit))));
         register(EssentiaTubeBlockEntity.class, (tube, hit) ->
                 tube.filter() == null ? Optional.empty()
                         : Optional.of(new Readout(

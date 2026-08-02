@@ -5,6 +5,8 @@ import com.thaumcraftmodern.registry.ModBlocks;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Holder;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.data.worldgen.features.TreeFeatures;
 import net.minecraft.tags.BiomeTags;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.util.RandomSource;
@@ -16,6 +18,7 @@ import net.minecraft.world.level.block.MultifaceBlock;
 import net.minecraft.world.level.block.LeavesBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.Heightmap;
+import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
 import net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConfiguration;
@@ -560,10 +563,7 @@ public final class LegacyVegetationFeature
         return true;
     }
 
-    /**
-     * Keeps TC4's four-by-four giant-mushroom grid, with a moderately stronger
-     * per-cell roll so mushrooms remain visible between the opened-up trees.
-     */
+    /** Keeps TC4's four-by-four giant-mushroom grid and one-in-forty roll. */
     private static boolean placeMagicalForestMushrooms(
             WorldGenLevel level,
             RandomSource random,
@@ -605,41 +605,18 @@ public final class LegacyVegetationFeature
             RandomSource random,
             boolean red
     ) {
-        int height = 4 + random.nextInt(3);
-        if (!level.getBlockState(origin.below()).is(BlockTags.DIRT)
-                || level.isOutsideBuildHeight(origin.above(height + 1))) {
-            return false;
-        }
-        int maximumRadius = 3;
-        for (int y = 0; y <= height; y++) {
-            int radius = y < height - 3 ? 0 : maximumRadius;
-            for (int x = -radius; x <= radius; x++) {
-                for (int z = -radius; z <= radius; z++) {
-                    BlockState state = level.getBlockState(
-                            origin.offset(x, y, z)
-                    );
-                    if (!state.isAir()
-                            && !state.is(BlockTags.LEAVES)
-                            && !state.canBeReplaced()) {
-                        return false;
-                    }
-                }
-            }
-        }
-
-        for (int y = 0; y < height; y++) {
-            level.setBlock(
-                    origin.above(y),
-                    Blocks.MUSHROOM_STEM.defaultBlockState(),
-                    2
-            );
-        }
-        if (red) {
-            placeRedMushroomCap(level, origin.above(height));
-        } else {
-            placeBrownMushroomCap(level, origin.above(height));
-        }
-        return true;
+        ConfiguredFeature<?, ?> mushroom = level.registryAccess()
+                .registryOrThrow(Registries.CONFIGURED_FEATURE)
+                .getHolderOrThrow(red
+                        ? TreeFeatures.HUGE_RED_MUSHROOM
+                        : TreeFeatures.HUGE_BROWN_MUSHROOM)
+                .value();
+        return mushroom.place(
+                level,
+                level.getLevel().getChunkSource().getGenerator(),
+                random,
+                origin
+        );
     }
 
     /**
@@ -893,47 +870,6 @@ public final class LegacyVegetationFeature
         return placed;
     }
 
-    private static void placeBrownMushroomCap(
-            WorldGenLevel level,
-            BlockPos center
-    ) {
-        for (int x = -3; x <= 3; x++) {
-            for (int z = -3; z <= 3; z++) {
-                if (Math.abs(x) == 3 && Math.abs(z) == 3) {
-                    continue;
-                }
-                level.setBlock(
-                        center.offset(x, 0, z),
-                        Blocks.BROWN_MUSHROOM_BLOCK.defaultBlockState(),
-                        2
-                );
-            }
-        }
-    }
-
-    private static void placeRedMushroomCap(
-            WorldGenLevel level,
-            BlockPos center
-    ) {
-        for (int y = -2; y <= 0; y++) {
-            int radius = y == 0 ? 1 : 2;
-            for (int x = -radius; x <= radius; x++) {
-                for (int z = -radius; z <= radius; z++) {
-                    boolean corner = Math.abs(x) == radius
-                            && Math.abs(z) == radius;
-                    if (corner && y != -1) {
-                        continue;
-                    }
-                    level.setBlock(
-                            center.offset(x, y, z),
-                            Blocks.RED_MUSHROOM_BLOCK.defaultBlockState(),
-                            2
-                    );
-                }
-            }
-        }
-    }
-
     private static boolean adjacentToLog(
             WorldGenLevel level,
             BlockPos position
@@ -1042,9 +978,17 @@ public final class LegacyVegetationFeature
                         .setValue(
                                 com.thaumcraftmodern.world.block.ManaPodBlock.AGE,
                                 3 + random.nextInt(5)
-                        );
+                );
                 if (pod.canSurvive(level, position)) {
-                    return level.setBlock(position, pod, 2);
+                    if (!level.setBlock(position, pod, 2)) {
+                        return false;
+                    }
+                    if (level.getBlockEntity(position)
+                            instanceof com.thaumcraftmodern.world.block.entity.ManaPodBlockEntity
+                            manaPod) {
+                        manaPod.initializeWorldgen(random);
+                    }
+                    return true;
                 }
             }
         }

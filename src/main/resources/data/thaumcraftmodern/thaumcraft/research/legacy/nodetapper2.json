@@ -2,10 +2,10 @@
   "id": "nodetapper2",
   "legacy_id": "NODETAPPER2",
   "category": "basics",
-  "icon": "thaumcraftmodern:thaumonomicon",
+  "icon_resource": "thaumcraftmodern:textures/misc/r_nodetap2.png",
   "title": "tc.research_name.NODETAPPER2",
   "subtitle": "tc.research_text.NODETAPPER2",
-  "concealed": true,
+  "concealed": false,
   "auto_unlock": false,
   "parents": [
     "nodetapper1"
@@ -23,8 +23,8 @@
       "body": "tc.research_page.NODETAPPER2.1"
     }
   ],
-  "inactive": true,
-  "inactive_reason": "referenced gameplay content is not implemented",
+  "inactive": false,
+  "inactive_reason": null,
   "legacy": {
     "x": -3,
     "y": 3,

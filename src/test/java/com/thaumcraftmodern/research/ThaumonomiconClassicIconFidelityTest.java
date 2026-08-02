@@ -30,6 +30,7 @@ class ThaumonomiconClassicIconFidelityTest {
         expected.put("eldritchmajor", "r_eldritchmajor.png");
         expected.put("researcher1", "r_researcher1.png");
         expected.put("researcher2", "r_researcher2.png");
+        expected.put("nodetapper2", "r_nodetap2.png");
         expected.put("warp", "r_warp.png");
 
         for (Map.Entry<String, String> entry : expected.entrySet()) {

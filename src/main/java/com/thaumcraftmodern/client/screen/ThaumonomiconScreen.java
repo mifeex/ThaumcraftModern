@@ -10,6 +10,7 @@ import com.thaumcraftmodern.client.ClassicUiRender;
 import com.thaumcraftmodern.config.ThaumcraftModernClientConfig;
 import com.thaumcraftmodern.crucible.CrucibleRecipeDefinition;
 import com.thaumcraftmodern.crucible.CrucibleRecipeRegistry;
+import com.thaumcraftmodern.construction.ThaumatoriumResearchRecipe;
 import com.thaumcraftmodern.item.ResearchNotesItem;
 import com.thaumcraftmodern.item.ScribingToolsItem;
 import com.thaumcraftmodern.knowledge.KnowledgeAccess;
@@ -48,6 +49,7 @@ import net.minecraft.world.item.crafting.AbstractCookingRecipe;
 import net.minecraft.world.item.crafting.CraftingRecipe;
 import net.minecraft.world.item.crafting.Recipe;
 
+import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
@@ -62,6 +64,11 @@ public final class ThaumonomiconScreen extends Screen {
             new ResourceLocation(
                     ThaumcraftModern.MOD_ID,
                     "textures/gui/gui_research.png"
+            );
+    private static final ResourceLocation RESEARCH_WARP_AURA =
+            new ResourceLocation(
+                    ThaumcraftModern.MOD_ID,
+                    "textures/misc/nodes.png"
             );
     private static final ResourceLocation BOOK =
             new ResourceLocation(
@@ -102,6 +109,32 @@ public final class ThaumonomiconScreen extends Screen {
     private static final int RESEARCH_NODE_SECONDARY_SOURCE_X = 110;
     private static final int RESEARCH_ICON_SIZE = 16;
     private static final int RESEARCH_ICON_OFFSET = 5;
+    /** Exact TC4 GuiResearchBrowser forbidden-knowledge aura. */
+    private static final int RESEARCH_WARP_AURA_SIZE = 80;
+    private static final int RESEARCH_WARP_AURA_FRAMES = 32;
+    private static final int RESEARCH_WARP_AURA_STRIP = 5;
+    private static final int RESEARCH_WARP_AURA_FRAME_SIZE = 64;
+    private static final int RESEARCH_WARP_AURA_TEXTURE_SIZE = 2048;
+    private static final int RESEARCH_WARP_AURA_TINT = 0xA8440055;
+    /** Exact TC4 GuiResearchBrowser research-tooltip presentation. */
+    private static final float RESEARCH_TOOLTIP_SMALL_SCALE = 0.5F;
+    private static final float RESEARCH_TOOLTIP_WIDTH_DIVISOR = 1.9F;
+    private static final int RESEARCH_TOOLTIP_X_OFFSET = 6;
+    private static final int RESEARCH_TOOLTIP_Y_OFFSET = -4;
+    private static final int RESEARCH_TOOLTIP_PADDING = 3;
+    private static final int RESEARCH_TOOLTIP_BACKGROUND = 0xC0000000;
+    private static final int RESEARCH_TOOLTIP_SUBTITLE = 0xFF9090FF;
+    private static final int RESEARCH_TOOLTIP_WARP = 0xFFAA55FF;
+    private static final int RESEARCH_TOOLTIP_MISSING = 0xFF705050;
+    private static final int RESEARCH_TOOLTIP_READY = 0xFF87D1AB;
+    private static final int RESEARCH_TOOLTIP_HAS_NOTES = 0xFFFFAA00;
+    private static final int RESEARCH_TOOLTIP_BLOCKED = 0xFFDC141C;
+    private static final int RESEARCH_TOOLTIP_TITLE = 0xFFFFFFFF;
+    private static final int RESEARCH_TOOLTIP_SPECIAL_TITLE = 0xFFFFFF80;
+    private static final int RESEARCH_TOOLTIP_LOCKED_TITLE = 0xFF808040;
+    private static final int RESEARCH_TOOLTIP_LOCKED_SPECIAL_TITLE = 0xFF808080;
+    /** Above GuiGraphics item rendering, which occupies the lower GUI layers. */
+    private static final float RESEARCH_TOOLTIP_Z = 400.0F;
     /** Exact TC4 {@code GuiResearchBrowser.drawLine} tuning. */
     public static final float RESEARCH_CONNECTION_WIDTH = 3.0F;
     public static final float RESEARCH_CONNECTION_ALPHA = 0.6F;
@@ -185,6 +218,9 @@ public final class ThaumonomiconScreen extends Screen {
     private static final ButtonRegion NEXT_BUTTON = new ButtonRegion(262, 190, 12, 8);
 
     private ResearchDefinition openResearch;
+    private final ThaumonomiconNavigationHistory researchHistory =
+            new ThaumonomiconNavigationHistory();
+    private final List<ItemLinkRegion> itemLinkRegions = new ArrayList<>();
     private String selectedCategoryId;
     private String previousCategoryId = "";
     private long categorySwitchStartedAt;
@@ -357,6 +393,9 @@ public final class ThaumonomiconScreen extends Screen {
                     : unlocked
                     ? flashingResearchTint()
                     : 0xFF55515A;
+            if (research.completionWarp() > 0) {
+                renderResearchWarpAura(graphics, x, y);
+            }
             int frameSourceX = researchFrameSourceX(research);
             ClassicUiRender.drawTintedScaledTexture(
                     graphics,
@@ -406,6 +445,34 @@ public final class ThaumonomiconScreen extends Screen {
                 localMouseY,
                 mouseX,
                 mouseY
+        );
+    }
+
+    private void renderResearchWarpAura(
+            GuiGraphics graphics,
+            int nodeX,
+            int nodeY
+    ) {
+        int tick = minecraft == null || minecraft.player == null
+                ? 0
+                : minecraft.player.tickCount;
+        int animationFrame = Math.floorMod(tick, RESEARCH_WARP_AURA_FRAMES);
+        int sourceFrame = RESEARCH_WARP_AURA_FRAMES - 1 - animationFrame;
+        int auraOffset = (RESEARCH_WARP_AURA_SIZE - RESEARCH_NODE_SIZE) / 2;
+        ClassicUiRender.drawTintedScaledTexture(
+                graphics,
+                RESEARCH_WARP_AURA,
+                nodeX - auraOffset,
+                nodeY - auraOffset,
+                RESEARCH_WARP_AURA_SIZE,
+                RESEARCH_WARP_AURA_SIZE,
+                sourceFrame * RESEARCH_WARP_AURA_FRAME_SIZE,
+                RESEARCH_WARP_AURA_STRIP * RESEARCH_WARP_AURA_FRAME_SIZE,
+                RESEARCH_WARP_AURA_FRAME_SIZE,
+                RESEARCH_WARP_AURA_FRAME_SIZE,
+                RESEARCH_WARP_AURA_TEXTURE_SIZE,
+                RESEARCH_WARP_AURA_TEXTURE_SIZE,
+                RESEARCH_WARP_AURA_TINT
         );
     }
 
@@ -776,75 +843,296 @@ public final class ThaumonomiconScreen extends Screen {
             }
             boolean completed = isCompleted(research.id());
             boolean unlocked = isUnlocked(research);
-            Component state = researchState(research, completed, unlocked);
-            graphics.renderTooltip(
-                    font,
-                    List.of(
-                            Component.translatable(research.titleKey()),
-                            Component.translatable(research.subtitleKey()),
-                            state
-                    ),
-                    java.util.Optional.empty(),
+            renderResearchTooltip(
+                    graphics,
+                    research,
+                    completed,
+                    unlocked,
                     mouseX,
                     mouseY
             );
-            if (!completed && unlocked && research.purchasable()) {
-                renderPurchaseCostStrip(
-                        graphics,
-                        research,
-                        mouseX,
-                        mouseY
-                );
-            }
             return;
         }
     }
 
-    private void renderPurchaseCostStrip(
+    private void renderResearchTooltip(
             GuiGraphics graphics,
             ResearchDefinition research,
+            boolean completed,
+            boolean unlocked,
             int mouseX,
             int mouseY
     ) {
-        int stripWidth = Math.max(
-                80,
-                research.purchaseCost().size()
-                        * ThaumonomiconAspectCostLayout.COLUMN_STEP
-                        + 8
+        /*
+         * ItemRenderer can defer node icons until the shared buffer is
+         * flushed. Submit those icons first, then render the complete custom
+         * tooltip on the same high layer vanilla tooltips use. This keeps the
+         * background, text, and embedded aspect costs above every tree icon.
+         */
+        graphics.flush();
+        graphics.pose().pushPose();
+        graphics.pose().translate(0.0F, 0.0F, RESEARCH_TOOLTIP_Z);
+        try {
+        String title = Component.translatable(research.titleKey()).getString();
+        String subtitle = Component.translatable(
+                research.subtitleKey()
+        ).getString();
+        int tooltipX = mouseX + RESEARCH_TOOLTIP_X_OFFSET;
+        int tooltipY = mouseY + RESEARCH_TOOLTIP_Y_OFFSET;
+
+        if (!unlocked) {
+            renderLockedResearchTooltip(
+                    graphics,
+                    research,
+                    title,
+                    tooltipX,
+                    tooltipY
+            );
+            return;
+        }
+
+        boolean secondary = !completed && research.purchasable();
+        boolean primary = !secondary && !completed;
+        ResearchTooltipLine state = primary
+                ? primaryResearchTooltipLine(research)
+                : secondary
+                ? secondaryResearchTooltipLine(research)
+                : null;
+        String warp = research.completionWarp() > 0
+                ? Component.translatable(
+                        "tooltip.thaumcraftmodern.research_completion_warp",
+                        research.completionWarp()
+                ).getString()
+                : "";
+
+        int tooltipWidth = Math.max(
+                font.width(title),
+                halfScaleWidth(subtitle)
         );
-        int stripHeight = 24;
-        int stripX = Math.max(
-                4,
-                Math.min(mouseX + 8, width - stripWidth - 4)
-        );
-        int stripY = Math.max(
-                4,
-                Math.min(mouseY + 43, height - stripHeight - 4)
-        );
+        if (state != null) {
+            tooltipWidth = Math.max(
+                    tooltipWidth,
+                    halfScaleWidth(state.text())
+            );
+        }
+        if (!warp.isEmpty()) {
+            tooltipWidth = Math.max(tooltipWidth, halfScaleWidth(warp));
+        }
+        int contentHeight = font.wordWrapHeight(title, tooltipWidth) + 5;
+        int extraHeight = secondary ? 29 : state == null ? 0 : 9;
+        if (!warp.isEmpty()) {
+            extraHeight += 9;
+        }
+
         graphics.fill(
-                stripX,
-                stripY,
-                stripX + stripWidth,
-                stripY + stripHeight,
-                0xE0100010
+                tooltipX - RESEARCH_TOOLTIP_PADDING,
+                tooltipY - RESEARCH_TOOLTIP_PADDING,
+                tooltipX + tooltipWidth + RESEARCH_TOOLTIP_PADDING,
+                tooltipY + contentHeight + 6 + extraHeight,
+                RESEARCH_TOOLTIP_BACKGROUND
         );
-        String hovered = ThaumonomiconAspectCostRenderer.renderMasked(
+        drawHalfScaleResearchText(
                 graphics,
-                font,
-                research.purchaseCost(),
-                aspectId -> currentKnowledge()
-                        .map(knowledge -> knowledge.knowsAspect(aspectId))
-                        .orElse(false),
-                stripX + 4,
-                stripWidth - 8,
-                stripY + 20,
-                mouseX,
-                mouseY
+                subtitle,
+                tooltipX,
+                tooltipY + contentHeight - 1,
+                RESEARCH_TOOLTIP_SUBTITLE
         );
-        renderAspectTooltip(graphics, hovered, mouseX, mouseY);
+        if (!warp.isEmpty()) {
+            drawHalfScaleResearchText(
+                    graphics,
+                    warp,
+                    tooltipX,
+                    tooltipY + contentHeight + 8,
+                    RESEARCH_TOOLTIP_WARP
+            );
+            contentHeight += 9;
+        }
+        if (!secondary && state != null) {
+            drawHalfScaleResearchText(
+                    graphics,
+                    state.text(),
+                    tooltipX,
+                    tooltipY + contentHeight + 8,
+                    state.color()
+            );
+        } else if (secondary && state != null) {
+            ThaumonomiconAspectCostRenderer.renderMaskedRow(
+                    graphics,
+                    font,
+                    research.purchaseCost(),
+                    aspectId -> currentKnowledge()
+                            .map(knowledge -> knowledge.knowsAspect(aspectId))
+                            .orElse(false),
+                    tooltipX,
+                    tooltipY + contentHeight + 8
+            );
+            drawHalfScaleResearchText(
+                    graphics,
+                    state.text(),
+                    tooltipX,
+                    tooltipY + contentHeight + 27,
+                    state.color()
+            );
+        }
+        graphics.drawString(
+                font,
+                title,
+                tooltipX,
+                tooltipY,
+                researchTitleColor(research, unlocked),
+                false
+        );
+        } finally {
+            graphics.flush();
+            graphics.pose().popPose();
+        }
+    }
+
+    private void renderLockedResearchTooltip(
+            GuiGraphics graphics,
+            ResearchDefinition research,
+            String title,
+            int tooltipX,
+            int tooltipY
+    ) {
+        String missing = Component.translatable("tc.researchmissing")
+                .getString();
+        int tooltipWidth = Math.max(
+                font.width(title),
+                (int) (font.width(missing) / 1.5F)
+        );
+        int missingHeight = font.wordWrapHeight(missing, tooltipWidth * 2);
+        graphics.fill(
+                tooltipX - RESEARCH_TOOLTIP_PADDING,
+                tooltipY - RESEARCH_TOOLTIP_PADDING,
+                tooltipX + tooltipWidth + RESEARCH_TOOLTIP_PADDING,
+                tooltipY + missingHeight + 10,
+                RESEARCH_TOOLTIP_BACKGROUND
+        );
+        drawHalfScaleResearchTextWrapped(
+                graphics,
+                missing,
+                tooltipX,
+                tooltipY + 12,
+                tooltipWidth * 2,
+                RESEARCH_TOOLTIP_MISSING
+        );
+        graphics.drawString(
+                font,
+                title,
+                tooltipX,
+                tooltipY,
+                researchTitleColor(research, false),
+                false
+        );
+    }
+
+    private ResearchTooltipLine primaryResearchTooltipLine(
+            ResearchDefinition research
+    ) {
+        if (research.inactive()) {
+            return new ResearchTooltipLine(
+                    Component.translatable(
+                            "screen.thaumcraftmodern.thaumonomicon.content_inactive"
+                    ).getString(),
+                    RESEARCH_TOOLTIP_BLOCKED
+            );
+        }
+        if (research.purchasable()) {
+            return secondaryResearchTooltipLine(research);
+        }
+        if (hasResearchNotes(research.id())) {
+            return new ResearchTooltipLine(
+                    Component.translatable("tc.research.hasnote").getString(),
+                    RESEARCH_TOOLTIP_HAS_NOTES
+            );
+        }
+        if (hasScribingMaterials()) {
+            return new ResearchTooltipLine(
+                    Component.translatable("tc.research.getprim").getString(),
+                    RESEARCH_TOOLTIP_READY
+            );
+        }
+        return new ResearchTooltipLine(
+                Component.translatable("tc.research.shortprim").getString(),
+                RESEARCH_TOOLTIP_BLOCKED
+        );
+    }
+
+    private ResearchTooltipLine secondaryResearchTooltipLine(
+            ResearchDefinition research
+    ) {
+        boolean affordable = canAffordResearch(research);
+        return new ResearchTooltipLine(
+                Component.translatable(
+                        affordable ? "tc.research.purchase" : "tc.research.short"
+                ).getString(),
+                affordable
+                        ? RESEARCH_TOOLTIP_READY
+                        : RESEARCH_TOOLTIP_BLOCKED
+        );
+    }
+
+    private static int researchTitleColor(
+            ResearchDefinition research,
+            boolean unlocked
+    ) {
+        if (unlocked) {
+            return research.specialFrame()
+                    ? RESEARCH_TOOLTIP_SPECIAL_TITLE
+                    : RESEARCH_TOOLTIP_TITLE;
+        }
+        return research.specialFrame()
+                ? RESEARCH_TOOLTIP_LOCKED_SPECIAL_TITLE
+                : RESEARCH_TOOLTIP_LOCKED_TITLE;
+    }
+
+    private int halfScaleWidth(String text) {
+        return (int) Math.ceil(
+                font.width(text) / RESEARCH_TOOLTIP_WIDTH_DIVISOR
+        );
+    }
+
+    private void drawHalfScaleResearchText(
+            GuiGraphics graphics,
+            String text,
+            int x,
+            int y,
+            int color
+    ) {
+        graphics.pose().pushPose();
+        graphics.pose().translate(x, y, 1.0F);
+        graphics.pose().scale(
+                RESEARCH_TOOLTIP_SMALL_SCALE,
+                RESEARCH_TOOLTIP_SMALL_SCALE,
+                1.0F
+        );
+        graphics.drawString(font, text, 0, 0, color, false);
+        graphics.pose().popPose();
+    }
+
+    private void drawHalfScaleResearchTextWrapped(
+            GuiGraphics graphics,
+            String text,
+            int x,
+            int y,
+            int width,
+            int color
+    ) {
+        graphics.pose().pushPose();
+        graphics.pose().translate(x, y, 1.0F);
+        graphics.pose().scale(
+                RESEARCH_TOOLTIP_SMALL_SCALE,
+                RESEARCH_TOOLTIP_SMALL_SCALE,
+                1.0F
+        );
+        graphics.drawWordWrap(font, Component.literal(text), 0, 0, width, color);
+        graphics.pose().popPose();
     }
 
     private void renderBook(GuiGraphics graphics, int mouseX, int mouseY) {
+        itemLinkRegions.clear();
         // gui_researchbook.png is a 512px atlas. Only its first 362px form the
         // open book; the rest contains navigation sprites and must be cropped.
         int bookLeft = (width - BOOK_RENDER_WIDTH) / 2;
@@ -867,6 +1155,35 @@ public final class ThaumonomiconScreen extends Screen {
         renderPage(graphics, pagePair, left - 15, top - 6, PAGE_WIDTH, mouseX, mouseY);
         renderPage(graphics, pagePair + 1, left + 137, top - 6, PAGE_WIDTH, mouseX, mouseY);
         renderBookControls(graphics, mouseX, mouseY);
+        renderItemLinkTooltip(graphics, mouseX, mouseY);
+    }
+
+    private void renderItemLinkTooltip(
+            GuiGraphics graphics,
+            int mouseX,
+            int mouseY
+    ) {
+        ItemLinkRegion hovered = itemLinkRegions.stream()
+                .filter(region -> region.contains(mouseX, mouseY))
+                .findFirst()
+                .orElse(null);
+        if (hovered == null || minecraft == null) {
+            return;
+        }
+        List<Component> tooltip = new ArrayList<>();
+        tooltip.add(hovered.stack().getHoverName());
+        if (researchForItem(hovered.stack()).isPresent()) {
+            tooltip.add(Component.translatable(
+                    "screen.thaumcraftmodern.thaumonomicon.open_item_page"
+            ).withStyle(ChatFormatting.LIGHT_PURPLE));
+        }
+        graphics.renderTooltip(
+                font,
+                tooltip,
+                Optional.empty(),
+                mouseX,
+                mouseY
+        );
     }
 
     private void renderBookControls(GuiGraphics graphics, int mouseX, int mouseY) {
@@ -1076,7 +1393,7 @@ public final class ThaumonomiconScreen extends Screen {
         );
 
         ItemStack output = infusionStack(display.outputItem(), 1);
-        boolean outputHovered = ThaumonomiconRecipeOutputRenderer.render(
+        ThaumonomiconRecipeOutputRenderer.render(
                 graphics,
                 font,
                 output,
@@ -1085,6 +1402,10 @@ public final class ThaumonomiconScreen extends Screen {
                 mouseX,
                 mouseY
         );
+        registerItemLink(output,
+                layoutX + ThaumonomiconRecipeOutputRenderer.ITEM_OFFSET_X,
+                y + 6 + ThaumonomiconRecipeOutputRenderer.ITEM_OFFSET_Y,
+                16, 16);
         if (!display.detailKey().isBlank()) {
             renderPageTitle(
                     graphics,
@@ -1098,7 +1419,7 @@ public final class ThaumonomiconScreen extends Screen {
         ItemStack central = infusionStack(display.centralItem(), 1);
         int centralX = centerX - 8;
         int centralY = y + INFUSION_CENTRAL_Y;
-        graphics.renderItem(central, centralX, centralY);
+        renderLinkedItem(graphics, central, centralX, centralY);
 
         int componentCount = display.components().size();
         for (int index = 0; index < componentCount; index++) {
@@ -1117,22 +1438,8 @@ public final class ThaumonomiconScreen extends Screen {
                     component.item(),
                     component.count()
             );
-            graphics.renderItem(stack, itemX, itemY);
+            renderLinkedItem(graphics, stack, itemX, itemY);
             graphics.renderItemDecorations(font, stack, itemX, itemY);
-            if (contains(itemX, itemY, 16, 16, mouseX, mouseY)) {
-                graphics.renderTooltip(font, stack, mouseX, mouseY);
-            }
-        }
-
-        if (!outputHovered && contains(
-                centralX,
-                centralY,
-                16,
-                16,
-                mouseX,
-                mouseY
-        )) {
-            graphics.renderTooltip(font, central, mouseX, mouseY);
         }
 
         String hoveredAspect = ThaumonomiconAspectCostRenderer.render(
@@ -1325,10 +1632,7 @@ public final class ThaumonomiconScreen extends Screen {
             int itemY = y
                     + RECIPE_SLOT_OFFSET_Y
                     + (index / 3) * RECIPE_SLOT_STEP;
-            graphics.renderItem(options[0], itemX, itemY);
-            if (contains(itemX, itemY, 16, 16, mouseX, mouseY)) {
-                graphics.renderTooltip(font, options[0], mouseX, mouseY);
-            }
+            renderLinkedItem(graphics, options[0], itemX, itemY);
         }
 
         ItemStack result = recipe.getResultItem(minecraft.level.registryAccess());
@@ -1341,6 +1645,10 @@ public final class ThaumonomiconScreen extends Screen {
                 mouseX,
                 mouseY
         );
+        registerItemLink(result,
+                recipeLeft + ThaumonomiconRecipeOutputRenderer.ITEM_OFFSET_X,
+                y + 2 + ThaumonomiconRecipeOutputRenderer.ITEM_OFFSET_Y,
+                16, 16);
 
         String hoveredAspect = ThaumonomiconAspectCostRenderer.render(
                 graphics,
@@ -1438,11 +1746,8 @@ public final class ThaumonomiconScreen extends Screen {
             int mouseX,
             int mouseY
     ) {
-        graphics.renderItem(stack, x, y);
+        renderLinkedItem(graphics, stack, x, y);
         graphics.renderItemDecorations(font, stack, x, y);
-        if (contains(x, y, 16, 16, mouseX, mouseY)) {
-            graphics.renderTooltip(font, stack, mouseX, mouseY);
-        }
     }
 
     private void renderCrucibleRecipe(
@@ -1478,6 +1783,11 @@ public final class ThaumonomiconScreen extends Screen {
                 mouseX,
                 mouseY
         );
+        registerItemLink(output,
+                layoutX + ThaumonomiconRecipeOutputRenderer.ITEM_OFFSET_X,
+                contentY + ThaumonomiconCrucibleRecipeLayout.OUTPUT_TOP
+                        + ThaumonomiconRecipeOutputRenderer.ITEM_OFFSET_Y,
+                16, 16);
 
         /*
          * Physical atlas coordinates for TC4 legacy regions
@@ -1521,28 +1831,13 @@ public final class ThaumonomiconScreen extends Screen {
         int catalystY = contentY
                 + ThaumonomiconCrucibleRecipeLayout.CATALYST_Y;
         if (catalysts.length > 0) {
-            graphics.renderItem(catalysts[0], catalystX, catalystY);
+            renderLinkedItem(graphics, catalysts[0], catalystX, catalystY);
             graphics.renderItemDecorations(
                     font,
                     catalysts[0],
                     catalystX,
                     catalystY
             );
-            if (contains(
-                    catalystX,
-                    catalystY,
-                    16,
-                    16,
-                    mouseX,
-                    mouseY
-            )) {
-                graphics.renderTooltip(
-                        font,
-                        catalysts[0],
-                        mouseX,
-                        mouseY
-                );
-            }
         }
 
         List<AspectCost> costs = recipe.aspects().entrySet().stream()
@@ -1570,8 +1865,10 @@ public final class ThaumonomiconScreen extends Screen {
             int mouseX,
             int mouseY
     ) {
-        ResourceLocation recipeId = ResourceLocation.tryParse(page.recipeId());
-        if (!NodeJarResearchRecipe.ID.equals(recipeId)) {
+        CompoundRecipeView recipe = compoundRecipeView(
+                ResourceLocation.tryParse(page.recipeId())
+        );
+        if (recipe == null) {
             graphics.drawString(
                     font,
                     Component.translatable(
@@ -1585,8 +1882,6 @@ public final class ThaumonomiconScreen extends Screen {
             return;
         }
 
-        NodeJarResearchRecipe.Snapshot recipe =
-                NodeJarResearchRecipe.snapshot();
         graphics.drawCenteredString(
                 font,
                 Component.translatable("recipe.type.construct"),
@@ -1637,7 +1932,7 @@ public final class ThaumonomiconScreen extends Screen {
                 + COMPOUND_STRUCTURE_BASE_Y
                 + yOffset * structureScale;
 
-        List<ItemStack> displayStacks = compoundDisplayStacks(recipe);
+        List<ItemStack> displayStacks = recipe.cells();
         graphics.pose().pushPose();
         graphics.pose().translate(structureX, structureY, 0.0F);
         graphics.pose().scale(structureScale, structureScale, structureScale);
@@ -1693,6 +1988,16 @@ public final class ThaumonomiconScreen extends Screen {
         }
         graphics.pose().popPose();
 
+        registerCompoundItemLinks(
+                recipe,
+                displayStacks,
+                x,
+                y,
+                xOffset,
+                yOffset,
+                sizeReduction
+        );
+
         ItemStack hoveredItem = compoundHoveredItem(
                 recipe,
                 displayStacks,
@@ -1704,31 +2009,23 @@ public final class ThaumonomiconScreen extends Screen {
                 mouseX,
                 mouseY
         );
-        if (!hoveredItem.isEmpty()) {
-            graphics.renderTooltip(font, hoveredItem, mouseX, mouseY);
-        } else if (hoveredAspect != null) {
+        if (hoveredItem.isEmpty() && hoveredAspect != null) {
             renderAspectTooltip(graphics, hoveredAspect, mouseX, mouseY);
         }
     }
 
     private String renderCompoundCosts(
             GuiGraphics graphics,
-            NodeJarResearchRecipe.Snapshot recipe,
+            CompoundRecipeView recipe,
             int x,
             int y,
             int mouseX,
             int mouseY
     ) {
-        List<AspectCost> costs = recipe.costs().stream()
-                .map(cost -> new AspectCost(
-                        cost.aspect().id(),
-                        cost.amount()
-                ))
-                .toList();
         return ThaumonomiconAspectCostRenderer.render(
                 graphics,
                 font,
-                costs,
+                recipe.costs(),
                 x,
                 COMPOUND_TITLE_CENTER_X * 2,
                 y + COMPOUND_ASPECT_COST_BOTTOM,
@@ -1773,7 +2070,7 @@ public final class ThaumonomiconScreen extends Screen {
         }
     }
 
-    private static List<ItemStack> compoundDisplayStacks(
+    private static List<ItemStack> nodeJarDisplayStacks(
             NodeJarResearchRecipe.Snapshot recipe
     ) {
         ItemStack woodenSlab = cyclingWoodenSlab();
@@ -1786,6 +2083,43 @@ public final class ThaumonomiconScreen extends Screen {
                     case AURA_NODE -> ItemStack.EMPTY;
                 })
                 .toList();
+    }
+
+    private static CompoundRecipeView compoundRecipeView(
+            ResourceLocation recipeId
+    ) {
+        if (NodeJarResearchRecipe.ID.equals(recipeId)) {
+            NodeJarResearchRecipe.Snapshot recipe = NodeJarResearchRecipe.snapshot();
+            List<AspectCost> costs = recipe.costs().stream()
+                    .map(cost -> new AspectCost(cost.aspect().id(), cost.amount()))
+                    .toList();
+            return new CompoundRecipeView(
+                    recipe.width(),
+                    recipe.height(),
+                    recipe.depth(),
+                    costs,
+                    nodeJarDisplayStacks(recipe)
+            );
+        }
+        if (ThaumatoriumResearchRecipe.ID.equals(recipeId)) {
+            ThaumatoriumResearchRecipe.Snapshot recipe =
+                    ThaumatoriumResearchRecipe.snapshot();
+            return new CompoundRecipeView(
+                    recipe.width(),
+                    recipe.height(),
+                    recipe.depth(),
+                    recipe.costs(),
+                    recipe.cells().stream()
+                            .map(cell -> switch (cell) {
+                                case ALCHEMICAL_CONSTRUCT -> new ItemStack(
+                                        ModItems.ALCHEMICAL_CONSTRUCT.get());
+                                case ALCHEMICAL_FURNACE -> new ItemStack(
+                                        ModItems.ALCHEMICAL_FURNACE.get());
+                            })
+                            .toList()
+            );
+        }
+        return null;
     }
 
     private static ItemStack cyclingWoodenSlab() {
@@ -1806,7 +2140,7 @@ public final class ThaumonomiconScreen extends Screen {
     }
 
     private static ItemStack compoundHoveredItem(
-            NodeJarResearchRecipe.Snapshot recipe,
+            CompoundRecipeView recipe,
             List<ItemStack> displayStacks,
             int x,
             int y,
@@ -1851,6 +2185,65 @@ public final class ThaumonomiconScreen extends Screen {
             }
         }
         return ItemStack.EMPTY;
+    }
+
+    private void registerCompoundItemLinks(
+            CompoundRecipeView recipe,
+            List<ItemStack> displayStacks,
+            int x,
+            int y,
+            int xOffset,
+            int yOffset,
+            float sizeReduction
+    ) {
+        float scale = 1.0F - sizeReduction;
+        int count = 0;
+        for (int layer = 0; layer < recipe.height(); layer++) {
+            for (int depth = recipe.depth() - 1; depth >= 0; depth--) {
+                for (int width = recipe.width() - 1; width >= 0; width--) {
+                    int itemX = (int) (x
+                            + xOffset * (1.0F + sizeReduction)
+                            + width * 16 * scale
+                            + depth * 16 * scale);
+                    int itemY = (int) (y
+                            + COMPOUND_STRUCTURE_BASE_Y
+                            + yOffset * scale
+                            - width * 8 * scale
+                            + depth * 8 * scale
+                            + layer * COMPOUND_LAYER_Y * scale);
+                    ItemStack stack = displayStacks.get(count++);
+                    registerItemLink(stack, itemX, itemY,
+                            Math.max(1, Math.round(16 * scale)),
+                            Math.max(1, Math.round(16 * scale)));
+                }
+            }
+        }
+    }
+
+    private void renderLinkedItem(GuiGraphics graphics, ItemStack stack,
+            int x, int y) {
+        graphics.renderItem(stack, x, y);
+        registerItemLink(stack, x, y, 16, 16);
+    }
+
+    private void registerItemLink(ItemStack stack, int x, int y,
+            int width, int height) {
+        if (!stack.isEmpty()) {
+            itemLinkRegions.add(new ItemLinkRegion(stack.copy(), x, y, width, height));
+        }
+    }
+
+    private record CompoundRecipeView(
+            int width,
+            int height,
+            int depth,
+            List<AspectCost> costs,
+            List<ItemStack> cells
+    ) {
+        private CompoundRecipeView {
+            costs = List.copyOf(costs);
+            cells = cells.stream().map(ItemStack::copy).toList();
+        }
     }
 
     @Override
@@ -1910,6 +2303,7 @@ public final class ThaumonomiconScreen extends Screen {
                                 research.pages().size()
                         );
                         openResearch = research;
+                        researchHistory.clear();
                         pagePair = 0;
                         updateOrigin();
                         playPageSound();
@@ -1972,6 +2366,7 @@ public final class ThaumonomiconScreen extends Screen {
                             completed
                     );
                     openResearch = research;
+                    researchHistory.clear();
                     pagePair = 0;
                     updateOrigin();
                     playPageSound();
@@ -1981,6 +2376,19 @@ public final class ThaumonomiconScreen extends Screen {
             return super.mouseClicked(mouseX, mouseY, button);
         }
 
+        if (button == 0) {
+            Optional<ResearchDefinition> linked = itemLinkRegions.stream()
+                    .filter(region -> region.contains(mouseX, mouseY))
+                    .map(ItemLinkRegion::stack)
+                    .map(this::researchForItem)
+                    .flatMap(Optional::stream)
+                    .findFirst();
+            if (linked.isPresent()) {
+                openLinkedResearch(linked.get());
+                return true;
+            }
+        }
+
         if (BACK_BUTTON.contains(left, top, mouseX, mouseY)) {
             ResearchDiagnostics.log(
                     "CLIENT_THAUMONOMICON_BACK",
@@ -1988,10 +2396,7 @@ public final class ThaumonomiconScreen extends Screen {
                     openResearch.id(),
                     pagePair
             );
-            openResearch = null;
-            pagePair = 0;
-            updateOrigin();
-            playPageSound();
+            leaveResearchLevel("button");
             return true;
         }
         if (PREVIOUS_BUTTON.contains(left, top, mouseX, mouseY)) {
@@ -2036,13 +2441,113 @@ public final class ThaumonomiconScreen extends Screen {
                     openResearch.id(),
                     pagePair
             );
-            openResearch = null;
-            pagePair = 0;
-            updateOrigin();
-            playPageSound();
+            leaveResearchLevel("escape");
             return true;
         }
         return super.keyPressed(keyCode, scanCode, modifiers);
+    }
+
+    private Optional<ResearchDefinition> researchForItem(ItemStack stack) {
+        if (stack.isEmpty()) return Optional.empty();
+        ResourceLocation itemId = BuiltInRegistries.ITEM.getKey(stack.getItem());
+        return ResearchRegistry.all().stream()
+                .filter(research -> openResearch == null
+                        || !research.id().equals(openResearch.id()))
+                .filter(research -> isCompleted(research.id()))
+                .sorted(Comparator
+                        .comparing((ResearchDefinition research) ->
+                                !research.iconItem().equals(itemId.toString()))
+                        .thenComparing(ResearchDefinition::id))
+                .filter(research -> research.iconItem().equals(itemId.toString())
+                        || researchProducesItem(research, itemId))
+                .findFirst();
+    }
+
+    private boolean researchProducesItem(ResearchDefinition research,
+            ResourceLocation itemId) {
+        for (ResearchPageDefinition page : research.pages()) {
+            InfusionDisplayDefinition infusion = page.infusionDisplay();
+            if (infusion != null && itemId.toString().equals(infusion.outputItem())) {
+                return true;
+            }
+            if (page.type() != ResearchPageDefinition.Type.RECIPE
+                    || page.recipeId().isBlank()) continue;
+            ResourceLocation recipeId = ResourceLocation.tryParse(page.recipeId());
+            if (recipeId == null) continue;
+            CrucibleRecipeDefinition crucible = CrucibleRecipeRegistry.all().stream()
+                    .filter(candidate -> candidate.id().equals(recipeId))
+                    .findFirst().orElse(null);
+            if (crucible != null
+                    && BuiltInRegistries.ITEM.getKey(crucible.output().getItem())
+                            .equals(itemId)) {
+                return true;
+            }
+            if (minecraft != null && minecraft.level != null) {
+                Recipe<?> recipe = minecraft.level.getRecipeManager()
+                        .byKey(recipeId).orElse(null);
+                if (recipe != null && BuiltInRegistries.ITEM.getKey(
+                        recipe.getResultItem(minecraft.level.registryAccess()).getItem())
+                        .equals(itemId)) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    private void openLinkedResearch(ResearchDefinition target) {
+        if (openResearch == null) return;
+        researchHistory.push(
+                openResearch.id(),
+                pagePair,
+                selectedCategoryId
+        );
+        ResearchDiagnostics.log(
+                "CLIENT_THAUMONOMICON_ITEM_LINK",
+                "from={} pagePair={} to={} category={} depth={}",
+                openResearch.id(), pagePair, target.id(), target.categoryId(),
+                researchHistory.depth()
+        );
+        openResearch = target;
+        selectedCategoryId = target.categoryId();
+        lastSelectedCategoryId = selectedCategoryId;
+        pagePair = 0;
+        updateOrigin();
+        playPageSound();
+    }
+
+    private void leaveResearchLevel(String source) {
+        if (!researchHistory.isEmpty()) {
+            ThaumonomiconNavigationHistory.Location previous =
+                    researchHistory.pop().orElseThrow();
+            ResearchDefinition previousResearch = ResearchRegistry
+                    .find(previous.researchId()).orElse(null);
+            if (previousResearch == null) {
+                researchHistory.clear();
+                openResearch = null;
+                pagePair = 0;
+                updateOrigin();
+                playPageSound();
+                return;
+            }
+            ResearchDiagnostics.log(
+                    "CLIENT_THAUMONOMICON_ITEM_LINK_BACK",
+                    "source={} from={} to={} pagePair={} depth={}",
+                    source,
+                    openResearch == null ? "<tree>" : openResearch.id(),
+                    previousResearch.id(), previous.pagePair(),
+                    researchHistory.depth()
+            );
+            openResearch = previousResearch;
+            pagePair = previous.pagePair();
+            selectedCategoryId = previous.categoryId();
+            lastSelectedCategoryId = selectedCategoryId;
+        } else {
+            openResearch = null;
+            pagePair = 0;
+        }
+        updateOrigin();
+        playPageSound();
     }
 
     @Override
@@ -2336,46 +2841,6 @@ public final class ThaumonomiconScreen extends Screen {
                 .orElse(false);
     }
 
-    private Component researchState(
-            ResearchDefinition research,
-            boolean completed,
-            boolean unlocked
-    ) {
-        if (research.inactive()) {
-            return Component.translatable(
-                    "screen.thaumcraftmodern.thaumonomicon.content_inactive"
-            );
-        }
-        if (completed) {
-            return Component.translatable(
-                    "screen.thaumcraftmodern.thaumonomicon.completed"
-            );
-        }
-        if (research.purchasable()) {
-            return Component.translatable(
-                    canAffordResearch(research)
-                            ? "tc.research.purchase"
-                            : "tc.research.short"
-            );
-        }
-        if (!unlocked || !canCreateResearchNotes(research)) {
-            return Component.translatable(
-                    unlocked
-                            ? "screen.thaumcraftmodern.thaumonomicon.available"
-                            : "screen.thaumcraftmodern.thaumonomicon.locked"
-            );
-        }
-        if (hasResearchNotes(research.id())) {
-            return Component.translatable("tc.research.hasnote");
-        }
-        if (!hasScribingMaterials()) {
-            return Component.translatable("tc.research.shortprim");
-        }
-        return Component.translatable(
-                "screen.thaumcraftmodern.thaumonomicon.ready_for_research"
-        );
-    }
-
     private boolean canAffordResearch(ResearchDefinition research) {
         return currentKnowledge()
                 .map(knowledge -> research.purchaseCost().stream()
@@ -2483,4 +2948,21 @@ public final class ThaumonomiconScreen extends Screen {
             );
         }
     }
+
+    private record ResearchTooltipLine(String text, int color) {
+    }
+
+    private record ItemLinkRegion(
+            ItemStack stack,
+            int x,
+            int y,
+            int width,
+            int height
+    ) {
+        private boolean contains(double mouseX, double mouseY) {
+            return ThaumonomiconScreen.contains(
+                    x, y, width, height, mouseX, mouseY);
+        }
+    }
+
 }

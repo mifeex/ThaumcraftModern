@@ -89,8 +89,7 @@ public final class EssentiaJarBlock extends BaseEntityBlock {
             }
             return InteractionResult.sidedSuccess(level.isClientSide);
         }
-        if (hit.getDirection().getAxis().isHorizontal()
-                && held.getItem() instanceof JarLabelItem
+        if (held.getItem() instanceof JarLabelItem
                 && jar.filter() == null) {
             String aspect = jar.amount() > 0
                     ? jar.aspect() : JarLabelItem.aspect(held).orElse(null);
@@ -98,7 +97,7 @@ public final class EssentiaJarBlock extends BaseEntityBlock {
                 return InteractionResult.sidedSuccess(level.isClientSide);
             }
             if (!level.isClientSide) {
-                jar.setFilter(aspect, hit.getDirection());
+                jar.setFilter(aspect, player.getDirection().getOpposite());
                 if (!(player instanceof ServerPlayer serverPlayer)
                         || !serverPlayer.getAbilities().instabuild) {
                     held.shrink(1);
@@ -121,7 +120,9 @@ public final class EssentiaJarBlock extends BaseEntityBlock {
             // essentia nor a label; filled/labeled jars carry their payload.
             if (jar.amount() > 0 || jar.filter() != null) {
                 drop = WardedJarItem.withContents(
-                        (WardedJarItem) ModItems.WARDED_JAR.get(),
+                        (WardedJarItem) (jar.amount() > 0
+                                ? ModItems.FILLED_WARDED_JAR.get()
+                                : ModItems.WARDED_JAR.get()),
                         jar.saveForItem());
             }
         }

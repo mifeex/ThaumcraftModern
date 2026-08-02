@@ -64,6 +64,7 @@ final class LegacyScanMappings {
             block("new ItemStack(ConfigBlocks.blockTaintFibres, 1, 3)", "spore_stalk"),
             block("new ItemStack(ConfigBlocks.blockTaintFibres, 1, 4)", "mature_spore_stalk"),
             item("new ItemStack(ConfigItems.itemResource, 1, 3)", "quicksilver"),
+            item("new ItemStack(ConfigItems.itemNugget, 1, 5)", "quicksilver_nugget"),
             item("new ItemStack(ConfigItems.itemResource, 1, 6)", "amber"),
             item("new ItemStack(ConfigItems.itemResource, 1, 11)", "tainted_goo"),
             item("new ItemStack(ConfigItems.itemResource, 1, 12)", "taint_tendril"),

@@ -1,0 +1,88 @@
+package com.thaumcraftmodern.registry;
+
+import com.google.gson.JsonArray;
+import com.google.gson.JsonParser;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.util.HashSet;
+import java.util.Set;
+import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
+/** Guards the TC4 setHarvestLevel families after their metadata split into blocks. */
+class ClassicHarvestLevelFidelityTest {
+    private static final Path TAG_ROOT = Path.of(
+            "src/main/resources/data/minecraft/tags/blocks");
+
+    @Test
+    void stonePickaxeTierMatchesClassicMetalDevices() throws IOException {
+        assertEquals(Set.of(
+                id("crucible"),
+                id("arcane_alembic"),
+                id("mnemonic_matrix"),
+                id("alchemical_construct"),
+                id("advanced_alchemical_construct"),
+                id("thaumatorium")
+        ), values("needs_stone_tool.json"));
+    }
+
+    @Test
+    void ironPickaxeTierMatchesClassicOresAndStructureBlocks()
+            throws IOException {
+        assertEquals(Set.of(
+                id("infernal_furnace"),
+                id("advanced_alchemical_furnace"),
+                id("cinnabar_ore"),
+                id("air_infused_stone"),
+                id("fire_infused_stone"),
+                id("water_infused_stone"),
+                id("earth_infused_stone"),
+                id("order_infused_stone"),
+                id("entropy_infused_stone"),
+                id("amber_ore"),
+                id("eldritch_altar_part"),
+                id("ancient_stone")
+        ), values("needs_iron_tool.json"));
+    }
+
+    @Test
+    void classicTaintBlocksUseShovelsWithoutATierRequirement()
+            throws IOException {
+        assertEquals(Set.of(id("crusted_taint"), id("tainted_soil")),
+                values("mineable/shovel.json"));
+    }
+
+    @Test
+    void classicWoodBlocksAndTheirSplitShapesUseAxes() throws IOException {
+        assertEquals(Set.of(
+                id("research_table"),
+                id("thaumcraft_table"),
+                id("arcane_workbench"),
+                id("loot_crate"),
+                id("greatwood_log"),
+                id("silverwood_log"),
+                id("silverwood_node"),
+                id("greatwood_planks"),
+                id("silverwood_planks"),
+                id("greatwood_stairs"),
+                id("silverwood_stairs"),
+                id("greatwood_slab"),
+                id("silverwood_slab")
+        ), values("mineable/axe.json"));
+    }
+
+    private static Set<String> values(String relativePath) throws IOException {
+        JsonArray array = JsonParser.parseString(Files.readString(
+                TAG_ROOT.resolve(relativePath))).getAsJsonObject()
+                .getAsJsonArray("values");
+        Set<String> values = new HashSet<>();
+        array.forEach(element -> values.add(element.getAsString()));
+        return values;
+    }
+
+    private static String id(String path) {
+        return "thaumcraftmodern:" + path;
+    }
+}

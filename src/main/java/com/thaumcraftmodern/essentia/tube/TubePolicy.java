@@ -5,6 +5,12 @@ public record TubePolicy(
         boolean filtered,
         boolean restrictedSuction,
         boolean directional,
-        boolean redstoneValve
+        boolean redstoneValve,
+        boolean reversibleController
 ) {
+    public TubePolicy(boolean filtered, boolean restrictedSuction,
+            boolean directional, boolean redstoneValve) {
+        this(filtered, restrictedSuction, directional, redstoneValve,
+                false);
+    }
 }

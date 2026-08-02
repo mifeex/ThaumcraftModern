@@ -10,6 +10,7 @@ import java.nio.file.Path;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 final class CopperModernIdentityContentTest {
     private static final Path ROOT = Path.of("").toAbsolutePath();
@@ -19,11 +20,11 @@ final class CopperModernIdentityContentTest {
 
     @Test
     void copperFormsUseCurrentRegistryIdentities() throws IOException {
-        assertScan(
-                "object_032_nuggetcopper.json",
-                "item",
-                "thaumcraftmodern:copper_nugget"
-        );
+        JsonObject legacyNugget = json(SCANS.resolve(
+                "object_032_nuggetcopper.json"));
+        assertEquals("minecraft:copper_ingot",
+                legacyNugget.get("target").getAsString());
+        assertTrue(legacyNugget.get("inactive").getAsBoolean());
         assertScan(
                 "object_033_ingotcopper.json",
                 "item",
@@ -47,18 +48,24 @@ final class CopperModernIdentityContentTest {
     }
 
     @Test
-    void copperCapRecipeUsesTheCurrentForgeNuggetTag() throws IOException {
+    void copperCapRecipeUsesVanillaCopperWithoutAParallelNuggetItem()
+            throws IOException {
         JsonObject recipe = json(ROOT.resolve(
                 "src/main/resources/data/thaumcraftmodern/recipes/"
                         + "wand_cap_copper.json"
         ));
         assertEquals(
-                "forge:nuggets/copper",
+                "minecraft:copper_ingot",
                 recipe.getAsJsonObject("key")
                         .getAsJsonObject("N")
-                        .get("tag")
+                        .get("item")
                         .getAsString()
         );
+        assertFalse(Files.exists(ROOT.resolve(
+                "src/main/resources/data/forge/tags/items/nuggets/copper.json")));
+        assertFalse(Files.exists(ROOT.resolve(
+                "src/main/resources/assets/thaumcraftmodern/models/item/"
+                        + "copper_nugget.json")));
     }
 
     private static void assertScan(String file, String type, String target)

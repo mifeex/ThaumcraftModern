@@ -2,6 +2,7 @@ package com.thaumcraftmodern.world.block;
 
 import com.thaumcraftmodern.registry.ModBlockEntities;
 import com.thaumcraftmodern.world.block.entity.AlchemicalFurnaceBlockEntity;
+import com.thaumcraftmodern.world.block.entity.ThaumatoriumBlockEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
@@ -69,6 +70,14 @@ public final class AlchemicalFurnaceBlock extends BaseEntityBlock {
     @Override
     public InteractionResult use(BlockState state, Level level, BlockPos pos,
             Player player, InteractionHand hand, BlockHitResult hit) {
+        if (level.getBlockEntity(pos.above())
+                instanceof ThaumatoriumBlockEntity thaumatorium) {
+            if (!level.isClientSide
+                    && player instanceof ServerPlayer serverPlayer) {
+                NetworkHooks.openScreen(serverPlayer, thaumatorium, pos.above());
+            }
+            return InteractionResult.sidedSuccess(level.isClientSide);
+        }
         if (!level.isClientSide && player instanceof ServerPlayer serverPlayer
                 && level.getBlockEntity(pos) instanceof AlchemicalFurnaceBlockEntity furnace) {
             NetworkHooks.openScreen(serverPlayer, furnace, pos);

@@ -23,6 +23,11 @@
       "body": "tc.research_page.JARVOID.1"
     },
     {
+      "type": "text",
+      "title": "",
+      "body": "tc.research_page.JARVOID.REDSTONE"
+    },
+    {
       "type": "recipe",
       "title": "",
       "recipe": "thaumcraftmodern:jar_void"

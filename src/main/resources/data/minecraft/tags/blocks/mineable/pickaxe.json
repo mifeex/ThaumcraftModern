@@ -1,6 +1,21 @@
 {
   "replace": false,
   "values": [
+    "thaumcraftmodern:arcane_stone",
+    "thaumcraftmodern:arcane_stone_brick",
+    "thaumcraftmodern:crucible",
+    "thaumcraftmodern:alchemical_furnace",
+    "thaumcraftmodern:runic_matrix",
+    "thaumcraftmodern:arcane_pedestal",
+    "thaumcraftmodern:arcane_alembic",
+    "thaumcraftmodern:essentia_reservoir",
+    "thaumcraftmodern:mnemonic_matrix",
+    "thaumcraftmodern:alchemical_construct",
+    "thaumcraftmodern:advanced_alchemical_construct",
+    "thaumcraftmodern:infusion_pillar",
+    "thaumcraftmodern:infernal_furnace",
+    "thaumcraftmodern:thaumatorium",
+    "thaumcraftmodern:advanced_alchemical_furnace",
     "thaumcraftmodern:cinnabar_ore",
     "thaumcraftmodern:air_infused_stone",
     "thaumcraftmodern:fire_infused_stone",
@@ -11,6 +26,8 @@
     "thaumcraftmodern:amber_ore",
     "thaumcraftmodern:obsidian_totem",
     "thaumcraftmodern:obsidian_totem_node",
+    "thaumcraftmodern:obsidian_tile",
+    "thaumcraftmodern:eldritch_altar_part",
     "thaumcraftmodern:ancient_stone"
   ]
 }

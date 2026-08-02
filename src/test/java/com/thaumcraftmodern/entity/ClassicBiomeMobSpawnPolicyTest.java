@@ -8,37 +8,19 @@ import org.junit.jupiter.api.Test;
 class ClassicBiomeMobSpawnPolicyTest {
     @Test
     void pechUsesTheClassicFourWithinSixteenLimit() {
-        assertTrue(ClassicBiomeMobSpawnPolicy.allowsPopulation(
-                LegacyMobKind.PECH,
-                3
-        ));
-        assertFalse(ClassicBiomeMobSpawnPolicy.allowsPopulation(
-                LegacyMobKind.PECH,
-                4
-        ));
+        assertTrue(LegacyMobKind.PECH.allowsClassicBiomePopulation(3));
+        assertFalse(LegacyMobKind.PECH.allowsClassicBiomePopulation(4));
     }
 
     @Test
     void wispUsesTheClassicEightWithinSixteenLimit() {
-        assertTrue(ClassicBiomeMobSpawnPolicy.allowsPopulation(
-                LegacyMobKind.WISP,
-                7
-        ));
-        assertFalse(ClassicBiomeMobSpawnPolicy.allowsPopulation(
-                LegacyMobKind.WISP,
-                8
-        ));
+        assertTrue(LegacyMobKind.WISP.allowsClassicBiomePopulation(7));
+        assertFalse(LegacyMobKind.WISP.allowsClassicBiomePopulation(8));
     }
 
     @Test
     void taintacleAllowsNoSecondNearbyTaintacle() {
-        assertTrue(ClassicBiomeMobSpawnPolicy.allowsPopulation(
-                LegacyMobKind.TAINTACLE,
-                0
-        ));
-        assertFalse(ClassicBiomeMobSpawnPolicy.allowsPopulation(
-                LegacyMobKind.TAINTACLE,
-                1
-        ));
+        assertTrue(LegacyMobKind.TAINTACLE.allowsClassicBiomePopulation(0));
+        assertFalse(LegacyMobKind.TAINTACLE.allowsClassicBiomePopulation(1));
     }
 }

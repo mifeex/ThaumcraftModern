@@ -27,8 +27,13 @@ public final class EssentiaJarBlockEntityRenderer
     public void render(EssentiaJarBlockEntity jar, float partialTick,
             PoseStack poseStack, MultiBufferSource buffers,
             int packedLight, int packedOverlay) {
-        if (jar.amount() <= 0 || jar.aspect() == null) return;
-        renderLiquid(jar.aspect(), jar.amount(), poseStack, buffers, packedOverlay);
+        if (jar.amount() > 0 && jar.aspect() != null) {
+            renderLiquid(jar.aspect(), jar.amount(), poseStack, buffers, packedOverlay);
+        }
+        if (jar.filter() != null) {
+            ClassicJarLabelRenderer.render(jar.filter(), jar.filterFacing(),
+                    poseStack, buffers, packedLight, packedOverlay);
+        }
     }
 
     public static void renderLiquid(String aspect, int amount,

@@ -2,15 +2,20 @@ package com.thaumcraftmodern.world.block;
 
 import com.thaumcraftmodern.api.wand.WandApi;
 import com.thaumcraftmodern.essentia.EssentiaConnections;
+import com.thaumcraftmodern.essentia.EssentiaTransport;
 import com.thaumcraftmodern.essentia.tube.TubePolicyRegistry;
+import com.thaumcraftmodern.essentia.tube.TubeEssentiaReleaseRules;
+import com.thaumcraftmodern.essentia.tube.TubeEssentiaReleaseRisk;
 import com.thaumcraftmodern.essentia.tube.TubeWandTargetResolver;
 import com.thaumcraftmodern.item.JarLabelItem;
 import com.thaumcraftmodern.registry.ModItems;
 import com.thaumcraftmodern.registry.ModSounds;
 import com.thaumcraftmodern.world.block.entity.EssentiaTubeBlockEntity;
+import com.thaumcraftmodern.wand.WandVisService;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundSource;
@@ -21,6 +26,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.BaseEntityBlock;
@@ -40,6 +46,9 @@ import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Nullable;
+
+import java.util.Map;
+import java.util.Locale;
 
 public final class EssentiaTubeBlock extends BaseEntityBlock {
     public static final BooleanProperty DOWN = BlockStateProperties.DOWN;
@@ -67,6 +76,16 @@ public final class EssentiaTubeBlock extends BaseEntityBlock {
 
     public ResourceLocation policyId() {
         return policyId;
+    }
+
+    /**
+     * TC4's BlockTubeItem stores the clicked side directly in TileTube.facing.
+     * Keeping that side in the block state also gives the client renderer the
+     * correct axis immediately, including UP and DOWN placements.
+     */
+    @Override
+    public @Nullable BlockState getStateForPlacement(BlockPlaceContext context) {
+        return defaultBlockState().setValue(FACING, context.getClickedFace());
     }
 
     @Override
@@ -148,7 +167,9 @@ public final class EssentiaTubeBlock extends BaseEntityBlock {
             return false;
         }
         return level.getBlockEntity(pos.relative(direction))
-                instanceof EssentiaTubeBlockEntity;
+                instanceof EssentiaTransport remote
+                && (remote instanceof EssentiaTubeBlockEntity
+                        || remote.isConnectable(direction.getOpposite()));
     }
 
     @Override
@@ -164,9 +185,10 @@ public final class EssentiaTubeBlock extends BaseEntityBlock {
     }
 
     /**
-     * Keeps a fully retracted branch selectable only while another tube is
-     * directly adjacent on that side. It does not become part of the collision,
-     * rendered model, or transport connection until the server reopens it.
+     * Keeps a fully retracted branch selectable while a compatible essentia
+     * transport is directly adjacent on that side. It does not become part of
+     * the collision, rendered model, or transport connection until the server
+     * reopens it.
      */
     private static VoxelShape arm(Direction direction) {
         return switch (direction) {
@@ -243,7 +265,24 @@ public final class EssentiaTubeBlock extends BaseEntityBlock {
                 double x = hit.getLocation().x - pos.getX();
                 double y = hit.getLocation().y - pos.getY();
                 double z = hit.getLocation().z - pos.getZ();
-                if (TubeWandTargetResolver.hitsCore(x, y, z)) {
+                boolean core = TubeWandTargetResolver.hitsCore(x, y, z);
+                if (player.isShiftKeyDown() && tube.essentiaAmount(null) > 0
+                        && player instanceof ServerPlayer serverPlayer) {
+                    releaseCloggedEssentia(
+                            (ServerLevel) level, tube, serverPlayer, held);
+                } else if (core && tube.policy().reversibleController()) {
+                    if (player.isShiftKeyDown()) {
+                        tube.selectReversibleHead();
+                        tube.rotateFacing();
+                    } else {
+                        tube.toggleManualReturnFromWand();
+                    }
+                    player.displayClientMessage(Component.translatable(
+                            tube.returnEnabled()
+                                    ? "message.thaumcraftmodern.reverse.return"
+                                    : "message.thaumcraftmodern.reverse.switching",
+                            tube.reverseSwitchTicks()), true);
+                } else if (core) {
                     tube.rotateFacing();
                 } else {
                     tube.toggleSide(resolveWandSide(hit, pos));
@@ -294,6 +333,66 @@ public final class EssentiaTubeBlock extends BaseEntityBlock {
             return InteractionResult.sidedSuccess(level.isClientSide);
         }
         return InteractionResult.PASS;
+    }
+
+    private static void releaseCloggedEssentia(
+            ServerLevel level,
+            EssentiaTubeBlockEntity tube,
+            ServerPlayer player,
+            ItemStack wand
+    ) {
+        String aspect = tube.essentiaType(null);
+        if (aspect == null) return;
+        TubeEssentiaReleaseRules.Complexity complexity;
+        try {
+            complexity = TubeEssentiaReleaseRules.complexity(
+                    com.thaumcraftmodern.aspect.AspectRegistryRuntime.catalog(),
+                    aspect);
+        } catch (RuntimeException exception) {
+            return;
+        }
+        Map<String, Integer> baseCost =
+                TubeEssentiaReleaseRules.baseVisCostCentivis(complexity);
+        Map<String, Integer> adjustedCost;
+        try {
+            adjustedCost = WandVisService.adjustedFractionalCostCentivis(
+                    player, wand, baseCost);
+        } catch (RuntimeException exception) {
+            return;
+        }
+        if (!WandVisService.consumeCentivis(player, wand, baseCost)) {
+            player.displayClientMessage(Component.translatable(
+                    "message.thaumcraftmodern.tube_release.no_vis",
+                    formatVisRange(adjustedCost)), true);
+            return;
+        }
+        TubeEssentiaReleaseRules.Release release =
+                TubeEssentiaReleaseRisk.preview(player, complexity);
+        if (!tube.releaseCloggedEssentia(level, release.createsFlux())) return;
+        TubeEssentiaReleaseRisk.commit(player, release);
+        player.displayClientMessage(Component.translatable(
+                release.createsFlux()
+                        ? "message.thaumcraftmodern.tube_release.flux"
+                        : "message.thaumcraftmodern.tube_release.released",
+                Component.translatable("tc.aspect." + aspect),
+                complexity.risk(),
+                release.createsFlux() ? 0 : release.accumulatedRisk(),
+                formatVisRange(adjustedCost)), true);
+    }
+
+    private static String formatVisRange(Map<String, Integer> costs) {
+        int minimum = costs.values().stream().mapToInt(Integer::intValue)
+                .min().orElse(0);
+        int maximum = costs.values().stream().mapToInt(Integer::intValue)
+                .max().orElse(0);
+        return minimum == maximum
+                ? formatVis(minimum)
+                : formatVis(minimum) + "–" + formatVis(maximum);
+    }
+
+    private static String formatVis(int centivis) {
+        String value = String.format(Locale.ROOT, "%.2f", centivis / 100.0D);
+        return value.replaceAll("0+$", "").replaceAll("\\.$", "");
     }
 
     @Override

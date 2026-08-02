@@ -27,34 +27,62 @@ public final class ThaumonomiconMarkup {
         StringBuilder text = new StringBuilder();
         String lower = source.toLowerCase(Locale.ROOT);
         int cursor = 0;
+        int italicDepth = 0;
+        int boldDepth = 0;
         while (cursor < source.length()) {
             if (matchesTag(lower, cursor, "<br>")) {
-                flushText(result, text);
+                flushText(result, text, italicDepth > 0, boldDepth > 0);
                 result.add(new Break());
                 cursor += 4;
                 continue;
             }
             if (matchesTag(lower, cursor, "<br/>")) {
-                flushText(result, text);
+                flushText(result, text, italicDepth > 0, boldDepth > 0);
                 result.add(new Break());
                 cursor += 5;
                 continue;
             }
             if (matchesTag(lower, cursor, "<br />")) {
-                flushText(result, text);
+                flushText(result, text, italicDepth > 0, boldDepth > 0);
                 result.add(new Break());
                 cursor += 6;
                 continue;
             }
             if (matchesTag(lower, cursor, "<line>")) {
-                flushText(result, text);
+                flushText(result, text, italicDepth > 0, boldDepth > 0);
                 result.add(new Divider());
                 cursor += 6;
                 continue;
             }
             if (matchesTag(lower, cursor, "<hr>")) {
-                flushText(result, text);
+                flushText(result, text, italicDepth > 0, boldDepth > 0);
                 result.add(new Divider());
+                cursor += 4;
+                continue;
+            }
+            if (matchesTag(lower, cursor, "<i>")
+                    && hasClosingTag(lower, cursor + 3, "</i>")) {
+                flushText(result, text, italicDepth > 0, boldDepth > 0);
+                italicDepth++;
+                cursor += 3;
+                continue;
+            }
+            if (matchesTag(lower, cursor, "</i>") && italicDepth > 0) {
+                flushText(result, text, italicDepth > 0, boldDepth > 0);
+                italicDepth--;
+                cursor += 4;
+                continue;
+            }
+            if (matchesTag(lower, cursor, "<b>")
+                    && hasClosingTag(lower, cursor + 3, "</b>")) {
+                flushText(result, text, italicDepth > 0, boldDepth > 0);
+                boldDepth++;
+                cursor += 3;
+                continue;
+            }
+            if (matchesTag(lower, cursor, "</b>") && boldDepth > 0) {
+                flushText(result, text, italicDepth > 0, boldDepth > 0);
+                boldDepth--;
                 cursor += 4;
                 continue;
             }
@@ -64,7 +92,7 @@ public final class ThaumonomiconMarkup {
                     String descriptor = source.substring(cursor + 5, close).trim();
                     ImageSpec image = ImageSpec.parse(descriptor);
                     if (image != null) {
-                        flushText(result, text);
+                        flushText(result, text, italicDepth > 0, boldDepth > 0);
                         result.add(new Image(image));
                     } else {
                         text.append(source, cursor, close + 6);
@@ -76,8 +104,12 @@ public final class ThaumonomiconMarkup {
             text.append(source.charAt(cursor));
             cursor++;
         }
-        flushText(result, text);
+        flushText(result, text, italicDepth > 0, boldDepth > 0);
         return List.copyOf(result);
+    }
+
+    private static boolean hasClosingTag(String lower, int start, String tag) {
+        return lower.indexOf(tag, start) >= 0;
     }
 
     private static boolean matchesTag(String lower, int offset, String tag) {
@@ -85,9 +117,14 @@ public final class ThaumonomiconMarkup {
                 && lower.regionMatches(offset, tag, 0, tag.length());
     }
 
-    private static void flushText(List<Node> result, StringBuilder text) {
+    private static void flushText(
+            List<Node> result,
+            StringBuilder text,
+            boolean italic,
+            boolean bold
+    ) {
         if (!text.isEmpty()) {
-            result.add(new Text(text.toString()));
+            result.add(new Text(text.toString(), italic, bold));
             text.setLength(0);
         }
     }
@@ -95,7 +132,7 @@ public final class ThaumonomiconMarkup {
     public sealed interface Node permits Text, Break, Divider, Image {
     }
 
-    public record Text(String value) implements Node {
+    public record Text(String value, boolean italic, boolean bold) implements Node {
     }
 
     public record Break() implements Node {

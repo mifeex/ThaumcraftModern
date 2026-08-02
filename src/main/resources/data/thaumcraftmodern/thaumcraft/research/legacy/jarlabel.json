@@ -33,33 +33,19 @@
       "body": "tc.research_page.JARLABEL.2"
     },
     {
-      "type": "unavailable",
+      "type": "recipe",
       "title": "",
-      "body": "",
-      "legacy_type": "recipe",
-      "legacy_content": "JarLabel",
-      "source_expression": "new ResearchPage((IRecipe)recipes.get(\"JarLabel\"))"
+      "recipe": "thaumcraftmodern:jar_label"
     },
     {
       "type": "text",
       "title": "",
-      "body": "tc.research_page.JARLABEL.3"
+      "body": "tc.research_page.JARLABEL.REDSTONE"
     },
     {
-      "type": "unavailable",
+      "type": "text",
       "title": "",
-      "body": "",
-      "legacy_type": "recipe",
-      "legacy_content": "(IRecipe[])rc.toArray(new IRecipe[0])",
-      "source_expression": "new ResearchPage((IRecipe[])rc.toArray(new IRecipe[0]))"
-    },
-    {
-      "type": "unavailable",
-      "title": "",
-      "body": "",
-      "legacy_type": "recipe",
-      "legacy_content": "JarLabelNull",
-      "source_expression": "new ResearchPage((IRecipe)recipes.get(\"JarLabelNull\"))"
+      "body": "tc.research_page.JARLABEL.REDSTONE_IMAGE"
     }
   ],
   "inactive": false,

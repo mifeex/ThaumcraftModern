@@ -26,6 +26,7 @@ public final class ModSounds {
     public static final RegistryObject<SoundEvent> SQUEEK = sound("squeek");
     public static final RegistryObject<SoundEvent> CREAK = sound("creak");
     public static final RegistryObject<SoundEvent> TOOL = sound("tool");
+    public static final RegistryObject<SoundEvent> PUMP = sound("pump");
     public static final RegistryObject<SoundEvent> HH_OFF = sound("hhoff");
     public static final RegistryObject<SoundEvent> HH_ON = sound("hhon");
     public static final RegistryObject<SoundEvent> WAND = sound("wand");

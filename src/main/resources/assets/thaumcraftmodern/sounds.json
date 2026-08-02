@@ -301,5 +301,13 @@
       "thaumcraftmodern:tool1",
       "thaumcraftmodern:tool2"
     ]
+  },
+  "pump": {
+    "category": "block",
+    "sounds": [
+      "thaumcraftmodern:pump1",
+      "thaumcraftmodern:pump2",
+      "thaumcraftmodern:pump3"
+    ]
   }
 }

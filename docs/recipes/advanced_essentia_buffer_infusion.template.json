@@ -1,0 +1,14 @@
+{
+  "status": "ingredients_pending_user_selection",
+  "executable": false,
+  "machine": "thaumcraftmodern:runic_matrix",
+  "central": "thaumcraftmodern:essentia_buffer",
+  "output": {
+    "item": "thaumcraftmodern:advanced_essentia_buffer",
+    "count": 1
+  },
+  "components": [],
+  "aspect_costs": [],
+  "instability": "moderate",
+  "note": "Move this definition into the future executable infusion recipe registry only after the player-selected components and aspect costs are filled in. The current project does not yet have an executable infusion backend."
+}

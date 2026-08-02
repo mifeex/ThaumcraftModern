@@ -24,6 +24,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.ContainerData;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
@@ -41,7 +42,8 @@ public final class AlchemicalFurnaceBlockEntity extends BlockEntity
     public static final int INPUT_SLOT = 0;
     public static final int FUEL_SLOT = 1;
     public static final int MAX_ESSENTIA = 50;
-    public static final int MAX_ALEMBIC_STACK = 4;
+    /** TC4 TileAlchemyFurnace scans the five blocks directly above it. */
+    public static final int MAX_ALEMBIC_STACK = 5;
     private static final int[] BOTTOM_SLOTS = {FUEL_SLOT};
     private static final int[] SIDE_SLOTS = {INPUT_SLOT};
     private static final int[] TOP_SLOTS = {};
@@ -244,10 +246,12 @@ public final class AlchemicalFurnaceBlockEntity extends BlockEntity
                 : side == Direction.UP ? TOP_SLOTS : SIDE_SLOTS;
     }
     @Override public boolean canPlaceItemThroughFace(int slot, ItemStack stack, @Nullable Direction side) {
-        return canPlaceItem(slot, stack);
+        return side != Direction.DOWN && canPlaceItem(slot, stack);
     }
     @Override public boolean canTakeItemThroughFace(int slot, ItemStack stack, Direction side) {
-        return slot == FUEL_SLOT && side == Direction.DOWN;
+        return side != Direction.DOWN
+                || slot != FUEL_SLOT
+                || stack.is(Items.BUCKET);
     }
     @Override public int getContainerSize() { return items.size(); }
     @Override public boolean isEmpty() { return items.stream().allMatch(ItemStack::isEmpty); }

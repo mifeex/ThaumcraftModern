@@ -1,0 +1,11 @@
+{
+  "replace": false,
+  "values": [
+    "thaumcraftmodern:crucible",
+    "thaumcraftmodern:arcane_alembic",
+    "thaumcraftmodern:mnemonic_matrix",
+    "thaumcraftmodern:alchemical_construct",
+    "thaumcraftmodern:advanced_alchemical_construct",
+    "thaumcraftmodern:thaumatorium"
+  ]
+}

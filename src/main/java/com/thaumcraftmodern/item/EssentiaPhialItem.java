@@ -4,6 +4,7 @@ import com.thaumcraftmodern.aspect.AspectRegistryRuntime;
 import com.thaumcraftmodern.registry.ModItems;
 import com.thaumcraftmodern.world.block.entity.ArcaneAlembicBlockEntity;
 import com.thaumcraftmodern.world.block.entity.EssentiaJarBlockEntity;
+import com.thaumcraftmodern.world.block.entity.VoidJarBlockEntity;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -79,6 +80,9 @@ public final class EssentiaPhialItem extends Item {
             if (level.getBlockEntity(pos) instanceof EssentiaJarBlockEntity jar) {
                 storedAspect = jar.aspect();
                 storedAmount = jar.amount();
+            } else if (level.getBlockEntity(pos) instanceof VoidJarBlockEntity jar) {
+                storedAspect = jar.aspect();
+                storedAmount = jar.amount();
             } else if (level.getBlockEntity(pos) instanceof ArcaneAlembicBlockEntity alembic) {
                 storedAspect = alembic.storedAspect();
                 storedAmount = alembic.storedAmount();
@@ -90,6 +94,9 @@ public final class EssentiaPhialItem extends Item {
                 boolean extracted = level.getBlockEntity(pos) instanceof EssentiaJarBlockEntity jar
                         ? jar.takeEssentia(storedAspect, PHIAL_AMOUNT, Direction.UP)
                                 == PHIAL_AMOUNT
+                        : level.getBlockEntity(pos) instanceof VoidJarBlockEntity jar
+                                ? jar.takeEssentia(storedAspect, PHIAL_AMOUNT, Direction.UP)
+                                        == PHIAL_AMOUNT
                         : level.getBlockEntity(pos) instanceof ArcaneAlembicBlockEntity alembic
                                 && alembic.takeFromContainer(storedAspect, PHIAL_AMOUNT);
                 if (!extracted) return InteractionResult.PASS;
@@ -101,13 +108,20 @@ public final class EssentiaPhialItem extends Item {
         }
 
         String aspect = aspect(held).orElse(null);
-        if (aspect == null
-                || !(level.getBlockEntity(pos) instanceof EssentiaJarBlockEntity jar)
-                || jar.amount() > EssentiaJarBlockEntity.CAPACITY - PHIAL_AMOUNT) {
+        Object container = level.getBlockEntity(pos);
+        boolean canAcceptBatch = container instanceof EssentiaJarBlockEntity jar
+                ? jar.acceptsAspect(aspect, PHIAL_AMOUNT)
+                : container instanceof VoidJarBlockEntity voidJar
+                        && voidJar.acceptsAspect(aspect, PHIAL_AMOUNT);
+        if (aspect == null || !canAcceptBatch) {
             return InteractionResult.PASS;
         }
         if (!level.isClientSide) {
-            if (jar.addEssentia(aspect, PHIAL_AMOUNT, Direction.UP) != PHIAL_AMOUNT) {
+            int accepted = container instanceof EssentiaJarBlockEntity jar
+                    ? jar.addEssentia(aspect, PHIAL_AMOUNT, Direction.UP)
+                    : container instanceof VoidJarBlockEntity jar
+                            ? jar.addEssentia(aspect, PHIAL_AMOUNT, Direction.UP) : 0;
+            if (accepted != PHIAL_AMOUNT) {
                 return InteractionResult.PASS;
             }
             exchangeOne(held, player, level, pos,
@@ -119,6 +133,18 @@ public final class EssentiaPhialItem extends Item {
 
     private static void exchangeOne(ItemStack held, Player player, Level level,
             BlockPos pos, ItemStack result) {
+        if (player.getAbilities().instabuild) {
+            // A creative filled phial is an infinite testing source: every
+            // click transfers another classic eight-point batch. When drawing
+            // from a container, retain the empty phial and grant the filled
+            // result without consuming the held stack.
+            if (!isEmpty(result) && !player.getInventory().add(result)) {
+                level.addFreshEntity(new ItemEntity(level, pos.getX() + 0.5D,
+                        pos.getY() + 0.5D, pos.getZ() + 0.5D, result));
+            }
+            player.getInventory().setChanged();
+            return;
+        }
         held.shrink(1);
         if (!player.getInventory().add(result)) {
             level.addFreshEntity(new ItemEntity(level, pos.getX() + 0.5D,

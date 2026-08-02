@@ -215,12 +215,15 @@ class WandClassicContentTest {
                             + ".png"
             ));
         }
-        assertEquals(
-                "minecraft:builtin/entity",
-                json("/assets/thaumcraftmodern/models/item/classic_wand_base.json")
-                        .get("parent")
-                        .getAsString()
+        JsonObject wandModel = json(
+                "/assets/thaumcraftmodern/models/item/classic_wand_base.json"
         );
+        assertEquals("minecraft:builtin/entity",
+                wandModel.get("parent").getAsString());
+        JsonObject gui = wandModel.getAsJsonObject("display")
+                .getAsJsonObject("gui");
+        assertEquals(1, gui.getAsJsonArray("rotation").get(1).getAsInt());
+        assertEquals(1, gui.getAsJsonArray("translation").get(1).getAsInt());
     }
 
     @Test

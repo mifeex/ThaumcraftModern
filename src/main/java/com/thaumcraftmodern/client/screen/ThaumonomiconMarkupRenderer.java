@@ -4,6 +4,7 @@ import com.thaumcraftmodern.client.ClassicUiRender;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.util.FormattedCharSequence;
 
 import java.util.List;
@@ -64,38 +65,25 @@ public final class ThaumonomiconMarkupRenderer {
         int cursor = 0;
         int lineHeight = Math.max(1, Math.round((font.lineHeight + 1) * textScale));
         boolean lineHasContent = false;
+        MutableComponent paragraph = Component.empty();
 
         for (ThaumonomiconMarkup.Node node : nodes) {
             if (node instanceof ThaumonomiconMarkup.Text text) {
                 if (text.value().isEmpty()) {
                     continue;
                 }
-                List<FormattedCharSequence> lines = font.split(
-                        Component.literal(text.value()),
-                        Math.max(1, (int) (width / textScale))
-                );
-                for (int index = 0; index < lines.size(); index++) {
-                    if (lineHasContent) {
-                        cursor += lineHeight;
-                    }
-                    if (draw && graphics != null) {
-                        graphics.pose().pushPose();
-                        graphics.pose().translate(x, y + cursor, 0.0F);
-                        graphics.pose().scale(textScale, textScale, 1.0F);
-                        graphics.drawString(
-                                font,
-                                lines.get(index),
-                                0,
-                                0,
-                                TEXT_COLOR,
-                                false
-                        );
-                        graphics.pose().popPose();
-                    }
-                    lineHasContent = true;
-                }
+                paragraph.append(Component.literal(text.value()).withStyle(style -> style
+                        .withItalic(text.italic())
+                        .withBold(text.bold())));
                 continue;
             }
+
+            TextFlow flow = renderParagraph(
+                    graphics, font, paragraph, x, y, width, textScale, draw, cursor, lineHasContent
+            );
+            cursor = flow.cursor();
+            lineHasContent = flow.lineHasContent();
+            paragraph = Component.empty();
 
             if (node instanceof ThaumonomiconMarkup.Break) {
                 cursor += lineHeight;
@@ -155,7 +143,48 @@ public final class ThaumonomiconMarkupRenderer {
                 cursor += metrics.height() + 2;
             }
         }
+        TextFlow flow = renderParagraph(
+                graphics, font, paragraph, x, y, width, textScale, draw, cursor, lineHasContent
+        );
+        cursor = flow.cursor();
+        lineHasContent = flow.lineHasContent();
         return cursor + (lineHasContent ? lineHeight : 0);
+    }
+
+    private static TextFlow renderParagraph(
+            GuiGraphics graphics,
+            Font font,
+            Component paragraph,
+            int x,
+            int y,
+            int width,
+            float textScale,
+            boolean draw,
+            int cursor,
+            boolean lineHasContent
+    ) {
+        if (paragraph.getString().isEmpty()) {
+            return new TextFlow(cursor, lineHasContent);
+        }
+        int lineHeight = Math.max(1, Math.round((font.lineHeight + 1) * textScale));
+        List<FormattedCharSequence> lines = font.split(
+                paragraph,
+                Math.max(1, (int) (width / textScale))
+        );
+        for (FormattedCharSequence line : lines) {
+            if (lineHasContent) {
+                cursor += lineHeight;
+            }
+            if (draw && graphics != null) {
+                graphics.pose().pushPose();
+                graphics.pose().translate(x, y + cursor, 0.0F);
+                graphics.pose().scale(textScale, textScale, 1.0F);
+                graphics.drawString(font, line, 0, 0, TEXT_COLOR, false);
+                graphics.pose().popPose();
+            }
+            lineHasContent = true;
+        }
+        return new TextFlow(cursor, lineHasContent);
     }
 
     private static ImageMetrics imageMetrics(
@@ -174,5 +203,8 @@ public final class ThaumonomiconMarkupRenderer {
     }
 
     private record ImageMetrics(int width, int height) {
+    }
+
+    private record TextFlow(int cursor, boolean lineHasContent) {
     }
 }

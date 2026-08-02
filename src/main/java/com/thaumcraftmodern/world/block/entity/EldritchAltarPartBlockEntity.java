@@ -21,6 +21,9 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 
 public final class EldritchAltarPartBlockEntity extends BlockEntity {
+    private static final double CAP_RENDER_MARGIN = 0.25D;
+    private static final double OBELISK_RENDER_MARGIN = 0.125D;
+    private static final double OBELISK_RENDER_HEIGHT = 4.25D;
     private int spawnCounter;
     private int obeliskEffectCounter;
 
@@ -29,6 +32,31 @@ public final class EldritchAltarPartBlockEntity extends BlockEntity {
             BlockState state
     ) {
         super(ModBlockEntities.ELDRITCH_ALTAR_PART.get(), position, state);
+    }
+
+    @Override
+    public AABB getRenderBoundingBox() {
+        // LevelRenderer frustum-tests this box even for a BER whose
+        // shouldRenderOffScreen() returns true. The animated obelisk extends
+        // more than three blocks above its owning block entity.
+        int part = getBlockState().hasProperty(EldritchAltarPartBlock.PART)
+                ? getBlockState().getValue(EldritchAltarPartBlock.PART)
+                : -1;
+        return renderBoundingBox(worldPosition, part);
+    }
+
+    static AABB renderBoundingBox(BlockPos position, int part) {
+        if (part != 1) {
+            return new AABB(position).inflate(CAP_RENDER_MARGIN);
+        }
+        return new AABB(
+                position.getX() - OBELISK_RENDER_MARGIN,
+                position.getY(),
+                position.getZ() - OBELISK_RENDER_MARGIN,
+                position.getX() + 1.0D + OBELISK_RENDER_MARGIN,
+                position.getY() + OBELISK_RENDER_HEIGHT,
+                position.getZ() + 1.0D + OBELISK_RENDER_MARGIN
+        );
     }
 
     public static void serverTick(

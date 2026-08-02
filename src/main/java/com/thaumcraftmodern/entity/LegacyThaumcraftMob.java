@@ -96,6 +96,11 @@ import java.util.UUID;
  */
 public final class LegacyThaumcraftMob extends Monster
         implements RangedAttackMob {
+    private static final int PECH_POPULATION_RANGE = 16;
+    private static final int WISP_POPULATION_RANGE = 16;
+    private static final int TAINTACLE_POPULATION_HORIZONTAL_RANGE = 24;
+    private static final int TAINTACLE_POPULATION_VERTICAL_RANGE = 8;
+
     private static final EntityDataAccessor<Integer> PECH_TYPE =
             SynchedEntityData.defineId(
                     LegacyThaumcraftMob.class,
@@ -2518,16 +2523,14 @@ public final class LegacyThaumcraftMob extends Monster
         int horizontalRange;
         int verticalRange;
         if (kind == LegacyMobKind.PECH) {
-            horizontalRange = ClassicBiomeMobSpawnPolicy.PECH_RANGE;
-            verticalRange = ClassicBiomeMobSpawnPolicy.PECH_RANGE;
+            horizontalRange = PECH_POPULATION_RANGE;
+            verticalRange = PECH_POPULATION_RANGE;
         } else if (kind == LegacyMobKind.WISP) {
-            horizontalRange = ClassicBiomeMobSpawnPolicy.WISP_RANGE;
-            verticalRange = ClassicBiomeMobSpawnPolicy.WISP_RANGE;
+            horizontalRange = WISP_POPULATION_RANGE;
+            verticalRange = WISP_POPULATION_RANGE;
         } else if (kind == LegacyMobKind.TAINTACLE) {
-            horizontalRange = ClassicBiomeMobSpawnPolicy
-                    .TAINTACLE_HORIZONTAL_RANGE;
-            verticalRange = ClassicBiomeMobSpawnPolicy
-                    .TAINTACLE_VERTICAL_RANGE;
+            horizontalRange = TAINTACLE_POPULATION_HORIZONTAL_RANGE;
+            verticalRange = TAINTACLE_POPULATION_VERTICAL_RANGE;
         } else {
             return true;
         }
@@ -2544,7 +2547,7 @@ public final class LegacyThaumcraftMob extends Monster
                 area,
                 mob -> mob.kind() == kind
         ).size();
-        return ClassicBiomeMobSpawnPolicy.allowsPopulation(kind, nearby);
+        return kind.allowsClassicBiomePopulation(nearby);
     }
 
     private static boolean spawnEnabled(LegacyMobKind kind) {

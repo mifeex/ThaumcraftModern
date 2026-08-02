@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test;
 import java.nio.file.Files;
 import java.nio.file.Path;
 
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class EssentiaVisualFidelityTest {
@@ -14,12 +15,26 @@ class EssentiaVisualFidelityTest {
         String model = Files.readString(Path.of(
                 "src/main/resources/assets/thaumcraftmodern/models/item/"
                         + "essentia_phial.json"));
+        String filledModel = Files.readString(Path.of(
+                "src/main/resources/assets/thaumcraftmodern/models/item/"
+                        + "essentia_phial_filled.json"));
         String animation = Files.readString(Path.of(
                 "src/main/resources/assets/thaumcraftmodern/textures/item/"
                         + "essence.png.mcmeta"));
+        String clientRegistration = Files.readString(Path.of(
+                "src/main/java/com/thaumcraftmodern/client/"
+                        + "ClientModEvents.java"));
 
         assertTrue(model.contains("thaumcraftmodern:item/phial"));
-        assertTrue(model.contains("thaumcraftmodern:item/essence"));
+        assertFalse(model.contains("\"layer1\""));
+        assertTrue(model.contains("thaumcraftmodern:filled"));
+        assertTrue(model.contains("essentia_phial_filled"));
+        assertTrue(filledModel.contains("thaumcraftmodern:item/phial"));
+        assertTrue(filledModel.contains("thaumcraftmodern:item/essence"));
+        assertTrue(clientRegistration.contains("ItemProperties.register("));
+        assertTrue(clientRegistration.contains(
+                "EssentiaPhialItem.aspect(stack).isPresent()"
+        ));
         assertTrue(animation.contains("\"animation\""));
     }
 

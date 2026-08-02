@@ -12,7 +12,7 @@ class ClassicEssentiaValuesTest {
     @Test
     void capacitiesAndCadenceMatchTc4235() {
         assertEquals(50, AlchemicalFurnaceBlockEntity.MAX_ESSENTIA);
-        assertEquals(4, AlchemicalFurnaceBlockEntity.MAX_ALEMBIC_STACK);
+        assertEquals(5, AlchemicalFurnaceBlockEntity.MAX_ALEMBIC_STACK);
         assertEquals(32, ArcaneAlembicBlockEntity.CAPACITY);
         assertEquals(64, EssentiaJarBlockEntity.CAPACITY);
         assertEquals(32, EssentiaJarBlockEntity.SUCTION);

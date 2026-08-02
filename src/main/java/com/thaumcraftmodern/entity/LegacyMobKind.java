@@ -130,4 +130,13 @@ public enum LegacyMobKind {
                 || this == TAINT_TENDRIL
                 || this == GIANT_TAINTACLE;
     }
+
+    boolean allowsClassicBiomePopulation(int nearbySameKind) {
+        return switch (this) {
+            case PECH -> nearbySameKind < 4;
+            case WISP -> nearbySameKind < 8;
+            case TAINTACLE -> nearbySameKind < 1;
+            default -> true;
+        };
+    }
 }

@@ -12,12 +12,19 @@ import com.thaumcraftmodern.world.block.CrucibleBlock;
 import com.thaumcraftmodern.world.block.EldritchAltarPartBlock;
 import com.thaumcraftmodern.world.block.EtherealBloomBlock;
 import com.thaumcraftmodern.world.block.EssentiaJarBlock;
+import com.thaumcraftmodern.world.block.EssentiaBufferBlock;
+import com.thaumcraftmodern.world.block.AdvancedEssentiaBufferBlock;
+import com.thaumcraftmodern.world.block.EssentiaCentrifugeBlock;
+import com.thaumcraftmodern.world.block.EssentiaCrystallizerBlock;
+import com.thaumcraftmodern.world.block.EssentiaReservoirBlock;
 import com.thaumcraftmodern.world.block.EssentiaTubeBlock;
+import com.thaumcraftmodern.world.block.VoidJarBlock;
 import com.thaumcraftmodern.essentia.tube.TubePolicyRegistry;
 import com.thaumcraftmodern.world.block.FluxGasBlock;
 import com.thaumcraftmodern.world.block.FluxGooBlock;
 import com.thaumcraftmodern.world.block.InfusionPillarBlock;
 import com.thaumcraftmodern.world.block.ManaPodBlock;
+import com.thaumcraftmodern.world.block.MnemonicMatrixBlock;
 import com.thaumcraftmodern.world.block.NitorBlock;
 import com.thaumcraftmodern.world.block.LootVesselBlock;
 import com.thaumcraftmodern.world.block.ResearchTableBlock;
@@ -43,6 +50,8 @@ import net.minecraft.world.level.block.RotatedPillarBlock;
 import net.minecraft.world.level.block.SaplingBlock;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.SoundType;
+import net.minecraft.world.level.block.SlabBlock;
+import net.minecraft.world.level.block.StairBlock;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.material.MapColor;
 import net.minecraftforge.eventbus.api.IEventBus;
@@ -179,6 +188,40 @@ public final class ModBlocks {
             essentiaTube("one_way_essentia_tube", TubePolicyRegistry.ONE_WAY);
     public static final RegistryObject<Block> ESSENTIA_VALVE = essentiaTube(
             "essentia_valve", TubePolicyRegistry.VALVE);
+    public static final RegistryObject<Block> REVERSIBLE_ESSENTIA_TUBE =
+            essentiaTube("reversible_essentia_tube",
+                    TubePolicyRegistry.REVERSIBLE);
+    public static final RegistryObject<Block> ESSENTIA_BUFFER = BLOCKS.register(
+            "essentia_buffer",
+            () -> new EssentiaBufferBlock(tubeDeviceProperties().noOcclusion())
+    );
+    public static final RegistryObject<Block> ADVANCED_ESSENTIA_BUFFER =
+            BLOCKS.register("advanced_essentia_buffer",
+                    () -> new AdvancedEssentiaBufferBlock(
+                            tubeDeviceProperties().noOcclusion()));
+    public static final RegistryObject<Block> VOID_JAR = BLOCKS.register(
+            "void_jar",
+            () -> new VoidJarBlock(BlockBehaviour.Properties.of()
+                    .mapColor(MapColor.NONE).strength(0.3F)
+                    .sound(SoundType.GLASS).noOcclusion().noLootTable())
+    );
+    public static final RegistryObject<Block> ESSENTIA_CENTRIFUGE = BLOCKS.register(
+            "essentia_centrifuge",
+            () -> new EssentiaCentrifugeBlock(tubeDeviceProperties().noOcclusion())
+    );
+    public static final RegistryObject<Block> ESSENTIA_CRYSTALLIZER = BLOCKS.register(
+            "essentia_crystallizer",
+            () -> new EssentiaCrystallizerBlock(tubeDeviceProperties().noOcclusion())
+    );
+    public static final RegistryObject<Block> ESSENTIA_RESERVOIR = BLOCKS.register(
+            "essentia_reservoir",
+            () -> new EssentiaReservoirBlock(
+                    unrestrictedMetalProperties().noOcclusion())
+    );
+    public static final RegistryObject<Block> MNEMONIC_MATRIX = BLOCKS.register(
+            "mnemonic_matrix",
+            () -> new MnemonicMatrixBlock(metalDeviceProperties().noOcclusion())
+    );
     public static final RegistryObject<Block> ALCHEMICAL_CONSTRUCT =
             BLOCKS.register(
                     "alchemical_construct",
@@ -329,6 +372,28 @@ public final class ModBlocks {
     public static final RegistryObject<Block> SILVERWOOD_PLANKS = BLOCKS.register(
             "silverwood_planks",
             () -> new Block(BlockBehaviour.Properties.copy(Blocks.OAK_PLANKS))
+    );
+    public static final RegistryObject<StairBlock> GREATWOOD_STAIRS = BLOCKS.register(
+            "greatwood_stairs",
+            () -> new StairBlock(
+                    GREATWOOD_PLANKS.get().defaultBlockState(),
+                    BlockBehaviour.Properties.copy(Blocks.OAK_STAIRS)
+            )
+    );
+    public static final RegistryObject<StairBlock> SILVERWOOD_STAIRS = BLOCKS.register(
+            "silverwood_stairs",
+            () -> new StairBlock(
+                    SILVERWOOD_PLANKS.get().defaultBlockState(),
+                    BlockBehaviour.Properties.copy(Blocks.OAK_STAIRS)
+            )
+    );
+    public static final RegistryObject<SlabBlock> GREATWOOD_SLAB = BLOCKS.register(
+            "greatwood_slab",
+            () -> new SlabBlock(BlockBehaviour.Properties.copy(Blocks.OAK_SLAB))
+    );
+    public static final RegistryObject<SlabBlock> SILVERWOOD_SLAB = BLOCKS.register(
+            "silverwood_slab",
+            () -> new SlabBlock(BlockBehaviour.Properties.copy(Blocks.OAK_SLAB))
     );
     public static final RegistryObject<Block> GREATWOOD_SAPLING = BLOCKS.register(
             "greatwood_sapling",
@@ -558,6 +623,22 @@ public final class ModBlocks {
                 .sound(SoundType.METAL);
     }
 
+    /**
+     * TC4's tube family used circuit material and declared no harvest tier.
+     * Keeping the modern hardness while omitting requiresCorrectToolForDrops
+     * preserves that unrestricted drop behaviour.
+     */
+    private static BlockBehaviour.Properties tubeDeviceProperties() {
+        return unrestrictedMetalProperties();
+    }
+
+    private static BlockBehaviour.Properties unrestrictedMetalProperties() {
+        return BlockBehaviour.Properties.of()
+                .mapColor(MapColor.METAL)
+                .strength(3.0F, 17.0F)
+                .sound(SoundType.METAL);
+    }
+
     private static RegistryObject<Block> ore(
             String name,
             UniformInt experience
@@ -580,7 +661,7 @@ public final class ModBlocks {
         return BLOCKS.register(
                 name,
                 () -> new EssentiaTubeBlock(
-                        metalDeviceProperties().noOcclusion(),
+                        tubeDeviceProperties().noOcclusion(),
                         policy
                 )
         );

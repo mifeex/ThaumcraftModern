@@ -165,11 +165,13 @@ public final class SilverwoodTreeFeature
                         flower.getX(),
                         flower.getZ()
                 );
-                if (ModBlocks.SHIMMERLEAF.get().defaultBlockState()
-                        .canSurvive(level, surface)) {
+                BlockState shimmerleaf = ModBlocks.SHIMMERLEAF.get()
+                        .defaultBlockState();
+                if (level.isEmptyBlock(surface)
+                        && shimmerleaf.canSurvive(level, surface)) {
                     level.setBlock(
                             surface,
-                            ModBlocks.SHIMMERLEAF.get().defaultBlockState(),
+                            shimmerleaf,
                             2
                     );
                 }

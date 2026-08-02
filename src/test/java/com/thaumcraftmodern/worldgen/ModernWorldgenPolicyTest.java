@@ -52,4 +52,19 @@ class ModernWorldgenPolicyTest {
         ));
         assertTrue(structurePolicy.contains("DEFAULT_SUPPORT_DEPTH = 2"));
     }
+
+    @Test
+    void magicalForestHugeMushroomsUseVanillaConfiguredFeatures()
+            throws IOException {
+        String vegetation = Files.readString(Path.of(
+                "src/main/java/com/thaumcraftmodern/worldgen/"
+                        + "LegacyVegetationFeature.java"
+        ));
+
+        assertTrue(vegetation.contains("TreeFeatures.HUGE_RED_MUSHROOM"));
+        assertTrue(vegetation.contains("TreeFeatures.HUGE_BROWN_MUSHROOM"));
+        assertTrue(vegetation.contains("mushroom.place("));
+        assertFalse(vegetation.contains("placeRedMushroomCap("));
+        assertFalse(vegetation.contains("placeBrownMushroomCap("));
+    }
 }

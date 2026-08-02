@@ -23,12 +23,9 @@
       "body": "tc.research_page.THAUMATORIUM.1"
     },
     {
-      "type": "unavailable",
+      "type": "compound_crafting",
       "title": "",
-      "body": "",
-      "legacy_type": "recipe",
-      "legacy_content": "Thaumatorium",
-      "source_expression": "new ResearchPage((List)recipes.get(\"Thaumatorium\"))"
+      "recipe": "thaumcraftmodern:thaumatorium_construct"
     },
     {
       "type": "text",
