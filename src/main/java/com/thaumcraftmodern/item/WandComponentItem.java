@@ -58,4 +58,12 @@ public final class WandComponentItem extends Item {
         ROD,
         CAP
     }
+
+    public Kind kind() {
+        return kind;
+    }
+
+    public String componentId() {
+        return componentId;
+    }
 }

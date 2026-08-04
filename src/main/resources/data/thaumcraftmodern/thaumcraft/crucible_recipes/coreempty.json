@@ -1,0 +1,16 @@
+{
+  "research": "coreempty",
+  "catalyst": {
+    "item": "thaumcraftmodern:blank_golem_core"
+  },
+  "output": {
+    "item": "thaumcraftmodern:empty_golem_core"
+  },
+  "aspects": {
+    "lucrum": 5,
+    "vacuos": 5
+  },
+  "legacy_id": "CoreEmpty",
+  "inactive": true,
+  "inactive_reason": "output item or its complete gameplay behavior is not implemented"
+}

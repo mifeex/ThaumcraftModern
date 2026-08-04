@@ -2,9 +2,18 @@ package com.thaumcraftmodern.client;
 
 import com.thaumcraftmodern.ThaumcraftModern;
 import com.thaumcraftmodern.client.render.ClassicWandRenderCalibration;
+import com.thaumcraftmodern.client.render.ArcaneWorkbenchBlockEntityRenderer;
+import com.thaumcraftmodern.client.render.RunicMatrixBlockEntityRenderer;
+import com.thaumcraftmodern.client.render.RunicMatrixCubeModel;
+import com.thaumcraftmodern.client.render.ArcanePedestalBlockEntityRenderer;
+import com.thaumcraftmodern.client.render.WandRechargePedestalBlockEntityRenderer;
 import com.thaumcraftmodern.client.render.ClientNodeRenderers;
 import com.thaumcraftmodern.client.render.ResearchTableBlockEntityRenderer;
 import com.thaumcraftmodern.client.render.CrucibleBlockEntityRenderer;
+import com.thaumcraftmodern.client.render.CrystalClusterModel;
+import com.thaumcraftmodern.client.render.CrystalClusterRenderer;
+import com.thaumcraftmodern.client.render.DeconstructionTableBlockEntityRenderer;
+import com.thaumcraftmodern.client.render.DeconstructionTableModel;
 import com.thaumcraftmodern.client.render.ResearchTableModel;
 import com.thaumcraftmodern.client.render.ReloadSafeObjLoader;
 import com.thaumcraftmodern.client.render.EldritchAltarPartRenderer;
@@ -20,12 +29,17 @@ import com.thaumcraftmodern.client.render.EssentiaCrystallizerBlockEntityRendere
 import com.thaumcraftmodern.client.render.EssentiaReservoirBlockEntityRenderer;
 import com.thaumcraftmodern.client.render.ThaumatoriumBlockEntityRenderer;
 import com.thaumcraftmodern.client.render.ClassicManaPodModel;
+import com.thaumcraftmodern.client.render.ThaumaturgeRobeArmorModel;
 import com.thaumcraftmodern.client.render.ManaPodBlockEntityRenderer;
+import com.thaumcraftmodern.client.render.EnergizedAuraNodeBlockEntityRenderer;
+import com.thaumcraftmodern.client.render.NodeDeviceBlockEntityRenderer;
+import com.thaumcraftmodern.client.render.VisRelayBlockEntityRenderer;
 import com.thaumcraftmodern.item.EssentiaCrystalItem;
 import com.thaumcraftmodern.client.render.ArcaneAlembicBlockEntityRenderer;
 import com.thaumcraftmodern.client.render.EtherealBloomCrystalModel;
 import com.thaumcraftmodern.client.screen.ArcaneWorkbenchScreen;
 import com.thaumcraftmodern.client.screen.AlchemicalFurnaceScreen;
+import com.thaumcraftmodern.client.screen.DeconstructionTableScreen;
 import com.thaumcraftmodern.client.screen.ResearchTableScreen;
 import com.thaumcraftmodern.client.screen.PechScreen;
 import com.thaumcraftmodern.client.screen.ThaumatoriumScreen;
@@ -33,6 +47,7 @@ import com.thaumcraftmodern.item.AspectShardItem;
 import com.thaumcraftmodern.item.EtherealEssenceItem;
 import com.thaumcraftmodern.item.EssentiaPhialItem;
 import com.thaumcraftmodern.item.ManaBeanItem;
+import com.thaumcraftmodern.item.ThaumaturgeRobeItem;
 import com.thaumcraftmodern.registry.ModBlockEntities;
 import com.thaumcraftmodern.registry.ModBlocks;
 import com.thaumcraftmodern.registry.ModItems;
@@ -41,6 +56,8 @@ import com.thaumcraftmodern.registry.ModParticles;
 import com.thaumcraftmodern.client.particle.NodeBurstParticle;
 import com.thaumcraftmodern.client.particle.NitorWispParticle;
 import com.thaumcraftmodern.client.particle.EldritchHealParticle;
+import com.thaumcraftmodern.client.particle.TravelSparkleParticle;
+import com.thaumcraftmodern.client.particle.WardingRuneParticle;
 import com.thaumcraftmodern.client.particle.CrucibleBubbleParticle;
 import com.thaumcraftmodern.client.particle.TubeVentParticle;
 import net.minecraft.client.gui.screens.MenuScreens;
@@ -54,6 +71,9 @@ import com.thaumcraftmodern.aspect.AspectDefinition;
 import com.thaumcraftmodern.aspect.AspectRegistryRuntime;
 import com.thaumcraftmodern.world.block.entity.AdvancedEssentiaBufferBlockEntity;
 import com.thaumcraftmodern.world.block.entity.EssentiaTubeBlockEntity;
+import com.thaumcraftmodern.world.block.CrystalClusterBlock;
+import com.thaumcraftmodern.crystal.CrystalClusterVariant;
+import java.util.concurrent.ThreadLocalRandom;
 import net.minecraftforge.client.event.RegisterClientReloadListenersEvent;
 import net.minecraftforge.client.event.RegisterGuiOverlaysEvent;
 import net.minecraftforge.client.event.ModelEvent;
@@ -71,6 +91,10 @@ public final class ClientModEvents {
         event.enqueueWork(() -> {
             MenuScreens.register(ModMenus.RESEARCH_TABLE.get(), ResearchTableScreen::new);
             MenuScreens.register(ModMenus.ARCANE_WORKBENCH.get(), ArcaneWorkbenchScreen::new);
+            MenuScreens.register(
+                    ModMenus.DECONSTRUCTION_TABLE.get(),
+                    DeconstructionTableScreen::new
+            );
             MenuScreens.register(ModMenus.PECH.get(), PechScreen::new);
             MenuScreens.register(
                     ModMenus.ALCHEMICAL_FURNACE.get(),
@@ -136,12 +160,58 @@ public final class ClientModEvents {
                         | ManaBeanItem.color(stack),
                 ModItems.MANA_BEAN.get()
         );
+        event.register(
+                (stack, tintIndex) -> tintIndex == 0
+                        && stack.getItem() instanceof ThaumaturgeRobeItem robe
+                        ? 0xFF000000 | robe.getColor(stack)
+                        : 0xFFFFFFFF,
+                ModItems.THAUMATURGE_ROBE.get(),
+                ModItems.THAUMATURGE_LEGGINGS.get(),
+                ModItems.THAUMATURGE_BOOTS.get()
+        );
+        event.register(
+                (stack, tintIndex) -> tintIndex == 1
+                        ? 0xFF000000
+                                | com.thaumcraftmodern.item.ResearchNotesItem
+                                        .color(stack)
+                        : 0xFFFFFFFF,
+                ModItems.RESEARCH_NOTES.get()
+        );
+        event.register(
+                (stack, tintIndex) -> tintIndex == 1
+                        ? 0xFF000000
+                                | com.thaumcraftmodern.item.DiscoveryItem
+                                        .color(stack)
+                        : 0xFFFFFFFF,
+                ModItems.DISCOVERY.get()
+        );
     }
 
     @SubscribeEvent
     public static void registerBlockColors(
             RegisterColorHandlersEvent.Block event
     ) {
+        event.register(
+                (state, level, position, tintIndex) -> {
+                    if (!(state.getBlock()
+                            instanceof CrystalClusterBlock cluster)) {
+                        return 0xFFFFFF;
+                    }
+                    CrystalClusterVariant variant = cluster.variant();
+                    int crystalIndex = variant
+                            == CrystalClusterVariant.BALANCED
+                            ? ThreadLocalRandom.current().nextInt(1, 7)
+                            : 0;
+                    return variant.crystalColor(crystalIndex);
+                },
+                ModBlocks.AIR_CRYSTAL_CLUSTER.get(),
+                ModBlocks.FIRE_CRYSTAL_CLUSTER.get(),
+                ModBlocks.WATER_CRYSTAL_CLUSTER.get(),
+                ModBlocks.EARTH_CRYSTAL_CLUSTER.get(),
+                ModBlocks.ORDER_CRYSTAL_CLUSTER.get(),
+                ModBlocks.ENTROPY_CRYSTAL_CLUSTER.get(),
+                ModBlocks.BALANCED_CRYSTAL_CLUSTER.get()
+        );
         event.register(
                 (state, level, position, tintIndex) ->
                         level != null && position != null
@@ -192,8 +262,52 @@ public final class ClientModEvents {
                 ModItems.GOGGLES_OF_REVEALING.get()
         );
         event.registerBlockEntityRenderer(
+                ModBlockEntities.ENERGIZED_AURA_NODE.get(),
+                EnergizedAuraNodeBlockEntityRenderer::new
+        );
+        event.registerBlockEntityRenderer(
+                ModBlockEntities.NODE_STABILIZER.get(),
+                NodeDeviceBlockEntityRenderer::new
+        );
+        event.registerBlockEntityRenderer(
+                ModBlockEntities.NODE_TRANSDUCER.get(),
+                NodeDeviceBlockEntityRenderer::new
+        );
+        event.registerBlockEntityRenderer(
+                ModBlockEntities.VIS_RELAY.get(),
+                VisRelayBlockEntityRenderer::new
+        );
+        event.registerBlockEntityRenderer(
+                ModBlockEntities.VIS_CHARGE_RELAY.get(),
+                VisRelayBlockEntityRenderer::new
+        );
+        event.registerBlockEntityRenderer(
+                ModBlockEntities.ARCANE_WORKBENCH.get(),
+                ArcaneWorkbenchBlockEntityRenderer::new
+        );
+        event.registerBlockEntityRenderer(
+                ModBlockEntities.ARCANE_PEDESTAL.get(),
+                ArcanePedestalBlockEntityRenderer::new
+        );
+        event.registerBlockEntityRenderer(
+                ModBlockEntities.WAND_RECHARGE_PEDESTAL.get(),
+                WandRechargePedestalBlockEntityRenderer::new
+        );
+        event.registerBlockEntityRenderer(
+                ModBlockEntities.RUNIC_MATRIX.get(),
+                RunicMatrixBlockEntityRenderer::new
+        );
+        event.registerBlockEntityRenderer(
                 ModBlockEntities.RESEARCH_TABLE.get(),
                 ResearchTableBlockEntityRenderer::new
+        );
+        event.registerBlockEntityRenderer(
+                ModBlockEntities.DECONSTRUCTION_TABLE.get(),
+                DeconstructionTableBlockEntityRenderer::new
+        );
+        event.registerBlockEntityRenderer(
+                ModBlockEntities.CRYSTAL_CLUSTER.get(),
+                CrystalClusterRenderer::new
         );
         event.registerBlockEntityRenderer(
                 ModBlockEntities.CRUCIBLE.get(),
@@ -258,6 +372,10 @@ public final class ClientModEvents {
             EntityRenderersEvent.RegisterLayerDefinitions event
     ) {
         event.registerLayerDefinition(
+                RunicMatrixCubeModel.LAYER,
+                RunicMatrixCubeModel::createBodyLayer
+        );
+        event.registerLayerDefinition(
                 ClassicManaPodModel.LAYER,
                 ClassicManaPodModel::createBodyLayer
         );
@@ -266,12 +384,24 @@ public final class ClientModEvents {
                 ResearchTableModel::createBodyLayer
         );
         event.registerLayerDefinition(
+                DeconstructionTableBlockEntityRenderer.LAYER,
+                DeconstructionTableModel::createBodyLayer
+        );
+        event.registerLayerDefinition(
+                CrystalClusterModel.LAYER,
+                CrystalClusterModel::createBodyLayer
+        );
+        event.registerLayerDefinition(
                 ClassicCentrifugeModel.LAYER,
                 ClassicCentrifugeModel::createBodyLayer
         );
         event.registerLayerDefinition(
                 EtherealBloomCrystalModel.LAYER,
                 EtherealBloomCrystalModel::createBodyLayer
+        );
+        event.registerLayerDefinition(
+                ThaumaturgeRobeArmorModel.OUTER_LAYER,
+                ThaumaturgeRobeArmorModel::createOuterLayer
         );
     }
 
@@ -310,6 +440,31 @@ public final class ClientModEvents {
         event.registerSpriteSet(
                 ModParticles.ELDRITCH_HEAL.get(),
                 EldritchHealParticle.Provider::new
+        );
+        event.registerSpriteSet(
+                ModParticles.TRAVEL_SPARKLE.get(),
+                TravelSparkleParticle.Provider::new
+        );
+        event.registerSpriteSet(
+                ModParticles.WARDING_RUNE_ACTIVE.get(),
+                sprites -> new WardingRuneParticle.Provider(
+                        sprites,
+                        WardingRuneParticle.State.ACTIVE
+                )
+        );
+        event.registerSpriteSet(
+                ModParticles.WARDING_RUNE_DISABLED.get(),
+                sprites -> new WardingRuneParticle.Provider(
+                        sprites,
+                        WardingRuneParticle.State.DISABLED
+                )
+        );
+        event.registerSpriteSet(
+                ModParticles.WARDING_RUNE_BLOCKED.get(),
+                sprites -> new WardingRuneParticle.Provider(
+                        sprites,
+                        WardingRuneParticle.State.BLOCKED
+                )
         );
         event.registerSpriteSet(
                 ModParticles.CRUCIBLE_BUBBLE.get(),

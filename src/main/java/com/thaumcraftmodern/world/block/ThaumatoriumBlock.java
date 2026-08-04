@@ -1,5 +1,6 @@
 package com.thaumcraftmodern.world.block;
 
+import com.thaumcraftmodern.construction.CraftingStructureDisassembly;
 import com.thaumcraftmodern.registry.ModBlockEntities;
 import com.thaumcraftmodern.world.block.entity.ThaumatoriumBlockEntity;
 import net.minecraft.core.BlockPos;
@@ -93,9 +94,13 @@ public final class ThaumatoriumBlock extends BaseEntityBlock {
             }
             BlockPos other = state.getValue(HALF) == DoubleBlockHalf.LOWER
                     ? pos.above() : pos.below();
-            BlockState otherState = level.getBlockState(other);
-            if (otherState.is(this)) {
-                level.setBlock(other, Blocks.AIR.defaultBlockState(), UPDATE_ALL);
+            if (level instanceof ServerLevel server) {
+                CraftingStructureDisassembly.partRemoved(server, pos, state);
+            } else {
+                BlockState otherState = level.getBlockState(other);
+                if (otherState.is(this)) {
+                    level.setBlock(other, Blocks.AIR.defaultBlockState(), UPDATE_ALL);
+                }
             }
         }
         super.onRemove(state, level, pos, replacement, moving);

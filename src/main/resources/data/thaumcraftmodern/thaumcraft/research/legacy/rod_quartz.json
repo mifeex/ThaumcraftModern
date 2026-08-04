@@ -24,12 +24,21 @@
       "body": "tc.research_page.ROD_quartz.1"
     },
     {
-      "type": "unavailable",
-      "title": "",
-      "body": "",
-      "legacy_type": "recipe",
-      "legacy_content": "WandRodQuartz",
-      "source_expression": "new ResearchPage((InfusionRecipe)recipes.get(\"WandRodQuartz\"))"
+      "type": "infusion",
+      "title": "recipe.type.infusion",
+      "output": "thaumcraftmodern:quartz_wand_rod",
+      "central": "minecraft:quartz_block",
+      "components": [
+        {"item": "thaumcraftmodern:balanced_shard", "count": 1},
+        {"item": "thaumcraftmodern:order_shard", "count": 1}
+      ],
+      "aspect_costs": [
+        {"id": "ordo", "amount": 12},
+        {"id": "praecantatio", "amount": 6},
+        {"id": "vitreus", "amount": 6}
+      ],
+      "instability": "minor",
+      "detail": "tc.research_text.ROD_quartz"
     }
   ],
   "purchase_cost": [
@@ -50,8 +59,7 @@
       "amount": 3
     }
   ],
-  "inactive": true,
-  "inactive_reason": "referenced gameplay content is not implemented",
+  "inactive": false,
   "legacy": {
     "x": -5,
     "y": 5,

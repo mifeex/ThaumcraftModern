@@ -91,6 +91,54 @@ final class ThaumonomiconRecipePresentationFidelityTest {
         ));
     }
 
+    @Test
+    void recipePagesCycleThroughEveryIngredientAlternative() throws Exception {
+        String screen = Files.readString(SCREEN);
+        assertTrue(screen.contains("cyclingIngredient(ingredients.get(index), index)"));
+        assertTrue(screen.contains("cyclingIngredient(recipe.catalyst(), 0)"));
+        assertTrue(screen.contains("Util.getMillis() / 1_000L + slotIndex"));
+        assertFalse(screen.contains("renderLinkedItem(graphics, options[0]"));
+    }
+
+    @Test
+    void shapedRecipesKeepTheirCompactPatternWidth() throws Exception {
+        String screen = Files.readString(SCREEN);
+        assertTrue(screen.contains("int recipeWidth = craftingRecipeWidth(recipe)"));
+        assertTrue(screen.contains("recipe instanceof ShapedRecipe shaped"));
+        assertTrue(screen.contains("recipe instanceof ArcaneShapedRecipe shaped"));
+        assertTrue(screen.contains("index % recipeWidth"));
+        assertTrue(screen.contains("index / recipeWidth"));
+    }
+
+    @Test
+    void infusionLayoutUsesTheRequestedCompactVerticalSpacing() throws Exception {
+        String screen = Files.readString(SCREEN);
+        assertTrue(screen.contains("INFUSION_OUTPUT_Y_OFFSET = 10"));
+        assertTrue(screen.contains("INFUSION_MATRIX_Y_OFFSET = 22"));
+        assertTrue(screen.contains("INFUSION_RECIPE_CONTENT_BOTTOM = 156"));
+        assertTrue(screen.contains("INFUSION_SECTION_GAP = 5"));
+        assertTrue(screen.contains("INFUSION_INSTABILITY_Y = 193"));
+        assertTrue(screen.contains(
+                "y + INFUSION_CENTRAL_Y + INFUSION_MATRIX_Y_OFFSET"
+        ));
+        assertTrue(screen.contains(
+                "+ INFUSION_COMPONENT_CENTER_Y\n"
+                        + "                    + INFUSION_MATRIX_Y_OFFSET"
+        ));
+        assertTrue(screen.contains(
+                "aspectBottom + INFUSION_SECTION_GAP"
+        ));
+        assertTrue(screen.contains(
+                "int bottomAlignedAspectTop = y"
+        ));
+        assertTrue(screen.contains(
+                "int aspectTop = Math.max(minimumAspectTop, bottomAlignedAspectTop)"
+        ));
+        assertFalse(screen.contains(
+                "Component.translatable(display.detailKey())"
+        ));
+    }
+
     private static int occurrences(String text, String needle) {
         int count = 0;
         int offset = 0;

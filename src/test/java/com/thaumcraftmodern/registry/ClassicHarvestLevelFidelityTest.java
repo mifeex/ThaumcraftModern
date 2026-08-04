@@ -60,6 +60,7 @@ class ClassicHarvestLevelFidelityTest {
                 id("research_table"),
                 id("thaumcraft_table"),
                 id("arcane_workbench"),
+                id("deconstruction_table"),
                 id("loot_crate"),
                 id("greatwood_log"),
                 id("silverwood_log"),

@@ -2,9 +2,11 @@
   "id": "altslime",
   "legacy_id": "AltSlime",
   "legacy_kind": "crucible",
-  "inactive": true,
-  "inactive_reason": "recipe type or referenced content is not implemented",
-  "modern_recipe": "",
+  "inactive": false,
+  "inactive_reason": null,
+  "modern_recipe": [
+    "thaumcraftmodern:altslime"
+  ],
   "required_aspects": [
     {
       "id": "aqua",

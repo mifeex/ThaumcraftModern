@@ -13,6 +13,14 @@ public interface ArcaneRecipe
 
     ArcaneVisCost visCost();
 
+    default ArcaneVisCost visCost(CraftingContainer container) {
+        return visCost();
+    }
+
+    default List<String> requiredResearchIds(CraftingContainer container) {
+        return researchId().isBlank() ? List.of() : List.of(researchId());
+    }
+
     @Override
     default List<AspectCost> aspectCosts() {
         return visCost().aspectCosts();

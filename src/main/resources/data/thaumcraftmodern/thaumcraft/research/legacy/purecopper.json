@@ -2,7 +2,7 @@
   "id": "purecopper",
   "legacy_id": "PURECOPPER",
   "category": "alchemy",
-  "icon": "thaumcraftmodern:thaumonomicon",
+  "icon": "thaumcraftmodern:native_copper_cluster",
   "title": "tc.research_name.PURECOPPER",
   "subtitle": "tc.research_text.PURECOPPER",
   "concealed": true,
@@ -23,9 +23,10 @@
       "body": "tc.research_page.PURECOPPER.1"
     },
     {
-      "type": "unavailable",
+      "type": "recipe",
       "title": "",
       "body": "",
+      "recipe": "thaumcraftmodern:purecopper",
       "legacy_type": "recipe",
       "legacy_content": "PureCopper",
       "source_expression": "new ResearchPage((CrucibleRecipe)recipes.get(\"PureCopper\"))"
@@ -45,8 +46,8 @@
       "amount": 1
     }
   ],
-  "inactive": true,
-  "inactive_reason": "referenced gameplay content is not implemented",
+  "inactive": false,
+  "inactive_reason": null,
   "legacy": {
     "x": -4,
     "y": 5,

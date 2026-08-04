@@ -2,7 +2,7 @@
   "id": "transcopper",
   "legacy_id": "TRANSCOPPER",
   "category": "alchemy",
-  "icon": "thaumcraftmodern:thaumonomicon",
+  "icon": "thaumcraftmodern:copper_nugget",
   "title": "tc.research_name.TRANSCOPPER",
   "subtitle": "tc.research_text.TRANSCOPPER",
   "concealed": true,
@@ -23,9 +23,10 @@
       "body": "tc.research_page.TRANSCOPPER.1"
     },
     {
-      "type": "unavailable",
+      "type": "recipe",
       "title": "",
       "body": "",
+      "recipe": "thaumcraftmodern:transcopper",
       "legacy_type": "recipe",
       "legacy_content": "TransCopper",
       "source_expression": "new ResearchPage((CrucibleRecipe)recipes.get(\"TransCopper\"))"
@@ -41,8 +42,8 @@
       "amount": 3
     }
   ],
-  "inactive": true,
-  "inactive_reason": "referenced gameplay content is not implemented",
+  "inactive": false,
+  "inactive_reason": null,
   "legacy": {
     "x": 2,
     "y": 5,

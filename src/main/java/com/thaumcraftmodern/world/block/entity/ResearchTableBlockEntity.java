@@ -19,6 +19,7 @@ import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.AABB;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import net.minecraftforge.common.util.LazyOptional;
@@ -65,6 +66,15 @@ public final class ResearchTableBlockEntity extends BlockEntity implements MenuP
 
     public ItemStackHandler items() {
         return items;
+    }
+
+    @Override
+    public AABB getRenderBoundingBox() {
+        // The classic research table BER draws a two-block tabletop plus the
+        // parchment and quill outside the owning block's default unit AABB.
+        // LevelRenderer still frustum-tests this box even though the renderer
+        // itself opts into off-screen rendering.
+        return new AABB(worldPosition).inflate(1.5D, 1.0D, 1.5D);
     }
 
     @Override

@@ -68,6 +68,8 @@ public final class WandComponentRegistry {
                 entry.putString("id", rod.id());
                 entry.putInt("capacity_vis", rod.capacityVis());
                 entry.putString("translation_key", rod.translationKey());
+                entry.putInt("craft_cost_vis", rod.craftCostVis());
+                entry.putString("research", rod.researchId());
                 entry.putInt(
                         "recharge_interval_ticks",
                         rod.rechargeIntervalTicks()
@@ -89,6 +91,8 @@ public final class WandComponentRegistry {
                 entry.putString("id", cap.id());
                 entry.putFloat("cost_modifier", cap.costModifier());
                 entry.putString("translation_key", cap.translationKey());
+                entry.putInt("craft_cost_vis", cap.craftCostVis());
+                entry.putString("research", cap.researchId());
                 entry.putFloat(
                         "special_cost_modifier",
                         cap.specialCostModifier()
@@ -129,6 +133,8 @@ public final class WandComponentRegistry {
                     entry.getString("id"),
                     entry.getInt("capacity_vis"),
                     entry.getString("translation_key"),
+                    entry.getInt("craft_cost_vis"),
+                    entry.getString("research"),
                     rechargeAspects,
                     entry.getInt("recharge_interval_ticks"),
                     entry.getInt("recharge_centivis"),
@@ -150,6 +156,8 @@ public final class WandComponentRegistry {
                     entry.getString("id"),
                     entry.getFloat("cost_modifier"),
                     entry.getString("translation_key"),
+                    entry.getInt("craft_cost_vis"),
+                    entry.getString("research"),
                     specialAspects,
                     entry.contains("special_cost_modifier")
                             ? entry.getFloat("special_cost_modifier")

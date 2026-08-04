@@ -20,7 +20,7 @@ SHA-256 JAR:
 
 SHA-256 в таблицах рассчитан для записи внутри JAR. Статус «Да» означает,
 что современный destination сравнивался с результатом извлечения из JAR и
-совпал побайтно. Всего отобрано 80 исходных файлов: 79 перенесены побайтно,
+совпал побайтно. Всего отобрано 90 исходных файлов: 89 перенесены побайтно,
 один OBJ адаптирован без изменения исходной геометрии корпуса.
 
 ## Иконки аспектов
@@ -89,6 +89,25 @@ SHA-256 в таблицах рассчитан для записи внутри 
 `models/item/goggles_of_revealing.json` является только 1.20.1-обёрткой
 классической 16×16 inventory-текстуры. Геометрию и итоговый armor layer
 необходимо подтвердить клиентским скриншотом.
+
+### Тауматургическая мантия
+
+| Источник внутри JAR | SHA-256 источника | Modern destination | Побайтно |
+|---|---|---|---|
+| `$TC4/textures/items/clothchest.png` | `02ed9d93a73e6c99e02b9d927536e31803415b481a876f2f915694e3222e185c` | `$MOD/textures/item/thaumaturge_robe.png` | Да |
+| `$TC4/textures/items/clothchestover.png` | `47b3c4ea1356bc533bcb5ad2ab0a1cdbde527056393d10987ffdf8a3567215d5` | `$MOD/textures/item/thaumaturge_robe_overlay.png` | Да |
+| `$TC4/textures/items/clothlegs.png` | `6937534e956b8bf80cce11fcb8180da64d16a1d08dab7023dcd532207fbda925` | `$MOD/textures/item/thaumaturge_leggings.png` | Да |
+| `$TC4/textures/items/clothlegsover.png` | `993c1dc086337242f7daf899b25895859d11a7ddf07286c70bb65296520e4aab` | `$MOD/textures/item/thaumaturge_leggings_overlay.png` | Да |
+| `$TC4/textures/items/clothboots.png` | `4ba6f199051e1d4f30e73a36f3fb8c07d193d9740be9166173f64fc784aa048d` | `$MOD/textures/item/thaumaturge_boots.png` | Да |
+| `$TC4/textures/items/clothbootsover.png` | `b0efd723268e0ddcc674a1fd502b0b7451335abbade8cbec0c7e5d376c857893` | `$MOD/textures/item/thaumaturge_boots_overlay.png` | Да |
+| `$TC4/textures/models/robes_1.png` | `e0e1c4923c17f07f984af17790c80b2afd2523b4b5bc1536aa2d50dcc1eee47e` | `$MOD/textures/models/robes_1.png` | Да |
+| `$TC4/textures/models/robes_1_overlay.png` | `2f0cf93617377f85c18fed283cf687bdf5524549f70713239c6bdcceac9b54d5` | `$MOD/textures/models/robes_1_overlay.png` | Да |
+| `$TC4/textures/models/robes_2.png` | `aad4f2dfcf1e255aa8719acf5b87d765bb3416e6a741af920a779d0f0550f526` | `$MOD/textures/models/robes_2.png` | Да |
+| `$TC4/textures/models/robes_2_overlay.png` | `e8b7eabad1e8325cf3a45dc615c276eab097dc27be3b6a252380183f331d4307` | `$MOD/textures/models/robes_2_overlay.png` | Да |
+
+Базовый слой мантии окрашивается оригинальным значением `0x6A3880`, а
+overlay остаётся белым. Итоговый tint inventory и armor layers требует
+клиентского скриншота после полного рестарта.
 
 ### Компоненты и модель жезла
 
@@ -268,7 +287,7 @@ Arcane Workbench имеет статус `COMPILED_NOT_VISUALLY_VERIFIED` до �
 `TileRunicMatrixRenderer` из восьми экземпляров `ModelCube(0)`, уменьшенных до
 `0.45` и разнесённых по углам относительно центра. Современный
 `textures/models/runic_matrix.obj` (SHA-256
-`c97f87d63cae176c5659f872b057577799c106c7a380cd8a9bbd851374614699`)
+`54b28d100d6dd9fd2553fae0bec19810367e56046c06c4c7559be920d3f0c032`)
 является детерминированным экспортом этой runtime-геометрии, а не заявленной
 копией отсутствующего файла. Повторный экспорт выполняет
 `tools/export_tc4_runic_matrix_obj.py`.

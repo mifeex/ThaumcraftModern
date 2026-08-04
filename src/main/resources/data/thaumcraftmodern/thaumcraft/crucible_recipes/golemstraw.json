@@ -1,0 +1,17 @@
+{
+  "research": "golemstraw",
+  "catalyst": {
+    "item": "minecraft:hay_block"
+  },
+  "output": {
+    "item": "thaumcraftmodern:straw_golem"
+  },
+  "aspects": {
+    "humanus": 4,
+    "motus": 4,
+    "spiritus": 4
+  },
+  "legacy_id": "GolemStraw",
+  "inactive": true,
+  "inactive_reason": "output item or its complete gameplay behavior is not implemented"
+}

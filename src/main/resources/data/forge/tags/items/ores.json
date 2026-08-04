@@ -8,6 +8,12 @@
     "thaumcraftmodern:earth_infused_stone",
     "thaumcraftmodern:order_infused_stone",
     "thaumcraftmodern:entropy_infused_stone",
+    "thaumcraftmodern:deepslate_air_infused_stone",
+    "thaumcraftmodern:deepslate_fire_infused_stone",
+    "thaumcraftmodern:deepslate_water_infused_stone",
+    "thaumcraftmodern:deepslate_earth_infused_stone",
+    "thaumcraftmodern:deepslate_order_infused_stone",
+    "thaumcraftmodern:deepslate_entropy_infused_stone",
     "thaumcraftmodern:amber_ore"
   ]
 }

@@ -1,0 +1,17 @@
+{
+  "research": "golemclay",
+  "catalyst": {
+    "item": "minecraft:clay"
+  },
+  "output": {
+    "item": "thaumcraftmodern:clay_golem"
+  },
+  "aspects": {
+    "humanus": 4,
+    "motus": 4,
+    "spiritus": 4
+  },
+  "legacy_id": "GolemClay",
+  "inactive": true,
+  "inactive_reason": "output item or its complete gameplay behavior is not implemented"
+}

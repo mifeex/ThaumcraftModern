@@ -36,6 +36,26 @@ public final class ModParticles {
                     "eldritch_heal",
                     () -> new SimpleParticleType(false)
             );
+    public static final RegistryObject<SimpleParticleType> TRAVEL_SPARKLE =
+            PARTICLES.register(
+                    "travel_sparkle",
+                    () -> new SimpleParticleType(false)
+            );
+    public static final RegistryObject<SimpleParticleType> WARDING_RUNE_ACTIVE =
+            PARTICLES.register(
+                    "warding_rune_active",
+                    () -> new SimpleParticleType(false)
+            );
+    public static final RegistryObject<SimpleParticleType> WARDING_RUNE_DISABLED =
+            PARTICLES.register(
+                    "warding_rune_disabled",
+                    () -> new SimpleParticleType(false)
+            );
+    public static final RegistryObject<SimpleParticleType> WARDING_RUNE_BLOCKED =
+            PARTICLES.register(
+                    "warding_rune_blocked",
+                    () -> new SimpleParticleType(false)
+            );
     public static final RegistryObject<SimpleParticleType> CRUCIBLE_BUBBLE =
             PARTICLES.register(
                     "crucible_bubble",

@@ -2,7 +2,7 @@
   "id": "puregold",
   "legacy_id": "PUREGOLD",
   "category": "alchemy",
-  "icon": "thaumcraftmodern:thaumonomicon",
+  "icon": "thaumcraftmodern:native_gold_cluster",
   "title": "tc.research_name.PUREGOLD",
   "subtitle": "tc.research_text.PUREGOLD",
   "concealed": true,
@@ -23,9 +23,10 @@
       "body": "tc.research_page.PUREGOLD.1"
     },
     {
-      "type": "unavailable",
+      "type": "recipe",
       "title": "",
       "body": "",
+      "recipe": "thaumcraftmodern:puregold",
       "legacy_type": "recipe",
       "legacy_content": "PureGold",
       "source_expression": "new ResearchPage((CrucibleRecipe)recipes.get(\"PureGold\"))"
@@ -45,8 +46,8 @@
       "amount": 1
     }
   ],
-  "inactive": true,
-  "inactive_reason": "referenced gameplay content is not implemented",
+  "inactive": false,
+  "inactive_reason": null,
   "legacy": {
     "x": -4,
     "y": 3,

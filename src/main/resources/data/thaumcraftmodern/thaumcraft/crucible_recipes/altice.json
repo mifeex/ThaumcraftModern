@@ -1,0 +1,14 @@
+{
+  "research": "alchemicalmanufacture",
+  "catalyst": {
+    "item": "minecraft:packed_ice"
+  },
+  "output": {
+    "item": "minecraft:ice"
+  },
+  "aspects": {
+    "ordo": 1,
+    "gelum": 1
+  },
+  "legacy_id": "AltIce"
+}

@@ -2,7 +2,7 @@
   "id": "elementalshovel",
   "legacy_id": "ELEMENTALSHOVEL",
   "category": "artifice",
-  "icon": "thaumcraftmodern:thaumonomicon",
+  "icon": "thaumcraftmodern:shovel_of_the_earthmover",
   "title": "tc.research_name.ELEMENTALSHOVEL",
   "subtitle": "tc.research_text.ELEMENTALSHOVEL",
   "concealed": true,
@@ -24,12 +24,9 @@
       "body": "tc.research_page.ELEMENTALSHOVEL.1"
     },
     {
-      "type": "unavailable",
-      "title": "",
-      "body": "",
-      "legacy_type": "recipe",
-      "legacy_content": "ElementalShovel",
-      "source_expression": "new ResearchPage((InfusionRecipe)recipes.get(\"ElementalShovel\"))"
+      "type":"infusion","title":"recipe.type.infusion","output":"thaumcraftmodern:shovel_of_the_earthmover","central":"thaumcraftmodern:thaumium_shovel",
+      "components":[{"item":"thaumcraftmodern:earth_shard","count":1},{"item":"thaumcraftmodern:earth_shard","count":1},{"item":"minecraft:diamond","count":1},{"item":"thaumcraftmodern:greatwood_log","count":1}],
+      "aspect_costs":[{"id":"terra","amount":16},{"id":"fabrico","amount":8}],"instability":"minor","detail":"tc.research_text.ELEMENTALSHOVEL"
     },
     {
       "type": "text",
@@ -37,8 +34,8 @@
       "body": "tc.research_page.ELEMENTALSHOVEL.2"
     }
   ],
-  "inactive": true,
-  "inactive_reason": "referenced gameplay content is not implemented",
+  "purchase_cost":[{"id":"instrumentum","amount":3},{"id":"terra","amount":3},{"id":"fabrico","amount":3}],
+  "inactive": false,
   "legacy": {
     "x": -7,
     "y": 6,

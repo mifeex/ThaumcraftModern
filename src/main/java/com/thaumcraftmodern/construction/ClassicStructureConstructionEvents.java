@@ -7,6 +7,7 @@ import com.thaumcraftmodern.registry.ModSounds;
 import com.thaumcraftmodern.wand.WandVisService;
 import com.thaumcraftmodern.world.block.ClassicPartBlock;
 import com.thaumcraftmodern.world.block.InfusionPillarBlock;
+import com.thaumcraftmodern.world.block.InfernalFurnaceBlock;
 import com.thaumcraftmodern.world.block.RunicMatrixBlock;
 import com.thaumcraftmodern.world.block.ThaumatoriumBlock;
 import net.minecraft.core.BlockPos;
@@ -307,7 +308,7 @@ public final class ClassicStructureConstructionEvents {
                             return false;
                         }
                     } else if (corner) {
-                        if (!state.is(Blocks.NETHERRACK)) {
+                        if (!state.is(Blocks.NETHER_BRICKS)) {
                             return false;
                         }
                     } else if (y == 1 && isSideCenter(x, z)
@@ -342,7 +343,7 @@ public final class ClassicStructureConstructionEvents {
                             : x + z * 3 + 1;
                     changes.add(new Change(
                             position,
-                            ((ClassicPartBlock) ModBlocks.INFERNAL_FURNACE.get())
+                            ((InfernalFurnaceBlock) ModBlocks.INFERNAL_FURNACE.get())
                                     .stateForPart(part)
                     ));
                 }

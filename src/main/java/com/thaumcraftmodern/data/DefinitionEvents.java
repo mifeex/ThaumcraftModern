@@ -14,6 +14,7 @@ public final class DefinitionEvents {
     public static void addReloadListeners(AddReloadListenerEvent event) {
         event.addListener(new AspectReloadListener());
         event.addListener(new CrucibleRecipeReloadListener());
+        event.addListener(new InfusionRecipeReloadListener());
         event.addListener(new ScanReloadListener());
         event.addListener(new ResearchCategoryReloadListener());
         event.addListener(new ResearchReloadListener());

@@ -2,7 +2,7 @@
   "id": "elementalaxe",
   "legacy_id": "ELEMENTALAXE",
   "category": "artifice",
-  "icon": "thaumcraftmodern:thaumonomicon",
+  "icon": "thaumcraftmodern:axe_of_the_stream",
   "title": "tc.research_name.ELEMENTALAXE",
   "subtitle": "tc.research_text.ELEMENTALAXE",
   "concealed": true,
@@ -24,12 +24,9 @@
       "body": "tc.research_page.ELEMENTALAXE.1"
     },
     {
-      "type": "unavailable",
-      "title": "",
-      "body": "",
-      "legacy_type": "recipe",
-      "legacy_content": "ElementalAxe",
-      "source_expression": "new ResearchPage((InfusionRecipe)recipes.get(\"ElementalAxe\"))"
+      "type":"infusion","title":"recipe.type.infusion","output":"thaumcraftmodern:axe_of_the_stream","central":"thaumcraftmodern:thaumium_axe",
+      "components":[{"item":"thaumcraftmodern:water_shard","count":1},{"item":"thaumcraftmodern:water_shard","count":1},{"item":"minecraft:diamond","count":1},{"item":"thaumcraftmodern:greatwood_log","count":1}],
+      "aspect_costs":[{"id":"aqua","amount":16},{"id":"arbor","amount":8}],"instability":"minor","detail":"tc.research_text.ELEMENTALAXE"
     },
     {
       "type": "text",
@@ -37,8 +34,8 @@
       "body": "tc.research_page.ELEMENTALAXE.2"
     }
   ],
-  "inactive": true,
-  "inactive_reason": "referenced gameplay content is not implemented",
+  "purchase_cost":[{"id":"instrumentum","amount":3},{"id":"aqua","amount":3},{"id":"motus","amount":3}],
+  "inactive": false,
   "legacy": {
     "x": -7,
     "y": 4,

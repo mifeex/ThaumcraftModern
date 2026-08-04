@@ -66,6 +66,9 @@ class WandComponentCatalogTest {
                 1.1F,
                 restored.cap("iron").orElseThrow().costModifier()
         );
+        assertEquals(1, restored.rod("wood").orElseThrow().craftCostVis());
+        assertEquals("cap_iron",
+                restored.cap("iron").orElseThrow().researchId());
     }
 
     static WandComponentCatalog fixtures() {

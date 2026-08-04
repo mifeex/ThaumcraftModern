@@ -1,6 +1,7 @@
 package com.thaumcraftmodern.client;
 
 import com.thaumcraftmodern.scan.AspectReward;
+import com.thaumcraftmodern.aura.PrimalAspect;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.phys.BlockHitResult;
@@ -9,6 +10,7 @@ import org.junit.jupiter.api.Test;
 
 import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -35,6 +37,21 @@ class ClientAspectContainerReadoutTest {
                 ClientAspectContainerReadout.singleAspectContents("aqua", 24));
         assertEquals(List.of(),
                 ClientAspectContainerReadout.singleAspectContents("aqua", 0));
+    }
+
+    @Test
+    void energizedNodeHudUsesItsReducedPrimalVisBase() {
+        assertEquals(
+                List.of(
+                        new AspectReward("aer", 4),
+                        new AspectReward("ignis", 2)
+                ),
+                ClientAspectContainerReadout.energizedNodeContents(Map.of(
+                        PrimalAspect.AER, 4,
+                        PrimalAspect.IGNIS, 2,
+                        PrimalAspect.AQUA, 0
+                ))
+        );
     }
 
     @Test

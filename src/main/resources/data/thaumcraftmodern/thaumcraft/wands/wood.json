@@ -2,5 +2,6 @@
   "kind": "rod",
   "id": "wood",
   "capacity_vis": 25,
+  "craft_cost_vis": 1,
   "translation_key": "item.Wand.wood.rod"
 }

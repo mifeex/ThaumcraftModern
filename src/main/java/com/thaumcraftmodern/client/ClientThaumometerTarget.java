@@ -7,6 +7,7 @@ import com.thaumcraftmodern.aura.AuraNodeState;
 import com.thaumcraftmodern.aura.AuraNodeModifier;
 import com.thaumcraftmodern.knowledge.KnowledgeAccess;
 import com.thaumcraftmodern.nodejar.JarredAuraNodeBlockEntity;
+import com.thaumcraftmodern.visnet.EnergizedAuraNodeBlockEntity;
 import com.thaumcraftmodern.scan.AspectReward;
 import com.thaumcraftmodern.scan.ScanDefinition;
 import com.thaumcraftmodern.scan.ScanRegistry;
@@ -59,6 +60,7 @@ final class ClientThaumometerTarget {
         BlockPos position = blockHit.getBlockPos().immutable();
         BlockState state = minecraft.level.getBlockState(position);
         AuraNodeState.Snapshot nodeSnapshot = null;
+        List<AspectReward> energizedAspects = null;
         Component nodeDisplayName = Component.empty();
         if (minecraft.level.getBlockEntity(position)
                 instanceof AuraNodeBlockEntity node) {
@@ -74,6 +76,15 @@ final class ClientThaumometerTarget {
             nodeDisplayName = Component.translatable(
                     "block.thaumcraftmodern.jarred_aura_node"
             );
+        } else if (minecraft.level.getBlockEntity(position)
+                instanceof EnergizedAuraNodeBlockEntity energized) {
+            nodeSnapshot = energized.originalState().snapshot();
+            energizedAspects =
+                    ClientAspectContainerReadout.energizedNodeContents(
+                            energized.visBase());
+            nodeDisplayName = Component.translatable(
+                    "block.thaumcraftmodern.energized_aura_node"
+            );
         }
         if (nodeSnapshot != null) {
             AuraNodeScanIdentity identity =
@@ -82,7 +93,10 @@ final class ClientThaumometerTarget {
                     .map(knowledge -> knowledge.hasScan(identity.scanKey()))
                     .orElse(false);
             List<AspectReward> aspects = discloseNodeAspects(studied)
-                    ? ClientAspectContainerReadout.nodeContents(nodeSnapshot)
+                    ? energizedAspects != null
+                            ? energizedAspects
+                            : ClientAspectContainerReadout
+                                    .nodeContents(nodeSnapshot)
                     : List.of();
             return Optional.of(new TargetedBlock(
                     position,

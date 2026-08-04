@@ -48,7 +48,7 @@ final class CopperModernIdentityContentTest {
     }
 
     @Test
-    void copperCapRecipeUsesVanillaCopperWithoutAParallelNuggetItem()
+    void copperCapUsesVanillaIngotWhileTc4AlchemyKeepsItsCopperNugget()
             throws IOException {
         JsonObject recipe = json(ROOT.resolve(
                 "src/main/resources/data/thaumcraftmodern/recipes/"
@@ -61,9 +61,9 @@ final class CopperModernIdentityContentTest {
                         .get("item")
                         .getAsString()
         );
-        assertFalse(Files.exists(ROOT.resolve(
+        assertTrue(Files.exists(ROOT.resolve(
                 "src/main/resources/data/forge/tags/items/nuggets/copper.json")));
-        assertFalse(Files.exists(ROOT.resolve(
+        assertTrue(Files.exists(ROOT.resolve(
                 "src/main/resources/assets/thaumcraftmodern/models/item/"
                         + "copper_nugget.json")));
     }

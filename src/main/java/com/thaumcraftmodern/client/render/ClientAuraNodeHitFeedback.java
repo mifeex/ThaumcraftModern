@@ -69,8 +69,10 @@ public final class ClientAuraNodeHitFeedback {
     public static void hideBlockOutline(RenderHighlightEvent.Block event) {
         Level level = Minecraft.getInstance().level;
         if (level != null
-                && level.getBlockState(event.getTarget().getBlockPos())
-                .is(ModBlocks.AURA_NODE.get())) {
+                && (level.getBlockState(event.getTarget().getBlockPos())
+                .is(ModBlocks.AURA_NODE.get())
+                || level.getBlockState(event.getTarget().getBlockPos())
+                .is(ModBlocks.ENERGIZED_AURA_NODE.get()))) {
             event.setCanceled(true);
         }
     }

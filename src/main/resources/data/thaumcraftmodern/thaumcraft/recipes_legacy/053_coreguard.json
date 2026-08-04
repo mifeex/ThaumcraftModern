@@ -3,8 +3,10 @@
   "legacy_id": "CoreGuard",
   "legacy_kind": "crucible",
   "inactive": true,
-  "inactive_reason": "recipe type or referenced content is not implemented",
-  "modern_recipe": "",
+  "inactive_reason": "output item or its complete gameplay behavior is not implemented",
+  "modern_recipe": [
+    "thaumcraftmodern:coreguard"
+  ],
   "required_aspects": [
     {
       "id": "telum",

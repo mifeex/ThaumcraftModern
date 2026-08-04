@@ -2,7 +2,8 @@
   "id": "bottletaint",
   "legacy_id": "BOTTLETAINT",
   "category": "alchemy",
-  "icon": "thaumcraftmodern:thaumonomicon",
+  "icon": "thaumcraftmodern:bottled_taint",
+  "completion_warp": 2,
   "title": "tc.research_name.BOTTLETAINT",
   "subtitle": "tc.research_text.BOTTLETAINT",
   "concealed": true,
@@ -24,16 +25,17 @@
       "body": "tc.research_page.BOTTLETAINT.1"
     },
     {
-      "type": "unavailable",
+      "type": "recipe",
       "title": "",
       "body": "",
+      "recipe": "thaumcraftmodern:bottletaint",
       "legacy_type": "recipe",
       "legacy_content": "BottleTaint",
       "source_expression": "new ResearchPage((CrucibleRecipe)recipes.get(\"BottleTaint\"))"
     }
   ],
-  "inactive": true,
-  "inactive_reason": "referenced gameplay content is not implemented",
+  "inactive": false,
+  "inactive_reason": null,
   "legacy": {
     "x": -8,
     "y": 1,

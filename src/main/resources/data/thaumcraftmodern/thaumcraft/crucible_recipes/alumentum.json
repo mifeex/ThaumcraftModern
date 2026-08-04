@@ -1,1 +1,15 @@
-{"research":"alumentum","catalyst":{"tag":"minecraft:coals"},"output":{"item":"thaumcraftmodern:alumentum"},"aspects":{"potentia":3,"ignis":3,"perditio":3}}
+{
+  "research": "alumentum",
+  "catalyst": {
+    "tag": "minecraft:coals"
+  },
+  "output": {
+    "item": "thaumcraftmodern:alumentum"
+  },
+  "aspects": {
+    "potentia": 3,
+    "ignis": 3,
+    "perditio": 3
+  },
+  "legacy_id": "Alumentum"
+}

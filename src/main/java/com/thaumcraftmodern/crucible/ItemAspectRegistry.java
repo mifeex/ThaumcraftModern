@@ -5,6 +5,7 @@ import com.thaumcraftmodern.scan.ScanRegistry;
 import net.minecraft.world.item.ItemStack;
 
 import java.util.LinkedHashMap;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -28,6 +29,6 @@ public final class ItemAspectRegistry {
                     Math::addExact
             );
         }
-        return Map.copyOf(aspects);
+        return Collections.unmodifiableMap(new LinkedHashMap<>(aspects));
     }
 }

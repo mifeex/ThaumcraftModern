@@ -5,7 +5,9 @@ import com.thaumcraftmodern.entity.LegacyMobKind;
 import com.thaumcraftmodern.entity.LegacyThaumcraftMob;
 import com.thaumcraftmodern.entity.EldritchOrbEntity;
 import com.thaumcraftmodern.entity.AlumentumEntity;
+import com.thaumcraftmodern.entity.BottledTaintProjectile;
 import com.thaumcraftmodern.entity.PechBlastEntity;
+import com.thaumcraftmodern.entity.FacelessWitnessEntity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
 import net.minecraftforge.eventbus.api.IEventBus;
@@ -56,6 +58,17 @@ public final class ModEntities {
                                     ThaumcraftModern.MOD_ID + ":alumentum"
                             )
             );
+    public static final RegistryObject<EntityType<BottledTaintProjectile>>
+            BOTTLED_TAINT = ENTITY_TYPES.register(
+                    "bottled_taint",
+                    () -> EntityType.Builder.<BottledTaintProjectile>of(
+                                    BottledTaintProjectile::new,
+                                    MobCategory.MISC
+                            ).sized(0.25F, 0.25F)
+                            .clientTrackingRange(4)
+                            .updateInterval(10)
+                            .build(ThaumcraftModern.MOD_ID + ":bottled_taint")
+            );
     public static final RegistryObject<EntityType<PechBlastEntity>>
             PECH_BLAST = ENTITY_TYPES.register(
                     "pech_blast",
@@ -68,6 +81,21 @@ public final class ModEntities {
                             .updateInterval(10)
                             .build(
                                     ThaumcraftModern.MOD_ID + ":pech_blast"
+                            )
+            );
+    public static final RegistryObject<EntityType<FacelessWitnessEntity>>
+            FACELESS_WITNESS = ENTITY_TYPES.register(
+                    "faceless_witness",
+                    () -> EntityType.Builder.<FacelessWitnessEntity>of(
+                                    FacelessWitnessEntity::new,
+                                    MobCategory.MONSTER
+                            )
+                            .sized(0.8F, 2.7F)
+                            .clientTrackingRange(10)
+                            .updateInterval(3)
+                            .build(
+                                    ThaumcraftModern.MOD_ID
+                                            + ":faceless_witness"
                             )
             );
 

@@ -3,6 +3,7 @@ package com.thaumcraftmodern.registry;
 import com.thaumcraftmodern.ThaumcraftModern;
 import com.thaumcraftmodern.world.menu.ArcaneWorkbenchMenu;
 import com.thaumcraftmodern.world.menu.AlchemicalFurnaceMenu;
+import com.thaumcraftmodern.world.menu.DeconstructionTableMenu;
 import com.thaumcraftmodern.world.menu.ResearchTableMenu;
 import com.thaumcraftmodern.world.menu.PechMenu;
 import com.thaumcraftmodern.world.menu.ThaumatoriumMenu;
@@ -23,6 +24,13 @@ public final class ModMenus {
             MENUS.register(
                     "arcane_workbench",
                     () -> IForgeMenuType.create(ArcaneWorkbenchMenu::fromNetwork)
+            );
+    public static final RegistryObject<MenuType<DeconstructionTableMenu>>
+            DECONSTRUCTION_TABLE = MENUS.register(
+                    "deconstruction_table",
+                    () -> IForgeMenuType.create(
+                            DeconstructionTableMenu::fromNetwork
+                    )
             );
     public static final RegistryObject<MenuType<PechMenu>> PECH =
             MENUS.register(

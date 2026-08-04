@@ -2,6 +2,7 @@
   "kind": "rod",
   "id": "greatwood_staff",
   "capacity_vis": 125,
+  "craft_cost_vis": 8,
   "staff": true,
   "translation_key": "item.Wand.greatwood.rod"
 }

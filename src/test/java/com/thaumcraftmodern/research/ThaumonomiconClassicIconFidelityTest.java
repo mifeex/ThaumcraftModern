@@ -59,7 +59,7 @@ class ThaumonomiconClassicIconFidelityTest {
                         + "ThaumonomiconScreen.java"
         ));
         assertTrue(screen.contains(
-                "renderResearchIcon(graphics, research, x, y, frameTint);"
+                "renderResearchIcon(graphics, research, x, y, iconTint);"
         ));
         assertTrue(screen.contains("drawTintedItemCentered("));
         assertFalse(screen.contains("\"?\""));

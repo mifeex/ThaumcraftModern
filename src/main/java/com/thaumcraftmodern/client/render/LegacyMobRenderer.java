@@ -5,7 +5,6 @@ import com.thaumcraftmodern.ThaumcraftModern;
 import com.thaumcraftmodern.entity.LegacyMobKind;
 import com.thaumcraftmodern.entity.LegacyThaumcraftMob;
 import net.minecraft.client.model.HumanoidModel;
-import net.minecraft.client.model.geom.ModelLayers;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.HumanoidMobRenderer;
 import net.minecraft.resources.ResourceLocation;
@@ -16,7 +15,9 @@ public final class LegacyMobRenderer extends HumanoidMobRenderer<
     public LegacyMobRenderer(EntityRendererProvider.Context context) {
         super(
                 context,
-                new HumanoidModel<>(context.bakeLayer(ModelLayers.ZOMBIE)),
+                new CrimsonCultistModel(
+                        context.bakeLayer(CrimsonCultistModel.LAYER)
+                ),
                 0.5F
         );
         addLayer(new CrimsonCultArmorLayer(
@@ -32,11 +33,6 @@ public final class LegacyMobRenderer extends HumanoidMobRenderer<
                 ),
                 new CrimsonCultArmorModel(
                         context.bakeLayer(CrimsonCultArmorModel.BOOTS_LAYER)
-                ),
-                new CrimsonCultArmorModel(
-                        context.bakeLayer(
-                                CrimsonCultArmorModel.ARM_UNDERLAY_LAYER
-                        )
                 )
         ));
     }

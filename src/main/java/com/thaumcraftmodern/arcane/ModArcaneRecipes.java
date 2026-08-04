@@ -3,6 +3,8 @@ package com.thaumcraftmodern.arcane;
 import com.thaumcraftmodern.ThaumcraftModern;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.crafting.RecipeSerializer;
+import com.thaumcraftmodern.alchemy.DoubleSmeltingRecipe;
+import com.thaumcraftmodern.alchemy.DoubleBlastingRecipe;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.registries.DeferredRegister;
@@ -31,6 +33,26 @@ public final class ModArcaneRecipes {
             ARCANE_SHAPELESS_SERIALIZER = RECIPE_SERIALIZERS.register(
                     "arcane_shapeless",
                     ArcaneShapelessRecipe.Serializer::new
+            );
+    public static final RegistryObject<RecipeSerializer<ArcaneWandAssemblyRecipe>>
+            ARCANE_WAND_ASSEMBLY_SERIALIZER = RECIPE_SERIALIZERS.register(
+                    "arcane_wand_assembly",
+                    () -> new ArcaneWandAssemblyRecipe.Serializer(false)
+            );
+    public static final RegistryObject<RecipeSerializer<ArcaneWandAssemblyRecipe>>
+            ARCANE_SCEPTRE_ASSEMBLY_SERIALIZER = RECIPE_SERIALIZERS.register(
+                    "arcane_sceptre_assembly",
+                    () -> new ArcaneWandAssemblyRecipe.Serializer(true)
+            );
+    public static final RegistryObject<RecipeSerializer<DoubleSmeltingRecipe>>
+            DOUBLE_SMELTING_SERIALIZER = RECIPE_SERIALIZERS.register(
+                    "double_smelting",
+                    DoubleSmeltingRecipe.Serializer::new
+            );
+    public static final RegistryObject<RecipeSerializer<DoubleBlastingRecipe>>
+            DOUBLE_BLASTING_SERIALIZER = RECIPE_SERIALIZERS.register(
+                    "double_blasting",
+                    DoubleBlastingRecipe.Serializer::new
             );
 
     private ModArcaneRecipes() {

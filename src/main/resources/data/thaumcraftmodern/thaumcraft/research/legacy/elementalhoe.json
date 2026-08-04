@@ -2,7 +2,7 @@
   "id": "elementalhoe",
   "legacy_id": "ELEMENTALHOE",
   "category": "artifice",
-  "icon": "thaumcraftmodern:thaumonomicon",
+  "icon": "thaumcraftmodern:hoe_of_growth",
   "title": "tc.research_name.ELEMENTALHOE",
   "subtitle": "tc.research_text.ELEMENTALHOE",
   "concealed": true,
@@ -24,16 +24,13 @@
       "body": "tc.research_page.ELEMENTALHOE.1"
     },
     {
-      "type": "unavailable",
-      "title": "",
-      "body": "",
-      "legacy_type": "recipe",
-      "legacy_content": "ElementalHoe",
-      "source_expression": "new ResearchPage((InfusionRecipe)recipes.get(\"ElementalHoe\"))"
+      "type":"infusion","title":"recipe.type.infusion","output":"thaumcraftmodern:hoe_of_growth","central":"thaumcraftmodern:thaumium_hoe",
+      "components":[{"item":"thaumcraftmodern:order_shard","count":1},{"item":"thaumcraftmodern:entropy_shard","count":1},{"item":"minecraft:diamond","count":1},{"item":"thaumcraftmodern:greatwood_log","count":1}],
+      "aspect_costs":[{"id":"meto","amount":8},{"id":"herba","amount":8},{"id":"terra","amount":8}],"instability":"minor","detail":"tc.research_text.ELEMENTALHOE"
     }
   ],
-  "inactive": true,
-  "inactive_reason": "referenced gameplay content is not implemented",
+  "purchase_cost":[{"id":"instrumentum","amount":3},{"id":"victus","amount":3},{"id":"messis","amount":3}],
+  "inactive": false,
   "legacy": {
     "x": -7,
     "y": 7,

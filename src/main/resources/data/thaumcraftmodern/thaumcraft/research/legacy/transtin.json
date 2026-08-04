@@ -2,7 +2,7 @@
   "id": "transtin",
   "legacy_id": "TRANSTIN",
   "category": "alchemy",
-  "icon": "thaumcraftmodern:thaumonomicon",
+  "icon": "thaumcraftmodern:tin_nugget",
   "title": "tc.research_name.TRANSTIN",
   "subtitle": "tc.research_text.TRANSTIN",
   "concealed": true,
@@ -23,9 +23,10 @@
       "body": "tc.research_page.TRANSTIN.1"
     },
     {
-      "type": "unavailable",
+      "type": "recipe",
       "title": "",
       "body": "",
+      "recipe": "thaumcraftmodern:transtin",
       "legacy_type": "recipe",
       "legacy_content": "TransTin",
       "source_expression": "new ResearchPage((CrucibleRecipe)recipes.get(\"TransTin\"))"
@@ -45,8 +46,8 @@
       "amount": 1
     }
   ],
-  "inactive": true,
-  "inactive_reason": "referenced gameplay content is not implemented",
+  "inactive": false,
+  "inactive_reason": null,
   "legacy": {
     "x": 2,
     "y": 7,

@@ -24,12 +24,21 @@
       "body": "tc.research_page.ROD_blaze.1"
     },
     {
-      "type": "unavailable",
-      "title": "",
-      "body": "",
-      "legacy_type": "recipe",
-      "legacy_content": "WandRodBlaze",
-      "source_expression": "new ResearchPage((InfusionRecipe)recipes.get(\"WandRodBlaze\"))"
+      "type": "infusion",
+      "title": "recipe.type.infusion",
+      "output": "thaumcraftmodern:blaze_wand_rod",
+      "central": "minecraft:blaze_rod",
+      "components": [
+        {"item": "thaumcraftmodern:balanced_shard", "count": 1},
+        {"item": "thaumcraftmodern:fire_shard", "count": 1}
+      ],
+      "aspect_costs": [
+        {"id": "ignis", "amount": 12},
+        {"id": "praecantatio", "amount": 6},
+        {"id": "bestia", "amount": 6}
+      ],
+      "instability": "minor",
+      "detail": "tc.research_text.ROD_blaze"
     }
   ],
   "purchase_cost": [
@@ -50,8 +59,7 @@
       "amount": 3
     }
   ],
-  "inactive": true,
-  "inactive_reason": "referenced gameplay content is not implemented",
+  "inactive": false,
   "legacy": {
     "x": -7,
     "y": 0,

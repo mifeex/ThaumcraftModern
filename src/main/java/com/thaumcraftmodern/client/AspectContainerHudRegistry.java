@@ -2,6 +2,7 @@ package com.thaumcraftmodern.client;
 
 import com.thaumcraftmodern.aura.AuraNodeBlockEntity;
 import com.thaumcraftmodern.nodejar.JarredAuraNodeBlockEntity;
+import com.thaumcraftmodern.visnet.EnergizedAuraNodeBlockEntity;
 import com.thaumcraftmodern.scan.AspectReward;
 import com.thaumcraftmodern.world.block.entity.ArcaneAlembicBlockEntity;
 import com.thaumcraftmodern.world.block.entity.AdvancedEssentiaBufferBlockEntity;
@@ -12,6 +13,7 @@ import com.thaumcraftmodern.world.block.entity.EssentiaBufferBlockEntity;
 import com.thaumcraftmodern.world.block.entity.EssentiaCentrifugeBlockEntity;
 import com.thaumcraftmodern.world.block.entity.EssentiaCrystallizerBlockEntity;
 import com.thaumcraftmodern.world.block.entity.EssentiaReservoirBlockEntity;
+import com.thaumcraftmodern.world.block.entity.RunicMatrixBlockEntity;
 import com.thaumcraftmodern.world.block.entity.ThaumatoriumBlockEntity;
 import com.thaumcraftmodern.world.block.entity.VoidJarBlockEntity;
 import net.minecraft.core.BlockPos;
@@ -47,6 +49,13 @@ public final class AspectContainerHudRegistry {
                                 data.node().snapshot()),
                         aboveBlock(hit.getBlockPos(),
                                 ClientAspectContainerReadout.DEFAULT_HUD_ANCHOR_HEIGHT))));
+        register(EnergizedAuraNodeBlockEntity.class, (node, hit) ->
+                Optional.of(new Readout(
+                        ClientAspectContainerReadout.energizedNodeContents(
+                                node.visBase()),
+                        aboveBlock(hit.getBlockPos(),
+                                ClientAspectContainerReadout
+                                        .DEFAULT_HUD_ANCHOR_HEIGHT))));
         register(CrucibleBlockEntity.class, (crucible, hit) -> Optional.of(
                 new Readout(
                         ClientAspectContainerReadout.crucibleContents(
@@ -97,6 +106,12 @@ public final class AspectContainerHudRegistry {
         register(ThaumatoriumBlockEntity.class, (machine, hit) -> Optional.of(
                 new Readout(ClientAspectContainerReadout.crucibleContents(
                         machine.reservedEssentia()), onHitFace(hit))));
+        register(RunicMatrixBlockEntity.class, (matrix, hit) -> Optional.of(
+                new Readout(ClientAspectContainerReadout.crucibleContents(
+                        matrix.remainingEssentia()),
+                        aboveBlock(hit.getBlockPos(),
+                                ClientAspectContainerReadout
+                                        .DEFAULT_HUD_ANCHOR_HEIGHT))));
         register(EssentiaTubeBlockEntity.class, (tube, hit) ->
                 tube.filter() == null ? Optional.empty()
                         : Optional.of(new Readout(

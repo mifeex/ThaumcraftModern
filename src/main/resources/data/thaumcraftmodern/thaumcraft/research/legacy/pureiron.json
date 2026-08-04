@@ -2,7 +2,7 @@
   "id": "pureiron",
   "legacy_id": "PUREIRON",
   "category": "alchemy",
-  "icon": "thaumcraftmodern:thaumonomicon",
+  "icon": "thaumcraftmodern:native_iron_cluster",
   "title": "tc.research_name.PUREIRON",
   "subtitle": "tc.research_text.PUREIRON",
   "concealed": true,
@@ -23,16 +23,17 @@
       "body": "tc.research_page.PUREIRON.1"
     },
     {
-      "type": "unavailable",
+      "type": "recipe",
       "title": "",
       "body": "",
+      "recipe": "thaumcraftmodern:pureiron",
       "legacy_type": "recipe",
       "legacy_content": "PureIron",
       "source_expression": "new ResearchPage((CrucibleRecipe)recipes.get(\"PureIron\"))"
     }
   ],
-  "inactive": true,
-  "inactive_reason": "referenced gameplay content is not implemented",
+  "inactive": false,
+  "inactive_reason": null,
   "legacy": {
     "x": -2,
     "y": 5,

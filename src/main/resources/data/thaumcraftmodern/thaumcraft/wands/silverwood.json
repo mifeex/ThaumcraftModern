@@ -2,5 +2,6 @@
   "kind": "rod",
   "id": "silverwood",
   "capacity_vis": 100,
+  "craft_cost_vis": 9,
   "translation_key": "item.Wand.silverwood.rod"
 }

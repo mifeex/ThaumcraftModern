@@ -127,6 +127,64 @@ public final class ClassicWandItemRenderer
                     calibration.primaryCapTip()
             );
         }
+        renderAssembledTool(
+                wand,
+                state,
+                poseStack,
+                buffers,
+                rodTexture,
+                capTexture,
+                packedLight,
+                packedOverlay
+        );
+        poseStack.popPose();
+    }
+
+    /** Renders an assembled tool with TC4's exact workbench placement. */
+    public void renderOnArcaneWorkbench(
+            ItemStack stack,
+            PoseStack poseStack,
+            MultiBufferSource buffers,
+            int packedLight,
+            int packedOverlay
+    ) {
+        if (!(stack.getItem() instanceof WandItem wand)) {
+            return;
+        }
+        WandState state = WandVisService.state(stack).orElse(null);
+        if (state == null) {
+            return;
+        }
+
+        ResourceLocation rodTexture = rodTexture(state.rodId());
+        ResourceLocation capTexture = componentTexture(
+                "wand_cap_" + state.capId() + "_model"
+        );
+        poseStack.pushPose();
+        ArcaneWorkbenchWandTransform.apply(poseStack, wand.form());
+        renderAssembledTool(
+                wand,
+                state,
+                poseStack,
+                buffers,
+                rodTexture,
+                capTexture,
+                packedLight,
+                packedOverlay
+        );
+        poseStack.popPose();
+    }
+
+    private void renderAssembledTool(
+            WandItem wand,
+            WandState state,
+            PoseStack poseStack,
+            MultiBufferSource buffers,
+            ResourceLocation rodTexture,
+            ResourceLocation capTexture,
+            int packedLight,
+            int packedOverlay
+    ) {
         switch (wand.form()) {
             case WAND -> renderWand(
                     poseStack,
@@ -180,7 +238,6 @@ public final class ClassicWandItemRenderer
             renderStaffRunes(poseStack, buffers, packedOverlay, time);
             poseStack.popPose();
         }
-        poseStack.popPose();
     }
 
     private static void translate(

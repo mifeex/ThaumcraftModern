@@ -2,7 +2,7 @@
   "id": "transsilver",
   "legacy_id": "TRANSSILVER",
   "category": "alchemy",
-  "icon": "thaumcraftmodern:thaumonomicon",
+  "icon": "thaumcraftmodern:silver_nugget",
   "title": "tc.research_name.TRANSSILVER",
   "subtitle": "tc.research_text.TRANSSILVER",
   "concealed": true,
@@ -23,9 +23,10 @@
       "body": "tc.research_page.TRANSSILVER.1"
     },
     {
-      "type": "unavailable",
+      "type": "recipe",
       "title": "",
       "body": "",
+      "recipe": "thaumcraftmodern:transsilver",
       "legacy_type": "recipe",
       "legacy_content": "TransSilver",
       "source_expression": "new ResearchPage((CrucibleRecipe)recipes.get(\"TransSilver\"))"
@@ -45,8 +46,8 @@
       "amount": 1
     }
   ],
-  "inactive": true,
-  "inactive_reason": "referenced gameplay content is not implemented",
+  "inactive": false,
+  "inactive_reason": null,
   "legacy": {
     "x": 1,
     "y": 8,

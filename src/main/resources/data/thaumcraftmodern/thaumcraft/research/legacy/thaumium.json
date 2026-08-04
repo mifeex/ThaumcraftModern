@@ -2,7 +2,7 @@
   "id": "thaumium",
   "legacy_id": "THAUMIUM",
   "category": "alchemy",
-  "icon": "thaumcraftmodern:thaumonomicon",
+  "icon": "thaumcraftmodern:thaumium_ingot",
   "title": "tc.research_name.THAUMIUM",
   "subtitle": "tc.research_text.THAUMIUM",
   "concealed": true,
@@ -24,88 +24,62 @@
       "body": "tc.research_page.THAUMIUM.1"
     },
     {
-      "type": "unavailable",
+      "type": "recipe",
       "title": "",
-      "body": "",
-      "legacy_type": "recipe",
-      "legacy_content": "Thaumium",
-      "source_expression": "new ResearchPage((CrucibleRecipe)recipes.get(\"Thaumium\"))"
+      "recipe": "thaumcraftmodern:thaumium"
     },
     {
-      "type": "unavailable",
+      "type": "recipe",
       "title": "",
-      "body": "",
-      "legacy_type": "recipe",
-      "legacy_content": "ThaumiumAxe",
-      "source_expression": "new ResearchPage((IRecipe)recipes.get(\"ThaumiumAxe\"))"
+      "recipe": "thaumcraftmodern:thaumium_block"
     },
     {
-      "type": "unavailable",
+      "type": "recipe",
       "title": "",
-      "body": "",
-      "legacy_type": "recipe",
-      "legacy_content": "ThaumiumSword",
-      "source_expression": "new ResearchPage((IRecipe)recipes.get(\"ThaumiumSword\"))"
+      "recipe": "thaumcraftmodern:thaumium_axe"
     },
     {
-      "type": "unavailable",
+      "type": "recipe",
       "title": "",
-      "body": "",
-      "legacy_type": "recipe",
-      "legacy_content": "ThaumiumPick",
-      "source_expression": "new ResearchPage((IRecipe)recipes.get(\"ThaumiumPick\"))"
+      "recipe": "thaumcraftmodern:thaumium_sword"
     },
     {
-      "type": "unavailable",
+      "type": "recipe",
       "title": "",
-      "body": "",
-      "legacy_type": "recipe",
-      "legacy_content": "ThaumiumShovel",
-      "source_expression": "new ResearchPage((IRecipe)recipes.get(\"ThaumiumShovel\"))"
+      "recipe": "thaumcraftmodern:thaumium_pickaxe"
     },
     {
-      "type": "unavailable",
+      "type": "recipe",
       "title": "",
-      "body": "",
-      "legacy_type": "recipe",
-      "legacy_content": "ThaumiumHoe",
-      "source_expression": "new ResearchPage((IRecipe)recipes.get(\"ThaumiumHoe\"))"
+      "recipe": "thaumcraftmodern:thaumium_shovel"
     },
     {
-      "type": "unavailable",
+      "type": "recipe",
       "title": "",
-      "body": "",
-      "legacy_type": "recipe",
-      "legacy_content": "ThaumiumHelm",
-      "source_expression": "new ResearchPage((IRecipe)recipes.get(\"ThaumiumHelm\"))"
+      "recipe": "thaumcraftmodern:thaumium_hoe"
     },
     {
-      "type": "unavailable",
+      "type": "recipe",
       "title": "",
-      "body": "",
-      "legacy_type": "recipe",
-      "legacy_content": "ThaumiumChest",
-      "source_expression": "new ResearchPage((IRecipe)recipes.get(\"ThaumiumChest\"))"
+      "recipe": "thaumcraftmodern:thaumium_helmet"
     },
     {
-      "type": "unavailable",
+      "type": "recipe",
       "title": "",
-      "body": "",
-      "legacy_type": "recipe",
-      "legacy_content": "ThaumiumLegs",
-      "source_expression": "new ResearchPage((IRecipe)recipes.get(\"ThaumiumLegs\"))"
+      "recipe": "thaumcraftmodern:thaumium_chestplate"
     },
     {
-      "type": "unavailable",
+      "type": "recipe",
       "title": "",
-      "body": "",
-      "legacy_type": "recipe",
-      "legacy_content": "ThaumiumBoots",
-      "source_expression": "new ResearchPage((IRecipe)recipes.get(\"ThaumiumBoots\"))"
+      "recipe": "thaumcraftmodern:thaumium_leggings"
+    },
+    {
+      "type": "recipe",
+      "title": "",
+      "recipe": "thaumcraftmodern:thaumium_boots"
     }
   ],
-  "inactive": true,
-  "inactive_reason": "referenced gameplay content is not implemented",
+  "inactive": false,
   "legacy": {
     "x": -1,
     "y": 3,

@@ -91,12 +91,16 @@ def main() -> None:
                     x, y, z = transformed(vertex, a, b, c)
                     lines.append(f"v {x:.6f} {y:.6f} {z:.6f}")
                 for _, (u0, v0, u1, v1) in FACES:
+                    # Wavefront V grows from the bottom, while ModelRenderer's
+                    # texture rows grow from the top. LegacyObjMesh performs
+                    # the standard OBJ V flip when loading, so write the
+                    # generated ModelRenderer coordinates in OBJ space here.
                     lines.extend(
                         (
-                            f"vt {u0:.6f} {v1:.6f}",
-                            f"vt {u1:.6f} {v1:.6f}",
-                            f"vt {u1:.6f} {v0:.6f}",
-                            f"vt {u0:.6f} {v0:.6f}",
+                            f"vt {u0:.6f} {1.0 - v1:.6f}",
+                            f"vt {u1:.6f} {1.0 - v1:.6f}",
+                            f"vt {u1:.6f} {1.0 - v0:.6f}",
+                            f"vt {u0:.6f} {1.0 - v0:.6f}",
                         )
                     )
                 for face_index, (indices, _) in enumerate(FACES):

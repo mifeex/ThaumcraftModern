@@ -8,7 +8,7 @@
       "amount": 2
     }
   ],
-  "inactive": true,
+  "inactive": false,
   "legacy": {
     "registration_mode": "explicit",
     "target_kind": "item_stack",
@@ -28,6 +28,5 @@
       }
     ],
     "source_expression": "ThaumcraftApi.registerObjectTag(new ItemStack(ConfigItems.itemWispEssence, 1, 0), (new AspectList()).add(Aspect.AURA, 2))"
-  },
-  "inactive_reason": "multiple legacy registrations collapse to one modern target"
+  }
 }

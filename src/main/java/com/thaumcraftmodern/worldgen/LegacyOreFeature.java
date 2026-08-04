@@ -88,9 +88,25 @@ public final class LegacyOreFeature extends Feature<NoneFeatureConfiguration> {
             );
         }
 
-        for (int attempt = 0;
-             attempt < ThaumcraftModernServerConfig.infusedStoneAttempts();
-             attempt++) {
+        int baseInfusedAttempts = ThaumcraftModernServerConfig.infusedStoneAttempts();
+        int upperAttempts = InfusedStoneGenerationPolicy.scaledAttemptCount(
+                baseInfusedAttempts, InfusedStoneGenerationPolicy.UPPER_PERCENT,
+                random);
+        int deepslateAttempts = InfusedStoneGenerationPolicy.scaledAttemptCount(
+                baseInfusedAttempts, InfusedStoneGenerationPolicy.DEEPSLATE_PERCENT,
+                random);
+        placed += placeInfusedStoneBand(level, random, chunkMinX, chunkMinZ,
+                upperAttempts, 0, Integer.MAX_VALUE);
+        placed += placeInfusedStoneBand(level, random, chunkMinX, chunkMinZ,
+                deepslateAttempts, level.getMinBuildHeight() + 8, -1);
+        return placed > 0;
+    }
+
+    private static int placeInfusedStoneBand(WorldGenLevel level,
+            RandomSource random, int chunkMinX, int chunkMinZ, int attempts,
+            int bandMinimum, int bandMaximum) {
+        int placed = 0;
+        for (int attempt = 0; attempt < attempts; attempt++) {
             int x = chunkMinX + random.nextInt(16);
             int z = chunkMinZ + random.nextInt(16);
             int surface = level.getHeight(
@@ -98,19 +114,17 @@ public final class LegacyOreFeature extends Feature<NoneFeatureConfiguration> {
                     x,
                     z
             );
-            int minimum = level.getMinBuildHeight() + 8;
-            int maximum = Math.max(minimum, surface - 6);
+            int minimum = Math.max(level.getMinBuildHeight() + 8, bandMinimum);
+            int maximum = Math.min(surface - 6, bandMaximum);
+            if (maximum < minimum) continue;
             int y = minimum + random.nextInt(maximum - minimum + 1);
             int aspect = random.nextInt(INFUSED_STONES.size());
             if (random.nextInt(3) == 0) {
                 aspect = biomeAspect(level.getBiome(new BlockPos(x, y, z)), random);
             }
-            BlockState ore = INFUSED_STONES.get(aspect)
-                    .get()
-                    .defaultBlockState();
             BlockPos.MutableBlockPos cursor = new BlockPos.MutableBlockPos(x, y, z);
             for (int veinBlock = 0; veinBlock < 6; veinBlock++) {
-                placed += replaceOre(level, cursor, ore);
+                placed += replaceInfusedOre(level, cursor, aspect);
                 cursor.move(
                         random.nextInt(3) - 1,
                         random.nextInt(3) - 1,
@@ -118,7 +132,7 @@ public final class LegacyOreFeature extends Feature<NoneFeatureConfiguration> {
                 );
             }
         }
-        return placed > 0;
+        return placed;
     }
 
     private static int replaceOre(
@@ -135,6 +149,46 @@ public final class LegacyOreFeature extends Feature<NoneFeatureConfiguration> {
             return 0;
         }
         return level.setBlock(position, ore, 2) ? 1 : 0;
+    }
+
+    private static int replaceInfusedOre(
+            WorldGenLevel level,
+            BlockPos position,
+            int aspect
+    ) {
+        if (level.isOutsideBuildHeight(position)) {
+            return 0;
+        }
+        BlockState current = level.getBlockState(position);
+        if (current.is(BlockTags.DEEPSLATE_ORE_REPLACEABLES)) {
+            return level.setBlock(
+                    position,
+                    deepslateInfusedStone(aspect).defaultBlockState(),
+                    2
+            ) ? 1 : 0;
+        }
+        if (current.is(BlockTags.STONE_ORE_REPLACEABLES)) {
+            return level.setBlock(
+                    position,
+                    INFUSED_STONES.get(aspect).get().defaultBlockState(),
+                    2
+            ) ? 1 : 0;
+        }
+        return 0;
+    }
+
+    private static net.minecraft.world.level.block.Block deepslateInfusedStone(
+            int aspect
+    ) {
+        return switch (aspect) {
+            case 0 -> ModBlocks.DEEPSLATE_AIR_INFUSED_STONE.get();
+            case 1 -> ModBlocks.DEEPSLATE_FIRE_INFUSED_STONE.get();
+            case 2 -> ModBlocks.DEEPSLATE_WATER_INFUSED_STONE.get();
+            case 3 -> ModBlocks.DEEPSLATE_EARTH_INFUSED_STONE.get();
+            case 4 -> ModBlocks.DEEPSLATE_ORDER_INFUSED_STONE.get();
+            case 5 -> ModBlocks.DEEPSLATE_ENTROPY_INFUSED_STONE.get();
+            default -> throw new IllegalArgumentException("Unknown infused aspect: " + aspect);
+        };
     }
 
     private static int biomeAspect(

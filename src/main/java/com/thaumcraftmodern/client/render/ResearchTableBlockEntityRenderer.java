@@ -4,6 +4,9 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.mojang.math.Axis;
 import com.thaumcraftmodern.ThaumcraftModern;
+import com.thaumcraftmodern.item.DiscoveryItem;
+import com.thaumcraftmodern.item.ResearchNotesItem;
+import com.thaumcraftmodern.research.ResearchColorResolver;
 import com.thaumcraftmodern.world.block.ResearchTableBlock;
 import com.thaumcraftmodern.world.block.entity.ResearchTableBlockEntity;
 import net.minecraft.client.model.geom.ModelLayerLocation;
@@ -108,6 +111,11 @@ public final class ResearchTableBlockEntityRenderer
                 poseStack,
                 buffers,
                 notes.isEmpty() ? 1 : 5,
+                notes.getItem() instanceof ResearchNotesItem
+                        ? ResearchNotesItem.color(notes)
+                        : notes.getItem() instanceof DiscoveryItem
+                        ? DiscoveryItem.color(notes)
+                        : ResearchColorResolver.UNKNOWN_COLOR,
                 packedLight,
                 packedOverlay
         );
@@ -122,6 +130,7 @@ public final class ResearchTableBlockEntityRenderer
             PoseStack poseStack,
             MultiBufferSource buffers,
             int layerCount,
+            int color,
             int packedLight,
             int packedOverlay
     ) {
@@ -142,6 +151,7 @@ public final class ResearchTableBlockEntityRenderer
             renderHorizontalQuad(
                     poseStack,
                     vertices,
+                    color,
                     packedLight,
                     packedOverlay
             );
@@ -181,6 +191,7 @@ public final class ResearchTableBlockEntityRenderer
     private static void renderHorizontalQuad(
             PoseStack poseStack,
             VertexConsumer vertices,
+            int color,
             int packedLight,
             int packedOverlay
     ) {
@@ -190,6 +201,7 @@ public final class ResearchTableBlockEntityRenderer
                 -0.5F, 0.0F, -0.5F,
                 0.0F, 0.0F,
                 0.0F, -1.0F, 0.0F,
+                color,
                 packedLight, packedOverlay
         );
         vertex(
@@ -197,6 +209,7 @@ public final class ResearchTableBlockEntityRenderer
                 -0.5F, 0.0F, 0.5F,
                 0.0F, 1.0F,
                 0.0F, -1.0F, 0.0F,
+                color,
                 packedLight, packedOverlay
         );
         vertex(
@@ -204,6 +217,7 @@ public final class ResearchTableBlockEntityRenderer
                 0.5F, 0.0F, 0.5F,
                 1.0F, 1.0F,
                 0.0F, -1.0F, 0.0F,
+                color,
                 packedLight, packedOverlay
         );
         vertex(
@@ -211,6 +225,7 @@ public final class ResearchTableBlockEntityRenderer
                 0.5F, 0.0F, -0.5F,
                 1.0F, 0.0F,
                 0.0F, -1.0F, 0.0F,
+                color,
                 packedLight, packedOverlay
         );
     }
@@ -231,6 +246,7 @@ public final class ResearchTableBlockEntityRenderer
                 minX, minY, 0.0F,
                 0.0F, 0.0F,
                 0.0F, 0.0F, 1.0F,
+                0xFFFFFF,
                 packedLight, packedOverlay
         );
         vertex(
@@ -238,6 +254,7 @@ public final class ResearchTableBlockEntityRenderer
                 minX, maxY, 0.0F,
                 0.0F, 1.0F,
                 0.0F, 0.0F, 1.0F,
+                0xFFFFFF,
                 packedLight, packedOverlay
         );
         vertex(
@@ -245,6 +262,7 @@ public final class ResearchTableBlockEntityRenderer
                 maxX, maxY, 0.0F,
                 1.0F, 1.0F,
                 0.0F, 0.0F, 1.0F,
+                0xFFFFFF,
                 packedLight, packedOverlay
         );
         vertex(
@@ -252,6 +270,7 @@ public final class ResearchTableBlockEntityRenderer
                 maxX, minY, 0.0F,
                 1.0F, 0.0F,
                 0.0F, 0.0F, 1.0F,
+                0xFFFFFF,
                 packedLight, packedOverlay
         );
     }
@@ -267,13 +286,19 @@ public final class ResearchTableBlockEntityRenderer
             float normalX,
             float normalY,
             float normalZ,
+            int color,
             int packedLight,
             int packedOverlay
     ) {
         Matrix4f position = pose.pose();
         Matrix3f normal = pose.normal();
         vertices.vertex(position, x, y, z)
-                .color(255, 255, 255, 255)
+                .color(
+                        color >> 16 & 0xFF,
+                        color >> 8 & 0xFF,
+                        color & 0xFF,
+                        255
+                )
                 .uv(u, v)
                 .overlayCoords(packedOverlay)
                 .uv2(packedLight)

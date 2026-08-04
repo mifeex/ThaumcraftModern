@@ -19,6 +19,10 @@ public final class WorldContentEntityEvents {
 
     @SubscribeEvent
     public static void registerAttributes(EntityAttributeCreationEvent event) {
+        event.put(
+                ModEntities.FACELESS_WITNESS.get(),
+                FacelessWitnessEntity.createAttributes().build()
+        );
         for (var entry : ModEntities.entries()) {
             event.put(
                     entry.getValue().get(),

@@ -41,6 +41,7 @@ public final class ResearchTableMenu extends AbstractContainerMenu {
     private static final int MASTERY_COMBINE_BASE = 5_000;
     private static final int PLACE_BASE = 10_000;
     private static final int ERASE_BASE = 20_000;
+    private static final int PUZZLE_DIAMETER = HexResearchPuzzle.MAX_RADIUS * 2 + 1;
 
     private final ResearchTableBlockEntity table;
     private final ContainerLevelAccess access;
@@ -116,12 +117,15 @@ public final class ResearchTableMenu extends AbstractContainerMenu {
         return ResearchNotesItem.loadPuzzle(notes, AspectRegistryRuntime.catalog(), knowledge);
     }
 
-    public static int encodePlacement(int q, int paletteIndex) {
-        return PLACE_BASE + (q - HexResearchPuzzle.MIN_Q) * palette().size() + paletteIndex;
+    public static int encodePlacement(
+            HexResearchPuzzle.Cell cell,
+            int paletteIndex
+    ) {
+        return PLACE_BASE + encodeCell(cell) * palette().size() + paletteIndex;
     }
 
-    public static int encodeErase(int q) {
-        return ERASE_BASE + (q - HexResearchPuzzle.MIN_Q);
+    public static int encodeErase(HexResearchPuzzle.Cell cell) {
+        return ERASE_BASE + encodeCell(cell);
     }
 
     public static int encodeCombination(int firstPaletteIndex, int secondPaletteIndex) {
@@ -298,7 +302,7 @@ public final class ResearchTableMenu extends AbstractContainerMenu {
 
         if (id >= PLACE_BASE && id < ERASE_BASE) {
             int encoded = id - PLACE_BASE;
-            int q = HexResearchPuzzle.MIN_Q + encoded / palette.size();
+            HexResearchPuzzle.Cell cell = decodeCell(encoded / palette.size());
             int paletteIndex = encoded % palette.size();
             if (paletteIndex < 0 || paletteIndex >= palette.size()) {
                 ResearchDiagnostics.log(
@@ -315,9 +319,9 @@ public final class ResearchTableMenu extends AbstractContainerMenu {
             int amountBefore = knowledge.aspectAmount(aspectId);
             ResearchDiagnostics.log(
                     "SERVER_PLACE_BEGIN",
-                    "player={} q={} aspect={} amountBefore={} placementsBefore={} encoded={}",
+                    "player={} cell={} aspect={} amountBefore={} placementsBefore={} encoded={}",
                     serverPlayer.getGameProfile().getName(),
-                    q,
+                    cell,
                     aspectId,
                     amountBefore,
                     puzzle.placements(),
@@ -329,12 +333,12 @@ public final class ResearchTableMenu extends AbstractContainerMenu {
                             serverPlayer.getRandom().nextFloat()
                     );
             HexResearchPuzzle.PlacementResult result =
-                    puzzle.place(q, aspectId, knowledge, consumeAspect);
+                    puzzle.place(cell, aspectId, knowledge, consumeAspect);
             ResearchDiagnostics.log(
                     "SERVER_PLACE_RESULT",
-                    "player={} q={} aspect={} result={} amountBefore={} amountAfter={} placementsAfter={}",
+                    "player={} cell={} aspect={} result={} amountBefore={} amountAfter={} placementsAfter={}",
                     serverPlayer.getGameProfile().getName(),
-                    q,
+                    cell,
                     aspectId,
                     result,
                     amountBefore,
@@ -389,15 +393,14 @@ public final class ResearchTableMenu extends AbstractContainerMenu {
             return false;
         }
 
-        int eraseIndex = id - ERASE_BASE;
-        int q = HexResearchPuzzle.MIN_Q + eraseIndex;
-        String erasedAspect = puzzle.aspectAt(q).orElse("");
-        HexResearchPuzzle.EraseResult result = puzzle.erase(q);
+        HexResearchPuzzle.Cell cell = decodeCell(id - ERASE_BASE);
+        String erasedAspect = puzzle.aspectAt(cell).orElse("");
+        HexResearchPuzzle.EraseResult result = puzzle.erase(cell);
         ResearchDiagnostics.log(
                 "SERVER_ERASE_RESULT",
-                "player={} q={} result={} placementsAfter={}",
+                "player={} cell={} result={} placementsAfter={}",
                 serverPlayer.getGameProfile().getName(),
-                q,
+                cell,
                 result,
                 puzzle.placements()
         );
@@ -431,6 +434,21 @@ public final class ResearchTableMenu extends AbstractContainerMenu {
         }
         sendPuzzleResult(serverPlayer, result.name());
         return false;
+    }
+
+    private static int encodeCell(HexResearchPuzzle.Cell cell) {
+        if (Math.abs(cell.q()) > HexResearchPuzzle.MAX_RADIUS
+                || Math.abs(cell.r()) > HexResearchPuzzle.MAX_RADIUS) {
+            throw new IllegalArgumentException("puzzle cell is outside encoding bounds");
+        }
+        return (cell.q() + HexResearchPuzzle.MAX_RADIUS) * PUZZLE_DIAMETER
+                + cell.r() + HexResearchPuzzle.MAX_RADIUS;
+    }
+
+    private static HexResearchPuzzle.Cell decodeCell(int encoded) {
+        int q = encoded / PUZZLE_DIAMETER - HexResearchPuzzle.MAX_RADIUS;
+        int r = encoded % PUZZLE_DIAMETER - HexResearchPuzzle.MAX_RADIUS;
+        return new HexResearchPuzzle.Cell(q, r);
     }
 
     private boolean combineAspects(

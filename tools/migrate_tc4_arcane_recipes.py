@@ -220,7 +220,11 @@ def call_args(expr: str) -> list[str]:
     return split_args(expr[begin:-1])
 
 
-def tc_stack(token: str, color: str | None = None) -> tuple[str, int]:
+def tc_stack(
+        token: str,
+        color: str | None = None,
+        primal: int | None = None,
+) -> tuple[str, int]:
     token = token.strip()
     count, meta = 1, -1
     m = re.fullmatch(r"new ItemStack\((.+)\)", token, re.S)
@@ -228,7 +232,15 @@ def tc_stack(token: str, color: str | None = None) -> tuple[str, int]:
         parts = split_args(m.group(1))
         token = parts[0]
         if len(parts) > 1 and parts[1].strip().isdigit(): count = int(parts[1])
-        if len(parts) > 2 and parts[2].strip().isdigit(): meta = int(parts[2])
+        if len(parts) > 2:
+            raw_meta = parts[2].strip()
+            if raw_meta.isdigit():
+                meta = int(raw_meta)
+            elif raw_meta == "a" and primal is not None:
+                # TC4 registers the six primal-arrow recipes in a loop.  The
+                # metadata variable is part of the ingredient identity, not
+                # merely the output identity.
+                meta = primal
     if token in MC:
         item = MC[token].format(color=color or "white")
     elif token.startswith('"') and token.endswith('"'):
@@ -249,8 +261,12 @@ def tc_stack(token: str, color: str | None = None) -> tuple[str, int]:
     return item, count
 
 
-def ingredient(token: str, color: str | None = None) -> dict:
-    item, _ = tc_stack(token, color)
+def ingredient(
+        token: str,
+        color: str | None = None,
+        primal: int | None = None,
+) -> dict:
+    item, _ = tc_stack(token, color, primal)
     return {"tag": item[1:]} if item.startswith("#") else {"item": item}
 
 
@@ -308,14 +324,16 @@ def convert(entry: dict, color: str | None = None, primal: int | None = None) ->
         "vis": vis(args[2], primal),
     }
     if entry["kind"] == "arcane_shapeless":
-        data["ingredients"] = [ingredient(x, color) for x in args[3:]]
+        data["ingredients"] = [ingredient(x, color, primal) for x in args[3:]]
     else:
         i, pattern = 3, []
         while i < len(args) and args[i].startswith('"'):
             pattern.append(args[i].strip('"')); i += 1
         key = {}
         while i < len(args):
-            symbol = args[i].strip("'"); key[symbol] = ingredient(args[i + 1], color); i += 2
+            symbol = args[i].strip("'")
+            key[symbol] = ingredient(args[i + 1], color, primal)
+            i += 2
         data["pattern"], data["key"] = pattern, key
     data["result"] = result(args[1], color, primal)
     return rid, data
@@ -400,9 +418,11 @@ def main() -> None:
             elif isinstance(value, list):
                 pending.extend(value)
     referenced_items.update({"silver_nugget", "thaumium_nugget", "void_nugget"})
+    placeholder_items = set()
     for item_id in referenced_items:
         model = MODELS / f"{item_id}.json"
         if not model.exists():
+            placeholder_items.add(item_id)
             model.write_text(json.dumps({
                 "parent": "minecraft:item/generated",
                 "textures": {"layer0": "thaumcraftmodern:item/knowledgefragment"},
@@ -412,7 +432,7 @@ def main() -> None:
         "aer": "Air", "aqua": "Water", "ignis": "Fire",
         "ordo": "Order", "perditio": "Entropy", "terra": "Earth",
     }
-    for item_id in referenced_items:
+    for item_id in placeholder_items:
         key = f"item.thaumcraftmodern.{item_id}"
         words = [aspect_names.get(word, word.capitalize()) for word in item_id.split("_")]
         language.setdefault(key, " ".join(words))

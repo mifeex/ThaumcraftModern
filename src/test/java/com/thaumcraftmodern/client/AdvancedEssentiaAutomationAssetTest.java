@@ -9,6 +9,7 @@ import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -50,6 +51,20 @@ final class AdvancedEssentiaAutomationAssetTest {
         assertEquals("thaumcraftmodern:block/pipe_reverse_arrow",
                 reverseItem.getAsJsonObject("textures")
                         .get("arrow").getAsString());
+        for (int element = 2; element < 6; element++) {
+            JsonObject arrow = reverseItem.getAsJsonArray("elements")
+                    .get(element).getAsJsonObject();
+            for (var coordinate : List.of(
+                    arrow.getAsJsonArray("from"),
+                    arrow.getAsJsonArray("to")
+            )) {
+                for (int axis : new int[]{0, 2}) {
+                    double value = coordinate.get(axis).getAsDouble();
+                    assertTrue(value >= 6.99D && value <= 9.01D,
+                            "GUI arrow must stay within the tube silhouette");
+                }
+            }
+        }
         JsonObject reverseBlock = read(
                 "models/block/reversible_essentia_tube.json");
         JsonObject reverseJoint = reverseBlock.getAsJsonArray("elements")

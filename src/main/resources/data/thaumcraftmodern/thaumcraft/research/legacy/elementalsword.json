@@ -2,7 +2,7 @@
   "id": "elementalsword",
   "legacy_id": "ELEMENTALSWORD",
   "category": "artifice",
-  "icon": "thaumcraftmodern:thaumonomicon",
+  "icon": "thaumcraftmodern:sword_of_the_zephyr",
   "title": "tc.research_name.ELEMENTALSWORD",
   "subtitle": "tc.research_text.ELEMENTALSWORD",
   "concealed": true,
@@ -24,16 +24,13 @@
       "body": "tc.research_page.ELEMENTALSWORD.1"
     },
     {
-      "type": "unavailable",
-      "title": "",
-      "body": "",
-      "legacy_type": "recipe",
-      "legacy_content": "ElementalSword",
-      "source_expression": "new ResearchPage((InfusionRecipe)recipes.get(\"ElementalSword\"))"
+      "type":"infusion","title":"recipe.type.infusion","output":"thaumcraftmodern:sword_of_the_zephyr","central":"thaumcraftmodern:thaumium_sword",
+      "components":[{"item":"thaumcraftmodern:air_shard","count":1},{"item":"thaumcraftmodern:air_shard","count":1},{"item":"minecraft:diamond","count":1},{"item":"thaumcraftmodern:greatwood_log","count":1}],
+      "aspect_costs":[{"id":"aer","amount":8},{"id":"motus","amount":8},{"id":"potentia","amount":8}],"instability":"minor","detail":"tc.research_text.ELEMENTALSWORD"
     }
   ],
-  "inactive": true,
-  "inactive_reason": "referenced gameplay content is not implemented",
+  "purchase_cost":[{"id":"telum","amount":3},{"id":"aer","amount":3},{"id":"potentia","amount":3}],
+  "inactive": false,
   "legacy": {
     "x": -7,
     "y": 5,

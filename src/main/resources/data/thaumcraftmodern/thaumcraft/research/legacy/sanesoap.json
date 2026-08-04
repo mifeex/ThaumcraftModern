@@ -2,7 +2,7 @@
   "id": "sanesoap",
   "legacy_id": "SANESOAP",
   "category": "alchemy",
-  "icon": "thaumcraftmodern:thaumonomicon",
+  "icon": "thaumcraftmodern:sanity_soap",
   "title": "tc.research_name.SANESOAP",
   "subtitle": "tc.research_text.SANESOAP",
   "concealed": true,
@@ -23,16 +23,17 @@
       "body": "tc.research_page.SANESOAP.1"
     },
     {
-      "type": "unavailable",
+      "type": "recipe",
       "title": "",
       "body": "",
+      "recipe": "thaumcraftmodern:sanesoap",
       "legacy_type": "recipe",
       "legacy_content": "SaneSoap",
       "source_expression": "new ResearchPage((CrucibleRecipe)recipes.get(\"SaneSoap\"))"
     }
   ],
-  "inactive": true,
-  "inactive_reason": "referenced gameplay content is not implemented",
+  "inactive": false,
+  "inactive_reason": null,
   "legacy": {
     "x": -3,
     "y": -6,

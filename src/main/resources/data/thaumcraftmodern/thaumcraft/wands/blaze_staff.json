@@ -2,6 +2,7 @@
   "kind": "rod",
   "id": "blaze_staff",
   "capacity_vis": 175,
+  "craft_cost_vis": 14,
   "recharge_aspects": ["ignis"],
   "recharge_interval_ticks": 200,
   "recharge_centivis": 1,

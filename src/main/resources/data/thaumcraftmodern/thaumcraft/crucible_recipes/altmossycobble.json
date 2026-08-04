@@ -1,0 +1,14 @@
+{
+  "research": "alchemicalmanufacture",
+  "catalyst": {
+    "item": "minecraft:cobblestone"
+  },
+  "output": {
+    "item": "minecraft:mossy_cobblestone"
+  },
+  "aspects": {
+    "herba": 2,
+    "praecantatio": 1
+  },
+  "legacy_id": "AltMossyCobble"
+}

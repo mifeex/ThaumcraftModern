@@ -10,6 +10,7 @@ import com.thaumcraftmodern.nodejar.NodeJarPlacementService;
 import com.thaumcraftmodern.nodejar.NodeJarSavedData;
 import com.thaumcraftmodern.nodejar.ServerNodeJarWorld;
 import com.thaumcraftmodern.registry.ModSounds;
+import com.thaumcraftmodern.world.block.ArcanePedestalBlock;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
@@ -18,6 +19,7 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
@@ -64,6 +66,22 @@ public final class JarredAuraNodeItem extends BlockItem {
         }
         if (data == null) {
             return InteractionResult.FAIL;
+        }
+
+        BlockPos clickedPosition = context.getClickedPos();
+        Player playerUsingItem = context.getPlayer();
+        if (playerUsingItem != null
+                && context.getLevel().getBlockState(clickedPosition).getBlock()
+                instanceof ArcanePedestalBlock) {
+            InteractionResult pedestalResult =
+                    ArcanePedestalBlock.placeHeldItem(
+                            context.getLevel(),
+                            clickedPosition,
+                            playerUsingItem,
+                            context.getHand());
+            if (pedestalResult.consumesAction()) {
+                return pedestalResult;
+            }
         }
 
         BlockPlaceContext placementContext = new BlockPlaceContext(context);

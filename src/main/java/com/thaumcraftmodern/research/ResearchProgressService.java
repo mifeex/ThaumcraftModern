@@ -110,6 +110,7 @@ public final class ResearchProgressService {
     ) {
         return !definition.purchasable()
                 && !definition.autoUnlock()
+                && !definition.researchCost().isEmpty()
                 && !knowledge.hasCompletedResearch(definition.id())
                 && isAvailable(definition, knowledge);
     }

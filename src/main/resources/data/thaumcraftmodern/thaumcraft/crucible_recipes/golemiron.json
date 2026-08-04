@@ -1,0 +1,17 @@
+{
+  "research": "golemiron",
+  "catalyst": {
+    "item": "minecraft:iron_block"
+  },
+  "output": {
+    "item": "thaumcraftmodern:iron_golem_placer"
+  },
+  "aspects": {
+    "humanus": 4,
+    "motus": 4,
+    "spiritus": 4
+  },
+  "legacy_id": "GolemIron",
+  "inactive": true,
+  "inactive_reason": "output item or its complete gameplay behavior is not implemented"
+}

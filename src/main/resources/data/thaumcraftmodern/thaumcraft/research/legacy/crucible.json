@@ -33,7 +33,11 @@
     {
       "type": "recipe",
       "title": "",
-      "recipe": "thaumcraftmodern:balanced_air"
+      "recipes": [
+        "thaumcraftmodern:balanced_air",
+        "thaumcraftmodern:balanced_fire",
+        "thaumcraftmodern:balanced_water"
+      ]
     },
     {
       "type": "text",
@@ -43,7 +47,11 @@
     {
       "type": "recipe",
       "title": "",
-      "recipe": "thaumcraftmodern:balanced_entropy"
+      "recipes": [
+        "thaumcraftmodern:balanced_earth",
+        "thaumcraftmodern:balanced_order",
+        "thaumcraftmodern:balanced_entropy"
+      ]
     },
     {
       "type": "text",

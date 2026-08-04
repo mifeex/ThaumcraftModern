@@ -376,6 +376,41 @@ public final class WandVisService {
         return accepted;
     }
 
+    /**
+     * Server block-entity counterpart used by the classic Vis charger. The
+     * caller owns the inventory and synchronization; normal player-facing
+     * mutation must continue to use {@link #addCentivis(ServerPlayer,
+     * ItemStack, String, int)}.
+     */
+    public static int addCentivisUnchecked(
+            ItemStack stack,
+            String primalId,
+            int centivis
+    ) {
+        if (centivis < 0) {
+            throw new IllegalArgumentException("added centivis cannot be negative");
+        }
+        PrimalAspect aspect = PrimalAspect.fromId(primalId);
+        Optional<WandState> current = state(stack);
+        if (current.isEmpty() || centivis == 0) {
+            return 0;
+        }
+        int room = capacityCentivis(stack)
+                - current.get().visCentivis(aspect);
+        int accepted = Math.min(room, centivis);
+        if (accepted <= 0) {
+            return 0;
+        }
+        WandStateCodec.write(
+                stack,
+                current.get().withVisCentivis(
+                        aspect,
+                        current.get().visCentivis(aspect) + accepted
+                )
+        );
+        return accepted;
+    }
+
     static Optional<WandState> consumeState(
             WandState state,
             WandCapDefinition cap,

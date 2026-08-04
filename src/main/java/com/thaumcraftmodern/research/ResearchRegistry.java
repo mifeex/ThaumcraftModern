@@ -108,6 +108,11 @@ public final class ResearchRegistry {
                 pageTag.putString("title", page.titleKey());
                 pageTag.putString("body", page.bodyKey());
                 pageTag.putString("recipe", page.recipeId());
+                ListTag recipeIds = new ListTag();
+                page.recipeIds().forEach(recipe -> recipeIds.add(
+                        net.minecraft.nbt.StringTag.valueOf(recipe)
+                ));
+                pageTag.put("recipes", recipeIds);
                 ListTag aspectCosts = new ListTag();
                 for (AspectCost cost : page.aspectCosts()) {
                     CompoundTag costTag = new CompoundTag();
@@ -131,7 +136,11 @@ public final class ResearchRegistry {
                     for (InfusionDisplayDefinition.ComponentStack component
                             : display.components()) {
                         CompoundTag componentTag = new CompoundTag();
-                        componentTag.putString("item", component.item());
+                        if (component.isTag()) {
+                            componentTag.putString("tag", component.tag());
+                        } else {
+                            componentTag.putString("item", component.item());
+                        }
                         componentTag.putInt("count", component.count());
                         components.add(componentTag);
                     }
@@ -198,12 +207,14 @@ public final class ResearchRegistry {
                             Tag.TAG_COMPOUND
                     )) {
                         CompoundTag component = (CompoundTag) rawComponent;
-                        components.add(
-                                new InfusionDisplayDefinition.ComponentStack(
-                                        component.getString("item"),
-                                        component.getInt("count")
+                        int count = component.getInt("count");
+                        components.add(component.contains("tag", Tag.TAG_STRING)
+                                ? InfusionDisplayDefinition.ComponentStack.tagged(
+                                        component.getString("tag"), count
                                 )
-                        );
+                                : new InfusionDisplayDefinition.ComponentStack(
+                                        component.getString("item"), count
+                                ));
                     }
                     infusionDisplay = new InfusionDisplayDefinition(
                             infusion.getString("output"),
@@ -221,7 +232,10 @@ public final class ResearchRegistry {
                         page.getString("body"),
                         page.getString("recipe"),
                         aspectCosts,
-                        infusionDisplay
+                        infusionDisplay,
+                        page.getList("recipes", Tag.TAG_STRING).stream()
+                                .map(Tag::getAsString)
+                                .toList()
                 ));
             }
             result.add(new ResearchDefinition(

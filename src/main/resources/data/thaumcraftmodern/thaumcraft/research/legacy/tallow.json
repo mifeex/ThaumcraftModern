@@ -2,7 +2,7 @@
   "id": "tallow",
   "legacy_id": "TALLOW",
   "category": "alchemy",
-  "icon": "thaumcraftmodern:thaumonomicon",
+  "icon": "thaumcraftmodern:thaumic_tallow",
   "title": "tc.research_name.TALLOW",
   "subtitle": "tc.research_text.TALLOW",
   "concealed": true,
@@ -23,24 +23,26 @@
       "body": "tc.research_page.TALLOW.1"
     },
     {
-      "type": "unavailable",
+      "type": "recipe",
       "title": "",
       "body": "",
+      "recipe": "thaumcraftmodern:tallow",
       "legacy_type": "recipe",
       "legacy_content": "Tallow",
       "source_expression": "new ResearchPage((CrucibleRecipe)recipes.get(\"Tallow\"))"
     },
     {
-      "type": "unavailable",
+      "type": "recipe",
       "title": "",
       "body": "",
+      "recipe": "thaumcraftmodern:tallow_candle",
       "legacy_type": "recipe",
       "legacy_content": "TallowCandle",
       "source_expression": "new ResearchPage((IRecipe)recipes.get(\"TallowCandle\"))"
     }
   ],
-  "inactive": true,
-  "inactive_reason": "referenced gameplay content is not implemented",
+  "inactive": false,
+  "inactive_reason": null,
   "legacy": {
     "x": -2,
     "y": 0,

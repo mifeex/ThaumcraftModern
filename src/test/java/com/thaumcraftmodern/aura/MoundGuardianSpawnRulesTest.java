@@ -21,6 +21,13 @@ class MoundGuardianSpawnRulesTest {
                 50,
                 true,
                 true,
+                2
+        ));
+        assertTrue(MoundGuardianSpawnRules.mayAttempt(
+                true,
+                50,
+                true,
+                true,
                 3
         ));
         assertFalse(MoundGuardianSpawnRules.mayAttempt(

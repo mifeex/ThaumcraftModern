@@ -23,16 +23,13 @@
       "body": "tc.research_page.SCEPTRE.1"
     },
     {
-      "type": "unavailable",
+      "type": "recipe",
       "title": "",
-      "body": "",
-      "legacy_type": "recipe",
-      "legacy_content": "(IArcaneRecipe[])scer.toArray(new IArcaneRecipe[0])",
-      "source_expression": "new ResearchPage((IArcaneRecipe[])scer.toArray(new IArcaneRecipe[0]))"
+      "recipe": "thaumcraftmodern:arcane_sceptre_assembly"
     }
   ],
-  "inactive": true,
-  "inactive_reason": "referenced gameplay content is not implemented",
+  "inactive": false,
+  "inactive_reason": null,
   "legacy": {
     "x": 0,
     "y": 4,

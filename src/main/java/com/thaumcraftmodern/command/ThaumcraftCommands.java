@@ -14,6 +14,7 @@ import com.thaumcraftmodern.research.ResearchRegistry;
 import com.thaumcraftmodern.worldgen.LegacyStructureKind;
 import com.thaumcraftmodern.worldgen.LegacyStructureMarkerIndex;
 import com.thaumcraftmodern.worldgen.LegacyStructureMarkerSearch;
+import com.thaumcraftmodern.worldgen.LegacyVillageBuildingSearch;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.commands.CommandSourceStack;
@@ -52,26 +53,30 @@ public final class ThaumcraftCommands {
 
     /**
      * Literal children win over vanilla's generic structure argument. This
-     * preserves the normal command spelling while replacing only the four
-     * procedural TC4 sites with block-marker-backed results.
+     * preserves the normal command spelling while replacing TC4 sites with
+     * real-placement-backed results.
      */
     private static void registerMarkerLocateOverrides(
             CommandDispatcher<CommandSourceStack> dispatcher
     ) {
         LiteralArgumentBuilder<CommandSourceStack> structure =
                 Commands.literal("structure");
-        for (LegacyStructureKind kind : new LegacyStructureKind[]{
-                LegacyStructureKind.ANCIENT_MOUND,
-                LegacyStructureKind.ELDRITCH_RING,
-                LegacyStructureKind.HILLTOP_STONES,
-                LegacyStructureKind.AURA_TOTEM
-        }) {
+        for (LegacyStructureKind kind : LegacyStructureKind.values()) {
             String id = ThaumcraftModern.MOD_ID + ":" + kind.serializedName();
             structure.then(Commands.literal(id)
                     .executes(context -> locateRealStructure(
                             context.getSource(),
                             kind
                     )));
+            if (kind == LegacyStructureKind.BANKER_HOME) {
+                structure.then(Commands.literal(
+                                ThaumcraftModern.MOD_ID + ":banker_house"
+                        )
+                        .executes(context -> locateRealStructure(
+                                context.getSource(),
+                                kind
+                        )));
+            }
         }
         dispatcher.register(Commands.literal("locate")
                 .requires(source -> source.hasPermission(
@@ -94,11 +99,18 @@ public final class ThaumcraftCommands {
         source.sendSuccess(
                 () -> Component.literal(
                         "Checking real " + kind.serializedName()
-                                + " block markers..."
+                                + (kind.isVillageBuilding()
+                                        ? " village pieces..."
+                                        : " block markers...")
                 ),
                 false
         );
-        LegacyStructureMarkerSearch.find(source.getLevel(), origin, kind)
+        var search = kind.isVillageBuilding()
+                ? LegacyVillageBuildingSearch.find(
+                        source.getLevel(), origin, kind)
+                : LegacyStructureMarkerSearch.find(
+                        source.getLevel(), origin, kind);
+        search
                 .whenCompleteAsync((position, exception) -> {
                     if (exception != null) {
                         source.sendFailure(Component.literal(
@@ -116,7 +128,7 @@ public final class ThaumcraftCommands {
                     } else {
                         source.sendFailure(Component.literal(
                                 "No generated " + kind.serializedName()
-                                        + " passed its block-marker check"
+                                        + " passed its real-placement check"
                         ));
                     }
                 }, source.getServer());

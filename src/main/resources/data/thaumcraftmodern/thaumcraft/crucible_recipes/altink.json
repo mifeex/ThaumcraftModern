@@ -1,0 +1,15 @@
+{
+  "research": "alchemicalduplication",
+  "catalyst": {
+    "item": "minecraft:ink_sac"
+  },
+  "output": {
+    "item": "minecraft:ink_sac",
+    "count": 2
+  },
+  "aspects": {
+    "aqua": 2,
+    "sensus": 2
+  },
+  "legacy_id": "AltInk"
+}

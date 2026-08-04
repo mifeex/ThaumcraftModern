@@ -2,9 +2,9 @@
   "id": "infusionaltar",
   "legacy_id": "InfusionAltar",
   "legacy_kind": "multiblock",
-  "inactive": true,
-  "inactive_reason": "recipe type or referenced content is not implemented",
-  "modern_recipe": "",
+  "inactive": false,
+  "inactive_reason": null,
+  "modern_recipe": "thaumcraftmodern:infusion_altar_construct",
   "required_aspects": [
     {
       "id": "ignis",

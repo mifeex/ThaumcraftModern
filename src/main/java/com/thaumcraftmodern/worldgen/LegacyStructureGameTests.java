@@ -6,9 +6,11 @@ import com.thaumcraftmodern.registry.ModBlocks;
 import com.thaumcraftmodern.registry.ModEntities;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.gametest.framework.GameTest;
 import net.minecraft.gametest.framework.GameTestHelper;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.DoorBlock;
@@ -24,6 +26,43 @@ import net.minecraftforge.gametest.PrefixGameTestTemplate;
 @PrefixGameTestTemplate(false)
 public final class LegacyStructureGameTests {
     private LegacyStructureGameTests() {
+    }
+
+    @GameTest(
+            template = "empty",
+            batch = "legacyVillagePools",
+            timeoutTicks = 100
+    )
+    public static void vanillaVillagePoolsContainClassicProfessionBuildings(
+            GameTestHelper helper
+    ) {
+        var pools = helper.getLevel().registryAccess().registryOrThrow(
+                Registries.TEMPLATE_POOL
+        );
+        for (String style : new String[]{
+                "plains", "desert", "savanna", "snowy", "taiga"
+        }) {
+            var pool = pools.get(new ResourceLocation(
+                    "minecraft",
+                    "village/" + style + "/houses"
+            ));
+            helper.assertTrue(pool != null,
+                    "Missing vanilla village house pool: " + style);
+            for (LegacyStructureKind kind : new LegacyStructureKind[]{
+                    LegacyStructureKind.WIZARD_TOWER,
+                    LegacyStructureKind.BANKER_HOME
+            }) {
+                helper.assertTrue(
+                        pool.rawTemplates.stream().anyMatch(entry ->
+                                entry.getFirst()
+                                        instanceof LegacyVillagePoolElement legacy
+                                        && legacy.kind() == kind),
+                        style + " village pool is missing "
+                                + kind.serializedName()
+                );
+            }
+        }
+        helper.succeed();
     }
 
     @GameTest(
@@ -250,6 +289,13 @@ public final class LegacyStructureGameTests {
                         && door.getValue(DoorBlock.FACING)
                         == Direction.EAST,
                 "Banker door did not rotate toward its village road"
+        );
+        helper.assertTrue(
+                LegacyStructureMarkerIndex.get(helper.getLevel())
+                        .nearest(LegacyStructureKind.BANKER_HOME, origin)
+                        .filter(origin::equals)
+                        .isPresent(),
+                "Successful banker home was not recorded for /locate"
         );
         helper.succeed();
     }

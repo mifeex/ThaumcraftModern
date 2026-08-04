@@ -1,0 +1,15 @@
+{
+  "research": "alchemicalduplication",
+  "catalyst": {
+    "item": "minecraft:gunpowder"
+  },
+  "output": {
+    "item": "minecraft:gunpowder",
+    "count": 2
+  },
+  "aspects": {
+    "ignis": 4,
+    "perditio": 4
+  },
+  "legacy_id": "AltGunpowder"
+}

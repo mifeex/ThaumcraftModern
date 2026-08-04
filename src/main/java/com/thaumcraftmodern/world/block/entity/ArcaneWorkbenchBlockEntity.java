@@ -5,7 +5,9 @@ import com.thaumcraftmodern.world.menu.ArcaneWorkbenchMenu;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.Tag;
+import net.minecraft.network.Connection;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
 import net.minecraft.world.Containers;
 import net.minecraft.world.MenuProvider;
 import net.minecraft.world.SimpleContainer;
@@ -13,6 +15,7 @@ import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.Nullable;
 
@@ -23,7 +26,7 @@ public final class ArcaneWorkbenchBlockEntity extends BlockEntity implements Men
     public ArcaneWorkbenchBlockEntity(BlockPos position, BlockState state) {
         super(ModBlockEntities.ARCANE_WORKBENCH.get(), position, state);
         crafting.addListener(ignored -> setChanged());
-        wand.addListener(ignored -> setChanged());
+        wand.addListener(ignored -> syncWand());
     }
 
     public ArcaneCraftingInventory crafting() {
@@ -46,6 +49,45 @@ public final class ArcaneWorkbenchBlockEntity extends BlockEntity implements Men
         super.load(tag);
         crafting.fromTag(tag.getList("Crafting", Tag.TAG_COMPOUND));
         wand.fromTag(tag.getList("Wand", Tag.TAG_COMPOUND));
+        // The menu may be opened immediately after the block entity is loaded.
+        // Mark both containers dirty so the restored slot state is propagated
+        // through the normal menu/container synchronization path.
+        crafting.setChanged();
+        wand.setChanged();
+        setChanged();
+    }
+
+    @Override
+    public CompoundTag getUpdateTag() {
+        return saveWithoutMetadata();
+    }
+
+    @Override
+    public @Nullable ClientboundBlockEntityDataPacket getUpdatePacket() {
+        return ClientboundBlockEntityDataPacket.create(this);
+    }
+
+    @Override
+    public void onDataPacket(
+            Connection connection,
+            ClientboundBlockEntityDataPacket packet
+    ) {
+        CompoundTag tag = packet.getTag();
+        if (tag != null) {
+            load(tag);
+        }
+    }
+
+    private void syncWand() {
+        setChanged();
+        if (level != null && !level.isClientSide) {
+            level.sendBlockUpdated(
+                    worldPosition,
+                    getBlockState(),
+                    getBlockState(),
+                    Block.UPDATE_CLIENTS
+            );
+        }
     }
 
     public void dropContents() {

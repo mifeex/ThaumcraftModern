@@ -3,7 +3,7 @@
   "target": "thaumcraftmodern:ethereal_essence",
   "display": "",
   "aspects": [],
-  "inactive": false,
+  "inactive": true,
   "legacy": {
     "registration_mode": "explicit",
     "target_kind": "item_stack",
@@ -12,5 +12,6 @@
     "aspects": [],
     "aspect_operations": [],
     "source_expression": "ThaumcraftApi.registerObjectTag(new ItemStack(ConfigItems.itemEssence, 1, 1), new AspectList())"
-  }
+  },
+  "inactive_reason": "multiple legacy registrations collapse to the active wisp-essence identity"
 }

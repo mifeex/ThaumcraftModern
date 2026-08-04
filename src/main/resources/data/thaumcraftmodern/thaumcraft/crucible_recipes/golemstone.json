@@ -1,0 +1,17 @@
+{
+  "research": "golemstone",
+  "catalyst": {
+    "item": "minecraft:stone_bricks"
+  },
+  "output": {
+    "item": "thaumcraftmodern:stone_golem"
+  },
+  "aspects": {
+    "humanus": 4,
+    "motus": 4,
+    "spiritus": 4
+  },
+  "legacy_id": "GolemStone",
+  "inactive": true,
+  "inactive_reason": "output item or its complete gameplay behavior is not implemented"
+}

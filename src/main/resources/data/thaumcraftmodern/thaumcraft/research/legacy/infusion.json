@@ -38,12 +38,9 @@
       "body": "tc.research_page.INFUSION.2"
     },
     {
-      "type": "unavailable",
+      "type": "compound_crafting",
       "title": "",
-      "body": "",
-      "legacy_type": "recipe",
-      "legacy_content": "InfusionAltar",
-      "source_expression": "new ResearchPage((List)recipes.get(\"InfusionAltar\"))"
+      "recipe": "thaumcraftmodern:infusion_altar_construct"
     },
     {
       "type": "text",
@@ -61,8 +58,13 @@
       "body": "tc.research_page.INFUSION.5"
     }
   ],
-  "inactive": true,
-  "inactive_reason": "altar construction exists; executable infusion recipes are not implemented",
+  "purchase_cost": [
+    {"id": "praecantatio", "amount": 6},
+    {"id": "machina", "amount": 3},
+    {"id": "fabrico", "amount": 6}
+  ],
+  "inactive": false,
+  "inactive_reason": null,
   "legacy": {
     "x": -4,
     "y": 5,

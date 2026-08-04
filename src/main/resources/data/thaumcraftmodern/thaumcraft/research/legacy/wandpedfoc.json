@@ -2,7 +2,7 @@
   "id": "wandpedfoc",
   "legacy_id": "WANDPEDFOC",
   "category": "thaumaturgy",
-  "icon": "thaumcraftmodern:thaumonomicon",
+  "icon": "thaumcraftmodern:compound_recharge_focus",
   "title": "tc.research_name.WANDPEDFOC",
   "subtitle": "tc.research_text.WANDPEDFOC",
   "concealed": true,
@@ -23,12 +23,27 @@
       "body": "tc.research_page.WANDPEDFOC.1"
     },
     {
-      "type": "unavailable",
-      "title": "",
-      "body": "",
-      "legacy_type": "recipe",
-      "legacy_content": "WandPedFocus",
-      "source_expression": "new ResearchPage((InfusionRecipe)recipes.get(\"WandPedFocus\"))"
+      "type": "infusion",
+      "title": "recipe.type.infusion",
+      "output": "thaumcraftmodern:compound_recharge_focus",
+      "central": "minecraft:comparator",
+      "components": [
+        {"item": "thaumcraftmodern:order_shard", "count": 1},
+        {"item": "thaumcraftmodern:vis_filter", "count": 1},
+        {"item": "thaumcraftmodern:order_shard", "count": 1},
+        {"item": "thaumcraftmodern:vis_filter", "count": 1},
+        {"item": "thaumcraftmodern:order_shard", "count": 1},
+        {"item": "thaumcraftmodern:vis_filter", "count": 1},
+        {"item": "thaumcraftmodern:order_shard", "count": 1},
+        {"item": "thaumcraftmodern:vis_filter", "count": 1}
+      ],
+      "aspect_costs": [
+        {"id": "ordo", "amount": 10},
+        {"id": "praecantatio", "amount": 15},
+        {"id": "permutatio", "amount": 10}
+      ],
+      "instability": "moderate",
+      "detail": "tc.research_text.WANDPEDFOC"
     }
   ],
   "purchase_cost": [
@@ -53,8 +68,8 @@
       "amount": 3
     }
   ],
-  "inactive": true,
-  "inactive_reason": "referenced gameplay content is not implemented",
+  "inactive": false,
+  "inactive_reason": null,
   "legacy": {
     "x": -10,
     "y": -7,

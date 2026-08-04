@@ -23,44 +23,29 @@
       "body": "tc.research_page.ALCHEMICALDUPLICATION.1"
     },
     {
-      "type": "unavailable",
+      "type": "recipe",
       "title": "",
-      "body": "",
-      "legacy_type": "recipe",
-      "legacy_content": "AltGunpowder",
-      "source_expression": "new ResearchPage((CrucibleRecipe)recipes.get(\"AltGunpowder\"))"
+      "recipe": "thaumcraftmodern:altgunpowder"
     },
     {
-      "type": "unavailable",
+      "type": "recipe",
       "title": "",
-      "body": "",
-      "legacy_type": "recipe",
-      "legacy_content": "AltSlime",
-      "source_expression": "new ResearchPage((CrucibleRecipe)recipes.get(\"AltSlime\"))"
+      "recipe": "thaumcraftmodern:altslime"
     },
     {
-      "type": "unavailable",
+      "type": "recipe",
       "title": "",
-      "body": "",
-      "legacy_type": "recipe",
-      "legacy_content": "AltClay",
-      "source_expression": "new ResearchPage((CrucibleRecipe)recipes.get(\"AltClay\"))"
+      "recipe": "thaumcraftmodern:altclay"
     },
     {
-      "type": "unavailable",
+      "type": "recipe",
       "title": "",
-      "body": "",
-      "legacy_type": "recipe",
-      "legacy_content": "AltGlowstone",
-      "source_expression": "new ResearchPage((CrucibleRecipe)recipes.get(\"AltGlowstone\"))"
+      "recipe": "thaumcraftmodern:altglowstone"
     },
     {
-      "type": "unavailable",
+      "type": "recipe",
       "title": "",
-      "body": "",
-      "legacy_type": "recipe",
-      "legacy_content": "AltInk",
-      "source_expression": "new ResearchPage((CrucibleRecipe)recipes.get(\"AltInk\"))"
+      "recipe": "thaumcraftmodern:altink"
     }
   ],
   "purchase_cost": [
@@ -77,8 +62,7 @@
       "amount": 3
     }
   ],
-  "inactive": true,
-  "inactive_reason": "referenced gameplay content is not implemented",
+  "inactive": false,
   "legacy": {
     "x": -4,
     "y": 0,

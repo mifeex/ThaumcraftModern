@@ -51,6 +51,9 @@ public final class CrucibleRecipeReloadListener
                                 file.getKey(),
                                 GsonHelper.getAsString(json, "research", ""),
                                 Ingredient.fromJson(json.get("catalyst")),
+                                json.getAsJsonObject("catalyst").has("aspect")
+                                        ? GsonHelper.getAsString(json.getAsJsonObject("catalyst"), "aspect")
+                                        : "",
                                 ShapedRecipe.itemStackFromJson(
                                         GsonHelper.getAsJsonObject(json, "output")
                                 ),

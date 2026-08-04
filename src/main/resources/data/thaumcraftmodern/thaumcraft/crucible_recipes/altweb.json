@@ -1,0 +1,14 @@
+{
+  "research": "alchemicalmanufacture",
+  "catalyst": {
+    "item": "minecraft:string"
+  },
+  "output": {
+    "item": "minecraft:cobweb"
+  },
+  "aspects": {
+    "vinculum": 2,
+    "pannus": 2
+  },
+  "legacy_id": "AltWeb"
+}

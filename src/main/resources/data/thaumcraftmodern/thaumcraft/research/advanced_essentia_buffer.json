@@ -3,7 +3,7 @@
   "category": "alchemy",
   "icon": "thaumcraftmodern:advanced_essentia_buffer",
   "title": "tc.research_name.ADVANCEDESSENTIABUFFER",
-  "subtitle": "tc.research_text.REVERSIBLEESSENTIATUBE",
+  "subtitle": "tc.research_text.ADVANCEDESSENTIABUFFER",
   "concealed": true,
   "reveal_when": {
     "type": "scan",
@@ -27,15 +27,15 @@
     {
       "type": "infusion",
       "title": "recipe.type.infusion",
-      "output": "thaumcraftmodern:reversible_essentia_tube",
+      "output": "thaumcraftmodern:advanced_essentia_buffer",
       "central": "thaumcraftmodern:essentia_buffer",
       "components": [
+        { "item": "thaumcraftmodern:zombie_brain", "count": 1 },
         { "item": "thaumcraftmodern:essentia_tube", "count": 1 },
         { "item": "minecraft:redstone", "count": 1 },
         { "item": "thaumcraftmodern:essentia_valve", "count": 1 },
-        { "item": "minecraft:redstone", "count": 1 },
         { "item": "thaumcraftmodern:essentia_tube", "count": 1 },
-        { "item": "thaumcraftmodern:zombie_brain", "count": 1 },
+        { "item": "minecraft:redstone", "count": 1 },
         { "item": "thaumcraftmodern:restricted_essentia_tube", "count": 1 }
       ],
       "aspect_costs": [

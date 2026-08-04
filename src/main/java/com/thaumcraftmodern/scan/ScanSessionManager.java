@@ -5,6 +5,7 @@ import com.thaumcraftmodern.aura.AuraNodeScanIdentity;
 import com.thaumcraftmodern.aura.AuraNodeState;
 import com.thaumcraftmodern.item.ThaumometerItem;
 import com.thaumcraftmodern.knowledge.KnowledgeAccess;
+import com.thaumcraftmodern.visnet.EnergizedAuraNodeBlockEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceKey;
@@ -47,7 +48,20 @@ public final class ScanSessionManager {
             ));
             return;
         }
-        String id = BuiltInRegistries.BLOCK.getKey(player.level().getBlockState(position).getBlock()).toString();
+        if (player.level().getBlockEntity(position)
+                instanceof EnergizedAuraNodeBlockEntity node) {
+            start(player, new ScanSession(
+                    hand,
+                    new NodeTarget(
+                            player.level().dimension(),
+                            position.immutable(),
+                            node.originalState().nodeId()
+                    )
+            ));
+            return;
+        }
+        String id = ScanRegistry.canonicalBlockId(BuiltInRegistries.BLOCK
+                .getKey(player.level().getBlockState(position).getBlock()).toString());
         start(player, new ScanSession(
                 hand,
                 new BlockTarget(player.level().dimension(), position.immutable(), id)
@@ -199,9 +213,7 @@ public final class ScanSessionManager {
             return new TargetFacts(false, distance, false, false);
         }
 
-        AuraNodeBlockEntity node = target.resolve(player).orElse(null);
-        boolean stableTarget = node != null
-                && target.nodeId().equals(node.scanIdentity().nodeId());
+        boolean stableTarget = target.snapshot(player).isPresent();
         HitResult hit = player.pick(MAX_DISTANCE, 1.0F, true);
         boolean lineOfSight = stableTarget
                 && hit instanceof BlockHitResult blockHit
@@ -224,9 +236,9 @@ public final class ScanSessionManager {
         HitResult hit = player.pick(MAX_DISTANCE, 1.0F, true);
         boolean lineOfSight = hit instanceof BlockHitResult blockHit
                 && blockHit.getBlockPos().equals(target.position());
-        String currentId = BuiltInRegistries.BLOCK
+        String currentId = ScanRegistry.canonicalBlockId(BuiltInRegistries.BLOCK
                 .getKey(player.level().getBlockState(target.position()).getBlock())
-                .toString();
+                .toString());
         return new TargetFacts(true, distance, lineOfSight, target.targetId().equals(currentId));
     }
 
@@ -376,20 +388,21 @@ public final class ScanSessionManager {
             return Vec3.atCenterOf(position);
         }
 
-        Optional<AuraNodeBlockEntity> resolve(ServerPlayer player) {
+        Optional<AuraNodeState.Snapshot> snapshot(ServerPlayer player) {
             if (!player.level().dimension().equals(dimension)
                     || !player.level().hasChunkAt(position)) {
                 return Optional.empty();
             }
             if (player.level().getBlockEntity(position) instanceof AuraNodeBlockEntity node
                     && nodeId.equals(node.scanIdentity().nodeId())) {
-                return Optional.of(node);
+                return Optional.of(node.snapshotState().snapshot());
+            }
+            if (player.level().getBlockEntity(position)
+                    instanceof EnergizedAuraNodeBlockEntity node
+                    && nodeId.equals(node.originalState().nodeId())) {
+                return Optional.of(node.originalState().snapshot());
             }
             return Optional.empty();
-        }
-
-        Optional<AuraNodeState.Snapshot> snapshot(ServerPlayer player) {
-            return resolve(player).map(node -> node.snapshotState().snapshot());
         }
     }
 

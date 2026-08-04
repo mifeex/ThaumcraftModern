@@ -120,6 +120,8 @@ public final class WandDefinitionReloadListener
                 id,
                 GsonHelper.getAsInt(json, "capacity_vis"),
                 translationKey,
+                GsonHelper.getAsInt(json, "craft_cost_vis"),
+                GsonHelper.getAsString(json, "research", "rod_" + id),
                 rechargeAspects,
                 GsonHelper.getAsInt(json, "recharge_interval_ticks", 0),
                 GsonHelper.getAsInt(json, "recharge_centivis", 0),
@@ -150,6 +152,8 @@ public final class WandDefinitionReloadListener
                 id,
                 baseModifier,
                 translationKey,
+                GsonHelper.getAsInt(json, "craft_cost_vis"),
+                GsonHelper.getAsString(json, "research", "cap_" + id),
                 specialAspects,
                 GsonHelper.getAsFloat(
                         json,

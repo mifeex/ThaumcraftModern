@@ -93,9 +93,40 @@ final class ClassicFoundationalRecipeFidelityTest {
                 "05aa84e3353bff3e213cb6fab9d1550aae15f8108b8597f02e8fa545fbb46d3c");
         assertTexture("thaumium_nugget",
                 "99452e8b9a952ab31522fdc1ea586c0b38eabdadaf3410913a7a2f1777c8ee18");
+        assertTexture("thaumium_ingot",
+                "c323b01aed47e6d4ab7cb8d39f37c6c905eadc5603210f3054b4482b86d51548");
         assertTexture("void_nugget",
                 "f42becf5bb1b37f79cbe11c5f3b34d54363aeafda5cbe1aaa8a9e555286825c8");
+        assertTexture("primal_charm",
+                "be88eeb88fca1a9c94d72246cf28d7472be073105b38818a0d4c4a0fbc9bd216");
+        assertTexture("mirrored_glass",
+                "c0a4953d8d9a3ed843f385dc082fc4f38a75ecdff5993dec9baa0cff1af9c254");
+        assertTexture("enchanted_fabric",
+                "d0f63c536b135b8ff02b8e8b6ba04a651787fd564bca3c7c02af9bae3f17dc19");
         assertModelTexture("silver_nugget");
+    }
+
+    @Test
+    void arcaneEarUsesItsOriginalBlockTexturesInsteadOfRecipePlaceholder()
+            throws Exception {
+        JsonObject item = json(ASSETS.resolve("models/item/arcane_ear.json"));
+        assertEquals("thaumcraftmodern:block/arcane_ear_on",
+                item.get("parent").getAsString());
+        JsonObject model = json(ASSETS.resolve(
+                "models/block/arcane_ear_base.json"));
+        assertEquals(10, model.getAsJsonArray("elements").size());
+        JsonObject states = json(ASSETS.resolve("blockstates/arcane_ear.json"));
+        assertTrue(states.getAsJsonObject("variants")
+                .has("powered=false"));
+        assertTrue(states.getAsJsonObject("variants")
+                .has("powered=true"));
+        for (String texture : List.of(
+                "arcane_ear_bottom", "arcane_ear_top", "arcane_ear_side",
+                "arcane_ear_top_on", "arcane_ear_side_on",
+                "arcane_ear_bell_top", "arcane_ear_bell_side")) {
+            assertTrue(Files.isRegularFile(
+                    ASSETS.resolve("textures/item/" + texture + ".png")));
+        }
     }
 
     private static void assertConversion(String suffix, String ingot,

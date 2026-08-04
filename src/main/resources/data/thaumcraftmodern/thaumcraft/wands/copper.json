@@ -2,6 +2,7 @@
   "kind": "cap",
   "id": "copper",
   "cost_modifier": 1.1,
+  "craft_cost_vis": 2,
   "special_aspects": ["ordo", "perditio"],
   "special_cost_modifier": 1.0,
   "translation_key": "item.Wand.copper.cap"

@@ -1,0 +1,15 @@
+{
+  "research": "transgold",
+  "catalyst": {
+    "item": "minecraft:gold_nugget"
+  },
+  "output": {
+    "item": "minecraft:gold_nugget",
+    "count": 3
+  },
+  "aspects": {
+    "metallum": 2,
+    "lucrum": 1
+  },
+  "legacy_id": "TransGold"
+}

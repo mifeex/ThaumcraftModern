@@ -2,7 +2,7 @@
   "id": "essentiareservoir",
   "legacy_id": "ESSENTIARESERVOIR",
   "category": "eldritch",
-  "icon": "thaumcraftmodern:thaumonomicon",
+  "icon": "thaumcraftmodern:essentia_reservoir",
   "title": "tc.research_name.ESSENTIARESERVOIR",
   "subtitle": "tc.research_text.ESSENTIARESERVOIR",
   "concealed": true,
@@ -25,12 +25,26 @@
       "body": "tc.research_page.ESSENTIARESERVOIR.1"
     },
     {
-      "type": "unavailable",
-      "title": "",
-      "body": "",
-      "legacy_type": "recipe",
-      "legacy_content": "EssentiaReservoir",
-      "source_expression": "new ResearchPage((InfusionRecipe)recipes.get(\"EssentiaReservoir\"))"
+      "type": "infusion",
+      "title": "recipe.type.infusion",
+      "output": "thaumcraftmodern:essentia_reservoir",
+      "central": "thaumcraftmodern:essentia_buffer",
+      "components": [
+        {"item": "thaumcraftmodern:void_metal_ingot", "count": 1},
+        {"item": "thaumcraftmodern:warded_jar", "count": 1},
+        {"item": "thaumcraftmodern:warded_jar", "count": 1},
+        {"item": "thaumcraftmodern:void_metal_ingot", "count": 1},
+        {"item": "thaumcraftmodern:warded_jar", "count": 1},
+        {"item": "thaumcraftmodern:warded_jar", "count": 1}
+      ],
+      "aspect_costs": [
+        {"id": "aqua", "amount": 8},
+        {"id": "vacuos", "amount": 8},
+        {"id": "praecantatio", "amount": 8},
+        {"id": "permutatio", "amount": 8}
+      ],
+      "instability": "high",
+      "detail": "tc.research_text.ESSENTIARESERVOIR"
     },
     {
       "type": "text",
@@ -38,8 +52,7 @@
       "body": "tc.research_page.ESSENTIARESERVOIR.2"
     }
   ],
-  "inactive": true,
-  "inactive_reason": "referenced gameplay content is not implemented",
+  "inactive": false,
   "legacy": {
     "x": 4,
     "y": -3,

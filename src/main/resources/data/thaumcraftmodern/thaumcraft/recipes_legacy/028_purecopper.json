@@ -2,9 +2,11 @@
   "id": "purecopper",
   "legacy_id": "PureCopper",
   "legacy_kind": "crucible",
-  "inactive": true,
-  "inactive_reason": "recipe type or referenced content is not implemented",
-  "modern_recipe": "",
+  "inactive": false,
+  "inactive_reason": null,
+  "modern_recipe": [
+    "thaumcraftmodern:purecopper"
+  ],
   "required_aspects": [
     {
       "id": "metallum",

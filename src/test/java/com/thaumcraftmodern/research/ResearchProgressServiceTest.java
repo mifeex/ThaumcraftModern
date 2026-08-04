@@ -192,7 +192,8 @@ class ResearchProgressServiceTest {
         PlayerThaumKnowledge knowledge = new PlayerThaumKnowledge();
         ResearchProgressService.reconcile(knowledge);
 
-        assertTrue(ResearchProgressService.canCreateNotes(manual, knowledge));
+        // TC4 cannot create notes for a research item without a primary tag.
+        assertFalse(ResearchProgressService.canCreateNotes(manual, knowledge));
         assertFalse(ResearchProgressService.canCreateNotes(automatic, knowledge));
 
         knowledge.completeResearch("manual");

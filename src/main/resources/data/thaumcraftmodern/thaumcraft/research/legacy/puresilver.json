@@ -2,7 +2,7 @@
   "id": "puresilver",
   "legacy_id": "PURESILVER",
   "category": "alchemy",
-  "icon": "thaumcraftmodern:thaumonomicon",
+  "icon": "thaumcraftmodern:native_silver_cluster",
   "title": "tc.research_name.PURESILVER",
   "subtitle": "tc.research_text.PURESILVER",
   "concealed": true,
@@ -23,9 +23,10 @@
       "body": "tc.research_page.PURESILVER.1"
     },
     {
-      "type": "unavailable",
+      "type": "recipe",
       "title": "",
       "body": "",
+      "recipe": "thaumcraftmodern:puresilver",
       "legacy_type": "recipe",
       "legacy_content": "PureSilver",
       "source_expression": "new ResearchPage((CrucibleRecipe)recipes.get(\"PureSilver\"))"
@@ -45,8 +46,8 @@
       "amount": 1
     }
   ],
-  "inactive": true,
-  "inactive_reason": "referenced gameplay content is not implemented",
+  "inactive": false,
+  "inactive_reason": null,
   "legacy": {
     "x": -3,
     "y": 8,

@@ -26,12 +26,18 @@
       "body": "tc.research_page.ORE.2"
     },
     {
-      "type": "text",
-      "title": "research.thaumcraftmodern.ore_generation.page.title",
-      "body": "research.thaumcraftmodern.ore_generation.page.body",
-      "legacy_type": "recipe",
-      "legacy_content": "(IRecipe[])rc.toArray(new IRecipe[0])",
-      "source_expression": "new ResearchPage((IRecipe[])rc.toArray(new IRecipe[0]))"
+      "type": "recipe",
+      "title": "",
+      "recipe": "thaumcraftmodern:air_crystal_cluster",
+      "recipes": [
+        "thaumcraftmodern:air_crystal_cluster",
+        "thaumcraftmodern:fire_crystal_cluster",
+        "thaumcraftmodern:water_crystal_cluster",
+        "thaumcraftmodern:earth_crystal_cluster",
+        "thaumcraftmodern:order_crystal_cluster",
+        "thaumcraftmodern:entropy_crystal_cluster",
+        "thaumcraftmodern:balanced_crystal_cluster"
+      ]
     },
     {
       "type": "text",

@@ -1,6 +1,7 @@
 package com.thaumcraftmodern.client;
 
 import com.thaumcraftmodern.aura.AuraNodeState;
+import com.thaumcraftmodern.aura.PrimalAspect;
 import com.thaumcraftmodern.item.GogglesOfRevealingItem;
 import com.thaumcraftmodern.scan.AspectReward;
 import com.thaumcraftmodern.scan.ScanTargeting;
@@ -60,6 +61,19 @@ final class ClientAspectContainerReadout {
                 .map(entry -> new AspectReward(
                         entry.getKey(),
                         entry.getValue()
+                ))
+                .toList();
+    }
+
+    static List<AspectReward> energizedNodeContents(
+            Map<PrimalAspect, Integer> visBase
+    ) {
+        return PrimalAspect.ordered().stream()
+                .filter(visBase::containsKey)
+                .filter(aspect -> visBase.get(aspect) > 0)
+                .map(aspect -> new AspectReward(
+                        aspect.id(),
+                        visBase.get(aspect)
                 ))
                 .toList();
     }

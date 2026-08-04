@@ -131,7 +131,8 @@ public final class ArcaneWorkbenchMenu extends AbstractContainerMenu {
     }
 
     public ArcaneVisCost previewCost(Player player) {
-        return previewRecipe(player).map(ArcaneRecipe::visCost).orElse(ArcaneVisCost.EMPTY);
+        return previewRecipe(player).map(recipe -> recipe.visCost(crafting))
+                .orElse(ArcaneVisCost.EMPTY);
     }
 
     public Map<String, Integer> previewCostCentivis(Player player) {
@@ -143,7 +144,7 @@ public final class ArcaneWorkbenchMenu extends AbstractContainerMenu {
                     .map(recipe -> WandVisService.adjustedCostCentivis(
                             player,
                             wandStack(),
-                            recipe.visCost().amounts()
+                            recipe.visCost(crafting).amounts()
                     ))
                     .orElse(Map.of());
         } catch (RuntimeException exception) {
@@ -167,7 +168,7 @@ public final class ArcaneWorkbenchMenu extends AbstractContainerMenu {
                 return WandVisService.adjustedCostCentivis(
                         player,
                         wandStack(),
-                        recipe.orElseThrow().visCost().amounts()
+                        recipe.orElseThrow().visCost(crafting).amounts()
                 );
             } catch (RuntimeException exception) {
                 return Map.of();
@@ -177,7 +178,7 @@ public final class ArcaneWorkbenchMenu extends AbstractContainerMenu {
         try {
             LinkedHashMap<String, Integer> baseCost = new LinkedHashMap<>();
             for (String primal : ArcaneVisCost.PRIMALS) {
-                int amount = recipe.orElseThrow().visCost().amount(primal);
+                int amount = recipe.orElseThrow().visCost(crafting).amount(primal);
                 if (amount > 0) {
                     baseCost.put(
                             primal,
@@ -197,7 +198,7 @@ public final class ArcaneWorkbenchMenu extends AbstractContainerMenu {
                 .map(recipe -> WandVisService.canConsume(
                         player,
                         wandStack(),
-                        recipe.visCost().amounts()
+                        recipe.visCost(crafting).amounts()
                 ))
                 .orElse(false);
     }
@@ -218,7 +219,7 @@ public final class ArcaneWorkbenchMenu extends AbstractContainerMenu {
                     .filter(recipe -> WandVisService.canConsume(
                             owner,
                             wandStack(),
-                            recipe.visCost().amounts()
+                            recipe.visCost(crafting).amounts()
                     ))
                     .map(recipe -> previewOutput(recipe, owner))
                     .orElse(ItemStack.EMPTY);
@@ -252,10 +253,11 @@ public final class ArcaneWorkbenchMenu extends AbstractContainerMenu {
         );
     }
 
-    private static boolean hasResearch(Player player, ArcaneRecipe recipe) {
-        return KnowledgeAccess.get(player)
-                .map(knowledge -> knowledge.hasCompletedResearch(recipe.researchId()))
-                .orElse(false);
+    private boolean hasResearch(Player player, ArcaneRecipe recipe) {
+        return KnowledgeAccess.get(player).map(knowledge ->
+                recipe.requiredResearchIds(crafting).stream()
+                        .allMatch(knowledge::hasCompletedResearch)
+        ).orElse(false);
     }
 
     private boolean canCompleteCraft(ServerPlayer player) {
@@ -270,7 +272,7 @@ public final class ArcaneWorkbenchMenu extends AbstractContainerMenu {
                     .filter(recipe -> WandVisService.canConsume(
                             player,
                             wandStack(),
-                            recipe.visCost().amounts()
+                            recipe.visCost(crafting).amounts()
                     ))
                     .isPresent();
         }
@@ -300,7 +302,7 @@ public final class ArcaneWorkbenchMenu extends AbstractContainerMenu {
                 || !WandVisService.canConsume(
                         player,
                         wandStack(),
-                        recipe.visCost().amounts()
+                        recipe.visCost(crafting).amounts()
                 )) {
             return false;
         }
@@ -318,7 +320,8 @@ public final class ArcaneWorkbenchMenu extends AbstractContainerMenu {
             recipeInputs.set(slot, crafting.getItem(slot).copy());
         }
         NonNullList<ItemStack> remainders = recipe.getRemainingItems(crafting);
-        if (!WandVisService.consume(player, wandStack(), recipe.visCost().amounts())) {
+        if (!WandVisService.consume(player, wandStack(),
+                recipe.visCost(crafting).amounts())) {
             return false;
         }
         consumeRecipeInputs(player, recipe, recipeInputs, remainders);

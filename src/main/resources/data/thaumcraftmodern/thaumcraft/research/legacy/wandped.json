@@ -2,7 +2,7 @@
   "id": "wandped",
   "legacy_id": "WANDPED",
   "category": "thaumaturgy",
-  "icon": "thaumcraftmodern:thaumonomicon",
+  "icon": "thaumcraftmodern:wand_recharge_pedestal",
   "title": "tc.research_name.WANDPED",
   "subtitle": "tc.research_text.WANDPED",
   "concealed": true,
@@ -25,16 +25,27 @@
       "body": "tc.research_page.WANDPED.1"
     },
     {
-      "type": "unavailable",
-      "title": "",
-      "body": "",
-      "legacy_type": "recipe",
-      "legacy_content": "WandPed",
-      "source_expression": "new ResearchPage((InfusionRecipe)recipes.get(\"WandPed\"))"
+      "type": "infusion",
+      "title": "recipe.type.infusion",
+      "output": "thaumcraftmodern:wand_recharge_pedestal",
+      "central": "thaumcraftmodern:arcane_pedestal",
+      "components": [
+        {"item": "minecraft:gold_ingot", "count": 1},
+        {"item": "minecraft:diamond", "count": 1},
+        {"item": "thaumcraftmodern:primal_charm", "count": 1},
+        {"item": "minecraft:diamond", "count": 1}
+      ],
+      "aspect_costs": [
+        {"id": "auram", "amount": 10},
+        {"id": "praecantatio", "amount": 15},
+        {"id": "permutatio", "amount": 15}
+      ],
+      "instability": "minor",
+      "detail": "tc.research_text.WANDPED"
     }
   ],
-  "inactive": true,
-  "inactive_reason": "referenced gameplay content is not implemented",
+  "inactive": false,
+  "inactive_reason": null,
   "legacy": {
     "x": -9,
     "y": -6,

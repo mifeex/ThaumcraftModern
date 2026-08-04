@@ -2,7 +2,7 @@
   "id": "elementalpick",
   "legacy_id": "ELEMENTALPICK",
   "category": "artifice",
-  "icon": "thaumcraftmodern:thaumonomicon",
+  "icon": "thaumcraftmodern:pickaxe_of_the_core",
   "title": "tc.research_name.ELEMENTALPICK",
   "subtitle": "tc.research_text.ELEMENTALPICK",
   "concealed": true,
@@ -24,12 +24,9 @@
       "body": "tc.research_page.ELEMENTALPICK.1"
     },
     {
-      "type": "unavailable",
-      "title": "",
-      "body": "",
-      "legacy_type": "recipe",
-      "legacy_content": "ElementalPick",
-      "source_expression": "new ResearchPage((InfusionRecipe)recipes.get(\"ElementalPick\"))"
+      "type":"infusion","title":"recipe.type.infusion","output":"thaumcraftmodern:pickaxe_of_the_core","central":"thaumcraftmodern:thaumium_pickaxe",
+      "components":[{"item":"thaumcraftmodern:fire_shard","count":1},{"item":"thaumcraftmodern:fire_shard","count":1},{"item":"minecraft:diamond","count":1},{"item":"thaumcraftmodern:greatwood_log","count":1}],
+      "aspect_costs":[{"id":"ignis","amount":8},{"id":"perfodio","amount":8},{"id":"sensus","amount":8}],"instability":"minor","detail":"tc.research_text.ELEMENTALPICK"
     },
     {
       "type": "text",
@@ -37,8 +34,8 @@
       "body": "tc.research_page.ELEMENTALPICK.2"
     }
   ],
-  "inactive": true,
-  "inactive_reason": "referenced gameplay content is not implemented",
+  "purchase_cost":[{"id":"instrumentum","amount":3},{"id":"ignis","amount":3},{"id":"sensus","amount":3}],
+  "inactive": false,
   "legacy": {
     "x": -7,
     "y": 3,

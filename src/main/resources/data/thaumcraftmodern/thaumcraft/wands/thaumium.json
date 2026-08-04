@@ -2,5 +2,6 @@
   "kind": "cap",
   "id": "thaumium",
   "cost_modifier": 0.9,
+  "craft_cost_vis": 6,
   "translation_key": "item.Wand.thaumium.cap"
 }

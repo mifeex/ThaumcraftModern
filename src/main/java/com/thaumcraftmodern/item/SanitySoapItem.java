@@ -15,6 +15,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.UseAnim;
 import net.minecraft.world.level.Level;
+import com.thaumcraftmodern.registry.ModBlocks;
 
 /**
  * TC4 sanitizing soap: a long use clears all temporary warp and has a 33%
@@ -79,15 +80,19 @@ public final class SanitySoapItem extends Item {
     private static void cleanse(ItemStack stack, ServerPlayer player) {
         KnowledgeAccess.get(player).ifPresent(knowledge -> {
             int temporary = knowledge.warp(WarpType.TEMPORARY);
-            int normal = knowledge.warp(WarpType.NORMAL);
+            int permanent = knowledge.warp(WarpType.PERMANENT);
             float chance = 0.33F;
             if (player.hasEffect(ModEffects.WARP_WARD.get())) {
                 chance += 0.25F;
             }
-            if (normal > 0 && player.getRandom().nextFloat() < chance) {
-                knowledge.setWarp(WarpType.NORMAL, normal - 1);
+            if (player.level().getBlockState(player.blockPosition()).is(
+                    ModBlocks.PURIFYING_FLUID.get())) {
+                chance += 0.25F;
+            }
+            if (permanent > 0 && player.getRandom().nextFloat() < chance) {
+                knowledge.setWarp(WarpType.PERMANENT, permanent - 1);
                 ModNetwork.sendTo(player, new WarpFeedbackPacket(
-                        WarpFeedbackPacket.NORMAL,
+                        WarpFeedbackPacket.PERMANENT,
                         -1,
                         WarpFeedbackPacket.VISUAL_NONE
                 ));

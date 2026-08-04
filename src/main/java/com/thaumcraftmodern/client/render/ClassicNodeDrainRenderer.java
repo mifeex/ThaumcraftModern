@@ -188,7 +188,7 @@ final class ClassicNodeDrainRenderer {
         return new Vec3(x, y, z);
     }
 
-    private static void renderFloatyLineFromDelta(
+    static void renderFloatyLineFromDelta(
             Vec3 tipDelta,
             Vec3 phaseOrigin,
             int color,

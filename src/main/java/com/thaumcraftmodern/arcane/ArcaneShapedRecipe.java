@@ -97,6 +97,10 @@ public final class ArcaneShapedRecipe implements ArcaneRecipe {
         return ingredients;
     }
 
+    public int width() {
+        return width;
+    }
+
     @Override
     public ResourceLocation getId() {
         return id;

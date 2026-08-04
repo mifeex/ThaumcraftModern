@@ -9,6 +9,7 @@ import com.thaumcraftmodern.item.ResearchNotesItem;
 import com.thaumcraftmodern.item.DiscoveryItem;
 import com.thaumcraftmodern.item.ScribingToolsItem;
 import com.thaumcraftmodern.knowledge.KnowledgeAccess;
+import com.thaumcraftmodern.knowledge.PlayerThaumKnowledge;
 import com.thaumcraftmodern.registry.ModSounds;
 import com.thaumcraftmodern.research.HexResearchPuzzle;
 import com.thaumcraftmodern.research.ResearchDiagnostics;
@@ -39,8 +40,11 @@ public final class ResearchTableScreen extends AbstractContainerScreen<ResearchT
             );
     private static final ResourceLocation HEX =
             new ResourceLocation(ThaumcraftModern.MOD_ID, "textures/gui/hex1.png");
-    private static final ResourceLocation SELECTED_HEX =
-            new ResourceLocation(ThaumcraftModern.MOD_ID, "textures/gui/hex2.png");
+    private static final ResourceLocation HOVERED_FREE_HEX =
+            new ResourceLocation(
+                    ThaumcraftModern.MOD_ID,
+                    "textures/gui/hex_hover_white.png"
+            );
     private static final ResourceLocation SCRIPT =
             new ResourceLocation(
                     ThaumcraftModern.MOD_ID,
@@ -51,6 +55,11 @@ public final class ResearchTableScreen extends AbstractContainerScreen<ResearchT
                     ThaumcraftModern.MOD_ID,
                     "textures/aspects/_back.png"
             );
+    private static final ResourceLocation UNKNOWN_ASPECT =
+            new ResourceLocation(
+                    ThaumcraftModern.MOD_ID,
+                    "textures/aspects/_unknown.png"
+            );
     private static final int PANEL_HEIGHT = 167;
     private static final int INVENTORY_X = 40;
     private static final int INVENTORY_Y = 167;
@@ -59,7 +68,6 @@ public final class ResearchTableScreen extends AbstractContainerScreen<ResearchT
     private static final int PUZZLE_CENTER_X = 169;
     private static final int PUZZLE_CENTER_Y = 83;
     private static final int PUZZLE_HEX_SIZE = 16;
-    private static final int PUZZLE_RADIUS = 3;
     private static final int PALETTE_X = 10;
     private static final int PALETTE_Y = 40;
     private static final int PALETTE_ROWS = ResearchTablePaletteLayout.ROWS;
@@ -178,7 +186,8 @@ public final class ResearchTableScreen extends AbstractContainerScreen<ResearchT
             renderRunes(graphics);
             renderHexGrid(graphics);
         }
-        renderPuzzle(graphics);
+        renderPuzzle(graphics, mouseX, mouseY);
+        renderHoveredEmptyCellOutline(graphics, mouseX, mouseY);
         renderPaletteArrows(graphics);
         renderPalette(graphics, mouseX, mouseY);
         renderCombinationControls(graphics, mouseX, mouseY);
@@ -199,26 +208,23 @@ public final class ResearchTableScreen extends AbstractContainerScreen<ResearchT
     }
 
     private void renderHexGrid(GuiGraphics graphics) {
-        for (int q = -PUZZLE_RADIUS; q <= PUZZLE_RADIUS; q++) {
-            int minimumR = Math.max(-PUZZLE_RADIUS, -q - PUZZLE_RADIUS);
-            int maximumR = Math.min(PUZZLE_RADIUS, -q + PUZZLE_RADIUS);
-            for (int r = minimumR; r <= maximumR; r++) {
-                ClassicUiRender.drawTintedScaledTexture(
-                        graphics,
-                        HEX,
-                        hexX(q) - PUZZLE_HEX_SIZE / 2,
-                        hexY(q, r) - PUZZLE_HEX_SIZE / 2,
-                        PUZZLE_HEX_SIZE,
-                        PUZZLE_HEX_SIZE,
-                        0,
-                        0,
-                        32,
-                        32,
-                        32,
-                        32,
-                        0x40FFFFFF
-                );
-            }
+        if (minecraft == null || minecraft.player == null) return;
+        for (HexResearchPuzzle.Cell cell : menu.puzzle(minecraft.player).cells()) {
+            ClassicUiRender.drawTintedScaledTexture(
+                    graphics,
+                    HEX,
+                    cellX(cell),
+                    cellY(cell),
+                    PUZZLE_HEX_SIZE,
+                    PUZZLE_HEX_SIZE,
+                    0,
+                    0,
+                    32,
+                    32,
+                    32,
+                    32,
+                    0x40FFFFFF
+            );
         }
     }
 
@@ -248,7 +254,7 @@ public final class ResearchTableScreen extends AbstractContainerScreen<ResearchT
         }
     }
 
-    private void renderPuzzle(GuiGraphics graphics) {
+    private void renderPuzzle(GuiGraphics graphics, int mouseX, int mouseY) {
         if (minecraft == null || minecraft.player == null || !hasResearchWorkspace()) {
             int lineY = topPos + 72;
             for (var line : font.split(
@@ -266,33 +272,42 @@ public final class ResearchTableScreen extends AbstractContainerScreen<ResearchT
         }
 
         HexResearchPuzzle puzzle = menu.puzzle(minecraft.player);
-        renderConnections(graphics, puzzle);
-        for (int q = HexResearchPuzzle.MIN_Q; q <= HexResearchPuzzle.MAX_Q; q++) {
-            int x = cellX(q);
-            int y = cellY(q);
-            if (puzzle.isAnchor(q)) {
-                ClassicUiRender.drawScaledTexture(
-                        graphics,
-                        SELECTED_HEX,
-                        x,
-                        y,
-                        PUZZLE_HEX_SIZE,
-                        PUZZLE_HEX_SIZE,
-                        0,
-                        0,
-                        32,
-                        32,
-                        32,
-                        32
-                );
-            }
-            String aspectId = puzzle.aspectAt(q).orElse(null);
+        HexResearchPuzzle.Cell hovered = hoveredPuzzleCellByCenter(
+                puzzle,
+                mouseX,
+                mouseY
+        );
+        PlayerThaumKnowledge knowledge = KnowledgeAccess.get(minecraft.player)
+                .orElse(null);
+        renderConnections(graphics, puzzle, knowledge);
+        for (HexResearchPuzzle.Cell cell : puzzle.cells()) {
+            int x = cellX(cell);
+            int y = cellY(cell);
+            String aspectId = puzzle.aspectAt(cell).orElse(null);
             if (aspectId != null) {
+                if (knowledge == null || !knowledge.knowsAspect(aspectId)) {
+                    int unknownColor = cell.equals(hovered)
+                            ? lightenColor(0x000000)
+                            : 0x000000;
+                    ClassicUiRender.drawAspect(
+                            graphics,
+                            UNKNOWN_ASPECT,
+                            x,
+                            y,
+                            PUZZLE_HEX_SIZE,
+                            unknownColor,
+                            0.5F
+                    );
+                    continue;
+                }
                 AspectDefinition definition = AspectRegistryRuntime.find(aspectId).orElse(null);
                 if (definition != null) {
-                    int color = puzzle.isAnchor(q) || puzzle.hasRelatedNeighbor(q)
+                    int color = puzzle.isAnchor(cell) || puzzle.hasRelatedNeighbor(cell)
                             ? definition.color()
                             : 0x8A8A8A;
+                    if (cell.equals(hovered)) {
+                        color = lightenColor(color);
+                    }
                     ClassicUiRender.drawAspect(
                             graphics,
                             new ResourceLocation(definition.icon()),
@@ -306,29 +321,103 @@ public final class ResearchTableScreen extends AbstractContainerScreen<ResearchT
         }
     }
 
-    private void renderConnections(GuiGraphics graphics, HexResearchPuzzle puzzle) {
-        for (int q = HexResearchPuzzle.MIN_Q; q < HexResearchPuzzle.MAX_Q; q++) {
-            if (puzzle.aspectAt(q).isEmpty() || puzzle.aspectAt(q + 1).isEmpty()) {
-                continue;
-            }
-            if (!AspectRegistryRuntime.catalog().related(
-                    puzzle.aspectAt(q).orElseThrow(),
-                    puzzle.aspectAt(q + 1).orElseThrow()
-            )) {
-                continue;
-            }
-            int startX = cellX(q) + PUZZLE_HEX_SIZE / 2;
-            int startY = cellY(q) + PUZZLE_HEX_SIZE / 2;
-            int endX = cellX(q + 1) + PUZZLE_HEX_SIZE / 2;
-            int endY = cellY(q + 1) + PUZZLE_HEX_SIZE / 2;
-            int steps = Math.max(Math.abs(endX - startX), Math.abs(endY - startY));
-            for (int step = 0; step <= steps; step++) {
-                float progress = steps == 0 ? 0.0F : step / (float) steps;
-                int x = Math.round(startX + (endX - startX) * progress);
-                int y = Math.round(startY + (endY - startY) * progress);
-                graphics.fill(x, y, x + 1, y + 1, 0x804C9CB3);
+    private void renderConnections(
+            GuiGraphics graphics,
+            HexResearchPuzzle puzzle,
+            PlayerThaumKnowledge knowledge
+    ) {
+        for (HexResearchPuzzle.Cell cell : puzzle.cells()) {
+            for (HexResearchPuzzle.Cell neighbor : HexResearchPuzzle.neighbors(cell)) {
+                if (cell.compareTo(neighbor) >= 0
+                        || puzzle.aspectAt(cell).isEmpty()
+                        || puzzle.aspectAt(neighbor).isEmpty()
+                        || knowledge == null
+                        || !knowledge.knowsAspect(
+                                puzzle.aspectAt(cell).orElseThrow()
+                        )
+                        || !knowledge.knowsAspect(
+                                puzzle.aspectAt(neighbor).orElseThrow()
+                        )
+                        || !AspectRegistryRuntime.catalog().related(
+                                puzzle.aspectAt(cell).orElseThrow(),
+                                puzzle.aspectAt(neighbor).orElseThrow())) continue;
+                int startX = cellX(cell) + PUZZLE_HEX_SIZE / 2;
+                int startY = cellY(cell) + PUZZLE_HEX_SIZE / 2;
+                int endX = cellX(neighbor) + PUZZLE_HEX_SIZE / 2;
+                int endY = cellY(neighbor) + PUZZLE_HEX_SIZE / 2;
+                int steps = Math.max(Math.abs(endX - startX), Math.abs(endY - startY));
+                for (int step = 0; step <= steps; step++) {
+                    float progress = steps == 0 ? 0.0F : step / (float) steps;
+                    int x = Math.round(startX + (endX - startX) * progress);
+                    int y = Math.round(startY + (endY - startY) * progress);
+                    graphics.fill(x, y, x + 1, y + 1, 0x804C9CB3);
+                }
             }
         }
+    }
+
+    private void renderHoveredEmptyCellOutline(
+            GuiGraphics graphics,
+            int mouseX,
+            int mouseY
+    ) {
+        if (minecraft == null || minecraft.player == null
+                || !hasResearchWorkspace()) {
+            return;
+        }
+        HexResearchPuzzle puzzle = menu.puzzle(minecraft.player);
+        HexResearchPuzzle.Cell hovered = hoveredPuzzleCellByCenter(
+                puzzle,
+                mouseX,
+                mouseY
+        );
+        if (hovered != null && puzzle.aspectAt(hovered).isEmpty()) {
+            ClassicUiRender.drawTintedScaledTexture(
+                    graphics,
+                    HOVERED_FREE_HEX,
+                    cellX(hovered),
+                    cellY(hovered),
+                    PUZZLE_HEX_SIZE,
+                    PUZZLE_HEX_SIZE,
+                    0,
+                    0,
+                    32,
+                    32,
+                    32,
+                    32,
+                    0xA0FFFFFF
+            );
+        }
+    }
+
+    private HexResearchPuzzle.Cell hoveredPuzzleCellByCenter(
+            HexResearchPuzzle puzzle,
+            double mouseX,
+            double mouseY
+    ) {
+        HexResearchPuzzle.Cell hovered = null;
+        double nearestDistanceSquared = Double.MAX_VALUE;
+        for (HexResearchPuzzle.Cell cell : puzzle.cells()) {
+            double deltaX = mouseX - (cellX(cell) + PUZZLE_HEX_SIZE / 2.0D);
+            double deltaY = mouseY - (cellY(cell) + PUZZLE_HEX_SIZE / 2.0D);
+            double distanceSquared = deltaX * deltaX + deltaY * deltaY;
+            if (distanceSquared <= 64.0D
+                    && distanceSquared < nearestDistanceSquared) {
+                hovered = cell;
+                nearestDistanceSquared = distanceSquared;
+            }
+        }
+        return hovered;
+    }
+
+    private static int lightenColor(int rgbColor) {
+        int red = (rgbColor >> 16) & 0xFF;
+        int green = (rgbColor >> 8) & 0xFF;
+        int blue = rgbColor & 0xFF;
+        red += Math.round((255 - red) * 0.15F);
+        green += Math.round((255 - green) * 0.15F);
+        blue += Math.round((255 - blue) * 0.15F);
+        return (red << 16) | (green << 8) | blue;
     }
 
     private void renderPalette(GuiGraphics graphics, int mouseX, int mouseY) {
@@ -692,38 +781,9 @@ public final class ResearchTableScreen extends AbstractContainerScreen<ResearchT
             );
         }
 
-        if (minecraft == null || minecraft.player == null || !hasResearchWorkspace()) {
-            return;
-        }
-        int q = hoveredPuzzleCell(mouseX, mouseY);
-        if (q < HexResearchPuzzle.MIN_Q || q > HexResearchPuzzle.MAX_Q) {
-            return;
-        }
-        var knowledge = KnowledgeAccess.get(minecraft.player).orElse(null);
-        if (knowledge == null) {
-            return;
-        }
-        String aspectId = ResearchTableMenu.palette().get(draggedPaletteIndex);
-        HexResearchPuzzle.PlacementResult validation = menu.puzzle(minecraft.player)
-                .validatePlacement(q, aspectId, knowledge);
-        if (validation != HexResearchPuzzle.PlacementResult.PLACED) {
-            return;
-        }
-        ClassicUiRender.drawTintedScaledTexture(
-                graphics,
-                SELECTED_HEX,
-                cellX(q),
-                cellY(q),
-                PUZZLE_HEX_SIZE,
-                PUZZLE_HEX_SIZE,
-                0,
-                0,
-                32,
-                32,
-                32,
-                32,
-                0xF0FFFFFF
-        );
+        // TC4-style puzzle placement needs no coloured target frame: the
+        // dragged aspect itself is the preview, and valid relationships are
+        // communicated by the connection line after placement.
     }
 
     @Override
@@ -915,9 +975,9 @@ public final class ResearchTableScreen extends AbstractContainerScreen<ResearchT
             }
 
             if (hasResearchWorkspace()) {
-                for (int q = HexResearchPuzzle.MIN_Q; q <= HexResearchPuzzle.MAX_Q; q++) {
-                    int x = cellX(q);
-                    int y = cellY(q);
+                for (HexResearchPuzzle.Cell cell : menu.puzzle(minecraft.player).cells()) {
+                    int x = cellX(cell);
+                    int y = cellY(cell);
                     if (mouseX >= x && mouseX < x + PUZZLE_HEX_SIZE
                             && mouseY >= y && mouseY < y + PUZZLE_HEX_SIZE) {
                         if (minecraft.gameMode == null) {
@@ -926,15 +986,15 @@ public final class ResearchTableScreen extends AbstractContainerScreen<ResearchT
                         if (button == 1) {
                             ResearchDiagnostics.log(
                                     "CLIENT_ERASE_SEND",
-                                    "player={} container={} q={} encoded={}",
+                                    "player={} container={} cell={} encoded={}",
                                     minecraft.player.getGameProfile().getName(),
                                     menu.containerId,
-                                    q,
-                                    ResearchTableMenu.encodeErase(q)
+                                    cell,
+                                    ResearchTableMenu.encodeErase(cell)
                             );
                             minecraft.gameMode.handleInventoryButtonClick(
                                     menu.containerId,
-                                    ResearchTableMenu.encodeErase(q)
+                                    ResearchTableMenu.encodeErase(cell)
                             );
                             return true;
                         }
@@ -943,18 +1003,18 @@ public final class ResearchTableScreen extends AbstractContainerScreen<ResearchT
                                     ResearchTableMenu.palette().get(placementPaletteIndex);
                             ResearchDiagnostics.log(
                                     "CLIENT_PLACE_SEND",
-                                    "player={} container={} source=selected q={} aspect={} amount={} encoded={}",
+                                    "player={} container={} source=selected cell={} aspect={} amount={} encoded={}",
                                     minecraft.player.getGameProfile().getName(),
                                     menu.containerId,
-                                    q,
+                                    cell,
                                     aspectId,
                                     knowledge == null ? -1 : knowledge.aspectAmount(aspectId),
-                                    ResearchTableMenu.encodePlacement(q, placementPaletteIndex)
+                                    ResearchTableMenu.encodePlacement(cell, placementPaletteIndex)
                             );
                             playCombineSound();
                             minecraft.gameMode.handleInventoryButtonClick(
                                     menu.containerId,
-                                    ResearchTableMenu.encodePlacement(q, placementPaletteIndex)
+                                    ResearchTableMenu.encodePlacement(cell, placementPaletteIndex)
                             );
                             return true;
                         }
@@ -1026,10 +1086,9 @@ public final class ResearchTableScreen extends AbstractContainerScreen<ResearchT
             return;
         }
 
-        int q = hoveredPuzzleCell(mouseX, mouseY);
+        HexResearchPuzzle.Cell cell = hoveredPuzzleCell(mouseX, mouseY);
         if (hasResearchWorkspace()
-                && q >= HexResearchPuzzle.MIN_Q
-                && q <= HexResearchPuzzle.MAX_Q
+                && cell != null
                 && minecraft != null
                 && minecraft.gameMode != null) {
             placementPaletteIndex = paletteIndex;
@@ -1041,20 +1100,20 @@ public final class ResearchTableScreen extends AbstractContainerScreen<ResearchT
                             .orElse(-1);
             ResearchDiagnostics.log(
                     "CLIENT_PLACE_SEND",
-                    "player={} container={} source=drag q={} aspect={} amount={} encoded={}",
+                    "player={} container={} source=drag cell={} aspect={} amount={} encoded={}",
                     minecraft.player == null
                             ? "<no-player>"
                             : minecraft.player.getGameProfile().getName(),
                     menu.containerId,
-                    q,
+                    cell,
                     aspectId,
                     currentAmount,
-                    ResearchTableMenu.encodePlacement(q, paletteIndex)
+                    ResearchTableMenu.encodePlacement(cell, paletteIndex)
             );
             playCombineSound();
             minecraft.gameMode.handleInventoryButtonClick(
                     menu.containerId,
-                    ResearchTableMenu.encodePlacement(q, paletteIndex)
+                    ResearchTableMenu.encodePlacement(cell, paletteIndex)
             );
             return;
         }
@@ -1200,12 +1259,12 @@ public final class ResearchTableScreen extends AbstractContainerScreen<ResearchT
         );
     }
 
-    private int cellX(int q) {
-        return hexX(q) - PUZZLE_HEX_SIZE / 2;
+    private int cellX(HexResearchPuzzle.Cell cell) {
+        return hexX(cell.q()) - PUZZLE_HEX_SIZE / 2;
     }
 
-    private int cellY(int q) {
-        return hexY(q, 0) - PUZZLE_HEX_SIZE / 2;
+    private int cellY(HexResearchPuzzle.Cell cell) {
+        return hexY(cell.q(), cell.r()) - PUZZLE_HEX_SIZE / 2;
     }
 
     private int hexX(int q) {
@@ -1273,13 +1332,16 @@ public final class ResearchTableScreen extends AbstractContainerScreen<ResearchT
         return ResearchTablePaletteLayout.maxPage(knownCount);
     }
 
-    private int hoveredPuzzleCell(double mouseX, double mouseY) {
-        for (int q = HexResearchPuzzle.MIN_Q; q <= HexResearchPuzzle.MAX_Q; q++) {
-            if (contains(cellX(q), cellY(q), PUZZLE_HEX_SIZE, PUZZLE_HEX_SIZE, mouseX, mouseY)) {
-                return q;
+    private HexResearchPuzzle.Cell hoveredPuzzleCell(double mouseX, double mouseY) {
+        if (minecraft == null || minecraft.player == null) return null;
+        for (HexResearchPuzzle.Cell cell : menu.puzzle(minecraft.player).cells()) {
+            if (contains(
+                    cellX(cell), cellY(cell), PUZZLE_HEX_SIZE, PUZZLE_HEX_SIZE,
+                    mouseX, mouseY)) {
+                return cell;
             }
         }
-        return Integer.MIN_VALUE;
+        return null;
     }
 
     private boolean hasResearchNotes() {

@@ -6,12 +6,39 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
 
+import com.thaumcraftmodern.aspect.AspectCost;
 import com.thaumcraftmodern.knowledge.PlayerThaumKnowledge;
 import com.thaumcraftmodern.research.HexResearchPuzzle.EraseResult;
 import com.thaumcraftmodern.research.HexResearchPuzzle.PlacementResult;
 import com.thaumcraftmodern.testing.AspectFixtures;
+import net.minecraft.util.RandomSource;
+
+import java.util.List;
 
 class HexResearchPuzzleTest {
+    @Test
+    void classicLayoutUsesEveryOriginalResearchAspectAsAnAnchor() {
+        HexResearchPuzzle.Layout layout = HexResearchPuzzle.classicLayout(
+                2,
+                List.of(
+                        new AspectCost("aer", 3),
+                        new AspectCost("ignis", 6),
+                        new AspectCost("ordo", 3),
+                        new AspectCost("potentia", 3)
+                ),
+                RandomSource.create(42L)
+        );
+
+        assertEquals(4, layout.anchors().size());
+        assertEquals(
+                List.of("aer", "ignis", "ordo", "potentia"),
+                List.copyOf(layout.anchors().values())
+        );
+        // Radius 3 contains 37 cells and TC4 removes complexity * 2 cells.
+        assertEquals(33, layout.cells().size());
+        assertTrue(layout.cells().containsAll(layout.anchors().keySet()));
+    }
+
     @Test
     void exactClassicChainCompletesDeterministically() {
         PlayerThaumKnowledge knowledge = solvedKnowledge();

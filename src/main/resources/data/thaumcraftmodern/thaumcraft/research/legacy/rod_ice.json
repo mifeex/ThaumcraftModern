@@ -24,12 +24,21 @@
       "body": "tc.research_page.ROD_ice.1"
     },
     {
-      "type": "unavailable",
-      "title": "",
-      "body": "",
-      "legacy_type": "recipe",
-      "legacy_content": "WandRodIce",
-      "source_expression": "new ResearchPage((InfusionRecipe)recipes.get(\"WandRodIce\"))"
+      "type": "infusion",
+      "title": "recipe.type.infusion",
+      "output": "thaumcraftmodern:ice_wand_rod",
+      "central": "minecraft:packed_ice",
+      "components": [
+        {"item": "thaumcraftmodern:balanced_shard", "count": 1},
+        {"item": "thaumcraftmodern:water_shard", "count": 1}
+      ],
+      "aspect_costs": [
+        {"id": "aqua", "amount": 12},
+        {"id": "praecantatio", "amount": 6},
+        {"id": "gelum", "amount": 6}
+      ],
+      "instability": "minor",
+      "detail": "tc.research_text.ROD_ice"
     }
   ],
   "purchase_cost": [
@@ -50,8 +59,7 @@
       "amount": 3
     }
   ],
-  "inactive": true,
-  "inactive_reason": "referenced gameplay content is not implemented",
+  "inactive": false,
   "legacy": {
     "x": -7,
     "y": 4,

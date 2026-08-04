@@ -3,8 +3,10 @@
   "legacy_id": "CoreHarvest",
   "legacy_kind": "crucible",
   "inactive": true,
-  "inactive_reason": "recipe type or referenced content is not implemented",
-  "modern_recipe": "",
+  "inactive_reason": "output item or its complete gameplay behavior is not implemented",
+  "modern_recipe": [
+    "thaumcraftmodern:coreharvest"
+  ],
   "required_aspects": [
     {
       "id": "meto",

@@ -2,7 +2,7 @@
   "id": "bathsalts",
   "legacy_id": "BATHSALTS",
   "category": "alchemy",
-  "icon": "thaumcraftmodern:thaumonomicon",
+  "icon": "thaumcraftmodern:bath_salts",
   "title": "tc.research_name.BATHSALTS",
   "subtitle": "tc.research_text.BATHSALTS",
   "concealed": true,
@@ -23,16 +23,17 @@
       "body": "tc.research_page.BATHSALTS.1"
     },
     {
-      "type": "unavailable",
+      "type": "recipe",
       "title": "",
       "body": "",
+      "recipe": "thaumcraftmodern:bathsalts",
       "legacy_type": "recipe",
       "legacy_content": "BathSalts",
       "source_expression": "new ResearchPage((CrucibleRecipe)recipes.get(\"BathSalts\"))"
     }
   ],
-  "inactive": true,
-  "inactive_reason": "referenced gameplay content is not implemented",
+  "inactive": false,
+  "inactive_reason": null,
   "legacy": {
     "x": -4,
     "y": -4,

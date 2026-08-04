@@ -8,6 +8,7 @@ import com.thaumcraftmodern.client.render.TaintacleModel;
 import com.thaumcraftmodern.client.render.TaintacleRenderer;
 import com.thaumcraftmodern.client.render.ThaumicSlimeRenderer;
 import com.thaumcraftmodern.client.render.CrimsonCultArmorModel;
+import com.thaumcraftmodern.client.render.CrimsonCultistModel;
 import com.thaumcraftmodern.client.render.EldritchGuardianModel;
 import com.thaumcraftmodern.client.render.EldritchGuardianRenderer;
 import com.thaumcraftmodern.client.render.EldritchWardenRenderer;
@@ -28,6 +29,8 @@ import com.thaumcraftmodern.client.render.TaintSporeSwarmerRenderer;
 import com.thaumcraftmodern.client.render.TaintedCrawlerRenderer;
 import com.thaumcraftmodern.client.render.TaintSwarmRenderer;
 import com.thaumcraftmodern.client.render.WispRenderer;
+import com.thaumcraftmodern.client.render.FacelessWitnessModel;
+import com.thaumcraftmodern.client.render.FacelessWitnessRenderer;
 import com.thaumcraftmodern.entity.LegacyMobKind;
 import com.thaumcraftmodern.registry.ModBlocks;
 import com.thaumcraftmodern.registry.ModEntities;
@@ -68,8 +71,16 @@ public final class WorldContentClientEvents {
                 ThrownItemRenderer::new
         );
         event.registerEntityRenderer(
+                ModEntities.BOTTLED_TAINT.get(),
+                ThrownItemRenderer::new
+        );
+        event.registerEntityRenderer(
                 ModEntities.PECH_BLAST.get(),
                 NoopRenderer::new
+        );
+        event.registerEntityRenderer(
+                ModEntities.FACELESS_WITNESS.get(),
+                FacelessWitnessRenderer::new
         );
         for (var entry : ModEntities.entries()) {
             if (entry.getKey() == LegacyMobKind.ELDRITCH_GUARDIAN) {
@@ -170,6 +181,10 @@ public final class WorldContentClientEvents {
             EntityRenderersEvent.RegisterLayerDefinitions event
     ) {
         event.registerLayerDefinition(
+                FacelessWitnessModel.LAYER,
+                FacelessWitnessModel::createBodyLayer
+        );
+        event.registerLayerDefinition(
                 EldritchGuardianModel.LAYER,
                 EldritchGuardianModel::createBodyLayer
         );
@@ -210,6 +225,10 @@ public final class WorldContentClientEvents {
                 TaintacleModel::createGiantLayer
         );
         event.registerLayerDefinition(
+                CrimsonCultistModel.LAYER,
+                CrimsonCultistModel::createBodyLayer
+        );
+        event.registerLayerDefinition(
                 CrimsonCultArmorModel.KNIGHT_LAYER,
                 CrimsonCultArmorModel::createKnightLayer
         );
@@ -224,10 +243,6 @@ public final class WorldContentClientEvents {
         event.registerLayerDefinition(
                 CrimsonCultArmorModel.BOOTS_LAYER,
                 CrimsonCultArmorModel::createBootsLayer
-        );
-        event.registerLayerDefinition(
-                CrimsonCultArmorModel.ARM_UNDERLAY_LAYER,
-                CrimsonCultArmorModel::createArmUnderlayLayer
         );
     }
 
@@ -251,6 +266,24 @@ public final class WorldContentClientEvents {
         event.register((state, level, position, tintIndex) ->
                         tintIndex == 0 ? 0x555577 : 0xFFFFFF,
                 ModBlocks.ENTROPY_INFUSED_STONE.get());
+        event.register((state, level, position, tintIndex) ->
+                        tintIndex == 0 ? 0xFFFF7E : 0xFFFFFF,
+                ModBlocks.DEEPSLATE_AIR_INFUSED_STONE.get());
+        event.register((state, level, position, tintIndex) ->
+                        tintIndex == 0 ? 0xFF3C01 : 0xFFFFFF,
+                ModBlocks.DEEPSLATE_FIRE_INFUSED_STONE.get());
+        event.register((state, level, position, tintIndex) ->
+                        tintIndex == 0 ? 0x0090FF : 0xFFFFFF,
+                ModBlocks.DEEPSLATE_WATER_INFUSED_STONE.get());
+        event.register((state, level, position, tintIndex) ->
+                        tintIndex == 0 ? 0x00A000 : 0xFFFFFF,
+                ModBlocks.DEEPSLATE_EARTH_INFUSED_STONE.get());
+        event.register((state, level, position, tintIndex) ->
+                        tintIndex == 0 ? 0xEECCFF : 0xFFFFFF,
+                ModBlocks.DEEPSLATE_ORDER_INFUSED_STONE.get());
+        event.register((state, level, position, tintIndex) ->
+                        tintIndex == 0 ? 0x555577 : 0xFFFFFF,
+                ModBlocks.DEEPSLATE_ENTROPY_INFUSED_STONE.get());
         event.register((state, level, position, tintIndex) -> {
             if (tintIndex != 0) {
                 return 0xFFFFFF;
@@ -300,6 +333,24 @@ public final class WorldContentClientEvents {
         event.register((stack, tintIndex) ->
                         tintIndex == 0 ? 0x555577 : 0xFFFFFF,
                 ModBlocks.ENTROPY_INFUSED_STONE.get());
+        event.register((stack, tintIndex) ->
+                        tintIndex == 0 ? 0xFFFF7E : 0xFFFFFF,
+                ModBlocks.DEEPSLATE_AIR_INFUSED_STONE.get());
+        event.register((stack, tintIndex) ->
+                        tintIndex == 0 ? 0xFF3C01 : 0xFFFFFF,
+                ModBlocks.DEEPSLATE_FIRE_INFUSED_STONE.get());
+        event.register((stack, tintIndex) ->
+                        tintIndex == 0 ? 0x0090FF : 0xFFFFFF,
+                ModBlocks.DEEPSLATE_WATER_INFUSED_STONE.get());
+        event.register((stack, tintIndex) ->
+                        tintIndex == 0 ? 0x00A000 : 0xFFFFFF,
+                ModBlocks.DEEPSLATE_EARTH_INFUSED_STONE.get());
+        event.register((stack, tintIndex) ->
+                        tintIndex == 0 ? 0xEECCFF : 0xFFFFFF,
+                ModBlocks.DEEPSLATE_ORDER_INFUSED_STONE.get());
+        event.register((stack, tintIndex) ->
+                        tintIndex == 0 ? 0x555577 : 0xFFFFFF,
+                ModBlocks.DEEPSLATE_ENTROPY_INFUSED_STONE.get());
         event.register((stack, tintIndex) ->
                         tintIndex == 0
                                 ? FoliageColor.getDefaultColor()
@@ -392,6 +443,8 @@ public final class WorldContentClientEvents {
                     ModBlocks.FLUX_GAS.get(),
                     translucent
             );
+            ItemBlockRenderTypes.setRenderLayer(ModBlocks.PURIFYING_FLUID.get(), translucent);
+            ItemBlockRenderTypes.setRenderLayer(ModBlocks.LIQUID_DEATH.get(), translucent);
         });
     }
 }

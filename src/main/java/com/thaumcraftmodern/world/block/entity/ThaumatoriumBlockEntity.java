@@ -304,7 +304,7 @@ public final class ThaumatoriumBlockEntity extends BlockEntity
             return List.of();
         }
         return CrucibleRecipeRegistry.all().stream()
-                .filter(recipe -> recipe.catalyst().test(catalyst))
+                .filter(recipe -> recipe.matchesCatalyst(catalyst))
                 .filter(recipe -> formulae.contains(recipe.id())
                         || recipe.research().isBlank()
                         || KnowledgeAccess.get(player)
@@ -319,10 +319,10 @@ public final class ThaumatoriumBlockEntity extends BlockEntity
         CrucibleRecipeDefinition match = formulae.stream()
                 .map(this::findRecipe)
                 .filter(java.util.Objects::nonNull)
-                .filter(recipe -> recipe.catalyst().test(offered))
+                .filter(recipe -> recipe.matchesCatalyst(offered))
                 .findFirst().orElse(null);
         if (match == null) match = CrucibleRecipeRegistry.all().stream()
-                .filter(recipe -> recipe.catalyst().test(offered))
+                .filter(recipe -> recipe.matchesCatalyst(offered))
                 .filter(recipe -> recipe.research().isBlank()
                         || KnowledgeAccess.get(player).map(k -> k.hasCompletedResearch(recipe.research())).orElse(false))
                 .findFirst().orElse(null);
@@ -476,10 +476,10 @@ public final class ThaumatoriumBlockEntity extends BlockEntity
     private @Nullable CrucibleRecipeDefinition resolveRecipe() {
         CrucibleRecipeDefinition current = recipe().orElse(null);
         if (current != null && formulae.contains(current.id())
-                && current.catalyst().test(catalyst)) return current;
+                && current.matchesCatalyst(catalyst)) return current;
         for (ResourceLocation id : formulae) {
             CrucibleRecipeDefinition candidate = findRecipe(id);
-            if (candidate == null || !candidate.catalyst().test(catalyst)) continue;
+            if (candidate == null || !candidate.matchesCatalyst(catalyst)) continue;
             selectedRecipe = id;
             displayedRecipe = id;
             recipeOwner = formulaOwners.get(id);
@@ -560,7 +560,7 @@ public final class ThaumatoriumBlockEntity extends BlockEntity
     }
 
     private void complete(ServerLevel level, CrucibleRecipeDefinition recipe) {
-        if (!reserved.contains(recipe.aspects()) || !recipe.catalyst().test(catalyst)) return;
+        if (!reserved.contains(recipe.aspects()) || !recipe.matchesCatalyst(catalyst)) return;
         ItemStack output = recipe.output();
         Direction out = facing();
         BlockEntity target = level.getBlockEntity(worldPosition.relative(out));

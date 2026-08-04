@@ -176,7 +176,7 @@ class LocateStructureResourceTest {
     }
 
     @Test
-    void thaumcraftLocateIdsUseRealBlockMarkerOverrides()
+    void thaumcraftLocateIdsUseRealPlacementOverrides()
             throws IOException {
         String commands = Files.readString(Path.of(
                 "src/main/java/com/thaumcraftmodern/command/"
@@ -187,10 +187,10 @@ class LocateStructureResourceTest {
                         + "LegacyStructureMarkerDetector.java"
         ));
         assertTrue(commands.contains("registerMarkerLocateOverrides"));
-        assertTrue(commands.contains("LegacyStructureKind.ANCIENT_MOUND"));
-        assertTrue(commands.contains("LegacyStructureKind.ELDRITCH_RING"));
-        assertTrue(commands.contains("LegacyStructureKind.HILLTOP_STONES"));
-        assertTrue(commands.contains("LegacyStructureKind.AURA_TOTEM"));
+        assertTrue(commands.contains("LegacyStructureKind.values()"));
+        assertTrue(commands.contains("LegacyVillageBuildingSearch.find"));
+        assertTrue(commands.contains("LegacyStructureMarkerSearch.find"));
+        assertTrue(commands.contains(":banker_house"));
         assertTrue(detector.contains("isMoundGuardianSpawner()"));
         assertTrue(detector.contains("ELDRITCH_ALTAR_PART"));
         assertTrue(detector.contains("isWispSpawner(spawner)"));
@@ -200,6 +200,35 @@ class LocateStructureResourceTest {
         assertTrue(detector.contains("chunk.getBlockEntity("));
         assertFalse(detector.contains("level.getBlockState("));
         assertFalse(detector.contains("level.getBlockEntity("));
+    }
+
+    @Test
+    void villageLocateChecksPlannedPiecesAndSuccessfulPlacementMarkers()
+            throws IOException {
+        String search = Files.readString(Path.of(
+                "src/main/java/com/thaumcraftmodern/worldgen/"
+                        + "LegacyVillageBuildingSearch.java"
+        ));
+        String markerIndex = Files.readString(Path.of(
+                "src/main/java/com/thaumcraftmodern/worldgen/"
+                        + "LegacyStructureMarkerIndex.java"
+        ));
+        String feature = Files.readString(Path.of(
+                "src/main/java/com/thaumcraftmodern/worldgen/"
+                        + "LegacyStructuresFeature.java"
+        ));
+        assertTrue(search.contains("StructureTags.VILLAGE"));
+        assertTrue(search.contains("PoolElementStructurePiece"));
+        assertTrue(search.contains("LegacyVillagePoolElement legacy"));
+        assertTrue(search.contains("ChunkStatus.FULL"));
+        assertTrue(search.contains(".filter(marker::equals)"));
+        assertTrue(search.contains("hasPhysicalSignature("));
+        assertTrue(search.contains("Blocks.GLOWSTONE"));
+        assertTrue(search.contains("Blocks.IRON_BARS"));
+        assertTrue(markerIndex.contains("EnumSet.allOf("));
+        assertTrue(markerIndex.contains("public void record("));
+        assertTrue(feature.contains("LegacyStructureMarkerIndex.get("));
+        assertTrue(feature.contains(".record("));
     }
 
     @Test

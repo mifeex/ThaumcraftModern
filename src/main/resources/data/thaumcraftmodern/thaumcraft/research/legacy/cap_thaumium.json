@@ -30,12 +30,21 @@
       "recipe": "thaumcraftmodern:wand_cap_thaumium_inert"
     },
     {
-      "type": "unavailable",
-      "title": "",
-      "body": "",
-      "legacy_type": "recipe",
-      "legacy_content": "WandCapThaumium",
-      "source_expression": "new ResearchPage((InfusionRecipe)recipes.get(\"WandCapThaumium\"))"
+      "type": "infusion",
+      "title": "recipe.type.infusion",
+      "output": "thaumcraftmodern:thaumium_wand_cap",
+      "central": "thaumcraftmodern:inert_thaumium_wand_cap",
+      "components": [
+        {"item": "thaumcraftmodern:salis_mundus", "count": 1},
+        {"item": "thaumcraftmodern:salis_mundus", "count": 1},
+        {"item": "thaumcraftmodern:salis_mundus", "count": 1}
+      ],
+      "aspect_costs": [
+        {"id": "potentia", "amount": 12},
+        {"id": "auram", "amount": 6}
+      ],
+      "instability": "moderate",
+      "detail": "tc.research_text.CAP_thaumium"
     }
   ],
   "inactive": false,

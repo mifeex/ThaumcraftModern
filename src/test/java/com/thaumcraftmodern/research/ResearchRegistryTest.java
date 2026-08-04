@@ -336,6 +336,46 @@ class ResearchRegistryTest {
     }
 
     @Test
+    void networkSerializationPreservesCyclingRecipePage() {
+        List<String> recipes = List.of(
+                "thaumcraftmodern:air_crystal_cluster",
+                "thaumcraftmodern:balanced_crystal_cluster"
+        );
+        ResearchPageDefinition page = new ResearchPageDefinition(
+                ResearchPageDefinition.Type.RECIPE,
+                "",
+                "",
+                recipes.get(0),
+                List.of(),
+                null,
+                recipes
+        );
+        ResearchDefinition definition = new ResearchDefinition(
+                "cluster_recipes",
+                "basics",
+                "thaumcraftmodern:air_crystal_cluster",
+                "research.cluster_recipes",
+                "",
+                false,
+                true,
+                false,
+                "",
+                List.of(),
+                0,
+                0,
+                List.of(page)
+        );
+        ResearchRegistry.replace(List.of(definition));
+
+        ResearchPageDefinition restored = ResearchRegistry.deserialize(
+                ResearchRegistry.serialize()
+        ).get(0).pages().get(0);
+
+        assertEquals(recipes, restored.recipeIds());
+        assertEquals(recipes.get(0), restored.recipeId());
+    }
+
+    @Test
     void networkSerializationPreservesInfusionDisplayLayout() {
         InfusionDisplayDefinition display = new InfusionDisplayDefinition(
                 "minecraft:enchanted_book",
@@ -347,6 +387,10 @@ class ResearchRegistryTest {
                         ),
                         new InfusionDisplayDefinition.ComponentStack(
                                 "minecraft:ender_pearl",
+                                1
+                        ),
+                        InfusionDisplayDefinition.ComponentStack.tagged(
+                                "minecraft:fishes",
                                 1
                         )
                 ),

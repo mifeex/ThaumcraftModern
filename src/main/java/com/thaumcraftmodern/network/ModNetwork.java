@@ -2,6 +2,7 @@ package com.thaumcraftmodern.network;
 
 import com.thaumcraftmodern.ThaumcraftModern;
 import com.thaumcraftmodern.network.packet.KnowledgeSyncPacket;
+import com.thaumcraftmodern.network.packet.NodeZapPacket;
 import com.thaumcraftmodern.network.packet.OpenThaumonomiconPacket;
 import com.thaumcraftmodern.network.packet.PurchaseResearchPacket;
 import com.thaumcraftmodern.network.packet.RequestResearchNotesPacket;
@@ -9,6 +10,7 @@ import com.thaumcraftmodern.network.packet.ScanFeedbackPacket;
 import com.thaumcraftmodern.network.packet.ThaumatoriumEssentiaSyncPacket;
 import com.thaumcraftmodern.network.packet.WarpFeedbackPacket;
 import com.thaumcraftmodern.network.packet.WispZapPacket;
+import com.thaumcraftmodern.network.packet.CycleShovelOrientationPacket;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.server.level.ServerLevel;
@@ -20,7 +22,7 @@ import net.minecraftforge.network.PacketDistributor;
 import net.minecraftforge.network.simple.SimpleChannel;
 
 public final class ModNetwork {
-    private static final String PROTOCOL = "11";
+    private static final String PROTOCOL = "13";
     private static final SimpleChannel CHANNEL = NetworkRegistry.newSimpleChannel(
             new ResourceLocation(ThaumcraftModern.MOD_ID, "main"),
             () -> PROTOCOL,
@@ -68,6 +70,15 @@ public final class ModNetwork {
                 .consumerMainThread(WispZapPacket::handle)
                 .add();
         CHANNEL.messageBuilder(
+                        NodeZapPacket.class,
+                        id++,
+                        NetworkDirection.PLAY_TO_CLIENT
+                )
+                .encoder(NodeZapPacket::encode)
+                .decoder(NodeZapPacket::decode)
+                .consumerMainThread(NodeZapPacket::handle)
+                .add();
+        CHANNEL.messageBuilder(
                         RequestResearchNotesPacket.class,
                         id++,
                         NetworkDirection.PLAY_TO_SERVER
@@ -87,12 +98,21 @@ public final class ModNetwork {
                 .add();
         CHANNEL.messageBuilder(
                         ThaumatoriumEssentiaSyncPacket.class,
-                        id,
+                        id++,
                         NetworkDirection.PLAY_TO_CLIENT
                 )
                 .encoder(ThaumatoriumEssentiaSyncPacket::encode)
                 .decoder(ThaumatoriumEssentiaSyncPacket::decode)
                 .consumerMainThread(ThaumatoriumEssentiaSyncPacket::handle)
+                .add();
+        CHANNEL.messageBuilder(
+                        CycleShovelOrientationPacket.class,
+                        id,
+                        NetworkDirection.PLAY_TO_SERVER
+                )
+                .encoder(CycleShovelOrientationPacket::encode)
+                .decoder(CycleShovelOrientationPacket::decode)
+                .consumerMainThread(CycleShovelOrientationPacket::handle)
                 .add();
     }
 

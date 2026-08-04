@@ -29,12 +29,20 @@
       "recipe": "thaumcraftmodern:wand_cap_silver_inert"
     },
     {
-      "type": "unavailable",
-      "title": "",
-      "body": "",
-      "legacy_type": "recipe",
-      "legacy_content": "WandCapSilver",
-      "source_expression": "new ResearchPage((InfusionRecipe)recipes.get(\"WandCapSilver\"))"
+      "type": "infusion",
+      "title": "recipe.type.infusion",
+      "output": "thaumcraftmodern:silver_wand_cap",
+      "central": "thaumcraftmodern:inert_silver_wand_cap",
+      "components": [
+        {"item": "thaumcraftmodern:salis_mundus", "count": 1},
+        {"item": "thaumcraftmodern:salis_mundus", "count": 1}
+      ],
+      "aspect_costs": [
+        {"id": "potentia", "amount": 8},
+        {"id": "auram", "amount": 4}
+      ],
+      "instability": "moderate",
+      "detail": "tc.research_text.CAP_silver"
     }
   ],
   "inactive": false,

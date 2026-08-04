@@ -1,0 +1,15 @@
+{
+  "research": "alchemicalduplication",
+  "catalyst": {
+    "item": "minecraft:clay_ball"
+  },
+  "output": {
+    "item": "minecraft:clay_ball",
+    "count": 2
+  },
+  "aspects": {
+    "aqua": 1,
+    "terra": 2
+  },
+  "legacy_id": "AltClay"
+}

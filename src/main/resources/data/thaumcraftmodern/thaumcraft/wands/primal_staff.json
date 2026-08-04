@@ -2,6 +2,7 @@
   "kind": "rod",
   "id": "primal_staff",
   "capacity_vis": 250,
+  "craft_cost_vis": 32,
   "recharge_aspects": ["aer", "terra", "ignis", "aqua", "ordo", "perditio"],
   "recharge_interval_ticks": 50,
   "recharge_centivis": 1,

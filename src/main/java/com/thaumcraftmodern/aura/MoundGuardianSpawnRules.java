@@ -36,6 +36,8 @@ public final class MoundGuardianSpawnRules {
                 && ticks % INTERVAL_TICKS == 0
                 && randomGate
                 && playerNearby
+                // TC4 TileNode used <= 3, so a successful attempt can bring
+                // the local population from three to four.
                 && existingGuardians <= MAX_EXISTING_GUARDIANS;
     }
 }

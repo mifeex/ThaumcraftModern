@@ -2,7 +2,7 @@
   "id": "translead",
   "legacy_id": "TRANSLEAD",
   "category": "alchemy",
-  "icon": "thaumcraftmodern:thaumonomicon",
+  "icon": "thaumcraftmodern:lead_nugget",
   "title": "tc.research_name.TRANSLEAD",
   "subtitle": "tc.research_text.TRANSLEAD",
   "concealed": true,
@@ -23,9 +23,10 @@
       "body": "tc.research_page.TRANSLEAD.1"
     },
     {
-      "type": "unavailable",
+      "type": "recipe",
       "title": "",
       "body": "",
+      "recipe": "thaumcraftmodern:translead",
       "legacy_type": "recipe",
       "legacy_content": "TransLead",
       "source_expression": "new ResearchPage((CrucibleRecipe)recipes.get(\"TransLead\"))"
@@ -45,8 +46,8 @@
       "amount": 1
     }
   ],
-  "inactive": true,
-  "inactive_reason": "referenced gameplay content is not implemented",
+  "inactive": false,
+  "inactive_reason": null,
   "legacy": {
     "x": 0,
     "y": 9,

@@ -32,8 +32,6 @@ public final class CrimsonCultArmorModel
     public static final ModelLayerLocation CLERIC_LAYER = layer("crimson_cleric");
     public static final ModelLayerLocation PRAETOR_LAYER = layer("crimson_praetor");
     public static final ModelLayerLocation BOOTS_LAYER = layer("crimson_boots");
-    public static final ModelLayerLocation ARM_UNDERLAY_LAYER =
-            layer("crimson_arm_underlay");
 
     private static final String MODEL_RESOURCE_ROOT =
             "/assets/thaumcraftmodern/models/entity/";
@@ -74,35 +72,6 @@ public final class CrimsonCultArmorModel
                         .addBox(-2.0F, 0.0F, -2.0F, 4.0F, 12.0F, 4.0F,
                                 deformation),
                 PartPose.offset(1.9F, 12.0F, 0.0F)
-        );
-        return LayerDefinition.create(mesh, 64, 32);
-    }
-
-    /**
-     * The plate models intentionally contain only the outer shoulder and
-     * gauntlet pieces. Recreate the classic biped sleeves underneath so those
-     * pieces never appear to surround an empty arm.
-     */
-    public static LayerDefinition createArmUnderlayLayer() {
-        MeshDefinition mesh = emptyHumanoidMesh();
-        PartDefinition root = mesh.getRoot();
-        CubeDeformation deformation = new CubeDeformation(0.05F);
-        root.addOrReplaceChild(
-                "right_arm",
-                CubeListBuilder.create()
-                        .texOffs(40, 16)
-                        .addBox(-3.0F, -2.0F, -2.0F, 4.0F, 12.0F, 4.0F,
-                                deformation),
-                PartPose.offset(-5.0F, 2.0F, 0.0F)
-        );
-        root.addOrReplaceChild(
-                "left_arm",
-                CubeListBuilder.create()
-                        .texOffs(40, 16)
-                        .mirror()
-                        .addBox(-1.0F, -2.0F, -2.0F, 4.0F, 12.0F, 4.0F,
-                                deformation),
-                PartPose.offset(5.0F, 2.0F, 0.0F)
         );
         return LayerDefinition.create(mesh, 64, 32);
     }

@@ -72,6 +72,7 @@ final class ClassicAuraNodeRenderer {
                 revealed,
                 viewDistanceFor(visibility),
                 1.0F,
+                1.0F,
                 0.5D,
                 partialTick,
                 poseStack,
@@ -103,7 +104,32 @@ final class ClassicAuraNodeRenderer {
                 false,
                 VIEW_DISTANCE,
                 0.7F,
+                1.0F,
                 0.4D,
+                partialTick,
+                poseStack,
+                buffers,
+                0.0F
+        );
+    }
+
+    static void renderEnergizedNode(
+            AuraNodeState state,
+            BlockPos position,
+            float opacity,
+            float partialTick,
+            PoseStack poseStack,
+            MultiBufferSource buffers
+    ) {
+        render(
+                state,
+                position,
+                true,
+                false,
+                VIEW_DISTANCE,
+                1.0F,
+                opacity,
+                0.5D,
                 partialTick,
                 poseStack,
                 buffers,
@@ -179,6 +205,7 @@ final class ClassicAuraNodeRenderer {
             boolean seeThrough,
             double range,
             float scale,
+            float opacity,
             double centerY,
             float partialTick,
             PoseStack poseStack,
@@ -215,6 +242,7 @@ final class ClassicAuraNodeRenderer {
 
         float alpha = (float) ((range - distance) / range);
         alpha *= modifierAlpha(snapshot.modifier(), player.tickCount);
+        alpha *= opacity;
 
         long now = System.nanoTime();
         int frame = Math.floorMod(

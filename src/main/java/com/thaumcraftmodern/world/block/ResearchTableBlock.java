@@ -2,6 +2,7 @@ package com.thaumcraftmodern.world.block;
 
 import com.thaumcraftmodern.world.block.entity.ResearchTableBlockEntity;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.Containers;
 import net.minecraft.world.InteractionHand;
@@ -57,7 +58,30 @@ public final class ResearchTableBlock extends BaseEntityBlock {
             BlockPos position,
             CollisionContext context
     ) {
-        return SHAPE;
+        return fullTableShape(
+                state.getValue(PART),
+                state.getValue(FACING)
+        );
+    }
+
+    static VoxelShape fullTableShape(
+            ResearchTablePart part,
+            Direction facing
+    ) {
+        ResearchTableShapeOffset.Offset otherHalf =
+                ResearchTableShapeOffset.otherHalf(part, facing);
+        int minimumX = Math.min(0, otherHalf.x() * 16);
+        int minimumZ = Math.min(0, otherHalf.z() * 16);
+        int maximumX = Math.max(16, (otherHalf.x() + 1) * 16);
+        int maximumZ = Math.max(16, (otherHalf.z() + 1) * 16);
+        return box(
+                minimumX,
+                0,
+                minimumZ,
+                maximumX,
+                16,
+                maximumZ
+        );
     }
 
     @Override

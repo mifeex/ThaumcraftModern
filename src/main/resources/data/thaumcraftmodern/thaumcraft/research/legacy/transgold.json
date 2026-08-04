@@ -2,7 +2,7 @@
   "id": "transgold",
   "legacy_id": "TRANSGOLD",
   "category": "alchemy",
-  "icon": "thaumcraftmodern:thaumonomicon",
+  "icon": "minecraft:gold_nugget",
   "title": "tc.research_name.TRANSGOLD",
   "subtitle": "tc.research_text.TRANSGOLD",
   "concealed": true,
@@ -23,9 +23,10 @@
       "body": "tc.research_page.TRANSGOLD.1"
     },
     {
-      "type": "unavailable",
+      "type": "recipe",
       "title": "",
       "body": "",
+      "recipe": "thaumcraftmodern:transgold",
       "legacy_type": "recipe",
       "legacy_content": "TransGold",
       "source_expression": "new ResearchPage((CrucibleRecipe)recipes.get(\"TransGold\"))"
@@ -41,8 +42,8 @@
       "amount": 3
     }
   ],
-  "inactive": true,
-  "inactive_reason": "referenced gameplay content is not implemented",
+  "inactive": false,
+  "inactive_reason": null,
   "legacy": {
     "x": 2,
     "y": 3,

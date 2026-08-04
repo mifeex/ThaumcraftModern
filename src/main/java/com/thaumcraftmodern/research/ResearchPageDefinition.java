@@ -13,7 +13,8 @@ public record ResearchPageDefinition(
         String bodyKey,
         String recipeId,
         List<AspectCost> aspectCosts,
-        InfusionDisplayDefinition infusionDisplay
+        InfusionDisplayDefinition infusionDisplay,
+        List<String> recipeIds
 ) {
     public ResearchPageDefinition {
         Objects.requireNonNull(type, "type");
@@ -24,12 +25,26 @@ public record ResearchPageDefinition(
                 aspectCosts,
                 "aspectCosts"
         ));
+        recipeIds = List.copyOf(Objects.requireNonNull(recipeIds, "recipeIds"));
+        if (recipeIds.isEmpty() && !recipeId.isBlank()) {
+            recipeIds = List.of(recipeId);
+        } else if (!recipeIds.isEmpty()) {
+            recipeId = recipeIds.get(0);
+        }
         if ((type == Type.RECIPE || type == Type.COMPOUND_CRAFTING)
                 && ResourceLocation.tryParse(recipeId) == null) {
             throw new IllegalArgumentException(
                     "recipeId must be a valid resource location for a recipe page: "
                             + recipeId
             );
+        }
+        for (String cycledRecipe : recipeIds) {
+            if (ResourceLocation.tryParse(cycledRecipe) == null) {
+                throw new IllegalArgumentException(
+                        "recipeIds must contain valid resource locations: "
+                                + cycledRecipe
+                );
+            }
         }
         if ((type == Type.INFUSION) != (infusionDisplay != null)) {
             throw new IllegalArgumentException(
@@ -44,7 +59,7 @@ public record ResearchPageDefinition(
             String bodyKey,
             String recipeId
     ) {
-        this(type, titleKey, bodyKey, recipeId, List.of(), null);
+        this(type, titleKey, bodyKey, recipeId, List.of(), null, List.of());
     }
 
     public ResearchPageDefinition(
@@ -54,7 +69,26 @@ public record ResearchPageDefinition(
             String recipeId,
             List<AspectCost> aspectCosts
     ) {
-        this(type, titleKey, bodyKey, recipeId, aspectCosts, null);
+        this(type, titleKey, bodyKey, recipeId, aspectCosts, null, List.of());
+    }
+
+    public ResearchPageDefinition(
+            Type type,
+            String titleKey,
+            String bodyKey,
+            String recipeId,
+            List<AspectCost> aspectCosts,
+            InfusionDisplayDefinition infusionDisplay
+    ) {
+        this(
+                type,
+                titleKey,
+                bodyKey,
+                recipeId,
+                aspectCosts,
+                infusionDisplay,
+                List.of()
+        );
     }
 
     public enum Type {

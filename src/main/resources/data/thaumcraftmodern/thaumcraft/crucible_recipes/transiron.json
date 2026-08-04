@@ -1,0 +1,14 @@
+{
+  "research": "transiron",
+  "catalyst": {
+    "tag": "forge:nuggets/iron"
+  },
+  "output": {
+    "item": "minecraft:iron_nugget",
+    "count": 3
+  },
+  "aspects": {
+    "metallum": 2
+  },
+  "legacy_id": "TransIron"
+}

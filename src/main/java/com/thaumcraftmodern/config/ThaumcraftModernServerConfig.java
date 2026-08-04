@@ -69,7 +69,11 @@ public final class ThaumcraftModernServerConfig {
                 .comment("Near-surface Amber attempts per chunk. TC4 default: 20.")
                 .defineInRange("amberAttemptsPerChunk", 20, 0, 128);
         INFUSED_STONE_ATTEMPTS = builder
-                .comment("Infused Stone vein attempts per chunk. TC4 default: 8.")
+                .comment(
+                        "Base Infused Stone vein attempts per vertical band. TC4 default: 8.",
+                        "Modern generation applies 90% in stone (Y >= 0) and 80%",
+                        "in deepslate (Y < 0), preserving density across the taller world."
+                )
                 .defineInRange("infusedStoneAttemptsPerChunk", 8, 0, 64);
         GREATWOOD_RARITY = builder
                 .comment("Base chance denominator for a Greatwood attempt. TC4 default: 25.")

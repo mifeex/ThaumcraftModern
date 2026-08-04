@@ -1,0 +1,405 @@
+{
+  "source": "Thaumcraft-1.7.10-4.2.3.5.jar",
+  "source_registrations": 49,
+  "runtime_recipes": 25,
+  "materialized_recipes": 54,
+  "recipes": [
+    {
+      "legacy_id": "\"BalancedShard_\" + a",
+      "modern_ids": [
+        "thaumcraftmodern:balanced_air",
+        "thaumcraftmodern:balanced_fire",
+        "thaumcraftmodern:balanced_water",
+        "thaumcraftmodern:balanced_earth",
+        "thaumcraftmodern:balanced_order",
+        "thaumcraftmodern:balanced_entropy"
+      ],
+      "status": "runtime",
+      "source_expression": "ThaumcraftApi.addCrucibleRecipe(\"CRUCIBLE\", new ItemStack(ConfigItems.itemShard, 1, 6), new ItemStack(ConfigItems.itemShard, 1, a), al)"
+    },
+    {
+      "legacy_id": "Alumentum",
+      "modern_ids": [
+        "thaumcraftmodern:alumentum"
+      ],
+      "status": "runtime",
+      "source_expression": "ThaumcraftApi.addCrucibleRecipe(\"ALUMENTUM\", new ItemStack(ConfigItems.itemResource, 1, 0), new ItemStack(Items.field_151044_h, 1, 32767), (new AspectList()).merge(Aspect.ENERGY, 3).merge(Aspect.FIRE, 3).merge(Aspect.ENTROPY, 3))"
+    },
+    {
+      "legacy_id": "Nitor",
+      "modern_ids": [
+        "thaumcraftmodern:nitor"
+      ],
+      "status": "runtime",
+      "source_expression": "ThaumcraftApi.addCrucibleRecipe(\"NITOR\", new ItemStack(ConfigItems.itemResource, 1, 1), \"dustGlowstone\", (new AspectList()).merge(Aspect.ENERGY, 3).merge(Aspect.FIRE, 3).merge(Aspect.LIGHT, 3))"
+    },
+    {
+      "legacy_id": "Thaumium",
+      "modern_ids": [
+        "thaumcraftmodern:thaumium"
+      ],
+      "status": "runtime",
+      "source_expression": "ThaumcraftApi.addCrucibleRecipe(\"THAUMIUM\", new ItemStack(ConfigItems.itemResource, 1, 2), new ItemStack(Items.field_151042_j), (new AspectList()).merge(Aspect.MAGIC, 4))"
+    },
+    {
+      "legacy_id": "VoidMetal",
+      "modern_ids": [
+        "thaumcraftmodern:voidmetal"
+      ],
+      "status": "runtime",
+      "source_expression": "ThaumcraftApi.addCrucibleRecipe(\"VOIDMETAL\", new ItemStack(ConfigItems.itemResource, 1, 16), new ItemStack(ConfigItems.itemResource, 1, 17), (new AspectList()).merge(Aspect.METAL, 8))"
+    },
+    {
+      "legacy_id": "VoidSeed",
+      "modern_ids": [
+        "thaumcraftmodern:voidseed"
+      ],
+      "status": "runtime",
+      "source_expression": "ThaumcraftApi.addCrucibleRecipe(\"VOIDMETAL\", new ItemStack(ConfigItems.itemResource, 1, 17), new ItemStack(Items.field_151014_N), (new AspectList()).merge(Aspect.DARKNESS, 8).merge(Aspect.VOID, 8).merge(Aspect.ELDRITCH, 2))"
+    },
+    {
+      "legacy_id": "Tallow",
+      "modern_ids": [
+        "thaumcraftmodern:tallow"
+      ],
+      "status": "inactive",
+      "source_expression": "ThaumcraftApi.addCrucibleRecipe(\"TALLOW\", new ItemStack(ConfigItems.itemResource, 1, 4), new ItemStack(Items.field_151078_bh), (new AspectList()).merge(Aspect.MAGIC, 2))"
+    },
+    {
+      "legacy_id": "AltGunpowder",
+      "modern_ids": [
+        "thaumcraftmodern:altgunpowder"
+      ],
+      "status": "runtime",
+      "source_expression": "ThaumcraftApi.addCrucibleRecipe(\"ALCHEMICALDUPLICATION\", new ItemStack(Items.field_151016_H, 2, 0), new ItemStack(Items.field_151016_H), (new AspectList()).merge(Aspect.FIRE, 4).merge(Aspect.ENTROPY, 4))"
+    },
+    {
+      "legacy_id": "AltSlime",
+      "modern_ids": [
+        "thaumcraftmodern:altslime"
+      ],
+      "status": "runtime",
+      "source_expression": "ThaumcraftApi.addCrucibleRecipe(\"ALCHEMICALDUPLICATION\", new ItemStack(Items.field_151123_aH, 2, 0), new ItemStack(Items.field_151123_aH), (new AspectList()).merge(Aspect.WATER, 2).merge(Aspect.LIFE, 2))"
+    },
+    {
+      "legacy_id": "AltClay",
+      "modern_ids": [
+        "thaumcraftmodern:altclay"
+      ],
+      "status": "runtime",
+      "source_expression": "ThaumcraftApi.addCrucibleRecipe(\"ALCHEMICALDUPLICATION\", new ItemStack(Items.field_151119_aD, 2, 0), new ItemStack(Items.field_151119_aD), (new AspectList()).merge(Aspect.WATER, 1).merge(Aspect.EARTH, 2))"
+    },
+    {
+      "legacy_id": "AltGlowstone",
+      "modern_ids": [
+        "thaumcraftmodern:altglowstone"
+      ],
+      "status": "runtime",
+      "source_expression": "ThaumcraftApi.addCrucibleRecipe(\"ALCHEMICALDUPLICATION\", new ItemStack(Items.field_151114_aO, 2, 0), \"dustGlowstone\", (new AspectList()).merge(Aspect.LIGHT, 3).merge(Aspect.SENSES, 1))"
+    },
+    {
+      "legacy_id": "AltInk",
+      "modern_ids": [
+        "thaumcraftmodern:altink"
+      ],
+      "status": "runtime",
+      "source_expression": "ThaumcraftApi.addCrucibleRecipe(\"ALCHEMICALDUPLICATION\", new ItemStack(Items.field_151100_aR, 2, 0), new ItemStack(Items.field_151100_aR, 1, 0), (new AspectList()).merge(Aspect.WATER, 2).merge(Aspect.SENSES, 2))"
+    },
+    {
+      "legacy_id": "AltWeb",
+      "modern_ids": [
+        "thaumcraftmodern:altweb"
+      ],
+      "status": "runtime",
+      "source_expression": "ThaumcraftApi.addCrucibleRecipe(\"ALCHEMICALMANUFACTURE\", new ItemStack(Blocks.field_150321_G), new ItemStack(Items.field_151007_F), (new AspectList()).merge(Aspect.TRAP, 2).merge(Aspect.CLOTH, 2))"
+    },
+    {
+      "legacy_id": "AltMossyCobble",
+      "modern_ids": [
+        "thaumcraftmodern:altmossycobble"
+      ],
+      "status": "runtime",
+      "source_expression": "ThaumcraftApi.addCrucibleRecipe(\"ALCHEMICALMANUFACTURE\", new ItemStack(Blocks.field_150341_Y), new ItemStack(Blocks.field_150347_e), (new AspectList()).merge(Aspect.PLANT, 2).merge(Aspect.MAGIC, 1))"
+    },
+    {
+      "legacy_id": "AltIce",
+      "modern_ids": [
+        "thaumcraftmodern:altice"
+      ],
+      "status": "runtime",
+      "source_expression": "ThaumcraftApi.addCrucibleRecipe(\"ALCHEMICALMANUFACTURE\", new ItemStack(Blocks.field_150432_aD), new ItemStack(Blocks.field_150433_aE), (new AspectList()).merge(Aspect.ORDER, 1).merge(Aspect.COLD, 1))"
+    },
+    {
+      "legacy_id": "AltCrackedBrick",
+      "modern_ids": [
+        "thaumcraftmodern:altcrackedbrick"
+      ],
+      "status": "runtime",
+      "source_expression": "ThaumcraftApi.addCrucibleRecipe(\"ENTROPICPROCESSING\", new ItemStack(Blocks.field_150417_aV, 1, 2), new ItemStack(Blocks.field_150417_aV), (new AspectList()).merge(Aspect.ENTROPY, 2))"
+    },
+    {
+      "legacy_id": "AltBonemeal",
+      "modern_ids": [
+        "thaumcraftmodern:altbonemeal"
+      ],
+      "status": "runtime",
+      "source_expression": "ThaumcraftApi.addCrucibleRecipe(\"ENTROPICPROCESSING\", new ItemStack(Items.field_151100_aR, 4, 15), new ItemStack(Items.field_151103_aS), (new AspectList()).merge(Aspect.ENTROPY, 1))"
+    },
+    {
+      "legacy_id": "PureIron",
+      "modern_ids": [
+        "thaumcraftmodern:pureiron"
+      ],
+      "status": "inactive",
+      "source_expression": "ThaumcraftApi.addCrucibleRecipe(\"PUREIRON\", new ItemStack(ConfigItems.itemNugget, 1, 16), \"oreIron\", (new AspectList()).merge(Aspect.METAL, 1).merge(Aspect.ORDER, 1))"
+    },
+    {
+      "legacy_id": "PureGold",
+      "modern_ids": [
+        "thaumcraftmodern:puregold"
+      ],
+      "status": "inactive",
+      "source_expression": "ThaumcraftApi.addCrucibleRecipe(\"PUREGOLD\", new ItemStack(ConfigItems.itemNugget, 1, 31), \"oreGold\", (new AspectList()).merge(Aspect.METAL, 1).merge(Aspect.ORDER, 1))"
+    },
+    {
+      "legacy_id": "PureCopper",
+      "modern_ids": [
+        "thaumcraftmodern:purecopper"
+      ],
+      "status": "inactive",
+      "source_expression": "ThaumcraftApi.addCrucibleRecipe(\"PURECOPPER\", new ItemStack(ConfigItems.itemNugget, 1, 17), \"oreCopper\", (new AspectList()).merge(Aspect.METAL, 1).merge(Aspect.ORDER, 1))"
+    },
+    {
+      "legacy_id": "PureTin",
+      "modern_ids": [
+        "thaumcraftmodern:puretin"
+      ],
+      "status": "inactive",
+      "source_expression": "ThaumcraftApi.addCrucibleRecipe(\"PURETIN\", new ItemStack(ConfigItems.itemNugget, 1, 18), \"oreTin\", (new AspectList()).merge(Aspect.METAL, 1).merge(Aspect.ORDER, 1))"
+    },
+    {
+      "legacy_id": "PureSilver",
+      "modern_ids": [
+        "thaumcraftmodern:puresilver"
+      ],
+      "status": "inactive",
+      "source_expression": "ThaumcraftApi.addCrucibleRecipe(\"PURESILVER\", new ItemStack(ConfigItems.itemNugget, 1, 19), \"oreSilver\", (new AspectList()).merge(Aspect.METAL, 1).merge(Aspect.ORDER, 1))"
+    },
+    {
+      "legacy_id": "PureLead",
+      "modern_ids": [
+        "thaumcraftmodern:purelead"
+      ],
+      "status": "inactive",
+      "source_expression": "ThaumcraftApi.addCrucibleRecipe(\"PURELEAD\", new ItemStack(ConfigItems.itemNugget, 1, 20), \"oreLead\", (new AspectList()).merge(Aspect.METAL, 1).merge(Aspect.ORDER, 1))"
+    },
+    {
+      "legacy_id": "TransIron",
+      "modern_ids": [
+        "thaumcraftmodern:transiron"
+      ],
+      "status": "runtime",
+      "source_expression": "ThaumcraftApi.addCrucibleRecipe(\"TRANSIRON\", new ItemStack(ConfigItems.itemNugget, 3, 0), \"nuggetIron\", (new AspectList()).merge(Aspect.METAL, 2))"
+    },
+    {
+      "legacy_id": "TransGold",
+      "modern_ids": [
+        "thaumcraftmodern:transgold"
+      ],
+      "status": "runtime",
+      "source_expression": "ThaumcraftApi.addCrucibleRecipe(\"TRANSGOLD\", new ItemStack(Items.field_151074_bl, 3, 0), new ItemStack(Items.field_151074_bl), (new AspectList()).merge(Aspect.METAL, 2).merge(Aspect.GREED, 1))"
+    },
+    {
+      "legacy_id": "TransCopper",
+      "modern_ids": [
+        "thaumcraftmodern:transcopper"
+      ],
+      "status": "inactive",
+      "source_expression": "ThaumcraftApi.addCrucibleRecipe(\"TRANSCOPPER\", new ItemStack(ConfigItems.itemNugget, 3, 1), \"nuggetCopper\", (new AspectList()).merge(Aspect.METAL, 2).merge(Aspect.EXCHANGE, 1))"
+    },
+    {
+      "legacy_id": "TransTin",
+      "modern_ids": [
+        "thaumcraftmodern:transtin"
+      ],
+      "status": "inactive",
+      "source_expression": "ThaumcraftApi.addCrucibleRecipe(\"TRANSTIN\", new ItemStack(ConfigItems.itemNugget, 3, 2), \"nuggetTin\", (new AspectList()).merge(Aspect.METAL, 2).merge(Aspect.CRYSTAL, 1))"
+    },
+    {
+      "legacy_id": "TransSilver",
+      "modern_ids": [
+        "thaumcraftmodern:transsilver"
+      ],
+      "status": "runtime",
+      "source_expression": "ThaumcraftApi.addCrucibleRecipe(\"TRANSSILVER\", new ItemStack(ConfigItems.itemNugget, 3, 3), \"nuggetSilver\", (new AspectList()).merge(Aspect.METAL, 2).merge(Aspect.GREED, 1))"
+    },
+    {
+      "legacy_id": "TransLead",
+      "modern_ids": [
+        "thaumcraftmodern:translead"
+      ],
+      "status": "inactive",
+      "source_expression": "ThaumcraftApi.addCrucibleRecipe(\"TRANSLEAD\", new ItemStack(ConfigItems.itemNugget, 3, 4), \"nuggetLead\", (new AspectList()).merge(Aspect.METAL, 2).merge(Aspect.ORDER, 1))"
+    },
+    {
+      "legacy_id": "EtherealBloom",
+      "modern_ids": [
+        "thaumcraftmodern:etherealbloom"
+      ],
+      "status": "runtime",
+      "source_expression": "ThaumcraftApi.addCrucibleRecipe(\"ETHEREALBLOOM\", new ItemStack(ConfigBlocks.blockCustomPlant, 1, 4), new ItemStack(ConfigBlocks.blockCustomPlant, 1, 2), (new AspectList()).add(Aspect.MAGIC, 16).add(Aspect.PLANT, 16).add(Aspect.HEAL, 16).add(Aspect.TAINT, 8))"
+    },
+    {
+      "legacy_id": "LiquidDeath",
+      "modern_ids": [
+        "thaumcraftmodern:liquiddeath"
+      ],
+      "status": "inactive",
+      "source_expression": "ThaumcraftApi.addCrucibleRecipe(\"LIQUIDDEATH\", new ItemStack(ConfigItems.itemBucketDeath), new ItemStack(Items.field_151133_ar), (new AspectList()).add(Aspect.DEATH, 32).add(Aspect.POISON, 32).add(Aspect.ENTROPY, 32))"
+    },
+    {
+      "legacy_id": "BottleTaint",
+      "modern_ids": [
+        "thaumcraftmodern:bottletaint"
+      ],
+      "status": "inactive",
+      "source_expression": "ThaumcraftApi.addCrucibleRecipe(\"BOTTLETAINT\", new ItemStack(ConfigItems.itemBottleTaint), bt, (new AspectList()).add(Aspect.TAINT, 8).add(Aspect.MAGIC, 8))"
+    },
+    {
+      "legacy_id": "GolemStraw",
+      "modern_ids": [
+        "thaumcraftmodern:golemstraw"
+      ],
+      "status": "inactive",
+      "source_expression": "ThaumcraftApi.addCrucibleRecipe(\"GOLEMSTRAW\", new ItemStack(ConfigItems.itemGolemPlacer, 1, 0), new ItemStack(Blocks.field_150407_cf), (new AspectList()).add(Aspect.MAN, 4).add(Aspect.MOTION, 4).add(Aspect.SOUL, 4))"
+    },
+    {
+      "legacy_id": "GolemWood",
+      "modern_ids": [
+        "thaumcraftmodern:golemwood"
+      ],
+      "status": "inactive",
+      "source_expression": "ThaumcraftApi.addCrucibleRecipe(\"GOLEMWOOD\", new ItemStack(ConfigItems.itemGolemPlacer, 1, 1), new ItemStack(ConfigBlocks.blockMagicalLog, 1, 0), (new AspectList()).add(Aspect.MAN, 4).add(Aspect.MOTION, 4).add(Aspect.SOUL, 4))"
+    },
+    {
+      "legacy_id": "GolemTallow",
+      "modern_ids": [
+        "thaumcraftmodern:golemtallow"
+      ],
+      "status": "inactive",
+      "source_expression": "ThaumcraftApi.addCrucibleRecipe(\"GOLEMTALLOW\", new ItemStack(ConfigItems.itemGolemPlacer, 1, 2), new ItemStack(ConfigBlocks.blockCosmeticSolid, 1, 5), (new AspectList()).add(Aspect.MAN, 8).add(Aspect.MOTION, 8).add(Aspect.SOUL, 8))"
+    },
+    {
+      "legacy_id": "GolemClay",
+      "modern_ids": [
+        "thaumcraftmodern:golemclay"
+      ],
+      "status": "inactive",
+      "source_expression": "ThaumcraftApi.addCrucibleRecipe(\"GOLEMCLAY\", new ItemStack(ConfigItems.itemGolemPlacer, 1, 3), new ItemStack(Blocks.field_150336_V), (new AspectList()).add(Aspect.MAN, 4).add(Aspect.MOTION, 4).add(Aspect.SOUL, 4))"
+    },
+    {
+      "legacy_id": "GolemFlesh",
+      "modern_ids": [
+        "thaumcraftmodern:golemflesh"
+      ],
+      "status": "inactive",
+      "source_expression": "ThaumcraftApi.addCrucibleRecipe(\"GOLEMFLESH\", new ItemStack(ConfigItems.itemGolemPlacer, 1, 4), new ItemStack(ConfigBlocks.blockTaint, 1, 2), (new AspectList()).add(Aspect.MAN, 8).add(Aspect.MOTION, 8).add(Aspect.SOUL, 8))"
+    },
+    {
+      "legacy_id": "GolemStone",
+      "modern_ids": [
+        "thaumcraftmodern:golemstone"
+      ],
+      "status": "inactive",
+      "source_expression": "ThaumcraftApi.addCrucibleRecipe(\"GOLEMSTONE\", new ItemStack(ConfigItems.itemGolemPlacer, 1, 5), new ItemStack(Blocks.field_150417_aV), (new AspectList()).add(Aspect.MAN, 4).add(Aspect.MOTION, 4).add(Aspect.SOUL, 4))"
+    },
+    {
+      "legacy_id": "GolemIron",
+      "modern_ids": [
+        "thaumcraftmodern:golemiron"
+      ],
+      "status": "inactive",
+      "source_expression": "ThaumcraftApi.addCrucibleRecipe(\"GOLEMIRON\", new ItemStack(ConfigItems.itemGolemPlacer, 1, 6), new ItemStack(Blocks.field_150339_S), (new AspectList()).add(Aspect.MAN, 4).add(Aspect.MOTION, 4).add(Aspect.SOUL, 4))"
+    },
+    {
+      "legacy_id": "GolemThaumium",
+      "modern_ids": [
+        "thaumcraftmodern:golemthaumium"
+      ],
+      "status": "inactive",
+      "source_expression": "ThaumcraftApi.addCrucibleRecipe(\"GOLEMTHAUMIUM\", new ItemStack(ConfigItems.itemGolemPlacer, 1, 7), new ItemStack(ConfigBlocks.blockCosmeticSolid, 1, 4), (new AspectList()).add(Aspect.MAN, 8).add(Aspect.MOTION, 8).add(Aspect.SOUL, 8))"
+    },
+    {
+      "legacy_id": "CoreGather",
+      "modern_ids": [
+        "thaumcraftmodern:coregather"
+      ],
+      "status": "inactive",
+      "source_expression": "ThaumcraftApi.addCrucibleRecipe(\"COREGATHER\", new ItemStack(ConfigItems.itemGolemCore, 1, 2), new ItemStack(ConfigItems.itemGolemCore, 1, 100), (new AspectList()).add(Aspect.GREED, 5).add(Aspect.EARTH, 5))"
+    },
+    {
+      "legacy_id": "CoreFill",
+      "modern_ids": [
+        "thaumcraftmodern:corefill"
+      ],
+      "status": "inactive",
+      "source_expression": "ThaumcraftApi.addCrucibleRecipe(\"COREFILL\", new ItemStack(ConfigItems.itemGolemCore, 1, 0), new ItemStack(ConfigItems.itemGolemCore, 1, 100), (new AspectList()).add(Aspect.HUNGER, 5).add(Aspect.VOID, 5))"
+    },
+    {
+      "legacy_id": "CoreEmpty",
+      "modern_ids": [
+        "thaumcraftmodern:coreempty"
+      ],
+      "status": "inactive",
+      "source_expression": "ThaumcraftApi.addCrucibleRecipe(\"COREEMPTY\", new ItemStack(ConfigItems.itemGolemCore, 1, 1), new ItemStack(ConfigItems.itemGolemCore, 1, 100), (new AspectList()).add(Aspect.GREED, 5).add(Aspect.VOID, 5))"
+    },
+    {
+      "legacy_id": "CoreHarvest",
+      "modern_ids": [
+        "thaumcraftmodern:coreharvest"
+      ],
+      "status": "inactive",
+      "source_expression": "ThaumcraftApi.addCrucibleRecipe(\"COREHARVEST\", new ItemStack(ConfigItems.itemGolemCore, 1, 3), new ItemStack(ConfigItems.itemGolemCore, 1, 100), (new AspectList()).add(Aspect.HARVEST, 5).add(Aspect.CROP, 5))"
+    },
+    {
+      "legacy_id": "CoreGuard",
+      "modern_ids": [
+        "thaumcraftmodern:coreguard"
+      ],
+      "status": "inactive",
+      "source_expression": "ThaumcraftApi.addCrucibleRecipe(\"COREGUARD\", new ItemStack(ConfigItems.itemGolemCore, 1, 4), new ItemStack(ConfigItems.itemGolemCore, 1, 100), (new AspectList()).add(Aspect.WEAPON, 5).add(Aspect.TRAP, 5))"
+    },
+    {
+      "legacy_id": "CoreButcher",
+      "modern_ids": [
+        "thaumcraftmodern:corebutcher"
+      ],
+      "status": "inactive",
+      "source_expression": "ThaumcraftApi.addCrucibleRecipe(\"COREBUTCHER\", new ItemStack(ConfigItems.itemGolemCore, 1, 9), new ItemStack(ConfigItems.itemGolemCore, 1, 4), (new AspectList()).add(Aspect.FLESH, 5).add(Aspect.BEAST, 5))"
+    },
+    {
+      "legacy_id": "CoreLiquid",
+      "modern_ids": [
+        "thaumcraftmodern:coreliquid"
+      ],
+      "status": "inactive",
+      "source_expression": "ThaumcraftApi.addCrucibleRecipe(\"CORELIQUID\", new ItemStack(ConfigItems.itemGolemCore, 1, 5), new ItemStack(ConfigItems.itemGolemCore, 1, 100), (new AspectList()).add(Aspect.WATER, 5).add(Aspect.VOID, 5))"
+    },
+    {
+      "legacy_id": "BathSalts",
+      "modern_ids": [
+        "thaumcraftmodern:bathsalts"
+      ],
+      "status": "inactive",
+      "source_expression": "ThaumcraftApi.addCrucibleRecipe(\"BATHSALTS\", new ItemStack(ConfigItems.itemBathSalts), new ItemStack(ConfigItems.itemResource, 1, 14), (new AspectList()).add(Aspect.MIND, 6).add(Aspect.AURA, 6).add(Aspect.ORDER, 6).add(Aspect.HEAL, 6))"
+    },
+    {
+      "legacy_id": "SaneSoap",
+      "modern_ids": [
+        "thaumcraftmodern:sanesoap"
+      ],
+      "status": "inactive",
+      "source_expression": "ThaumcraftApi.addCrucibleRecipe(\"SANESOAP\", new ItemStack(ConfigItems.itemSanitySoap), new ItemStack(ConfigBlocks.blockCosmeticSolid, 1, 5), (new AspectList()).add(Aspect.MIND, 16).add(Aspect.ELDRITCH, 16).add(Aspect.ORDER, 16).add(Aspect.HEAL, 16))"
+    }
+  ]
+}

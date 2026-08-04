@@ -29,12 +29,8 @@ public final class CrimsonCultArmorLayer extends RenderLayer<
     );
     private static final ResourceLocation BOOTS =
             texture("cultistboots.png");
-    private static final ResourceLocation CULTIST =
-            texture("cultist.png");
-
     private final Map<LegacyMobKind, CrimsonCultArmorModel> armorModels;
     private final CrimsonCultArmorModel bootsModel;
-    private final CrimsonCultArmorModel armUnderlayModel;
 
     public CrimsonCultArmorLayer(
             RenderLayerParent<
@@ -43,8 +39,7 @@ public final class CrimsonCultArmorLayer extends RenderLayer<
             CrimsonCultArmorModel knightModel,
             CrimsonCultArmorModel clericModel,
             CrimsonCultArmorModel praetorModel,
-            CrimsonCultArmorModel bootsModel,
-            CrimsonCultArmorModel armUnderlayModel
+            CrimsonCultArmorModel bootsModel
     ) {
         super(parent);
         this.armorModels = Map.of(
@@ -53,7 +48,6 @@ public final class CrimsonCultArmorLayer extends RenderLayer<
                 LegacyMobKind.CRIMSON_PRAETOR, praetorModel
         );
         this.bootsModel = bootsModel;
-        this.armUnderlayModel = armUnderlayModel;
     }
 
     @Override
@@ -73,19 +67,6 @@ public final class CrimsonCultArmorLayer extends RenderLayer<
         ResourceLocation armorTexture = TEXTURES.get(entity.kind());
         if (armor == null || armorTexture == null) {
             return;
-        }
-
-        if (entity.kind() == LegacyMobKind.CRIMSON_KNIGHT
-                || entity.kind() == LegacyMobKind.CRIMSON_PRAETOR) {
-            prepare(armUnderlayModel, entity, limbSwing, limbSwingAmount,
-                    ageInTicks, netHeadYaw, headPitch);
-            renderModel(
-                    armUnderlayModel,
-                    CULTIST,
-                    pose,
-                    buffers,
-                    packedLight
-            );
         }
 
         prepare(armor, entity, limbSwing, limbSwingAmount, ageInTicks,

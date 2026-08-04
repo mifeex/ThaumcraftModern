@@ -68,7 +68,10 @@ public final class LegacyStructureMarkerIndex extends SavedData {
             Map<LegacyStructureKind, List<BlockPos>> discovered
     ) {
         boolean changed = false;
-        for (LegacyStructureKind kind : indexedKinds()) {
+        // Only block-detectable standalone sites are reconstructed on chunk
+        // load. Village pieces are recorded directly when their jigsaw
+        // element succeeds; clearing them here would erase valid markers.
+        for (LegacyStructureKind kind : blockDetectedKinds()) {
             Set<Long> positions = markers.get(kind);
             changed |= positions.removeIf(packed -> {
                 BlockPos position = BlockPos.of(packed);
@@ -79,6 +82,12 @@ public final class LegacyStructureMarkerIndex extends SavedData {
             }
         }
         if (changed) {
+            setDirty();
+        }
+    }
+
+    public void record(LegacyStructureKind kind, BlockPos position) {
+        if (markers.get(kind).add(position.immutable().asLong())) {
             setDirty();
         }
     }
@@ -105,6 +114,10 @@ public final class LegacyStructureMarkerIndex extends SavedData {
     }
 
     private static EnumSet<LegacyStructureKind> indexedKinds() {
+        return EnumSet.allOf(LegacyStructureKind.class);
+    }
+
+    private static EnumSet<LegacyStructureKind> blockDetectedKinds() {
         return EnumSet.of(
                 LegacyStructureKind.ANCIENT_MOUND,
                 LegacyStructureKind.ELDRITCH_RING,

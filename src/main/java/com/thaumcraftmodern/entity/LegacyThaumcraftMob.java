@@ -2464,6 +2464,15 @@ public final class LegacyThaumcraftMob extends Monster
         )) {
             return false;
         }
+        if (sample.kind == LegacyMobKind.WISP) {
+            /*
+             * TC4 EntityWisp#getCanSpawnHere delegates to EntityLiving rather
+             * than EntityMob: wisps require a non-peaceful world, but do not
+             * require darkness. This is also essential for the illuminated
+             * hilltop wisp spawner.
+             */
+            return WispSpawnPolicy.allows(level.getLevel().getDifficulty());
+        }
         if (sample.kind == LegacyMobKind.ELDRITCH_GUARDIAN
                 && EldritchGuardianBehavior.usesSurfaceNightRules(reason)) {
             int surfaceY = level.getHeight(

@@ -6,6 +6,9 @@ import com.thaumcraftmodern.entity.LegacyThaumcraftMob;
 import com.thaumcraftmodern.registry.ModEntities;
 import com.thaumcraftmodern.registry.ModBlocks;
 import com.thaumcraftmodern.registry.ModSounds;
+import com.thaumcraftmodern.network.ModNetwork;
+import com.thaumcraftmodern.network.packet.NodeZapPacket;
+import com.thaumcraftmodern.visnet.NodeStabilizerBlockEntity;
 import com.thaumcraftmodern.worldgen.ClassicAuraNodeWorldFactory;
 import com.thaumcraftmodern.world.block.EerieBiomeService;
 import com.thaumcraftmodern.world.block.MagicalForestBiomeService;
@@ -19,6 +22,7 @@ import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.MobSpawnType;
+import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ClipContext;
@@ -60,6 +64,7 @@ final class AuraNodeServerTicker {
         }
 
         AuraNodeState.Snapshot snapshot = node.snapshotState().snapshot();
+        int stabilizerLock = stabilizerLock(level, position);
         tickTaintNode(level, position, node, snapshot, ticks);
         if (snapshot.type() == AuraNodeType.DARK) {
             tickDarkNode(level, position, ticks);
@@ -74,17 +79,19 @@ final class AuraNodeServerTicker {
             }
         }
         if (snapshot.type() == AuraNodeType.UNSTABLE
+                && stabilizerLock == 0
                 && ticks % 100 == 0
                 && level.random.nextBoolean()) {
             dischargeUnstableAspect(level, position, node);
         }
         if (snapshot.modifier() == AuraNodeModifier.FADING
+                && stabilizerLock == 0
                 && ticks % 1200 == 0
                 && decayEmptyAspects(level, position, node)) {
             return;
         }
-        regenerate(level.random, ticks, node);
-        discharge(level, position, node);
+        regenerate(level.random, ticks, node, stabilizerLock);
+        discharge(level, position, node, stabilizerLock);
     }
 
     /**
@@ -224,8 +231,9 @@ final class AuraNodeServerTicker {
         );
         EerieBiomeService.makeColumnEerie(level, biomeTarget);
 
-        boolean enabled = ThaumcraftModernServerConfig.hardNodes()
-                && ThaumcraftModernServerConfig.spawnAngryZombies();
+        // Config.spawnAngryZombie gated TC4's biome spawn lists. The direct
+        // Giant Brainy Zombie attempt in TileNode was gated only by hardNode.
+        boolean enabled = ThaumcraftModernServerConfig.hardNodes();
         if (!enabled) {
             return;
         }
@@ -283,7 +291,7 @@ final class AuraNodeServerTicker {
                 level.random.nextFloat() * 360.0F,
                 0.0F
         );
-        if (!LegacyThaumcraftMob.checkSpawnRules(
+        if (!Monster.checkMonsterSpawnRules(
                     ModEntities.FURIOUS_ZOMBIE.get(),
                     level,
                     MobSpawnType.NATURAL,
@@ -360,7 +368,8 @@ final class AuraNodeServerTicker {
     private static void regenerate(
             RandomSource random,
             int ticks,
-            AuraNodeBlockEntity node
+            AuraNodeBlockEntity node,
+            int stabilizerLock
     ) {
         int interval = switch (node.snapshotState().modifier()) {
             case BRIGHT -> 400;
@@ -368,6 +377,11 @@ final class AuraNodeServerTicker {
             case FADING -> 0;
             case NORMAL -> 600;
         };
+        if (stabilizerLock == 1) {
+            interval *= 2;
+        } else if (stabilizerLock == 2) {
+            interval *= 20;
+        }
         if (interval <= 0
                 || node.regenerationWait() > 0
                 || ticks % interval != 0) {
@@ -395,8 +409,12 @@ final class AuraNodeServerTicker {
     private static void discharge(
             ServerLevel level,
             BlockPos position,
-            AuraNodeBlockEntity source
+            AuraNodeBlockEntity source,
+            int stabilizerLock
     ) {
+        if (stabilizerLock == 1) {
+            return;
+        }
         AuraNodeState.Snapshot sourceSnapshot =
                 source.snapshotState().snapshot();
         if (sourceSnapshot.modifier() == AuraNodeModifier.FADING) {
@@ -423,6 +441,9 @@ final class AuraNodeServerTicker {
         BlockPos targetPosition = position.offset(x, y, z);
         BlockEntity candidate = level.getBlockEntity(targetPosition);
         if (!(candidate instanceof AuraNodeBlockEntity target)) {
+            return;
+        }
+        if (stabilizerLock(level, targetPosition) > 0) {
             return;
         }
 
@@ -460,6 +481,19 @@ final class AuraNodeServerTicker {
         }
         target.setRegenerationWait(regenerationInterval(targetSnapshot) / 2);
         nodeZap(level, targetPosition, position);
+    }
+
+    private static int stabilizerLock(
+            ServerLevel level,
+            BlockPos nodePosition
+    ) {
+        BlockPos stabilizerPosition = nodePosition.below();
+        if (level.hasNeighborSignal(stabilizerPosition)
+                || !(level.getBlockEntity(stabilizerPosition)
+                instanceof NodeStabilizerBlockEntity stabilizer)) {
+            return 0;
+        }
+        return stabilizer.advanced() ? 2 : 1;
     }
 
     private static int averagePool(AuraNodeState.Snapshot snapshot) {
@@ -613,23 +647,11 @@ final class AuraNodeServerTicker {
             BlockPos from,
             BlockPos to
     ) {
-        Vec3 start = Vec3.atCenterOf(from);
-        Vec3 end = Vec3.atCenterOf(to);
-        Vec3 delta = end.subtract(start);
-        for (int index = 0; index <= 8; index++) {
-            Vec3 point = start.add(delta.scale(index / 8.0D));
-            level.sendParticles(
-                    ParticleTypes.ELECTRIC_SPARK,
-                    point.x,
-                    point.y,
-                    point.z,
-                    1,
-                    0.025D,
-                    0.025D,
-                    0.025D,
-                    0.0D
-            );
-        }
+        ModNetwork.sendToTrackingChunk(
+                level,
+                to,
+                new NodeZapPacket(from, to, level.random.nextLong())
+        );
         level.playSound(
                 null,
                 from,

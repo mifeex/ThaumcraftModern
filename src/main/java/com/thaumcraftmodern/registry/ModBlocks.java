@@ -2,13 +2,21 @@ package com.thaumcraftmodern.registry;
 
 import com.thaumcraftmodern.ThaumcraftModern;
 import com.thaumcraftmodern.aura.AuraNodeBlock;
+import com.thaumcraftmodern.crystal.CrystalClusterVariant;
 import com.thaumcraftmodern.nodejar.JarredAuraNodeBlock;
 import com.thaumcraftmodern.world.block.ArcaneWorkbenchBlock;
+import com.thaumcraftmodern.world.block.ArcanePedestalBlock;
+import com.thaumcraftmodern.world.block.WandRechargePedestalBlock;
+import com.thaumcraftmodern.world.block.CompoundRechargeFocusBlock;
+import com.thaumcraftmodern.world.block.ArcaneEarBlock;
 import com.thaumcraftmodern.world.block.AlchemicalFurnaceBlock;
 import com.thaumcraftmodern.world.block.ArcaneAlembicBlock;
 import com.thaumcraftmodern.world.block.ClassicPartBlock;
 import com.thaumcraftmodern.world.block.CinderpearlBlock;
 import com.thaumcraftmodern.world.block.CrucibleBlock;
+import com.thaumcraftmodern.world.block.CrystalClusterBlock;
+import com.thaumcraftmodern.world.block.ClassicCrystalSoundType;
+import com.thaumcraftmodern.world.block.DeconstructionTableBlock;
 import com.thaumcraftmodern.world.block.EldritchAltarPartBlock;
 import com.thaumcraftmodern.world.block.EtherealBloomBlock;
 import com.thaumcraftmodern.world.block.EssentiaJarBlock;
@@ -23,6 +31,7 @@ import com.thaumcraftmodern.essentia.tube.TubePolicyRegistry;
 import com.thaumcraftmodern.world.block.FluxGasBlock;
 import com.thaumcraftmodern.world.block.FluxGooBlock;
 import com.thaumcraftmodern.world.block.InfusionPillarBlock;
+import com.thaumcraftmodern.world.block.InfernalFurnaceBlock;
 import com.thaumcraftmodern.world.block.ManaPodBlock;
 import com.thaumcraftmodern.world.block.MnemonicMatrixBlock;
 import com.thaumcraftmodern.world.block.NitorBlock;
@@ -30,14 +39,23 @@ import com.thaumcraftmodern.world.block.LootVesselBlock;
 import com.thaumcraftmodern.world.block.ResearchTableBlock;
 import com.thaumcraftmodern.world.block.RunicMatrixBlock;
 import com.thaumcraftmodern.world.block.TaintFibresBlock;
+import com.thaumcraftmodern.world.block.TallowCandleBlock;
+import com.thaumcraftmodern.world.block.PurifyingFluidBlock;
+import com.thaumcraftmodern.world.block.LiquidDeathBlock;
 import com.thaumcraftmodern.world.block.TaintedCaveVineBlock;
 import com.thaumcraftmodern.world.block.TaintedGlowBerryVineBlock;
 import com.thaumcraftmodern.world.block.TaintedPlantBlock;
 import com.thaumcraftmodern.world.block.SpreadingTaintBlock;
 import com.thaumcraftmodern.world.block.ThaumcraftTableBlock;
 import com.thaumcraftmodern.world.block.ThaumatoriumBlock;
+import com.thaumcraftmodern.world.block.PavingStoneOfTravelBlock;
+import com.thaumcraftmodern.world.block.PavingStoneOfWardingBlock;
+import com.thaumcraftmodern.world.block.WardingAuraBlock;
 import com.thaumcraftmodern.world.block.VishroomBlock;
 import com.thaumcraftmodern.world.tree.MagicalTreeGrower;
+import com.thaumcraftmodern.visnet.EnergizedAuraNodeBlock;
+import com.thaumcraftmodern.visnet.NodeDeviceBlock;
+import com.thaumcraftmodern.visnet.VisRelayBlock;
 import com.thaumcraftmodern.worldgen.ModWorldgenKeys;
 import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.effect.MobEffects;
@@ -87,6 +105,42 @@ public final class ModBlocks {
                     .sound(SoundType.WOOD)
                     .noOcclusion())
     );
+    public static final RegistryObject<Block> ARCANE_EAR = BLOCKS.register(
+            "arcane_ear",
+            () -> new ArcaneEarBlock(BlockBehaviour.Properties.of()
+                    .mapColor(MapColor.WOOD)
+                    .strength(2.0F)
+                    .sound(SoundType.WOOD)
+                    .noOcclusion())
+    );
+    public static final RegistryObject<Block> DECONSTRUCTION_TABLE =
+            BLOCKS.register(
+                    "deconstruction_table",
+                    () -> new DeconstructionTableBlock(
+                            BlockBehaviour.Properties.of()
+                                    .mapColor(MapColor.WOOD)
+                                    .strength(2.5F)
+                                    .sound(SoundType.WOOD)
+                                    .noOcclusion()
+                    )
+            );
+    public static final RegistryObject<Block> AIR_CRYSTAL_CLUSTER =
+            crystalCluster("air_crystal_cluster", CrystalClusterVariant.AIR);
+    public static final RegistryObject<Block> FIRE_CRYSTAL_CLUSTER =
+            crystalCluster("fire_crystal_cluster", CrystalClusterVariant.FIRE);
+    public static final RegistryObject<Block> WATER_CRYSTAL_CLUSTER =
+            crystalCluster("water_crystal_cluster", CrystalClusterVariant.WATER);
+    public static final RegistryObject<Block> EARTH_CRYSTAL_CLUSTER =
+            crystalCluster("earth_crystal_cluster", CrystalClusterVariant.EARTH);
+    public static final RegistryObject<Block> ORDER_CRYSTAL_CLUSTER =
+            crystalCluster("order_crystal_cluster", CrystalClusterVariant.ORDER);
+    public static final RegistryObject<Block> ENTROPY_CRYSTAL_CLUSTER =
+            crystalCluster("entropy_crystal_cluster", CrystalClusterVariant.ENTROPY);
+    public static final RegistryObject<Block> BALANCED_CRYSTAL_CLUSTER =
+            crystalCluster(
+                    "balanced_crystal_cluster",
+                    CrystalClusterVariant.BALANCED
+            );
     public static final RegistryObject<Block> ARCANE_STONE = BLOCKS.register(
             "arcane_stone",
             () -> new Block(BlockBehaviour.Properties.of()
@@ -95,11 +149,56 @@ public final class ModBlocks {
                     .requiresCorrectToolForDrops()
                     .sound(SoundType.STONE))
     );
+    public static final RegistryObject<Block> THAUMIUM_BLOCK = BLOCKS.register(
+            "thaumium_block",
+            () -> new Block(BlockBehaviour.Properties.of()
+                    .mapColor(MapColor.METAL)
+                    .strength(2.0F, 10.0F)
+                    .requiresCorrectToolForDrops()
+                    .sound(SoundType.STONE))
+    );
     public static final RegistryObject<Block> ARCANE_STONE_BRICK =
             BLOCKS.register(
                     "arcane_stone_brick",
                     () -> new Block(arcaneStoneProperties())
             );
+    public static final RegistryObject<Block> PAVING_STONE_OF_TRAVEL =
+            BLOCKS.register(
+                    "paving_stone_of_travel",
+                    () -> new PavingStoneOfTravelBlock(
+                            BlockBehaviour.Properties.of()
+                                    .mapColor(MapColor.STONE)
+                                    .strength(2.0F, 10.0F)
+                                    .sound(SoundType.STONE)
+                                    .lightLevel(state -> 9)
+                                    .isValidSpawn((state, level, pos, type) -> false)
+                    )
+            );
+    public static final RegistryObject<Block> PAVING_STONE_OF_WARDING =
+            BLOCKS.register(
+                    "paving_stone_of_warding",
+                    () -> new PavingStoneOfWardingBlock(
+                            BlockBehaviour.Properties.of()
+                                    .mapColor(MapColor.STONE)
+                                    .strength(2.0F, 10.0F)
+                                    .requiresCorrectToolForDrops()
+                                    .sound(SoundType.STONE)
+                                    .isValidSpawn(
+                                            (state, level, pos, type) -> false
+                                    )
+                    )
+            );
+    public static final RegistryObject<Block> WARDING_AURA = BLOCKS.register(
+            "warding_aura",
+            () -> new WardingAuraBlock(
+                    BlockBehaviour.Properties.of()
+                            .mapColor(MapColor.NONE)
+                            .replaceable()
+                            .instabreak()
+                            .noOcclusion()
+                            .noLootTable()
+            )
+    );
     public static final RegistryObject<Block> LOOT_URN = BLOCKS.register(
             "loot_urn",
             () -> new LootVesselBlock(
@@ -158,7 +257,20 @@ public final class ModBlocks {
     public static final RegistryObject<Block> ARCANE_PEDESTAL =
             BLOCKS.register(
                     "arcane_pedestal",
-                    () -> new Block(arcaneStoneProperties().noOcclusion())
+                    () -> new ArcanePedestalBlock(
+                            arcaneStoneProperties().noOcclusion())
+            );
+    public static final RegistryObject<Block> WAND_RECHARGE_PEDESTAL =
+            BLOCKS.register(
+                    "wand_recharge_pedestal",
+                    () -> new WandRechargePedestalBlock(
+                            arcaneStoneProperties().noOcclusion())
+            );
+    public static final RegistryObject<Block> COMPOUND_RECHARGE_FOCUS =
+            BLOCKS.register(
+                    "compound_recharge_focus",
+                    () -> new CompoundRechargeFocusBlock(
+                            arcaneStoneProperties().noOcclusion())
             );
     public static final RegistryObject<Block> ARCANE_ALEMBIC =
             BLOCKS.register(
@@ -244,17 +356,16 @@ public final class ModBlocks {
     public static final RegistryObject<Block> INFERNAL_FURNACE =
             BLOCKS.register(
                     "infernal_furnace",
-                    () -> new ClassicPartBlock(
+                    () -> new InfernalFurnaceBlock(
                             BlockBehaviour.Properties.of()
                                     .mapColor(MapColor.COLOR_BLACK)
                                     .strength(10.0F, 500.0F)
                                     .sound(SoundType.STONE)
                                     .lightLevel(state ->
                                             state.getValue(
-                                                    ClassicPartBlock.PART
+                                                    InfernalFurnaceBlock.PART
                                             ) == 0 ? 13 : 3)
-                                    .noLootTable(),
-                            10
+                                    .noLootTable()
                     )
             );
     public static final RegistryObject<Block> THAUMATORIUM =
@@ -290,6 +401,59 @@ public final class ModBlocks {
                     () -> ModBlockEntities.AURA_NODE.get()
             )
     );
+    public static final RegistryObject<Block> ENERGIZED_AURA_NODE =
+            BLOCKS.register(
+                    "energized_aura_node",
+                    () -> new EnergizedAuraNodeBlock(
+                            BlockBehaviour.Properties.of()
+                                    .mapColor(MapColor.NONE)
+                                    .strength(2.0F, 200.0F)
+                                    .sound(SoundType.EMPTY)
+                                    .noCollission()
+                                    .noOcclusion()
+                                    .noLootTable()
+                                    .lightLevel(state -> 12)
+                    )
+            );
+    public static final RegistryObject<Block> NODE_STABILIZER =
+            BLOCKS.register(
+                    "node_stabilizer",
+                    () -> new NodeDeviceBlock(
+                            NodeDeviceBlock.Kind.STABILIZER,
+                            arcaneStoneProperties().noOcclusion()
+                    )
+            );
+    public static final RegistryObject<Block> ADVANCED_NODE_STABILIZER =
+            BLOCKS.register(
+                    "advanced_node_stabilizer",
+                    () -> new NodeDeviceBlock(
+                            NodeDeviceBlock.Kind.ADVANCED_STABILIZER,
+                            arcaneStoneProperties().noOcclusion()
+                    )
+            );
+    public static final RegistryObject<Block> NODE_TRANSDUCER =
+            BLOCKS.register(
+                    "node_transducer",
+                    () -> new NodeDeviceBlock(
+                            NodeDeviceBlock.Kind.TRANSDUCER,
+                            arcaneStoneProperties().noOcclusion()
+                    )
+            );
+    public static final RegistryObject<Block> VIS_RELAY = BLOCKS.register(
+            "vis_relay",
+            () -> new VisRelayBlock(
+                    false,
+                    metalDeviceProperties().noOcclusion()
+            )
+    );
+    public static final RegistryObject<Block> VIS_CHARGE_RELAY =
+            BLOCKS.register(
+                    "vis_charge_relay",
+                    () -> new VisRelayBlock(
+                            true,
+                            metalDeviceProperties().noOcclusion()
+                    )
+            );
     public static final RegistryObject<Block> JARRED_AURA_NODE = BLOCKS.register(
             "jarred_aura_node",
             () -> new JarredAuraNodeBlock(
@@ -302,6 +466,24 @@ public final class ModBlocks {
                             .lightLevel(state -> 7),
                     () -> ModBlockEntities.JARRED_AURA_NODE.get()
             )
+    );
+    public static final RegistryObject<Block> TALLOW_CANDLE = BLOCKS.register(
+            "tallow_candle",
+            () -> new TallowCandleBlock(
+                    BlockBehaviour.Properties.copy(Blocks.CANDLE)
+                            .noOcclusion()
+                            .lightLevel(state -> 14)
+            )
+    );
+    public static final RegistryObject<Block> PURIFYING_FLUID = BLOCKS.register(
+            "purifying_fluid",
+            () -> new PurifyingFluidBlock(BlockBehaviour.Properties.copy(Blocks.WATER)
+                    .noCollission().noLootTable().lightLevel(state -> 6))
+    );
+    public static final RegistryObject<Block> LIQUID_DEATH = BLOCKS.register(
+            "liquid_death",
+            () -> new LiquidDeathBlock(BlockBehaviour.Properties.copy(Blocks.WATER)
+                    .noCollission().noLootTable().lightLevel(state -> 4))
     );
 
     public static final RegistryObject<Block> CINNABAR_ORE =
@@ -318,6 +500,18 @@ public final class ModBlocks {
             ore("order_infused_stone", UniformInt.of(1, 4));
     public static final RegistryObject<Block> ENTROPY_INFUSED_STONE =
             ore("entropy_infused_stone", UniformInt.of(1, 4));
+    public static final RegistryObject<Block> DEEPSLATE_AIR_INFUSED_STONE =
+            deepslateOre("deepslate_air_infused_stone", UniformInt.of(1, 4));
+    public static final RegistryObject<Block> DEEPSLATE_FIRE_INFUSED_STONE =
+            deepslateOre("deepslate_fire_infused_stone", UniformInt.of(1, 4));
+    public static final RegistryObject<Block> DEEPSLATE_WATER_INFUSED_STONE =
+            deepslateOre("deepslate_water_infused_stone", UniformInt.of(1, 4));
+    public static final RegistryObject<Block> DEEPSLATE_EARTH_INFUSED_STONE =
+            deepslateOre("deepslate_earth_infused_stone", UniformInt.of(1, 4));
+    public static final RegistryObject<Block> DEEPSLATE_ORDER_INFUSED_STONE =
+            deepslateOre("deepslate_order_infused_stone", UniformInt.of(1, 4));
+    public static final RegistryObject<Block> DEEPSLATE_ENTROPY_INFUSED_STONE =
+            deepslateOre("deepslate_entropy_infused_stone", UniformInt.of(1, 4));
     public static final RegistryObject<Block> AMBER_ORE =
             ore("amber_ore", UniformInt.of(1, 3));
 
@@ -591,6 +785,25 @@ public final class ModBlocks {
     private ModBlocks() {
     }
 
+    private static RegistryObject<Block> crystalCluster(
+            String name,
+            CrystalClusterVariant variant
+    ) {
+        return BLOCKS.register(
+                name,
+                () -> new CrystalClusterBlock(
+                        variant,
+                        BlockBehaviour.Properties.of()
+                                .mapColor(MapColor.COLOR_LIGHT_BLUE)
+                                .strength(0.7F, 1.0F)
+                                .sound(ClassicCrystalSoundType.INSTANCE)
+                                .lightLevel(state -> 8)
+                                .requiresCorrectToolForDrops()
+                                .noOcclusion()
+                )
+        );
+    }
+
     private static RegistryObject<Block> taintedPlant(
             String name,
             int light
@@ -648,6 +861,21 @@ public final class ModBlocks {
                 () -> new DropExperienceBlock(
                         BlockBehaviour.Properties.copy(Blocks.STONE)
                                 .strength(3.0F, 5.0F)
+                                .requiresCorrectToolForDrops(),
+                        experience
+                )
+        );
+    }
+
+    private static RegistryObject<Block> deepslateOre(
+            String name,
+            UniformInt experience
+    ) {
+        return BLOCKS.register(
+                name,
+                () -> new DropExperienceBlock(
+                        BlockBehaviour.Properties.copy(Blocks.DEEPSLATE)
+                                .strength(4.5F, 3.0F)
                                 .requiresCorrectToolForDrops(),
                         experience
                 )

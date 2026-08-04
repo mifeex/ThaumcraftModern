@@ -107,4 +107,20 @@ class ScanRegistryTest {
                         .orElseThrow()
         );
     }
+
+    @Test
+    void deepslateInfusedStoneUsesTheOrdinaryOreScanKey() {
+        assertEquals(
+                "thaumcraftmodern:air_infused_stone",
+                ScanRegistry.canonicalBlockId(
+                        "thaumcraftmodern:deepslate_air_infused_stone"
+                )
+        );
+        assertEquals(
+                "thaumcraftmodern:entropy_infused_stone",
+                ScanRegistry.canonicalBlockId(
+                        "thaumcraftmodern:deepslate_entropy_infused_stone"
+                )
+        );
+    }
 }

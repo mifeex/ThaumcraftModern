@@ -4,7 +4,11 @@ import com.thaumcraftmodern.ThaumcraftModern;
 import com.thaumcraftmodern.item.AspectShardItem;
 import com.thaumcraftmodern.item.AlumentumItem;
 import com.thaumcraftmodern.item.CrimsonRitesItem;
+import com.thaumcraftmodern.item.CultistArmorItem;
+import com.thaumcraftmodern.item.CrystalClusterItem;
+import com.thaumcraftmodern.crystal.CrystalClusterVariant;
 import com.thaumcraftmodern.item.DiscoveryItem;
+import com.thaumcraftmodern.item.DeconstructionTableItem;
 import com.thaumcraftmodern.item.ManaBeanItem;
 import com.thaumcraftmodern.item.EtherealEssenceItem;
 import com.thaumcraftmodern.item.EssentiaPhialItem;
@@ -19,17 +23,37 @@ import com.thaumcraftmodern.item.ResearchNotesItem;
 import com.thaumcraftmodern.item.ScribingToolsItem;
 import com.thaumcraftmodern.item.SanityCheckerItem;
 import com.thaumcraftmodern.item.SanitySoapItem;
+import com.thaumcraftmodern.item.BathSaltsItem;
+import com.thaumcraftmodern.item.BottledTaintItem;
+import com.thaumcraftmodern.item.LiquidDeathBucketItem;
 import com.thaumcraftmodern.item.ThaumometerItem;
 import com.thaumcraftmodern.item.ThaumonomiconItem;
+import com.thaumcraftmodern.item.ThaumaturgeRobeItem;
+import com.thaumcraftmodern.item.ThaumiumArmorItem;
+import com.thaumcraftmodern.item.ThaumiumHoeItem;
+import com.thaumcraftmodern.item.ThaumiumTier;
+import com.thaumcraftmodern.item.BootsTravellerItem;
+import com.thaumcraftmodern.item.ElementalAxeItem;
+import com.thaumcraftmodern.item.ElementalHoeItem;
+import com.thaumcraftmodern.item.ElementalPickaxeItem;
+import com.thaumcraftmodern.item.ElementalShovelItem;
+import com.thaumcraftmodern.item.ElementalSwordItem;
 import com.thaumcraftmodern.item.TaintedMaterialItem;
 import com.thaumcraftmodern.item.WandComponentItem;
 import com.thaumcraftmodern.item.WandItem;
 import com.thaumcraftmodern.item.WardedJarItem;
+import com.thaumcraftmodern.item.VisDeviceBlockItem;
 import com.thaumcraftmodern.entity.LegacyMobKind;
 import com.thaumcraftmodern.wand.WandForm;
 import net.minecraft.world.item.BlockItem;
+import net.minecraft.world.item.ArmorItem;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.SwordItem;
+import net.minecraft.world.item.PickaxeItem;
+import net.minecraft.world.item.AxeItem;
+import net.minecraft.world.item.ShovelItem;
 import net.minecraft.world.item.Rarity;
+import net.minecraft.world.level.block.Block;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.common.ForgeSpawnEggItem;
 import net.minecraftforge.registries.DeferredRegister;
@@ -47,6 +71,16 @@ public final class ModItems {
             DeferredRegister.create(ForgeRegistries.ITEMS, ThaumcraftModern.MOD_ID);
     public static final Map<LegacyMobKind, RegistryObject<Item>> SPAWN_EGGS =
             registerSpawnEggs();
+    public static final RegistryObject<Item> FACELESS_WITNESS_SPAWN_EGG =
+            ITEMS.register(
+                    "faceless_witness_spawn_egg",
+                    () -> new ForgeSpawnEggItem(
+                            ModEntities.FACELESS_WITNESS,
+                            0x111019,
+                            0x845BB2,
+                            new Item.Properties()
+                    )
+            );
 
     public static final RegistryObject<Item> THAUMONOMICON =
             ITEMS.register("thaumonomicon", () -> new ThaumonomiconItem(new Item.Properties().stacksTo(1)));
@@ -64,6 +98,14 @@ public final class ModItems {
                     "sanity_soap",
                     () -> new SanitySoapItem(new Item.Properties())
             );
+    public static final RegistryObject<Item> BATH_SALTS =
+            ITEMS.register("bath_salts", () -> new BathSaltsItem(new Item.Properties()));
+    public static final RegistryObject<Item> BOTTLED_TAINT =
+            ITEMS.register("bottled_taint", () -> new BottledTaintItem(
+                    new Item.Properties().stacksTo(8)));
+    public static final RegistryObject<Item> LIQUID_DEATH_BUCKET =
+            ITEMS.register("liquid_death_bucket", () -> new LiquidDeathBucketItem(
+                    new Item.Properties().stacksTo(1)));
     public static final RegistryObject<Item> SCRIBING_TOOLS =
             ITEMS.register("scribing_tools", () -> new ScribingToolsItem(new Item.Properties().stacksTo(1).durability(100)));
     public static final RegistryObject<Item> RESEARCH_NOTES =
@@ -84,6 +126,21 @@ public final class ModItems {
                     "quicksilver_nugget",
                     () -> new Item(new Item.Properties())
             );
+    public static final RegistryObject<Item> COPPER_NUGGET = simple("copper_nugget");
+    public static final RegistryObject<Item> TIN_NUGGET = simple("tin_nugget");
+    public static final RegistryObject<Item> LEAD_NUGGET = simple("lead_nugget");
+    public static final RegistryObject<Item> TIN_INGOT = simple("tin_ingot");
+    public static final RegistryObject<Item> SILVER_INGOT = simple("silver_ingot");
+    public static final RegistryObject<Item> LEAD_INGOT = simple("lead_ingot");
+    public static final RegistryObject<Item> NATIVE_IRON_CLUSTER = simple("native_iron_cluster");
+    public static final RegistryObject<Item> NATIVE_GOLD_CLUSTER = simple("native_gold_cluster");
+    public static final RegistryObject<Item> NATIVE_COPPER_CLUSTER = simple("native_copper_cluster");
+    public static final RegistryObject<Item> NATIVE_TIN_CLUSTER = simple("native_tin_cluster");
+    public static final RegistryObject<Item> NATIVE_SILVER_CLUSTER = simple("native_silver_cluster");
+    public static final RegistryObject<Item> NATIVE_LEAD_CLUSTER = simple("native_lead_cluster");
+    public static final RegistryObject<Item> THAUMIC_TALLOW = simple("thaumic_tallow");
+    public static final RegistryObject<Item> TALLOW_CANDLE =
+            blockItem("tallow_candle", ModBlocks.TALLOW_CANDLE);
     public static final RegistryObject<Item> AMBER =
             ITEMS.register("amber", () -> new Item(new Item.Properties()));
     public static final RegistryObject<Item> MANA_BEAN =
@@ -141,6 +198,67 @@ public final class ModItems {
                     "primordial_pearl",
                     () -> new Item(new Item.Properties().rarity(Rarity.EPIC))
             );
+    public static final RegistryObject<Item> THAUMIUM_SWORD = ITEMS.register(
+            "thaumium_sword", () -> new SwordItem(ThaumiumTier.INSTANCE, 3, -2.4F,
+                    new Item.Properties().rarity(Rarity.UNCOMMON)));
+    public static final RegistryObject<Item> THAUMIUM_PICKAXE = ITEMS.register(
+            "thaumium_pickaxe", () -> new PickaxeItem(ThaumiumTier.INSTANCE, 1, -2.8F,
+                    new Item.Properties().rarity(Rarity.UNCOMMON)));
+    public static final RegistryObject<Item> THAUMIUM_AXE = ITEMS.register(
+            "thaumium_axe", () -> new AxeItem(ThaumiumTier.INSTANCE, 5.5F, -3.2F,
+                    new Item.Properties().rarity(Rarity.UNCOMMON)));
+    public static final RegistryObject<Item> THAUMIUM_SHOVEL = ITEMS.register(
+            "thaumium_shovel", () -> new ShovelItem(ThaumiumTier.INSTANCE, 1.5F, -3.0F,
+                    new Item.Properties().rarity(Rarity.UNCOMMON)));
+    public static final RegistryObject<Item> THAUMIUM_HOE = ITEMS.register(
+            "thaumium_hoe", () -> new ThaumiumHoeItem(
+                    new Item.Properties().rarity(Rarity.UNCOMMON)));
+    public static final RegistryObject<Item> THAUMIUM_HELMET = thaumiumArmor(
+            "thaumium_helmet", ArmorItem.Type.HELMET);
+    public static final RegistryObject<Item> THAUMIUM_CHESTPLATE = thaumiumArmor(
+            "thaumium_chestplate", ArmorItem.Type.CHESTPLATE);
+    public static final RegistryObject<Item> THAUMIUM_LEGGINGS = thaumiumArmor(
+            "thaumium_leggings", ArmorItem.Type.LEGGINGS);
+    public static final RegistryObject<Item> THAUMIUM_BOOTS = thaumiumArmor(
+            "thaumium_boots", ArmorItem.Type.BOOTS);
+    public static final RegistryObject<Item> PICKAXE_OF_THE_CORE = ITEMS.register(
+            "pickaxe_of_the_core", () -> new ElementalPickaxeItem(
+                    new Item.Properties().rarity(Rarity.RARE)));
+    public static final RegistryObject<Item> AXE_OF_THE_STREAM = ITEMS.register(
+            "axe_of_the_stream", () -> new ElementalAxeItem(
+                    new Item.Properties().rarity(Rarity.RARE)));
+    public static final RegistryObject<Item> SWORD_OF_THE_ZEPHYR = ITEMS.register(
+            "sword_of_the_zephyr", () -> new ElementalSwordItem(
+                    new Item.Properties().rarity(Rarity.RARE)));
+    public static final RegistryObject<Item> SHOVEL_OF_THE_EARTHMOVER = ITEMS.register(
+            "shovel_of_the_earthmover", () -> new ElementalShovelItem(
+                    new Item.Properties().rarity(Rarity.RARE)));
+    public static final RegistryObject<Item> HOE_OF_GROWTH = ITEMS.register(
+            "hoe_of_growth", () -> new ElementalHoeItem(
+                    new Item.Properties().rarity(Rarity.RARE)));
+    public static final RegistryObject<Item> BOOTS_OF_THE_TRAVELLER = ITEMS.register(
+            "boots_of_the_traveller", () -> new BootsTravellerItem(
+                    new Item.Properties().stacksTo(1).durability(350).rarity(Rarity.RARE)));
+    public static final RegistryObject<Item> CULTIST_KNIGHT_HELMET = cultistArmor(
+            "cultist_knight_helmet", CultistArmorItem.Set.KNIGHT, ArmorItem.Type.HELMET);
+    public static final RegistryObject<Item> CULTIST_KNIGHT_CHESTPLATE = cultistArmor(
+            "cultist_knight_chestplate", CultistArmorItem.Set.KNIGHT, ArmorItem.Type.CHESTPLATE);
+    public static final RegistryObject<Item> CULTIST_KNIGHT_LEGGINGS = cultistArmor(
+            "cultist_knight_leggings", CultistArmorItem.Set.KNIGHT, ArmorItem.Type.LEGGINGS);
+    public static final RegistryObject<Item> CULTIST_CLERIC_HOOD = cultistArmor(
+            "cultist_cleric_hood", CultistArmorItem.Set.CLERIC, ArmorItem.Type.HELMET);
+    public static final RegistryObject<Item> CULTIST_CLERIC_ROBE = cultistArmor(
+            "cultist_cleric_robe", CultistArmorItem.Set.CLERIC, ArmorItem.Type.CHESTPLATE);
+    public static final RegistryObject<Item> CULTIST_CLERIC_LEGGINGS = cultistArmor(
+            "cultist_cleric_leggings", CultistArmorItem.Set.CLERIC, ArmorItem.Type.LEGGINGS);
+    public static final RegistryObject<Item> CULTIST_PRAETOR_HELMET = cultistArmor(
+            "cultist_praetor_helmet", CultistArmorItem.Set.PRAETOR, ArmorItem.Type.HELMET);
+    public static final RegistryObject<Item> CULTIST_PRAETOR_CHESTPLATE = cultistArmor(
+            "cultist_praetor_chestplate", CultistArmorItem.Set.PRAETOR, ArmorItem.Type.CHESTPLATE);
+    public static final RegistryObject<Item> CULTIST_PRAETOR_LEGGINGS = cultistArmor(
+            "cultist_praetor_leggings", CultistArmorItem.Set.PRAETOR, ArmorItem.Type.LEGGINGS);
+    public static final RegistryObject<Item> CULTIST_BOOTS = cultistArmor(
+            "cultist_boots", CultistArmorItem.Set.BOOTS, ArmorItem.Type.BOOTS);
     public static final RegistryObject<Item> COMMON_LOOT_BAG =
             lootBag("common_loot_bag", "common", Rarity.COMMON);
     public static final RegistryObject<Item> UNCOMMON_LOOT_BAG =
@@ -291,6 +409,56 @@ public final class ModItems {
                             new Item.Properties()
                     )
             );
+    public static final RegistryObject<Item> DECONSTRUCTION_TABLE =
+            ITEMS.register(
+                    "deconstruction_table",
+                    () -> new DeconstructionTableItem(
+                            ModBlocks.DECONSTRUCTION_TABLE.get(),
+                            new Item.Properties()
+                    )
+            );
+    public static final RegistryObject<Item> AIR_CRYSTAL_CLUSTER =
+            crystalClusterItem(
+                    "air_crystal_cluster",
+                    ModBlocks.AIR_CRYSTAL_CLUSTER,
+                    CrystalClusterVariant.AIR
+            );
+    public static final RegistryObject<Item> FIRE_CRYSTAL_CLUSTER =
+            crystalClusterItem(
+                    "fire_crystal_cluster",
+                    ModBlocks.FIRE_CRYSTAL_CLUSTER,
+                    CrystalClusterVariant.FIRE
+            );
+    public static final RegistryObject<Item> WATER_CRYSTAL_CLUSTER =
+            crystalClusterItem(
+                    "water_crystal_cluster",
+                    ModBlocks.WATER_CRYSTAL_CLUSTER,
+                    CrystalClusterVariant.WATER
+            );
+    public static final RegistryObject<Item> EARTH_CRYSTAL_CLUSTER =
+            crystalClusterItem(
+                    "earth_crystal_cluster",
+                    ModBlocks.EARTH_CRYSTAL_CLUSTER,
+                    CrystalClusterVariant.EARTH
+            );
+    public static final RegistryObject<Item> ORDER_CRYSTAL_CLUSTER =
+            crystalClusterItem(
+                    "order_crystal_cluster",
+                    ModBlocks.ORDER_CRYSTAL_CLUSTER,
+                    CrystalClusterVariant.ORDER
+            );
+    public static final RegistryObject<Item> ENTROPY_CRYSTAL_CLUSTER =
+            crystalClusterItem(
+                    "entropy_crystal_cluster",
+                    ModBlocks.ENTROPY_CRYSTAL_CLUSTER,
+                    CrystalClusterVariant.ENTROPY
+            );
+    public static final RegistryObject<Item> BALANCED_CRYSTAL_CLUSTER =
+            crystalClusterItem(
+                    "balanced_crystal_cluster",
+                    ModBlocks.BALANCED_CRYSTAL_CLUSTER,
+                    CrystalClusterVariant.BALANCED
+            );
     public static final RegistryObject<Item> ARCANE_STONE =
             ITEMS.register(
                     "arcane_stone",
@@ -301,6 +469,8 @@ public final class ModItems {
             );
     public static final RegistryObject<Item> ARCANE_STONE_BRICK =
             blockItem("arcane_stone_brick", ModBlocks.ARCANE_STONE_BRICK);
+    public static final RegistryObject<Item> THAUMIUM_BLOCK =
+            blockItem("thaumium_block", ModBlocks.THAUMIUM_BLOCK);
     public static final RegistryObject<Item> LOOT_URN =
             blockItem("loot_urn", ModBlocks.LOOT_URN);
     public static final RegistryObject<Item> LOOT_CRATE =
@@ -313,6 +483,10 @@ public final class ModItems {
             blockItem("runic_matrix", ModBlocks.RUNIC_MATRIX);
     public static final RegistryObject<Item> ARCANE_PEDESTAL =
             blockItem("arcane_pedestal", ModBlocks.ARCANE_PEDESTAL);
+    public static final RegistryObject<Item> WAND_RECHARGE_PEDESTAL =
+            blockItem("wand_recharge_pedestal", ModBlocks.WAND_RECHARGE_PEDESTAL);
+    public static final RegistryObject<Item> COMPOUND_RECHARGE_FOCUS =
+            blockItem("compound_recharge_focus", ModBlocks.COMPOUND_RECHARGE_FOCUS);
     public static final RegistryObject<Item> ARCANE_ALEMBIC =
             blockItem("arcane_alembic", ModBlocks.ARCANE_ALEMBIC);
     public static final RegistryObject<Item> JAR_LABEL =
@@ -373,6 +547,18 @@ public final class ModItems {
             blockItem("order_infused_stone", ModBlocks.ORDER_INFUSED_STONE);
     public static final RegistryObject<Item> ENTROPY_INFUSED_STONE =
             blockItem("entropy_infused_stone", ModBlocks.ENTROPY_INFUSED_STONE);
+    public static final RegistryObject<Item> DEEPSLATE_AIR_INFUSED_STONE =
+            blockItem("deepslate_air_infused_stone", ModBlocks.DEEPSLATE_AIR_INFUSED_STONE);
+    public static final RegistryObject<Item> DEEPSLATE_FIRE_INFUSED_STONE =
+            blockItem("deepslate_fire_infused_stone", ModBlocks.DEEPSLATE_FIRE_INFUSED_STONE);
+    public static final RegistryObject<Item> DEEPSLATE_WATER_INFUSED_STONE =
+            blockItem("deepslate_water_infused_stone", ModBlocks.DEEPSLATE_WATER_INFUSED_STONE);
+    public static final RegistryObject<Item> DEEPSLATE_EARTH_INFUSED_STONE =
+            blockItem("deepslate_earth_infused_stone", ModBlocks.DEEPSLATE_EARTH_INFUSED_STONE);
+    public static final RegistryObject<Item> DEEPSLATE_ORDER_INFUSED_STONE =
+            blockItem("deepslate_order_infused_stone", ModBlocks.DEEPSLATE_ORDER_INFUSED_STONE);
+    public static final RegistryObject<Item> DEEPSLATE_ENTROPY_INFUSED_STONE =
+            blockItem("deepslate_entropy_infused_stone", ModBlocks.DEEPSLATE_ENTROPY_INFUSED_STONE);
     public static final RegistryObject<Item> AMBER_ORE =
             blockItem("amber_ore", ModBlocks.AMBER_ORE);
     public static final RegistryObject<Item> GREATWOOD_LOG =
@@ -483,6 +669,12 @@ public final class ModItems {
      */
     public static final Map<String, RegistryObject<Item>> ARCANE_RECIPE_COMPONENTS =
             registerArcaneRecipeComponents();
+    public static final RegistryObject<Item> THAUMATURGE_ROBE =
+            ARCANE_RECIPE_COMPONENTS.get("thaumaturge_robe");
+    public static final RegistryObject<Item> THAUMATURGE_LEGGINGS =
+            ARCANE_RECIPE_COMPONENTS.get("thaumaturge_leggings");
+    public static final RegistryObject<Item> THAUMATURGE_BOOTS =
+            ARCANE_RECIPE_COMPONENTS.get("thaumaturge_boots");
     public static final RegistryObject<Item> ESSENTIA_BUFFER =
             ARCANE_RECIPE_COMPONENTS.get("essentia_buffer");
     public static final RegistryObject<Item> ESSENTIA_CENTRIFUGE =
@@ -499,6 +691,16 @@ public final class ModItems {
                     ModBlocks.VOID_JAR.get(), new Item.Properties().stacksTo(1)));
     public static final RegistryObject<Item> MNEMONIC_MATRIX =
             ARCANE_RECIPE_COMPONENTS.get("mnemonic_matrix");
+    public static final RegistryObject<Item> NODE_STABILIZER =
+            ARCANE_RECIPE_COMPONENTS.get("node_stabilizer");
+    public static final RegistryObject<Item> ADVANCED_NODE_STABILIZER =
+            ARCANE_RECIPE_COMPONENTS.get("advanced_node_stabilizer");
+    public static final RegistryObject<Item> NODE_TRANSDUCER =
+            ARCANE_RECIPE_COMPONENTS.get("node_transducer");
+    public static final RegistryObject<Item> VIS_RELAY =
+            ARCANE_RECIPE_COMPONENTS.get("vis_relay");
+    public static final RegistryObject<Item> VIS_CHARGE_RELAY =
+            ARCANE_RECIPE_COMPONENTS.get("vis_charge_relay");
 
     private ModItems() {
     }
@@ -521,11 +723,48 @@ public final class ModItems {
         );
     }
 
+    private static RegistryObject<Item> crystalClusterItem(
+            String name,
+            RegistryObject<Block> block,
+            CrystalClusterVariant variant
+    ) {
+        return ITEMS.register(
+                name,
+                () -> new CrystalClusterItem(
+                        block.get(),
+                        variant,
+                        new Item.Properties()
+                )
+        );
+    }
+
+    private static RegistryObject<Item> thaumiumArmor(String name, ArmorItem.Type type) {
+        return ITEMS.register(name, () -> new ThaumiumArmorItem(
+                type, new Item.Properties().rarity(Rarity.UNCOMMON)));
+    }
+
+    private static RegistryObject<Item> simple(String name) {
+        return ITEMS.register(name, () -> new Item(new Item.Properties()));
+    }
+
+    private static RegistryObject<Item> cultistArmor(
+            String name,
+            CultistArmorItem.Set set,
+            ArmorItem.Type type
+    ) {
+        return ITEMS.register(name, () -> new CultistArmorItem(
+                set,
+                type,
+                new Item.Properties().stacksTo(1).rarity(Rarity.UNCOMMON)
+        ));
+    }
+
     private static Map<String, RegistryObject<Item>> registerArcaneRecipeComponents() {
         List<String> names = List.of(
                 "aer_primal_arrow", "aqua_primal_arrow", "ignis_primal_arrow",
                 "ordo_primal_arrow", "perditio_primal_arrow", "terra_primal_arrow",
                 "arcane_bellows", "arcane_bore_base", "arcane_door", "arcane_ear",
+                "chicken_nugget", "beef_nugget", "pork_nugget", "fish_nugget",
                 "arcane_lamp", "arcane_levitator", "arcane_pressure_plate", "arcane_spa",
                 "arcane_stone_slab", "blank_belt", "blank_golem_core",
                 "bone_bow", "deconstruction_table", "enchanted_fabric", "essentia_buffer",
@@ -541,7 +780,7 @@ public final class ModItems {
                 "golem_upgrade_ordo", "golem_upgrade_perditio", "golem_upgrade_terra",
                 "hungry_chest", "inert_silver_wand_cap", "inert_thaumium_wand_cap",
                 "inert_void_wand_cap", "iron_key", "mirrored_glass", "mnemonic_matrix",
-                "node_stabilizer", "node_transducer",
+                "node_stabilizer", "advanced_node_stabilizer", "node_transducer",
                 "paving_stone_of_travel", "paving_stone_of_warding", "primal_charm",
                 "thaumaturge_boots", "thaumaturge_leggings",
                 "thaumaturge_robe", "thaumium_ingot", "thaumium_nugget",
@@ -559,6 +798,8 @@ public final class ModItems {
         );
         Map<String, RegistryObject<Item>> registered = new LinkedHashMap<>();
         names.forEach(name -> registered.put(name, switch (name) {
+            case "deconstruction_table" -> DECONSTRUCTION_TABLE;
+            case "arcane_ear" -> blockItem(name, ModBlocks.ARCANE_EAR);
             case "essentia_buffer" -> blockItem(name, ModBlocks.ESSENTIA_BUFFER);
             case "essentia_centrifuge" -> blockItem(name, ModBlocks.ESSENTIA_CENTRIFUGE);
             case "essentia_crystallizer" -> blockItem(name, ModBlocks.ESSENTIA_CRYSTALLIZER);
@@ -566,11 +807,72 @@ public final class ModItems {
             case "essentia_resonator" -> ITEMS.register(name,
                     () -> new EssentiaResonatorItem(new Item.Properties()));
             case "mnemonic_matrix" -> blockItem(name, ModBlocks.MNEMONIC_MATRIX);
+            case "node_stabilizer" -> visDeviceItem(
+                    name, ModBlocks.NODE_STABILIZER,
+                    VisDeviceBlockItem.Kind.STABILIZER);
+            case "advanced_node_stabilizer" -> visDeviceItem(
+                    name, ModBlocks.ADVANCED_NODE_STABILIZER,
+                    VisDeviceBlockItem.Kind.ADVANCED_STABILIZER);
+            case "node_transducer" -> visDeviceItem(
+                    name, ModBlocks.NODE_TRANSDUCER,
+                    VisDeviceBlockItem.Kind.TRANSDUCER);
+            case "vis_relay" -> visDeviceItem(
+                    name, ModBlocks.VIS_RELAY,
+                    VisDeviceBlockItem.Kind.RELAY);
+            case "vis_charge_relay" -> visDeviceItem(
+                    name, ModBlocks.VIS_CHARGE_RELAY,
+                    VisDeviceBlockItem.Kind.CHARGER);
+            case "paving_stone_of_travel" -> blockItem(
+                    name,
+                    ModBlocks.PAVING_STONE_OF_TRAVEL
+            );
+            case "paving_stone_of_warding" -> blockItem(
+                    name,
+                    ModBlocks.PAVING_STONE_OF_WARDING
+            );
+            case "thaumaturge_boots" -> ITEMS.register(
+                    name,
+                    () -> new ThaumaturgeRobeItem(
+                            ArmorItem.Type.BOOTS,
+                            new Item.Properties().stacksTo(1).rarity(Rarity.UNCOMMON)
+                    )
+            );
+            case "thaumaturge_leggings" -> ITEMS.register(
+                    name,
+                    () -> new ThaumaturgeRobeItem(
+                            ArmorItem.Type.LEGGINGS,
+                            new Item.Properties().stacksTo(1).rarity(Rarity.UNCOMMON)
+                    )
+            );
+            case "thaumaturge_robe" -> ITEMS.register(
+                    name,
+                    () -> new ThaumaturgeRobeItem(
+                            ArmorItem.Type.CHESTPLATE,
+                            new Item.Properties().stacksTo(1).rarity(Rarity.UNCOMMON)
+                    )
+            );
             case "void_jar" -> ITEMS.register(name, () -> new WardedJarItem(
                     ModBlocks.VOID_JAR.get(), new Item.Properties()));
+            case "chicken_nugget", "beef_nugget", "pork_nugget", "fish_nugget" ->
+                    ITEMS.register(name, () -> new Item(new Item.Properties().food(
+                            new net.minecraft.world.food.FoodProperties.Builder()
+                                    .nutrition(1).saturationMod(0.3F).build()
+                    )));
             default -> ITEMS.register(name, () -> new Item(new Item.Properties()));
         }));
         return Collections.unmodifiableMap(registered);
+    }
+
+    private static RegistryObject<Item> visDeviceItem(
+            String name,
+            RegistryObject<Block> block,
+            VisDeviceBlockItem.Kind kind
+    ) {
+        return ITEMS.register(
+                name,
+                () -> new VisDeviceBlockItem(
+                        block.get(), kind, new Item.Properties())
+        );
     }
 
     private static RegistryObject<Item> shard(String name, String aspectId, int color) {

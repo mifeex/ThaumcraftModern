@@ -1,0 +1,13 @@
+{
+  "research": "entropicprocessing",
+  "catalyst": {
+    "item": "minecraft:stone_bricks"
+  },
+  "output": {
+    "item": "minecraft:cracked_stone_bricks"
+  },
+  "aspects": {
+    "perditio": 2
+  },
+  "legacy_id": "AltCrackedBrick"
+}

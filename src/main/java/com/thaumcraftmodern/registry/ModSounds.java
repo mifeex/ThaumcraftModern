@@ -30,6 +30,9 @@ public final class ModSounds {
     public static final RegistryObject<SoundEvent> HH_OFF = sound("hhoff");
     public static final RegistryObject<SoundEvent> HH_ON = sound("hhon");
     public static final RegistryObject<SoundEvent> WAND = sound("wand");
+    public static final RegistryObject<SoundEvent> WAND_FAIL = sound("wandfail");
+    public static final RegistryObject<SoundEvent> WIND = sound("wind");
+    public static final RegistryObject<SoundEvent> SWING = sound("swing");
     public static final RegistryObject<SoundEvent> JAR = sound("jar");
     public static final RegistryObject<SoundEvent> ZAP = sound("zap");
     public static final RegistryObject<SoundEvent> WISP_LIVE = sound("wisplive");
@@ -71,12 +74,25 @@ public final class ModSounds {
             sound("crabdeath");
     public static final RegistryObject<SoundEvent> CRAB_CLAW =
             sound("crabclaw");
+    public static final RegistryObject<SoundEvent> WITNESS_IDLE =
+            sound("witness_idle");
+    public static final RegistryObject<SoundEvent> WITNESS_ALERT =
+            sound("witness_alert");
+    public static final RegistryObject<SoundEvent> WITNESS_ATTACK =
+            sound("witness_attack");
+    public static final RegistryObject<SoundEvent> WITNESS_HURT =
+            sound("witness_hurt");
+    public static final RegistryObject<SoundEvent> WITNESS_DEATH =
+            sound("witness_death");
     /*
      * Kept registered for save compatibility with 1.4.1. Research Table
      * gameplay deliberately does not use these events.
      */
     public static final RegistryObject<SoundEvent> CRAFT_SUCCESS = sound("craft_success");
     public static final RegistryObject<SoundEvent> CRAFT_FAIL = sound("craft_fail");
+    public static final RegistryObject<SoundEvent> INFUSER = sound("infuser");
+    public static final RegistryObject<SoundEvent> INFUSER_START =
+            sound("infuser_start");
 
     private ModSounds() {
     }

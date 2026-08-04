@@ -1,0 +1,15 @@
+{
+  "research": "alchemicalduplication",
+  "catalyst": {
+    "tag": "forge:dusts/glowstone"
+  },
+  "output": {
+    "item": "minecraft:glowstone_dust",
+    "count": 2
+  },
+  "aspects": {
+    "lux": 3,
+    "sensus": 1
+  },
+  "legacy_id": "AltGlowstone"
+}

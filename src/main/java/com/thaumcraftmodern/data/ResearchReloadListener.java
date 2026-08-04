@@ -11,6 +11,7 @@ import com.thaumcraftmodern.research.InfusionDisplayDefinition;
 import com.thaumcraftmodern.research.ResearchCategoryRegistry;
 import com.thaumcraftmodern.research.ResearchPageDefinition;
 import com.thaumcraftmodern.research.ResearchRegistry;
+import com.thaumcraftmodern.research.ResearchPuzzleRegistry;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.packs.resources.ResourceManager;
 import net.minecraft.server.packs.resources.SimpleJsonResourceReloadListener;
@@ -32,6 +33,7 @@ public final class ResearchReloadListener extends SimpleJsonResourceReloadListen
     @Override
     protected void apply(Map<ResourceLocation, JsonElement> objects, ResourceManager resourceManager, ProfilerFiller profiler) {
         List<ResearchDefinition> definitions = new ArrayList<>();
+        Map<String, Integer> puzzleComplexities = new java.util.LinkedHashMap<>();
         int inactiveCount = 0;
         for (Map.Entry<ResourceLocation, JsonElement> file : objects.entrySet()) {
             try {
@@ -41,6 +43,15 @@ public final class ResearchReloadListener extends SimpleJsonResourceReloadListen
                     inactiveCount++;
                 }
                 String id = GsonHelper.getAsString(json, "id");
+                JsonObject legacyData = json.has("legacy")
+                        ? GsonHelper.getAsJsonObject(json, "legacy")
+                        : null;
+                puzzleComplexities.put(
+                        id,
+                        legacyData == null
+                                ? 1
+                                : GsonHelper.getAsInt(legacyData, "complexity", 1)
+                );
                 List<String> parents = new ArrayList<>();
                 if (json.has("parents")) {
                     for (JsonElement parent : GsonHelper.getAsJsonArray(json, "parents")) {
@@ -103,7 +114,8 @@ public final class ResearchReloadListener extends SimpleJsonResourceReloadListen
                             aspectCosts,
                             type == ResearchPageDefinition.Type.INFUSION
                                     ? readInfusionDisplay(page)
-                                    : null
+                                    : null,
+                            readRecipeIds(page)
                     ));
                 }
                 String categoryId = GsonHelper.getAsString(json, "category", "basics");
@@ -178,11 +190,26 @@ public final class ResearchReloadListener extends SimpleJsonResourceReloadListen
             }
         }
         ResearchRegistry.replace(definitions);
+        ResearchPuzzleRegistry.replace(puzzleComplexities);
         ThaumcraftModern.LOGGER.info(
                 "Loaded {} research definitions; {} have inactive gameplay content",
                 definitions.size(),
                 inactiveCount
         );
+    }
+
+    private static List<String> readRecipeIds(JsonObject page) {
+        if (!page.has("recipes")) {
+            return List.of();
+        }
+        List<String> recipes = new ArrayList<>();
+        for (JsonElement rawRecipe : GsonHelper.getAsJsonArray(
+                page,
+                "recipes"
+        )) {
+            recipes.add(GsonHelper.convertToString(rawRecipe, "recipe"));
+        }
+        return List.copyOf(recipes);
     }
 
     private static List<AspectCost> readAspectCosts(
@@ -317,10 +344,16 @@ public final class ResearchReloadListener extends SimpleJsonResourceReloadListen
                     rawComponent,
                     "infusion display component"
             );
-            components.add(new InfusionDisplayDefinition.ComponentStack(
-                    GsonHelper.getAsString(component, "item"),
-                    GsonHelper.getAsInt(component, "count", 1)
-            ));
+            int count = GsonHelper.getAsInt(component, "count", 1);
+            if (component.has("tag")) {
+                components.add(InfusionDisplayDefinition.ComponentStack.tagged(
+                        GsonHelper.getAsString(component, "tag"), count
+                ));
+            } else {
+                components.add(new InfusionDisplayDefinition.ComponentStack(
+                        GsonHelper.getAsString(component, "item"), count
+                ));
+            }
         }
         return new InfusionDisplayDefinition(
                 GsonHelper.getAsString(page, "output"),

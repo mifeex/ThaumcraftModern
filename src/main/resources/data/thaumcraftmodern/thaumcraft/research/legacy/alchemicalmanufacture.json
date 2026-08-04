@@ -23,28 +23,19 @@
       "body": "tc.research_page.ALCHEMICALMANUFACTURE.1"
     },
     {
-      "type": "unavailable",
+      "type": "recipe",
       "title": "",
-      "body": "",
-      "legacy_type": "recipe",
-      "legacy_content": "AltWeb",
-      "source_expression": "new ResearchPage((CrucibleRecipe)recipes.get(\"AltWeb\"))"
+      "recipe": "thaumcraftmodern:altweb"
     },
     {
-      "type": "unavailable",
+      "type": "recipe",
       "title": "",
-      "body": "",
-      "legacy_type": "recipe",
-      "legacy_content": "AltMossyCobble",
-      "source_expression": "new ResearchPage((CrucibleRecipe)recipes.get(\"AltMossyCobble\"))"
+      "recipe": "thaumcraftmodern:altmossycobble"
     },
     {
-      "type": "unavailable",
+      "type": "recipe",
       "title": "",
-      "body": "",
-      "legacy_type": "recipe",
-      "legacy_content": "AltIce",
-      "source_expression": "new ResearchPage((CrucibleRecipe)recipes.get(\"AltIce\"))"
+      "recipe": "thaumcraftmodern:altice"
     }
   ],
   "purchase_cost": [
@@ -61,8 +52,7 @@
       "amount": 3
     }
   ],
-  "inactive": true,
-  "inactive_reason": "referenced gameplay content is not implemented",
+  "inactive": false,
   "legacy": {
     "x": -5,
     "y": -2,

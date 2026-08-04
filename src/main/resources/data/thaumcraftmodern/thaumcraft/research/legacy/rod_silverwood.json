@@ -24,16 +24,39 @@
       "body": "tc.research_page.ROD_silverwood.1"
     },
     {
-      "type": "unavailable",
-      "title": "",
-      "body": "",
-      "legacy_type": "recipe",
-      "legacy_content": "WandRodSilverwood",
-      "source_expression": "new ResearchPage((InfusionRecipe)recipes.get(\"WandRodSilverwood\"))"
+      "type": "infusion",
+      "title": "recipe.type.infusion",
+      "output": "thaumcraftmodern:silverwood_wand_rod",
+      "central": "thaumcraftmodern:silverwood_log",
+      "components": [
+        {"item": "thaumcraftmodern:balanced_shard", "count": 1},
+        {"item": "thaumcraftmodern:air_shard", "count": 1},
+        {"item": "thaumcraftmodern:fire_shard", "count": 1},
+        {"item": "thaumcraftmodern:water_shard", "count": 1},
+        {"item": "thaumcraftmodern:earth_shard", "count": 1},
+        {"item": "thaumcraftmodern:order_shard", "count": 1},
+        {"item": "thaumcraftmodern:entropy_shard", "count": 1}
+      ],
+      "aspect_costs": [
+        {"id": "aer", "amount": 9},
+        {"id": "ignis", "amount": 9},
+        {"id": "aqua", "amount": 9},
+        {"id": "terra", "amount": 9},
+        {"id": "ordo", "amount": 9},
+        {"id": "perditio", "amount": 9},
+        {"id": "praecantatio", "amount": 9}
+      ],
+      "instability": "moderate",
+      "detail": "tc.research_text.ROD_silverwood"
     }
   ],
-  "inactive": true,
-  "inactive_reason": "referenced gameplay content is not implemented",
+  "purchase_cost": [
+    {"id": "instrumentum", "amount": 6},
+    {"id": "arbor", "amount": 6},
+    {"id": "praecantatio", "amount": 9}
+  ],
+  "inactive": false,
+  "inactive_reason": null,
   "legacy": {
     "x": -2,
     "y": 5,

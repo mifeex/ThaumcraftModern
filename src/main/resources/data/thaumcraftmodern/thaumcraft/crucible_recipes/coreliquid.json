@@ -1,0 +1,16 @@
+{
+  "research": "coreliquid",
+  "catalyst": {
+    "item": "thaumcraftmodern:blank_golem_core"
+  },
+  "output": {
+    "item": "thaumcraftmodern:liquid_golem_core"
+  },
+  "aspects": {
+    "aqua": 5,
+    "vacuos": 5
+  },
+  "legacy_id": "CoreLiquid",
+  "inactive": true,
+  "inactive_reason": "output item or its complete gameplay behavior is not implemented"
+}

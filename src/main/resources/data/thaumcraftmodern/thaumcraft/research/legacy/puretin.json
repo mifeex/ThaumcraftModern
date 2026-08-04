@@ -2,7 +2,7 @@
   "id": "puretin",
   "legacy_id": "PURETIN",
   "category": "alchemy",
-  "icon": "thaumcraftmodern:thaumonomicon",
+  "icon": "thaumcraftmodern:native_tin_cluster",
   "title": "tc.research_name.PURETIN",
   "subtitle": "tc.research_text.PURETIN",
   "concealed": true,
@@ -23,9 +23,10 @@
       "body": "tc.research_page.PURETIN.1"
     },
     {
-      "type": "unavailable",
+      "type": "recipe",
       "title": "",
       "body": "",
+      "recipe": "thaumcraftmodern:puretin",
       "legacy_type": "recipe",
       "legacy_content": "PureTin",
       "source_expression": "new ResearchPage((CrucibleRecipe)recipes.get(\"PureTin\"))"
@@ -45,8 +46,8 @@
       "amount": 1
     }
   ],
-  "inactive": true,
-  "inactive_reason": "referenced gameplay content is not implemented",
+  "inactive": false,
+  "inactive_reason": null,
   "legacy": {
     "x": -4,
     "y": 7,

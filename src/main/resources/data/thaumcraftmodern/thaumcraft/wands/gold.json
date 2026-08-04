@@ -2,5 +2,6 @@
   "kind": "cap",
   "id": "gold",
   "cost_modifier": 1.0,
+  "craft_cost_vis": 3,
   "translation_key": "item.Wand.gold.cap"
 }

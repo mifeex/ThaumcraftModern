@@ -2,7 +2,7 @@
   "id": "purelead",
   "legacy_id": "PURELEAD",
   "category": "alchemy",
-  "icon": "thaumcraftmodern:thaumonomicon",
+  "icon": "thaumcraftmodern:native_lead_cluster",
   "title": "tc.research_name.PURELEAD",
   "subtitle": "tc.research_text.PURELEAD",
   "concealed": true,
@@ -23,9 +23,10 @@
       "body": "tc.research_page.PURELEAD.1"
     },
     {
-      "type": "unavailable",
+      "type": "recipe",
       "title": "",
       "body": "",
+      "recipe": "thaumcraftmodern:purelead",
       "legacy_type": "recipe",
       "legacy_content": "PureLead",
       "source_expression": "new ResearchPage((CrucibleRecipe)recipes.get(\"PureLead\"))"
@@ -41,8 +42,8 @@
       "amount": 3
     }
   ],
-  "inactive": true,
-  "inactive_reason": "referenced gameplay content is not implemented",
+  "inactive": false,
+  "inactive_reason": null,
   "legacy": {
     "x": -2,
     "y": 9,

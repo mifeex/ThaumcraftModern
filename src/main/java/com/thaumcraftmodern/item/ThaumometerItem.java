@@ -2,6 +2,7 @@ package com.thaumcraftmodern.item;
 
 import com.thaumcraftmodern.aura.AuraNodeBlockEntity;
 import com.thaumcraftmodern.aura.AuraNodeScanIdentity;
+import com.thaumcraftmodern.visnet.EnergizedAuraNodeBlockEntity;
 import com.thaumcraftmodern.client.render.ThaumometerItemClientExtensions;
 import com.thaumcraftmodern.knowledge.KnowledgeAccess;
 import com.thaumcraftmodern.registry.ModSounds;
@@ -162,19 +163,27 @@ public final class ThaumometerItem extends Item {
                 instanceof AuraNodeBlockEntity node
                 ? node
                 : null;
-        boolean isAuraNode = auraNode != null;
+        EnergizedAuraNodeBlockEntity energizedNode =
+                player.level().getBlockEntity(position)
+                        instanceof EnergizedAuraNodeBlockEntity node
+                        ? node
+                        : null;
+        boolean isAuraNode = auraNode != null || energizedNode != null;
         ScanTargetType targetType = isAuraNode
                 ? ScanTargetType.PHENOMENON
                 : ScanTargetType.BLOCK;
         String targetId = isAuraNode
                 ? AuraNodeScanIdentity.TARGET_ID.toString()
-                : BuiltInRegistries.BLOCK
+                : ScanRegistry.canonicalBlockId(BuiltInRegistries.BLOCK
                         .getKey(player.level().getBlockState(position).getBlock())
-                        .toString();
+                        .toString());
         boolean alreadyStudied = isAuraNode
                 ? KnowledgeAccess.get(player)
                         .map(knowledge -> knowledge.hasScan(
-                                auraNode.scanIdentity().scanKey()
+                                new AuraNodeScanIdentity(auraNode != null
+                                        ? auraNode.scanIdentity().nodeId()
+                                        : energizedNode.originalState().nodeId())
+                                        .scanKey()
                         ))
                         .orElse(false)
                 : isAlreadyStudied(player, targetType, targetId);

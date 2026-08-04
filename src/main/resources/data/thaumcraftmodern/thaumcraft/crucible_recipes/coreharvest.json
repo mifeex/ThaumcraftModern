@@ -1,0 +1,16 @@
+{
+  "research": "coreharvest",
+  "catalyst": {
+    "item": "thaumcraftmodern:blank_golem_core"
+  },
+  "output": {
+    "item": "thaumcraftmodern:harvest_golem_core"
+  },
+  "aspects": {
+    "meto": 5,
+    "messis": 5
+  },
+  "legacy_id": "CoreHarvest",
+  "inactive": true,
+  "inactive_reason": "output item or its complete gameplay behavior is not implemented"
+}

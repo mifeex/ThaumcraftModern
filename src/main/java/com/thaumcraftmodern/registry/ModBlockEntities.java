@@ -4,9 +4,17 @@ import com.thaumcraftmodern.ThaumcraftModern;
 import com.thaumcraftmodern.aura.AuraNodeBlockEntity;
 import com.thaumcraftmodern.nodejar.JarredAuraNodeBlockEntity;
 import com.thaumcraftmodern.world.block.entity.ArcaneWorkbenchBlockEntity;
+import com.thaumcraftmodern.world.block.entity.ArcanePedestalBlockEntity;
+import com.thaumcraftmodern.world.block.entity.WandRechargePedestalBlockEntity;
+import com.thaumcraftmodern.world.block.entity.RunicMatrixBlockEntity;
+import com.thaumcraftmodern.world.block.entity.InfusionPillarBlockEntity;
+import com.thaumcraftmodern.world.block.entity.InfernalFurnaceBlockEntity;
+import com.thaumcraftmodern.world.block.entity.ArcaneEarBlockEntity;
 import com.thaumcraftmodern.world.block.entity.AlchemicalFurnaceBlockEntity;
 import com.thaumcraftmodern.world.block.entity.ArcaneAlembicBlockEntity;
 import com.thaumcraftmodern.world.block.entity.CrucibleBlockEntity;
+import com.thaumcraftmodern.world.block.entity.CrystalClusterBlockEntity;
+import com.thaumcraftmodern.world.block.entity.DeconstructionTableBlockEntity;
 import com.thaumcraftmodern.world.block.entity.EssentiaJarBlockEntity;
 import com.thaumcraftmodern.world.block.entity.EssentiaBufferBlockEntity;
 import com.thaumcraftmodern.world.block.entity.AdvancedEssentiaBufferBlockEntity;
@@ -21,7 +29,14 @@ import com.thaumcraftmodern.world.block.entity.EtherealBloomBlockEntity;
 import com.thaumcraftmodern.world.block.entity.ManaPodBlockEntity;
 import com.thaumcraftmodern.world.block.entity.MnemonicMatrixBlockEntity;
 import com.thaumcraftmodern.world.block.entity.NitorBlockEntity;
+import com.thaumcraftmodern.world.block.entity.PavingStoneOfWardingBlockEntity;
 import com.thaumcraftmodern.world.block.entity.ResearchTableBlockEntity;
+import com.thaumcraftmodern.world.block.entity.WardingAuraBlockEntity;
+import com.thaumcraftmodern.visnet.EnergizedAuraNodeBlockEntity;
+import com.thaumcraftmodern.visnet.NodeStabilizerBlockEntity;
+import com.thaumcraftmodern.visnet.NodeTransducerBlockEntity;
+import com.thaumcraftmodern.visnet.VisChargeRelayBlockEntity;
+import com.thaumcraftmodern.visnet.VisRelayBlockEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
@@ -48,6 +63,36 @@ public final class ModBlockEntities {
                             ModBlocks.ARCANE_WORKBENCH.get()
                     ).build(null)
             );
+    public static final RegistryObject<BlockEntityType<ArcaneEarBlockEntity>>
+            ARCANE_EAR = BLOCK_ENTITIES.register(
+                    "arcane_ear",
+                    () -> BlockEntityType.Builder.of(
+                            ArcaneEarBlockEntity::new,
+                            ModBlocks.ARCANE_EAR.get()
+                    ).build(null)
+            );
+    public static final RegistryObject<BlockEntityType<DeconstructionTableBlockEntity>>
+            DECONSTRUCTION_TABLE = BLOCK_ENTITIES.register(
+                    "deconstruction_table",
+                    () -> BlockEntityType.Builder.of(
+                            DeconstructionTableBlockEntity::new,
+                            ModBlocks.DECONSTRUCTION_TABLE.get()
+                    ).build(null)
+            );
+    public static final RegistryObject<BlockEntityType<CrystalClusterBlockEntity>>
+            CRYSTAL_CLUSTER = BLOCK_ENTITIES.register(
+                    "crystal_cluster",
+                    () -> BlockEntityType.Builder.of(
+                            CrystalClusterBlockEntity::new,
+                            ModBlocks.AIR_CRYSTAL_CLUSTER.get(),
+                            ModBlocks.FIRE_CRYSTAL_CLUSTER.get(),
+                            ModBlocks.WATER_CRYSTAL_CLUSTER.get(),
+                            ModBlocks.EARTH_CRYSTAL_CLUSTER.get(),
+                            ModBlocks.ORDER_CRYSTAL_CLUSTER.get(),
+                            ModBlocks.ENTROPY_CRYSTAL_CLUSTER.get(),
+                            ModBlocks.BALANCED_CRYSTAL_CLUSTER.get()
+                    ).build(null)
+            );
     public static final RegistryObject<BlockEntityType<CrucibleBlockEntity>>
             CRUCIBLE = BLOCK_ENTITIES.register(
                     "crucible",
@@ -56,12 +101,68 @@ public final class ModBlockEntities {
                             ModBlocks.CRUCIBLE.get()
                     ).build(null)
             );
+    public static final RegistryObject<BlockEntityType<ArcanePedestalBlockEntity>>
+            ARCANE_PEDESTAL = BLOCK_ENTITIES.register(
+                    "arcane_pedestal",
+                    () -> BlockEntityType.Builder.of(
+                            ArcanePedestalBlockEntity::new,
+                            ModBlocks.ARCANE_PEDESTAL.get()
+                    ).build(null)
+            );
+    public static final RegistryObject<BlockEntityType<WandRechargePedestalBlockEntity>>
+            WAND_RECHARGE_PEDESTAL = BLOCK_ENTITIES.register(
+                    "wand_recharge_pedestal",
+                    () -> BlockEntityType.Builder.of(
+                            WandRechargePedestalBlockEntity::new,
+                            ModBlocks.WAND_RECHARGE_PEDESTAL.get()
+                    ).build(null)
+            );
+    public static final RegistryObject<BlockEntityType<RunicMatrixBlockEntity>>
+            RUNIC_MATRIX = BLOCK_ENTITIES.register(
+                    "runic_matrix",
+                    () -> BlockEntityType.Builder.of(
+                            RunicMatrixBlockEntity::new,
+                            ModBlocks.RUNIC_MATRIX.get()
+                    ).build(null)
+            );
+    public static final RegistryObject<BlockEntityType<InfusionPillarBlockEntity>>
+            INFUSION_PILLAR = BLOCK_ENTITIES.register(
+                    "infusion_pillar",
+                    () -> BlockEntityType.Builder.of(
+                            InfusionPillarBlockEntity::new,
+                            ModBlocks.INFUSION_PILLAR.get()
+                    ).build(null)
+            );
+    public static final RegistryObject<BlockEntityType<InfernalFurnaceBlockEntity>>
+            INFERNAL_FURNACE = BLOCK_ENTITIES.register(
+                    "infernal_furnace",
+                    () -> BlockEntityType.Builder.of(
+                            InfernalFurnaceBlockEntity::new,
+                            ModBlocks.INFERNAL_FURNACE.get()
+                    ).build(null)
+            );
     public static final RegistryObject<BlockEntityType<NitorBlockEntity>>
             NITOR = BLOCK_ENTITIES.register(
                     "nitor",
                     () -> BlockEntityType.Builder.of(
                             NitorBlockEntity::new,
                             ModBlocks.NITOR.get()
+                    ).build(null)
+            );
+    public static final RegistryObject<BlockEntityType<PavingStoneOfWardingBlockEntity>>
+            PAVING_STONE_OF_WARDING = BLOCK_ENTITIES.register(
+                    "paving_stone_of_warding",
+                    () -> BlockEntityType.Builder.of(
+                            PavingStoneOfWardingBlockEntity::new,
+                            ModBlocks.PAVING_STONE_OF_WARDING.get()
+                    ).build(null)
+            );
+    public static final RegistryObject<BlockEntityType<WardingAuraBlockEntity>>
+            WARDING_AURA = BLOCK_ENTITIES.register(
+                    "warding_aura",
+                    () -> BlockEntityType.Builder.of(
+                            WardingAuraBlockEntity::new,
+                            ModBlocks.WARDING_AURA.get()
                     ).build(null)
             );
     public static final RegistryObject<BlockEntityType<AlchemicalFurnaceBlockEntity>>
@@ -166,6 +267,47 @@ public final class ModBlockEntities {
                     () -> BlockEntityType.Builder.of(
                             ModBlockEntities::createJarredAuraNode,
                             ModBlocks.JARRED_AURA_NODE.get()
+                    ).build(null)
+            );
+    public static final RegistryObject<BlockEntityType<EnergizedAuraNodeBlockEntity>>
+            ENERGIZED_AURA_NODE = BLOCK_ENTITIES.register(
+                    "energized_aura_node",
+                    () -> BlockEntityType.Builder.of(
+                            EnergizedAuraNodeBlockEntity::new,
+                            ModBlocks.ENERGIZED_AURA_NODE.get()
+                    ).build(null)
+            );
+    public static final RegistryObject<BlockEntityType<NodeStabilizerBlockEntity>>
+            NODE_STABILIZER = BLOCK_ENTITIES.register(
+                    "node_stabilizer",
+                    () -> BlockEntityType.Builder.of(
+                            NodeStabilizerBlockEntity::new,
+                            ModBlocks.NODE_STABILIZER.get(),
+                            ModBlocks.ADVANCED_NODE_STABILIZER.get()
+                    ).build(null)
+            );
+    public static final RegistryObject<BlockEntityType<NodeTransducerBlockEntity>>
+            NODE_TRANSDUCER = BLOCK_ENTITIES.register(
+                    "node_transducer",
+                    () -> BlockEntityType.Builder.of(
+                            NodeTransducerBlockEntity::new,
+                            ModBlocks.NODE_TRANSDUCER.get()
+                    ).build(null)
+            );
+    public static final RegistryObject<BlockEntityType<VisRelayBlockEntity>>
+            VIS_RELAY = BLOCK_ENTITIES.register(
+                    "vis_relay",
+                    () -> BlockEntityType.Builder.of(
+                            VisRelayBlockEntity::new,
+                            ModBlocks.VIS_RELAY.get()
+                    ).build(null)
+            );
+    public static final RegistryObject<BlockEntityType<VisChargeRelayBlockEntity>>
+            VIS_CHARGE_RELAY = BLOCK_ENTITIES.register(
+                    "vis_charge_relay",
+                    () -> BlockEntityType.Builder.of(
+                            VisChargeRelayBlockEntity::new,
+                            ModBlocks.VIS_CHARGE_RELAY.get()
                     ).build(null)
             );
     public static final RegistryObject<BlockEntityType<EldritchAltarPartBlockEntity>>

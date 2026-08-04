@@ -5,11 +5,13 @@ import com.thaumcraftmodern.client.screen.ThaumonomiconScreen;
 import com.thaumcraftmodern.knowledge.KnowledgeCapabilities;
 import com.thaumcraftmodern.knowledge.WarpType;
 import com.thaumcraftmodern.network.packet.KnowledgeSyncPacket;
+import com.thaumcraftmodern.network.packet.NodeZapPacket;
 import com.thaumcraftmodern.network.packet.ScanFeedbackPacket;
 import com.thaumcraftmodern.network.packet.ThaumatoriumEssentiaSyncPacket;
 import com.thaumcraftmodern.network.packet.WarpFeedbackPacket;
 import com.thaumcraftmodern.network.packet.WispZapPacket;
 import com.thaumcraftmodern.client.render.ClientWispZapRenderer;
+import com.thaumcraftmodern.client.render.ClientNodeZapRenderer;
 import com.thaumcraftmodern.research.ResearchCategoryRegistry;
 import com.thaumcraftmodern.research.ResearchDiagnostics;
 import com.thaumcraftmodern.research.ResearchRegistry;
@@ -77,6 +79,10 @@ public final class ClientPacketHandlers {
 
     public static void handleWispZap(WispZapPacket packet) {
         ClientWispZapRenderer.accept(packet);
+    }
+
+    public static void handleNodeZap(NodeZapPacket packet) {
+        ClientNodeZapRenderer.accept(packet);
     }
 
     public static void handleThaumatoriumEssentia(

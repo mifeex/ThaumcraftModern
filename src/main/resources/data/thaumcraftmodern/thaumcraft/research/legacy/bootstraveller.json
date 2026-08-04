@@ -2,7 +2,7 @@
   "id": "bootstraveller",
   "legacy_id": "BOOTSTRAVELLER",
   "category": "artifice",
-  "icon": "thaumcraftmodern:thaumonomicon",
+  "icon": "thaumcraftmodern:boots_of_the_traveller",
   "title": "tc.research_name.BOOTSTRAVELLER",
   "subtitle": "tc.research_text.BOOTSTRAVELLER",
   "concealed": true,
@@ -24,16 +24,13 @@
       "body": "tc.research_page.BOOTSTRAVELLER.1"
     },
     {
-      "type": "unavailable",
-      "title": "",
-      "body": "",
-      "legacy_type": "recipe",
-      "legacy_content": "BootsTraveller",
-      "source_expression": "new ResearchPage((InfusionRecipe)recipes.get(\"BootsTraveller\"))"
+      "type":"infusion","title":"recipe.type.infusion","output":"thaumcraftmodern:boots_of_the_traveller","central":"minecraft:leather_boots",
+      "components":[{"item":"thaumcraftmodern:air_shard","count":1},{"item":"thaumcraftmodern:air_shard","count":1},{"item":"thaumcraftmodern:enchanted_fabric","count":1},{"item":"thaumcraftmodern:enchanted_fabric","count":1},{"item":"minecraft:feather","count":1},{"tag":"minecraft:fishes","count":1}],
+      "aspect_costs":[{"id":"volatus","amount":25},{"id":"iter","amount":25}],"instability":"minor","detail":"tc.research_text.BOOTSTRAVELLER"
     }
   ],
-  "inactive": true,
-  "inactive_reason": "referenced gameplay content is not implemented",
+  "purchase_cost":[{"id":"iter","amount":3},{"id":"terra","amount":3},{"id":"volatus","amount":3},{"id":"aqua","amount":3}],
+  "inactive": false,
   "legacy": {
     "x": -1,
     "y": 5,

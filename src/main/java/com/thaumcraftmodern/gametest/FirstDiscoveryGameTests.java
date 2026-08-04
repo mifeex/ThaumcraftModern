@@ -1099,6 +1099,50 @@ public final class FirstDiscoveryGameTests {
                     "Required recipe was not loaded: " + recipeId
             );
         }
+        var thaumometerRecipe = helper.getLevel().getRecipeManager()
+                .byKey(new ResourceLocation(
+                        ThaumcraftModern.MOD_ID,
+                        "thaumometer"
+                ))
+                .orElseThrow();
+        var anyPrimalShard = thaumometerRecipe.getIngredients().stream()
+                .filter(ingredient -> ingredient.getItems().length == 6)
+                .findFirst()
+                .orElseThrow();
+        for (var shard : List.of(
+                ModItems.AIR_SHARD.get(),
+                ModItems.FIRE_SHARD.get(),
+                ModItems.WATER_SHARD.get(),
+                ModItems.EARTH_SHARD.get(),
+                ModItems.ORDER_SHARD.get(),
+                ModItems.ENTROPY_SHARD.get()
+        )) {
+            helper.assertTrue(
+                    anyPrimalShard.test(new ItemStack(shard)),
+                    "Thaumometer recipe rejected a primal shard: " + shard
+            );
+        }
+        for (var arrowVariant : Map.of(
+                "primal_arrow_aer", ModItems.AIR_SHARD.get(),
+                "primal_arrow_ignis", ModItems.FIRE_SHARD.get(),
+                "primal_arrow_aqua", ModItems.WATER_SHARD.get(),
+                "primal_arrow_terra", ModItems.EARTH_SHARD.get(),
+                "primal_arrow_ordo", ModItems.ORDER_SHARD.get(),
+                "primal_arrow_perditio", ModItems.ENTROPY_SHARD.get()
+        ).entrySet()) {
+            var arrowRecipe = helper.getLevel().getRecipeManager()
+                    .byKey(new ResourceLocation(
+                            ThaumcraftModern.MOD_ID,
+                            arrowVariant.getKey()
+                    ))
+                    .orElseThrow();
+            helper.assertTrue(
+                    arrowRecipe.getIngredients().stream().anyMatch(ingredient ->
+                            ingredient.test(new ItemStack(arrowVariant.getValue()))),
+                    "Primal arrow recipe lost its matching shard: "
+                            + arrowVariant.getKey()
+            );
+        }
         helper.assertTrue(
                 helper.getLevel().getRecipeManager()
                         .getAllRecipesFor(ModArcaneRecipes.ARCANE_CRAFTING_TYPE.get())

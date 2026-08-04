@@ -2,9 +2,11 @@
   "id": "altclay",
   "legacy_id": "AltClay",
   "legacy_kind": "crucible",
-  "inactive": true,
-  "inactive_reason": "recipe type or referenced content is not implemented",
-  "modern_recipe": "",
+  "inactive": false,
+  "inactive_reason": null,
+  "modern_recipe": [
+    "thaumcraftmodern:altclay"
+  ],
   "required_aspects": [
     {
       "id": "aqua",

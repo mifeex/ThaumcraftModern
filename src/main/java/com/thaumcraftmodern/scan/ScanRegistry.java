@@ -26,6 +26,20 @@ public final class ScanRegistry {
     private static volatile Map<String, ScanDefinition> definitions = Map.of();
     private static final Map<String, Optional<ScanDefinition>> AUTOMATIC_DEFINITIONS =
             new ConcurrentHashMap<>();
+    private static final Map<String, String> BLOCK_SCAN_ALIASES = Map.of(
+            "thaumcraftmodern:deepslate_air_infused_stone",
+            "thaumcraftmodern:air_infused_stone",
+            "thaumcraftmodern:deepslate_fire_infused_stone",
+            "thaumcraftmodern:fire_infused_stone",
+            "thaumcraftmodern:deepslate_water_infused_stone",
+            "thaumcraftmodern:water_infused_stone",
+            "thaumcraftmodern:deepslate_earth_infused_stone",
+            "thaumcraftmodern:earth_infused_stone",
+            "thaumcraftmodern:deepslate_order_infused_stone",
+            "thaumcraftmodern:order_infused_stone",
+            "thaumcraftmodern:deepslate_entropy_infused_stone",
+            "thaumcraftmodern:entropy_infused_stone"
+    );
 
     private ScanRegistry() {
     }
@@ -121,7 +135,9 @@ public final class ScanRegistry {
             return new ItemScanIdentity(ScanTargetType.ITEM, itemId);
         }
         if (stack.getItem() instanceof BlockItem blockItem) {
-            String blockId = BuiltInRegistries.BLOCK.getKey(blockItem.getBlock()).toString();
+            String blockId = canonicalBlockId(
+                    BuiltInRegistries.BLOCK.getKey(blockItem.getBlock()).toString()
+            );
             return new ItemScanIdentity(ScanTargetType.BLOCK, blockId);
         }
         return new ItemScanIdentity(ScanTargetType.ITEM, itemId);
@@ -214,6 +230,14 @@ public final class ScanRegistry {
 
     public static String scanKey(ScanTargetType type, String targetId) {
         return type.name().toLowerCase(Locale.ROOT) + ":" + targetId;
+    }
+
+    /**
+     * Compatibility aliases share one scan definition and one player-knowledge
+     * key. Deepslate infused stone differs only in host rock, not in essentia.
+     */
+    public static String canonicalBlockId(String blockId) {
+        return BLOCK_SCAN_ALIASES.getOrDefault(blockId, blockId);
     }
 
     public static CompoundTag serialize() {

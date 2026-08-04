@@ -7,6 +7,8 @@ import com.thaumcraftmodern.item.EtherealEssenceItem;
 import com.thaumcraftmodern.item.EssentiaPhialItem;
 import com.thaumcraftmodern.item.JarLabelItem;
 import com.thaumcraftmodern.nodejar.NodeJarFactory;
+import com.thaumcraftmodern.item.WandItem;
+import com.thaumcraftmodern.wand.WandComponentRegistry;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.CreativeModeTab;
@@ -29,59 +31,91 @@ public final class ModCreativeTabs {
                         output.accept(ModItems.ETHEREAL_BLOOM.get());
                         output.accept(ModItems.SANITY_CHECKER.get());
                         output.accept(ModItems.SANITY_SOAP.get());
+                        output.accept(ModItems.BATH_SALTS.get());
+                        output.accept(ModItems.BOTTLED_TAINT.get());
+                        output.accept(ModItems.LIQUID_DEATH_BUCKET.get());
                         output.accept(ModItems.IRON_WAND_CAP.get());
                         output.accept(ModItems.GOLD_WAND_CAP.get());
                         output.accept(ModItems.COPPER_WAND_CAP.get());
                         output.accept(ModItems.SILVER_WAND_CAP.get());
+                        output.accept(ModItems.ARCANE_RECIPE_COMPONENTS
+                                .get("inert_silver_wand_cap").get());
                         output.accept(ModItems.THAUMIUM_WAND_CAP.get());
+                        output.accept(ModItems.ARCANE_RECIPE_COMPONENTS
+                                .get("inert_thaumium_wand_cap").get());
                         output.accept(ModItems.VOID_WAND_CAP.get());
-                        output.accept(ModItems.WOODEN_WAND_ROD.get());
+                        output.accept(ModItems.ARCANE_RECIPE_COMPONENTS
+                                .get("inert_void_wand_cap").get());
                         output.accept(ModItems.GREATWOOD_WAND_ROD.get());
                         output.accept(ModItems.OBSIDIAN_WAND_ROD.get());
-                        output.accept(ModItems.BLAZE_WAND_ROD.get());
+                        output.accept(ModItems.SILVERWOOD_WAND_ROD.get());
                         output.accept(ModItems.ICE_WAND_ROD.get());
                         output.accept(ModItems.QUARTZ_WAND_ROD.get());
                         output.accept(ModItems.REED_WAND_ROD.get());
+                        output.accept(ModItems.BLAZE_WAND_ROD.get());
                         output.accept(ModItems.BONE_WAND_ROD.get());
-                        output.accept(ModItems.SILVERWOOD_WAND_ROD.get());
                         output.accept(ModItems.GREATWOOD_STAFF_ROD.get());
                         output.accept(ModItems.OBSIDIAN_STAFF_ROD.get());
-                        output.accept(ModItems.BLAZE_STAFF_ROD.get());
+                        output.accept(ModItems.SILVERWOOD_STAFF_ROD.get());
                         output.accept(ModItems.ICE_STAFF_ROD.get());
                         output.accept(ModItems.QUARTZ_STAFF_ROD.get());
                         output.accept(ModItems.REED_STAFF_ROD.get());
+                        output.accept(ModItems.BLAZE_STAFF_ROD.get());
                         output.accept(ModItems.BONE_STAFF_ROD.get());
-                        output.accept(ModItems.SILVERWOOD_STAFF_ROD.get());
                         output.accept(ModItems.PRIMAL_STAFF_ROD.get());
-                        output.accept(ModItems.BASIC_WAND.get().getDefaultInstance());
-                        output.accept(ModItems.SILVERWOOD_WAND.get().getDefaultInstance());
-                        output.accept(ModItems.CASTING_WAND.get().getDefaultInstance());
-                        output.accept(
-                                ModItems.CRAFTING_SCEPTRE.get()
-                                        .getDefaultInstance()
-                        );
-                        output.accept(
-                                ModItems.GREATWOOD_STAFF.get()
-                                        .getDefaultInstance()
-                        );
-                        output.accept(
-                                ModItems.SILVERWOOD_STAFF.get()
-                                        .getDefaultInstance()
-                        );
-                        output.accept(ModItems.PRIMAL_STAFF.get().getDefaultInstance());
-                        output.accept(ModItems.CODEX_WAND.get().getDefaultInstance());
+                        WandComponentRegistry.current().ifPresent(ignored -> {
+                            WandItem wand = (WandItem)
+                                    ModItems.CASTING_WAND.get();
+                            output.accept(wand.createFilled("wood", "iron"));
+                            output.accept(wand.createFilled(
+                                    "greatwood", "gold"
+                            ));
+                            output.accept(wand.createFilled(
+                                    "silverwood", "thaumium"
+                            ));
+                            output.accept(((WandItem)
+                                    ModItems.CRAFTING_SCEPTRE.get())
+                                    .createFilled("silverwood", "thaumium"));
+                        });
                         output.accept(ModItems.GOGGLES_OF_REVEALING.get());
+                        output.accept(ModItems.THAUMATURGE_ROBE.get());
+                        output.accept(ModItems.THAUMATURGE_LEGGINGS.get());
+                        output.accept(ModItems.THAUMATURGE_BOOTS.get());
+                        output.accept(ModItems.CULTIST_KNIGHT_HELMET.get());
+                        output.accept(ModItems.CULTIST_KNIGHT_CHESTPLATE.get());
+                        output.accept(ModItems.CULTIST_KNIGHT_LEGGINGS.get());
+                        output.accept(ModItems.CULTIST_CLERIC_HOOD.get());
+                        output.accept(ModItems.CULTIST_CLERIC_ROBE.get());
+                        output.accept(ModItems.CULTIST_CLERIC_LEGGINGS.get());
+                        output.accept(ModItems.CULTIST_PRAETOR_HELMET.get());
+                        output.accept(ModItems.CULTIST_PRAETOR_CHESTPLATE.get());
+                        output.accept(ModItems.CULTIST_PRAETOR_LEGGINGS.get());
+                        output.accept(ModItems.CULTIST_BOOTS.get());
                         output.accept(NodeJarFactory.deterministicCreativeStack(
                                 ModItems.JARRED_AURA_NODE.get()
                         ));
                         output.accept(ModItems.THAUMCRAFT_TABLE.get());
                         output.accept(ModItems.ARCANE_WORKBENCH.get());
+                        output.accept(ModItems.NODE_STABILIZER.get());
+                        output.accept(ModItems.ADVANCED_NODE_STABILIZER.get());
+                        output.accept(ModItems.NODE_TRANSDUCER.get());
+                        output.accept(ModItems.VIS_RELAY.get());
+                        output.accept(ModItems.VIS_CHARGE_RELAY.get());
+                        output.accept(ModItems.DECONSTRUCTION_TABLE.get());
+                        output.accept(ModItems.ARCANE_RECIPE_COMPONENTS
+                                .get("arcane_ear").get());
                         output.accept(ModItems.ARCANE_STONE.get());
                         output.accept(ModItems.ARCANE_STONE_BRICK.get());
+                        output.accept(ModItems.ARCANE_RECIPE_COMPONENTS
+                                .get("paving_stone_of_travel").get());
+                        output.accept(ModItems.ARCANE_RECIPE_COMPONENTS
+                                .get("paving_stone_of_warding").get());
                         output.accept(ModItems.CRUCIBLE.get());
                         output.accept(ModItems.ALCHEMICAL_FURNACE.get());
                         output.accept(ModItems.RUNIC_MATRIX.get());
                         output.accept(ModItems.ARCANE_PEDESTAL.get());
+                        output.accept(ModItems.WAND_RECHARGE_PEDESTAL.get());
+                        output.accept(ModItems.COMPOUND_RECHARGE_FOCUS.get());
                         output.accept(ModItems.ARCANE_ALEMBIC.get());
                         output.accept(ModItems.ESSENTIA_PHIAL.get());
                         for (PrimalAspect aspect : PrimalAspect.ordered()) {
@@ -120,9 +154,36 @@ public final class ModCreativeTabs {
                         output.accept(ModItems.ORDER_SHARD.get());
                         output.accept(ModItems.ENTROPY_SHARD.get());
                         output.accept(ModItems.BALANCED_SHARD.get());
+                        output.accept(ModItems.AIR_CRYSTAL_CLUSTER.get());
+                        output.accept(ModItems.FIRE_CRYSTAL_CLUSTER.get());
+                        output.accept(ModItems.WATER_CRYSTAL_CLUSTER.get());
+                        output.accept(ModItems.EARTH_CRYSTAL_CLUSTER.get());
+                        output.accept(ModItems.ORDER_CRYSTAL_CLUSTER.get());
+                        output.accept(ModItems.ENTROPY_CRYSTAL_CLUSTER.get());
+                        output.accept(ModItems.BALANCED_CRYSTAL_CLUSTER.get());
                         output.accept(ModItems.SALIS_MUNDUS.get());
                         output.accept(ModItems.NITOR.get());
                         output.accept(ModItems.ALUMENTUM.get());
+                        output.accept(ModItems.ARCANE_RECIPE_COMPONENTS
+                                .get("thaumium_ingot").get());
+                        output.accept(ModItems.ARCANE_RECIPE_COMPONENTS
+                                .get("thaumium_nugget").get());
+                        output.accept(ModItems.THAUMIUM_BLOCK.get());
+                        output.accept(ModItems.THAUMIUM_SWORD.get());
+                        output.accept(ModItems.THAUMIUM_PICKAXE.get());
+                        output.accept(ModItems.THAUMIUM_AXE.get());
+                        output.accept(ModItems.THAUMIUM_SHOVEL.get());
+                        output.accept(ModItems.THAUMIUM_HOE.get());
+                        output.accept(ModItems.THAUMIUM_HELMET.get());
+                        output.accept(ModItems.THAUMIUM_CHESTPLATE.get());
+                        output.accept(ModItems.THAUMIUM_LEGGINGS.get());
+                        output.accept(ModItems.THAUMIUM_BOOTS.get());
+                        output.accept(ModItems.PICKAXE_OF_THE_CORE.get());
+                        output.accept(ModItems.AXE_OF_THE_STREAM.get());
+                        output.accept(ModItems.SWORD_OF_THE_ZEPHYR.get());
+                        output.accept(ModItems.SHOVEL_OF_THE_EARTHMOVER.get());
+                        output.accept(ModItems.HOE_OF_GROWTH.get());
+                        output.accept(ModItems.BOOTS_OF_THE_TRAVELLER.get());
                         for (PrimalAspect aspect : PrimalAspect.ordered()) {
                             output.accept(EtherealEssenceItem.create(
                                     ModItems.ETHEREAL_ESSENCE.get(),
@@ -133,6 +194,21 @@ public final class ModCreativeTabs {
                         output.accept(ModItems.KNOWLEDGE_FRAGMENT.get());
                         output.accept(ModItems.QUICKSILVER.get());
                         output.accept(ModItems.QUICKSILVER_NUGGET.get());
+                        output.accept(ModItems.COPPER_NUGGET.get());
+                        output.accept(ModItems.TIN_NUGGET.get());
+                        output.accept(ModItems.ARCANE_RECIPE_COMPONENTS.get("silver_nugget").get());
+                        output.accept(ModItems.LEAD_NUGGET.get());
+                        output.accept(ModItems.TIN_INGOT.get());
+                        output.accept(ModItems.SILVER_INGOT.get());
+                        output.accept(ModItems.LEAD_INGOT.get());
+                        output.accept(ModItems.NATIVE_IRON_CLUSTER.get());
+                        output.accept(ModItems.NATIVE_GOLD_CLUSTER.get());
+                        output.accept(ModItems.NATIVE_COPPER_CLUSTER.get());
+                        output.accept(ModItems.NATIVE_TIN_CLUSTER.get());
+                        output.accept(ModItems.NATIVE_SILVER_CLUSTER.get());
+                        output.accept(ModItems.NATIVE_LEAD_CLUSTER.get());
+                        output.accept(ModItems.THAUMIC_TALLOW.get());
+                        output.accept(ModItems.TALLOW_CANDLE.get());
                         output.accept(ModItems.AMBER.get());
                         output.accept(ModItems.MANA_BEAN.get());
                         output.accept(ModItems.ZOMBIE_BRAIN.get());
@@ -155,6 +231,12 @@ public final class ModCreativeTabs {
                         output.accept(ModItems.EARTH_INFUSED_STONE.get());
                         output.accept(ModItems.ORDER_INFUSED_STONE.get());
                         output.accept(ModItems.ENTROPY_INFUSED_STONE.get());
+                        output.accept(ModItems.DEEPSLATE_AIR_INFUSED_STONE.get());
+                        output.accept(ModItems.DEEPSLATE_FIRE_INFUSED_STONE.get());
+                        output.accept(ModItems.DEEPSLATE_WATER_INFUSED_STONE.get());
+                        output.accept(ModItems.DEEPSLATE_EARTH_INFUSED_STONE.get());
+                        output.accept(ModItems.DEEPSLATE_ORDER_INFUSED_STONE.get());
+                        output.accept(ModItems.DEEPSLATE_ENTROPY_INFUSED_STONE.get());
                         output.accept(ModItems.GREATWOOD_LOG.get());
                         output.accept(ModItems.GREATWOOD_LEAVES.get());
                         output.accept(ModItems.GREATWOOD_SAPLING.get());
@@ -189,6 +271,7 @@ public final class ModCreativeTabs {
                         for (var spawnEgg : ModItems.SPAWN_EGGS.values()) {
                             output.accept(spawnEgg.get());
                         }
+                        output.accept(ModItems.FACELESS_WITNESS_SPAWN_EGG.get());
                     })
                     .build()
     );

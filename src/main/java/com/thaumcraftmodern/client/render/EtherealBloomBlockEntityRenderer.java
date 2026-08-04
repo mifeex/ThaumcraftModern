@@ -21,6 +21,10 @@ import org.joml.Matrix4f;
  */
 public final class EtherealBloomBlockEntityRenderer
         implements BlockEntityRenderer<EtherealBloomBlockEntity> {
+    static final int NODE_RED = 0xAA;
+    static final int NODE_GREEN = 0xDD;
+    static final int NODE_BLUE = 0xFF;
+    static final int PLANT_COLOR = 0xFFFFFF;
     private static final ResourceLocation NODES = texture("misc/nodes.png");
     private static final ResourceLocation LEAVES =
             texture("block/purifier_leaves.png");
@@ -141,9 +145,9 @@ public final class EtherealBloomBlockEntityRenderer
                 v0,
                 u1,
                 v1,
-                0xAA,
-                0xDD,
-                0xFF,
+                NODE_RED,
+                NODE_GREEN,
+                NODE_BLUE,
                 LightTexture.FULL_BRIGHT
         );
         poseStack.popPose();
@@ -260,9 +264,9 @@ public final class EtherealBloomBlockEntityRenderer
                 z,
                 u,
                 v,
-                255,
-                255,
-                255,
+                (PLANT_COLOR >> 16) & 255,
+                (PLANT_COLOR >> 8) & 255,
+                PLANT_COLOR & 255,
                 light
         );
     }

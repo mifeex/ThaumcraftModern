@@ -2,7 +2,7 @@
   "id": "transiron",
   "legacy_id": "TRANSIRON",
   "category": "alchemy",
-  "icon": "thaumcraftmodern:thaumonomicon",
+  "icon": "minecraft:iron_nugget",
   "title": "tc.research_name.TRANSIRON",
   "subtitle": "tc.research_text.TRANSIRON",
   "concealed": true,
@@ -23,16 +23,17 @@
       "body": "tc.research_page.TRANSIRON.1"
     },
     {
-      "type": "unavailable",
+      "type": "recipe",
       "title": "",
       "body": "",
+      "recipe": "thaumcraftmodern:transiron",
       "legacy_type": "recipe",
       "legacy_content": "TransIron",
       "source_expression": "new ResearchPage((CrucibleRecipe)recipes.get(\"TransIron\"))"
     }
   ],
-  "inactive": true,
-  "inactive_reason": "referenced gameplay content is not implemented",
+  "inactive": false,
+  "inactive_reason": null,
   "legacy": {
     "x": 0,
     "y": 5,

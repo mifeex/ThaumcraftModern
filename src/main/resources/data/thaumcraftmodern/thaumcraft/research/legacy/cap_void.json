@@ -29,12 +29,24 @@
       "recipe": "thaumcraftmodern:wand_cap_void_inert"
     },
     {
-      "type": "unavailable",
-      "title": "",
-      "body": "",
-      "legacy_type": "recipe",
-      "legacy_content": "WandCapVoid",
-      "source_expression": "new ResearchPage((InfusionRecipe)recipes.get(\"WandCapVoid\"))"
+      "type": "infusion",
+      "title": "recipe.type.infusion",
+      "output": "thaumcraftmodern:void_wand_cap",
+      "central": "thaumcraftmodern:inert_void_wand_cap",
+      "components": [
+        {"item": "thaumcraftmodern:salis_mundus", "count": 1},
+        {"item": "thaumcraftmodern:salis_mundus", "count": 1},
+        {"item": "thaumcraftmodern:salis_mundus", "count": 1},
+        {"item": "thaumcraftmodern:salis_mundus", "count": 1}
+      ],
+      "aspect_costs": [
+        {"id": "potentia", "amount": 18},
+        {"id": "vacuos", "amount": 18},
+        {"id": "alienis", "amount": 18},
+        {"id": "auram", "amount": 18}
+      ],
+      "instability": "very_high",
+      "detail": "tc.research_text.CAP_void"
     }
   ],
   "inactive": false,

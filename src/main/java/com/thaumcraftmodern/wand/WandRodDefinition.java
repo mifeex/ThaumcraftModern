@@ -12,6 +12,8 @@ public record WandRodDefinition(
         String id,
         int capacityVis,
         String translationKey,
+        int craftCostVis,
+        String researchId,
         List<String> rechargeAspects,
         int rechargeIntervalTicks,
         int rechargeCentivis,
@@ -23,6 +25,7 @@ public record WandRodDefinition(
     public WandRodDefinition {
         id = Objects.requireNonNull(id, "id");
         translationKey = Objects.requireNonNull(translationKey, "translationKey");
+        researchId = Objects.requireNonNull(researchId, "researchId");
         rechargeAspects = List.copyOf(Objects.requireNonNull(
                 rechargeAspects,
                 "rechargeAspects"
@@ -38,6 +41,16 @@ public record WandRodDefinition(
         if (translationKey.isBlank()) {
             throw new IllegalArgumentException(
                     "wand rod translation key cannot be blank: " + id
+            );
+        }
+        if (craftCostVis <= 0) {
+            throw new IllegalArgumentException(
+                    "wand rod craft cost must be positive: " + id
+            );
+        }
+        if (researchId.isBlank()) {
+            throw new IllegalArgumentException(
+                    "wand rod research id cannot be blank: " + id
             );
         }
         if (rechargeAspects.stream().anyMatch(
@@ -72,6 +85,7 @@ public record WandRodDefinition(
             int capacityVis,
             String translationKey
     ) {
-        this(id, capacityVis, translationKey, List.of(), 0, 0, false, false);
+        this(id, capacityVis, translationKey, 1, "rod_" + id,
+                List.of(), 0, 0, false, false);
     }
 }

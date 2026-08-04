@@ -46,14 +46,44 @@ public record InfusionDisplayDefinition(
         return value;
     }
 
-    public record ComponentStack(String item, int count) {
+    /**
+     * One displayed infusion component. A component can name an exact item or
+     * an item tag; tag components deliberately keep the preview aligned with
+     * the executable recipe's acceptable alternatives.
+     */
+    public record ComponentStack(String item, String tag, int count) {
+        public ComponentStack(String item, int count) {
+            this(item, "", count);
+        }
+
+        public static ComponentStack tagged(String tag, int count) {
+            return new ComponentStack("", tag, count);
+        }
+
         public ComponentStack {
-            item = requireItem(item, "component item");
+            boolean hasItem = item != null && !item.isBlank();
+            boolean hasTag = tag != null && !tag.isBlank();
+            if (hasItem == hasTag) {
+                throw new IllegalArgumentException(
+                        "infusion component must define exactly one item or tag"
+                );
+            }
+            if (hasItem) {
+                item = requireItem(item, "component item");
+                tag = "";
+            } else {
+                item = "";
+                tag = requireItem(tag, "component tag");
+            }
             if (count <= 0) {
                 throw new IllegalArgumentException(
                         "infusion component count must be positive"
                 );
             }
+        }
+
+        public boolean isTag() {
+            return !tag.isBlank();
         }
     }
 

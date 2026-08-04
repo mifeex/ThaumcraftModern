@@ -72,7 +72,10 @@ public final class ResearchNoteAcquisitionService {
                     }
 
                     consumeMaterials(player.getInventory(), paperSlot, toolsSlot);
-                    ItemStack notes = ResearchNotesItem.create(research.id());
+                    ItemStack notes = ResearchNotesItem.create(
+                            research.id(),
+                            player.getRandom()
+                    );
                     if (!player.getInventory().add(notes)) {
                         player.drop(notes, false);
                     }

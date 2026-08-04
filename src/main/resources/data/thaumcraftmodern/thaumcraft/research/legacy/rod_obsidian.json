@@ -24,12 +24,21 @@
       "body": "tc.research_page.ROD_obsidian.1"
     },
     {
-      "type": "unavailable",
-      "title": "",
-      "body": "",
-      "legacy_type": "recipe",
-      "legacy_content": "WandRodObsidian",
-      "source_expression": "new ResearchPage((InfusionRecipe)recipes.get(\"WandRodObsidian\"))"
+      "type": "infusion",
+      "title": "recipe.type.infusion",
+      "output": "thaumcraftmodern:obsidian_wand_rod",
+      "central": "minecraft:obsidian",
+      "components": [
+        {"item": "thaumcraftmodern:balanced_shard", "count": 1},
+        {"item": "thaumcraftmodern:earth_shard", "count": 1}
+      ],
+      "aspect_costs": [
+        {"id": "terra", "amount": 12},
+        {"id": "praecantatio", "amount": 6},
+        {"id": "tenebrae", "amount": 6}
+      ],
+      "instability": "minor",
+      "detail": "tc.research_text.ROD_obsidian"
     }
   ],
   "purchase_cost": [
@@ -50,8 +59,7 @@
       "amount": 3
     }
   ],
-  "inactive": true,
-  "inactive_reason": "referenced gameplay content is not implemented",
+  "inactive": false,
   "legacy": {
     "x": -8,
     "y": 2,

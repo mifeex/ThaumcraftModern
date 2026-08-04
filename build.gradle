@@ -75,6 +75,22 @@ tasks.named('processResources', ProcessResources).configure {
     }
 }
 
+tasks.named('processResources', ProcessResources).configure {
+    from('reference/Thaumcraft-4.2-FOREVA-master/src/main/resources/assets/thaumcraft/textures/items') {
+        include 'elementalpick.png', 'elementalaxe.png', 'elementalsword.png',
+                'elementalshovel.png', 'elementalhoe.png', 'bootstraveler.png'
+        into 'assets/thaumcraftmodern/textures/item'
+    }
+    from('reference/Thaumcraft-4.2-FOREVA-master/src/main/resources/assets/thaumcraft/textures/models') {
+        include 'bootstraveler.png'
+        into 'assets/thaumcraftmodern/textures/models'
+    }
+    from('reference/Thaumcraft-4.2-FOREVA-master/thaumcraft_src/assets/thaumcraft/sounds') {
+        include 'wandfail.ogg', 'wind1.ogg', 'wind2.ogg', 'swing1.ogg', 'swing2.ogg'
+        into 'assets/thaumcraftmodern/sounds'
+    }
+}
+
 repositories {
     mavenCentral()
 }

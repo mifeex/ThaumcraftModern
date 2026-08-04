@@ -2,6 +2,7 @@
   "kind": "rod",
   "id": "obsidian_staff",
   "capacity_vis": 175,
+  "craft_cost_vis": 14,
   "recharge_aspects": ["terra"],
   "recharge_interval_ticks": 200,
   "recharge_centivis": 1,

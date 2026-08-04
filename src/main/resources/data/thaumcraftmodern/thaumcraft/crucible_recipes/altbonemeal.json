@@ -1,0 +1,14 @@
+{
+  "research": "entropicprocessing",
+  "catalyst": {
+    "item": "minecraft:bone"
+  },
+  "output": {
+    "item": "minecraft:bone_meal",
+    "count": 4
+  },
+  "aspects": {
+    "perditio": 1
+  },
+  "legacy_id": "AltBonemeal"
+}

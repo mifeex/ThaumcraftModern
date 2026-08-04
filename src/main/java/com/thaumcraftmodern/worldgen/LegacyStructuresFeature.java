@@ -11,6 +11,7 @@ import com.thaumcraftmodern.world.block.LootVesselBlock;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.WorldGenLevel;
@@ -162,13 +163,27 @@ public final class LegacyStructuresFeature
         )) {
             return false;
         }
-        return switch (kind) {
+        boolean placed = switch (kind) {
             case WIZARD_TOWER ->
                     wizardTowerAtOrigin(level, origin, rotation, random);
             case BANKER_HOME ->
                     bankerHomeAtOrigin(level, origin, rotation, random);
             default -> false;
         };
+        if (placed) {
+            ServerLevel serverLevel = level instanceof ServerLevel server
+                    ? server
+                    : level instanceof net.minecraft.server.level.WorldGenRegion region
+                            ? region.getLevel()
+                            : null;
+            if (serverLevel != null) {
+                LegacyStructureMarkerIndex.get(serverLevel).record(
+                        kind,
+                        origin
+                );
+            }
+        }
+        return placed;
     }
 
     private static BlockPos footprintOrigin(

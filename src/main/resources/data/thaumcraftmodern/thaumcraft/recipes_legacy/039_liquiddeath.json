@@ -2,9 +2,11 @@
   "id": "liquiddeath",
   "legacy_id": "LiquidDeath",
   "legacy_kind": "crucible",
-  "inactive": true,
-  "inactive_reason": "recipe type or referenced content is not implemented",
-  "modern_recipe": "",
+  "inactive": false,
+  "inactive_reason": null,
+  "modern_recipe": [
+    "thaumcraftmodern:liquiddeath"
+  ],
   "required_aspects": [
     {
       "id": "mortuus",

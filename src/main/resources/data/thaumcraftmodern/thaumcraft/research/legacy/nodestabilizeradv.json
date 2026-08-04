@@ -2,7 +2,7 @@
   "id": "nodestabilizeradv",
   "legacy_id": "NODESTABILIZERADV",
   "category": "thaumaturgy",
-  "icon": "thaumcraftmodern:thaumonomicon",
+  "icon": "thaumcraftmodern:node_stabilizer",
   "title": "tc.research_name.NODESTABILIZERADV",
   "subtitle": "tc.research_text.NODESTABILIZERADV",
   "concealed": true,
@@ -23,12 +23,28 @@
       "body": "tc.research_page.NODESTABILIZERADV.1"
     },
     {
-      "type": "unavailable",
-      "title": "",
-      "body": "",
-      "legacy_type": "recipe",
-      "legacy_content": "NodeStabilizerAdv",
-      "source_expression": "new ResearchPage((InfusionRecipe)recipes.get(\"NodeStabilizerAdv\"))"
+      "type": "infusion",
+      "title": "recipe.type.infusion",
+      "output": "thaumcraftmodern:advanced_node_stabilizer",
+      "central": "thaumcraftmodern:node_stabilizer",
+      "components": [
+        {"item": "thaumcraftmodern:nitor", "count": 1},
+        {"item": "minecraft:redstone_block", "count": 1},
+        {"item": "thaumcraftmodern:alumentum", "count": 1},
+        {"item": "minecraft:redstone_block", "count": 1},
+        {"item": "thaumcraftmodern:nitor", "count": 1},
+        {"item": "minecraft:redstone_block", "count": 1},
+        {"item": "thaumcraftmodern:alumentum", "count": 1},
+        {"item": "minecraft:redstone_block", "count": 1}
+      ],
+      "aspect_costs": [
+        {"id": "auram", "amount": 32},
+        {"id": "praecantatio", "amount": 16},
+        {"id": "ordo", "amount": 16},
+        {"id": "potentia", "amount": 16}
+      ],
+      "instability": "dangerous",
+      "detail": "tc.research_text.NODESTABILIZERADV"
     }
   ],
   "purchase_cost": [
@@ -49,8 +65,7 @@
       "amount": 6
     }
   ],
-  "inactive": true,
-  "inactive_reason": "referenced gameplay content is not implemented",
+  "inactive": false,
   "legacy": {
     "x": -8,
     "y": -3,

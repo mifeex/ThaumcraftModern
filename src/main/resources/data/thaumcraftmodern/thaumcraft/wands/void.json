@@ -2,5 +2,6 @@
   "kind": "cap",
   "id": "void",
   "cost_modifier": 0.8,
+  "craft_cost_vis": 9,
   "translation_key": "item.Wand.void.cap"
 }

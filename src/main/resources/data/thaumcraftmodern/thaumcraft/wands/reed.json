@@ -2,6 +2,7 @@
   "kind": "rod",
   "id": "reed",
   "capacity_vis": 75,
+  "craft_cost_vis": 6,
   "recharge_aspects": ["aer"],
   "recharge_interval_ticks": 200,
   "recharge_centivis": 1,

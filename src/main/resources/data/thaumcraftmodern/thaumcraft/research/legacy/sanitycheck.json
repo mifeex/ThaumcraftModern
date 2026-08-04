@@ -2,7 +2,7 @@
   "id": "sanitycheck",
   "legacy_id": "SANITYCHECK",
   "category": "eldritch",
-  "icon": "thaumcraftmodern:thaumonomicon",
+  "icon": "thaumcraftmodern:sanity_checker",
   "title": "tc.research_name.SANITYCHECK",
   "subtitle": "tc.research_text.SANITYCHECK",
   "concealed": true,
@@ -23,16 +23,25 @@
       "body": "tc.research_page.SANITYCHECK.1"
     },
     {
-      "type": "unavailable",
-      "title": "",
-      "body": "",
-      "legacy_type": "recipe",
-      "legacy_content": "SanityCheck",
-      "source_expression": "new ResearchPage((InfusionRecipe)recipes.get(\"SanityCheck\"))"
+      "type": "infusion",
+      "title": "recipe.type.infusion",
+      "output": "thaumcraftmodern:sanity_checker",
+      "central": "thaumcraftmodern:thaumometer",
+      "components": [
+        {"item": "thaumcraftmodern:mirrored_glass", "count": 1},
+        {"item": "thaumcraftmodern:zombie_brain", "count": 1},
+        {"item": "minecraft:diamond", "count": 1}
+      ],
+      "aspect_costs": [
+        {"id": "cognitio", "amount": 24},
+        {"id": "sensus", "amount": 24},
+        {"id": "alienis", "amount": 8}
+      ],
+      "instability": "moderate",
+      "detail": "tc.research_text.SANITYCHECK"
     }
   ],
-  "inactive": true,
-  "inactive_reason": "referenced gameplay content is not implemented",
+  "inactive": false,
   "legacy": {
     "x": 2,
     "y": 2,

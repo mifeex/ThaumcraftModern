@@ -2,7 +2,8 @@
   "id": "liquiddeath",
   "legacy_id": "LIQUIDDEATH",
   "category": "alchemy",
-  "icon": "thaumcraftmodern:thaumonomicon",
+  "icon": "thaumcraftmodern:liquid_death_bucket",
+  "completion_warp": 3,
   "title": "tc.research_name.LIQUIDDEATH",
   "subtitle": "tc.research_text.LIQUIDDEATH",
   "concealed": true,
@@ -33,16 +34,17 @@
       "body": "tc.research_page.LIQUIDDEATH.1"
     },
     {
-      "type": "unavailable",
+      "type": "recipe",
       "title": "",
       "body": "",
+      "recipe": "thaumcraftmodern:liquiddeath",
       "legacy_type": "recipe",
       "legacy_content": "LiquidDeath",
       "source_expression": "new ResearchPage((CrucibleRecipe)recipes.get(\"LiquidDeath\"))"
     }
   ],
-  "inactive": true,
-  "inactive_reason": "referenced gameplay content is not implemented",
+  "inactive": false,
+  "inactive_reason": null,
   "legacy": {
     "x": -7,
     "y": 3,

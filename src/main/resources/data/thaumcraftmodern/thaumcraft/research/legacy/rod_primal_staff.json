@@ -33,16 +33,34 @@
       "body": "tc.research_page.ROD_primal_staff.1"
     },
     {
-      "type": "unavailable",
-      "title": "",
-      "body": "",
-      "legacy_type": "recipe",
-      "legacy_content": "WandRodPrimalStaff",
-      "source_expression": "new ResearchPage((InfusionRecipe)recipes.get(\"WandRodPrimalStaff\"))"
+      "type": "infusion",
+      "title": "recipe.type.infusion",
+      "output": "thaumcraftmodern:primal_staff_rod",
+      "central": "thaumcraftmodern:silverwood_wand_rod",
+      "components": [
+        {"item": "thaumcraftmodern:primal_charm", "count": 1},
+        {"item": "thaumcraftmodern:obsidian_wand_rod", "count": 1},
+        {"item": "thaumcraftmodern:ice_wand_rod", "count": 1},
+        {"item": "thaumcraftmodern:quartz_wand_rod", "count": 1},
+        {"item": "thaumcraftmodern:primal_charm", "count": 1},
+        {"item": "thaumcraftmodern:reed_wand_rod", "count": 1},
+        {"item": "thaumcraftmodern:blaze_wand_rod", "count": 1},
+        {"item": "thaumcraftmodern:bone_wand_rod", "count": 1}
+      ],
+      "aspect_costs": [
+        {"id": "aer", "amount": 32},
+        {"id": "ignis", "amount": 32},
+        {"id": "aqua", "amount": 32},
+        {"id": "terra", "amount": 32},
+        {"id": "ordo", "amount": 32},
+        {"id": "perditio", "amount": 32},
+        {"id": "praecantatio", "amount": 64}
+      ],
+      "instability": "very_high",
+      "detail": "tc.research_text.ROD_primal_staff"
     }
   ],
-  "inactive": true,
-  "inactive_reason": "referenced gameplay content is not implemented",
+  "inactive": false,
   "legacy": {
     "x": 6,
     "y": 2,

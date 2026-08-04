@@ -6,10 +6,12 @@ import com.thaumcraftmodern.ThaumcraftModern;
 import com.thaumcraftmodern.aspect.AspectCost;
 import com.thaumcraftmodern.aspect.AspectCostProvider;
 import com.thaumcraftmodern.arcane.ArcaneRecipe;
+import com.thaumcraftmodern.arcane.ArcaneShapedRecipe;
 import com.thaumcraftmodern.client.ClassicUiRender;
 import com.thaumcraftmodern.config.ThaumcraftModernClientConfig;
 import com.thaumcraftmodern.crucible.CrucibleRecipeDefinition;
 import com.thaumcraftmodern.crucible.CrucibleRecipeRegistry;
+import com.thaumcraftmodern.construction.InfusionAltarResearchRecipe;
 import com.thaumcraftmodern.construction.ThaumatoriumResearchRecipe;
 import com.thaumcraftmodern.item.ResearchNotesItem;
 import com.thaumcraftmodern.item.ScribingToolsItem;
@@ -43,11 +45,14 @@ import net.minecraft.tags.ItemTags;
 import net.minecraft.Util;
 import net.minecraft.util.FormattedCharSequence;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
+import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.AbstractCookingRecipe;
 import net.minecraft.world.item.crafting.CraftingRecipe;
 import net.minecraft.world.item.crafting.Recipe;
+import net.minecraft.world.item.crafting.ShapedRecipe;
 
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -109,6 +114,13 @@ public final class ThaumonomiconScreen extends Screen {
     private static final int RESEARCH_NODE_SECONDARY_SOURCE_X = 110;
     private static final int RESEARCH_ICON_SIZE = 16;
     private static final int RESEARCH_ICON_OFFSET = 5;
+    /** Exact TC4 GuiResearchBrowser incomplete-node brightness values. */
+    private static final long RESEARCH_AVAILABLE_PULSE_MILLIS = 600L;
+    private static final float RESEARCH_AVAILABLE_PULSE_BASE = 0.75F;
+    private static final float RESEARCH_AVAILABLE_PULSE_AMPLITUDE = 0.25F;
+    private static final int RESEARCH_LOCKED_FRAME_TINT = 0xFF4D4D4D;
+    private static final int RESEARCH_LOCKED_ITEM_TINT = 0xFF1A1A1A;
+    private static final int RESEARCH_LOCKED_RESOURCE_TINT = 0xFF333333;
     /** Exact TC4 GuiResearchBrowser forbidden-knowledge aura. */
     private static final int RESEARCH_WARP_AURA_SIZE = 80;
     private static final int RESEARCH_WARP_AURA_FRAMES = 32;
@@ -206,11 +218,15 @@ public final class ThaumonomiconScreen extends Screen {
     private static final int COMPOUND_LAYER_Y = 50;
     private static final int INFUSION_LAYOUT_WIDTH = 112;
     private static final int INFUSION_PAGE_Y_OFFSET = -20;
+    private static final int INFUSION_OUTPUT_Y_OFFSET = 10;
+    private static final int INFUSION_MATRIX_Y_OFFSET = 22;
     private static final int INFUSION_CENTRAL_Y = 78;
     private static final int INFUSION_COMPONENT_CENTER_Y = 86;
     private static final int INFUSION_COMPONENT_RADIUS = 40;
-    private static final int INFUSION_ASPECT_BOTTOM = 174;
-    private static final int INFUSION_INSTABILITY_Y = 188;
+    private static final int INFUSION_RECIPE_CONTENT_BOTTOM = 156;
+    /** Five GUI units are ten physical pixels at the tested GUI scale. */
+    private static final int INFUSION_SECTION_GAP = 5;
+    private static final int INFUSION_INSTABILITY_Y = 193;
     private static String lastSelectedCategoryId = "";
 
     private static final ButtonRegion BACK_BUTTON = new ButtonRegion(118, 189, 20, 12);
@@ -391,8 +407,13 @@ public final class ThaumonomiconScreen extends Screen {
             int frameTint = completed
                     ? 0xFFFFFFFF
                     : unlocked
-                    ? flashingResearchTint()
-                    : 0xFF55515A;
+                    ? availableResearchTint(Util.getMillis())
+                    : RESEARCH_LOCKED_FRAME_TINT;
+            int iconTint = completed || unlocked
+                    ? frameTint
+                    : research.iconResource().isBlank()
+                    ? RESEARCH_LOCKED_ITEM_TINT
+                    : RESEARCH_LOCKED_RESOURCE_TINT;
             if (research.completionWarp() > 0) {
                 renderResearchWarpAura(graphics, x, y);
             }
@@ -435,7 +456,7 @@ public final class ThaumonomiconScreen extends Screen {
              * the tree; a visible but unavailable entry kept its real icon
              * and was rendered with the same dark tint as its frame.
              */
-            renderResearchIcon(graphics, research, x, y, frameTint);
+            renderResearchIcon(graphics, research, x, y, iconTint);
         }
         graphics.disableScissor();
         graphics.pose().popPose();
@@ -1380,7 +1401,7 @@ public final class ThaumonomiconScreen extends Screen {
                 graphics,
                 BOOK_OVERLAY,
                 layoutX,
-                y + 44,
+                y + 45 + INFUSION_MATRIX_Y_OFFSET,
                 112,
                 88,
                 400,
@@ -1398,27 +1419,18 @@ public final class ThaumonomiconScreen extends Screen {
                 font,
                 output,
                 layoutX,
-                y + 6,
+                y + 6 + INFUSION_OUTPUT_Y_OFFSET,
                 mouseX,
                 mouseY
         );
         registerItemLink(output,
                 layoutX + ThaumonomiconRecipeOutputRenderer.ITEM_OFFSET_X,
-                y + 6 + ThaumonomiconRecipeOutputRenderer.ITEM_OFFSET_Y,
+                y + 6 + INFUSION_OUTPUT_Y_OFFSET
+                        + ThaumonomiconRecipeOutputRenderer.ITEM_OFFSET_Y,
                 16, 16);
-        if (!display.detailKey().isBlank()) {
-            renderPageTitle(
-                    graphics,
-                    Component.translatable(display.detailKey()),
-                    centerX,
-                    y + 4,
-                    INFUSION_LAYOUT_WIDTH
-            );
-        }
-
         ItemStack central = infusionStack(display.centralItem(), 1);
         int centralX = centerX - 8;
-        int centralY = y + INFUSION_CENTRAL_Y;
+        int centralY = y + INFUSION_CENTRAL_Y + INFUSION_MATRIX_Y_OFFSET;
         renderLinkedItem(graphics, central, centralX, centralY);
 
         int componentCount = display.components().size();
@@ -1430,25 +1442,35 @@ public final class ThaumonomiconScreen extends Screen {
                     - 8;
             int itemY = y
                     + INFUSION_COMPONENT_CENTER_Y
+                    + INFUSION_MATRIX_Y_OFFSET
                     + (int) (Math.sin(angle) * INFUSION_COMPONENT_RADIUS)
                     - 8;
             InfusionDisplayDefinition.ComponentStack component =
                     display.components().get(index);
-            ItemStack stack = infusionStack(
-                    component.item(),
-                    component.count()
-            );
+            ItemStack stack = infusionStack(component, index);
             renderLinkedItem(graphics, stack, itemX, itemY);
             graphics.renderItemDecorations(font, stack, itemX, itemY);
         }
 
+        int aspectHeight = ThaumonomiconAspectCostRenderer.requiredHeight(
+                page.aspectCosts(), pageWidth
+        );
+        int minimumAspectTop = y
+                + INFUSION_RECIPE_CONTENT_BOTTOM
+                + INFUSION_SECTION_GAP;
+        int bottomAlignedAspectTop = y
+                + INFUSION_INSTABILITY_Y
+                - INFUSION_SECTION_GAP
+                - aspectHeight;
+        int aspectTop = Math.max(minimumAspectTop, bottomAlignedAspectTop);
+        int aspectBottom = aspectTop + aspectHeight;
         String hoveredAspect = ThaumonomiconAspectCostRenderer.render(
                 graphics,
                 font,
                 page.aspectCosts(),
                 x,
                 pageWidth,
-                y + INFUSION_ASPECT_BOTTOM,
+                aspectBottom,
                 mouseX,
                 mouseY
         );
@@ -1464,7 +1486,10 @@ public final class ThaumonomiconScreen extends Screen {
                 font,
                 instability,
                 x + pageWidth / 2,
-                y + INFUSION_INSTABILITY_Y,
+                Math.max(
+                        y + INFUSION_INSTABILITY_Y,
+                        aspectBottom + INFUSION_SECTION_GAP
+                ),
                 display.instability().color()
         );
     }
@@ -1475,6 +1500,24 @@ public final class ThaumonomiconScreen extends Screen {
                 .map(item -> item.getDefaultInstance())
                 .orElseGet(Items.BARRIER::getDefaultInstance);
         stack.setCount(Math.max(1, count));
+        return stack;
+    }
+
+    private static ItemStack infusionStack(
+            InfusionDisplayDefinition.ComponentStack component,
+            int slotIndex
+    ) {
+        if (!component.isTag()) {
+            return infusionStack(component.item(), component.count());
+        }
+        ItemStack stack = cyclingIngredient(
+                Ingredient.of(ItemTags.create(new ResourceLocation(component.tag()))),
+                slotIndex
+        ).copy();
+        if (stack.isEmpty()) {
+            return Items.BARRIER.getDefaultInstance();
+        }
+        stack.setCount(component.count());
         return stack;
     }
 
@@ -1547,11 +1590,15 @@ public final class ThaumonomiconScreen extends Screen {
             int mouseX,
             int mouseY
     ) {
-        if (minecraft == null || minecraft.level == null || page.recipeId().isBlank()) {
+        if (minecraft == null || minecraft.level == null) {
             return;
         }
-        ResourceLocation requestedId =
-                ResourceLocation.tryParse(page.recipeId());
+        ResourceLocation requestedId = ResourceLocation.tryParse(
+                selectedRecipeId(page)
+        );
+        if (requestedId == null) {
+            return;
+        }
         CrucibleRecipeDefinition crucibleRecipe =
                 CrucibleRecipeRegistry.all().stream()
                         .filter(candidate -> candidate.id().equals(requestedId))
@@ -1570,7 +1617,7 @@ public final class ThaumonomiconScreen extends Screen {
             return;
         }
         Recipe<?> recipe = minecraft.level.getRecipeManager()
-                .byKey(new ResourceLocation(page.recipeId()))
+                .byKey(requestedId)
                 .orElse(null);
         if (recipe == null) {
             graphics.drawString(
@@ -1621,18 +1668,19 @@ public final class ThaumonomiconScreen extends Screen {
                 512,
                 0xFFFFFFFF
         );
+        int recipeWidth = craftingRecipeWidth(recipe);
         for (int index = 0; index < ingredients.size() && index < 9; index++) {
-            ItemStack[] options = ingredients.get(index).getItems();
-            if (options.length == 0) {
+            ItemStack displayed = cyclingIngredient(ingredients.get(index), index);
+            if (displayed.isEmpty()) {
                 continue;
             }
             int itemX = recipeLeft
                     + RECIPE_SLOT_OFFSET_X
-                    + (index % 3) * RECIPE_SLOT_STEP;
+                    + (index % recipeWidth) * RECIPE_SLOT_STEP;
             int itemY = y
                     + RECIPE_SLOT_OFFSET_Y
-                    + (index / 3) * RECIPE_SLOT_STEP;
-            renderLinkedItem(graphics, options[0], itemX, itemY);
+                    + (index / recipeWidth) * RECIPE_SLOT_STEP;
+            renderLinkedItem(graphics, displayed, itemX, itemY);
         }
 
         ItemStack result = recipe.getResultItem(minecraft.level.registryAccess());
@@ -1664,6 +1712,33 @@ public final class ThaumonomiconScreen extends Screen {
     }
 
     /**
+     * Shaped recipes expose a compact width x height ingredient list rather
+     * than a padded 3x3 list. Preserve that width when drawing the book grid;
+     * shapeless recipes retain the conventional three-column flow.
+     */
+    static int craftingRecipeWidth(Recipe<?> recipe) {
+        if (recipe instanceof ShapedRecipe shaped) {
+            return Math.max(1, Math.min(3, shaped.getWidth()));
+        }
+        if (recipe instanceof ArcaneShapedRecipe shaped) {
+            return Math.max(1, Math.min(3, shaped.width()));
+        }
+        return 3;
+    }
+
+    private static String selectedRecipeId(ResearchPageDefinition page) {
+        List<String> recipes = page.recipeIds();
+        if (recipes.isEmpty()) {
+            return page.recipeId();
+        }
+        int index = Math.floorMod(
+                (int) (System.currentTimeMillis() / 1000L),
+                recipes.size()
+        );
+        return recipes.get(index);
+    }
+
+    /**
      * TC4 used its SMELTING page for input/output transformations that do not
      * have an Arcane Workbench, normal crafting-grid, Crucible, or Infusion
      * presentation. The original vertical smoky arrow is preserved here.
@@ -1678,9 +1753,8 @@ public final class ThaumonomiconScreen extends Screen {
             int mouseY
     ) {
         ItemStack input = recipe.getIngredients().stream()
-                .map(Ingredient::getItems)
-                .filter(options -> options.length > 0)
-                .map(options -> options[0])
+                .map(ingredient -> cyclingIngredient(ingredient, 0))
+                .filter(stack -> !stack.isEmpty())
                 .findFirst()
                 .orElse(ItemStack.EMPTY);
         ItemStack output = recipe.getResultItem(
@@ -1825,16 +1899,21 @@ public final class ThaumonomiconScreen extends Screen {
                 0xFFFFFFFF
         );
 
-        ItemStack[] catalysts = recipe.catalyst().getItems();
         int catalystX = layoutX
                 + ThaumonomiconCrucibleRecipeLayout.CATALYST_X;
         int catalystY = contentY
                 + ThaumonomiconCrucibleRecipeLayout.CATALYST_Y;
-        if (catalysts.length > 0) {
-            renderLinkedItem(graphics, catalysts[0], catalystX, catalystY);
+        ItemStack catalyst = cyclingIngredient(recipe.catalyst(), 0);
+        if (!recipe.catalystAspect().isBlank()
+                && catalyst.is(ModItems.ESSENTIA_PHIAL.get())) {
+            catalyst = com.thaumcraftmodern.item.EssentiaPhialItem.filled(
+                    ModItems.ESSENTIA_PHIAL.get(), recipe.catalystAspect());
+        }
+        if (!catalyst.isEmpty()) {
+            renderLinkedItem(graphics, catalyst, catalystX, catalystY);
             graphics.renderItemDecorations(
                     font,
-                    catalysts[0],
+                    catalyst,
                     catalystX,
                     catalystY
             );
@@ -2116,6 +2195,29 @@ public final class ThaumonomiconScreen extends Screen {
                                 case ALCHEMICAL_FURNACE -> new ItemStack(
                                         ModItems.ALCHEMICAL_FURNACE.get());
                             })
+                    .toList()
+            );
+        }
+        if (InfusionAltarResearchRecipe.ID.equals(recipeId)) {
+            InfusionAltarResearchRecipe.Snapshot recipe =
+                    InfusionAltarResearchRecipe.snapshot();
+            return new CompoundRecipeView(
+                    recipe.width(),
+                    recipe.height(),
+                    recipe.depth(),
+                    recipe.costs(),
+                    recipe.cells().stream()
+                            .map(cell -> switch (cell) {
+                                case EMPTY -> ItemStack.EMPTY;
+                                case RUNIC_MATRIX -> new ItemStack(
+                                        ModItems.RUNIC_MATRIX.get());
+                                case ARCANE_STONE -> new ItemStack(
+                                        ModItems.ARCANE_STONE.get());
+                                case ARCANE_STONE_BRICK -> new ItemStack(
+                                        ModItems.ARCANE_STONE_BRICK.get());
+                                case ARCANE_PEDESTAL -> new ItemStack(
+                                        ModItems.ARCANE_PEDESTAL.get());
+                            })
                             .toList()
             );
         }
@@ -2137,6 +2239,18 @@ public final class ThaumonomiconScreen extends Screen {
                 slabs.size()
         );
         return slabs.get(index);
+    }
+
+    static ItemStack cyclingIngredient(Ingredient ingredient, int slotIndex) {
+        ItemStack[] options = ingredient.getItems();
+        if (options.length == 0) {
+            return ItemStack.EMPTY;
+        }
+        int index = (int) Math.floorMod(
+                Util.getMillis() / 1_000L + slotIndex,
+                options.length
+        );
+        return options[index];
     }
 
     private static ItemStack compoundHoveredItem(
@@ -2470,25 +2584,26 @@ public final class ThaumonomiconScreen extends Screen {
             if (infusion != null && itemId.toString().equals(infusion.outputItem())) {
                 return true;
             }
-            if (page.type() != ResearchPageDefinition.Type.RECIPE
-                    || page.recipeId().isBlank()) continue;
-            ResourceLocation recipeId = ResourceLocation.tryParse(page.recipeId());
-            if (recipeId == null) continue;
-            CrucibleRecipeDefinition crucible = CrucibleRecipeRegistry.all().stream()
-                    .filter(candidate -> candidate.id().equals(recipeId))
-                    .findFirst().orElse(null);
-            if (crucible != null
-                    && BuiltInRegistries.ITEM.getKey(crucible.output().getItem())
-                            .equals(itemId)) {
-                return true;
-            }
-            if (minecraft != null && minecraft.level != null) {
-                Recipe<?> recipe = minecraft.level.getRecipeManager()
-                        .byKey(recipeId).orElse(null);
-                if (recipe != null && BuiltInRegistries.ITEM.getKey(
-                        recipe.getResultItem(minecraft.level.registryAccess()).getItem())
-                        .equals(itemId)) {
+            if (page.type() != ResearchPageDefinition.Type.RECIPE) continue;
+            for (String rawRecipeId : page.recipeIds()) {
+                ResourceLocation recipeId = ResourceLocation.tryParse(rawRecipeId);
+                if (recipeId == null) continue;
+                CrucibleRecipeDefinition crucible = CrucibleRecipeRegistry.all().stream()
+                        .filter(candidate -> candidate.id().equals(recipeId))
+                        .findFirst().orElse(null);
+                if (crucible != null
+                        && BuiltInRegistries.ITEM.getKey(crucible.output().getItem())
+                                .equals(itemId)) {
                     return true;
+                }
+                if (minecraft != null && minecraft.level != null) {
+                    Recipe<?> recipe = minecraft.level.getRecipeManager()
+                            .byKey(recipeId).orElse(null);
+                    if (recipe != null && BuiltInRegistries.ITEM.getKey(
+                            recipe.getResultItem(minecraft.level.registryAccess()).getItem())
+                            .equals(itemId)) {
+                        return true;
+                    }
                 }
             }
         }
@@ -2815,9 +2930,10 @@ public final class ThaumonomiconScreen extends Screen {
         if (id == null) {
             return fallback;
         }
-        return BuiltInRegistries.ITEM.getOptional(id)
-                .map(item -> item.getDefaultInstance())
-                .orElse(fallback);
+        Item item = ForgeRegistries.ITEMS.getValue(id);
+        return item == null || item == Items.AIR
+                ? fallback
+                : item.getDefaultInstance();
     }
 
     private boolean isCompleted(String researchId) {
@@ -2888,18 +3004,16 @@ public final class ThaumonomiconScreen extends Screen {
         return false;
     }
 
-    private static int flashingResearchTint() {
-        float pulse = (float) (
-                (Math.sin(Util.getMillis() / 180.0D) + 1.0D) * 0.5D
-        );
-        int red = lerpColorChannel(0xC8, 0xFF, pulse);
-        int green = lerpColorChannel(0x79, 0xF2, pulse);
-        int blue = lerpColorChannel(0x18, 0x91, pulse);
-        return 0xFF000000 | red << 16 | green << 8 | blue;
-    }
-
-    private static int lerpColorChannel(int from, int to, float progress) {
-        return Math.round(from + (to - from) * progress);
+    static int availableResearchTint(long timeMillis) {
+        float brightness = (float) Math.sin(
+                (timeMillis % RESEARCH_AVAILABLE_PULSE_MILLIS)
+                        / (double) RESEARCH_AVAILABLE_PULSE_MILLIS
+                        * Math.PI
+                        * 2.0D
+        ) * RESEARCH_AVAILABLE_PULSE_AMPLITUDE
+                + RESEARCH_AVAILABLE_PULSE_BASE;
+        int channel = Math.round(brightness * 255.0F);
+        return 0xFF000000 | channel << 16 | channel << 8 | channel;
     }
 
     private void playPageSound() {

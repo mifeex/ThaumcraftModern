@@ -1,0 +1,15 @@
+{
+  "research": "alchemicalduplication",
+  "catalyst": {
+    "item": "minecraft:slime_ball"
+  },
+  "output": {
+    "item": "minecraft:slime_ball",
+    "count": 2
+  },
+  "aspects": {
+    "aqua": 2,
+    "victus": 2
+  },
+  "legacy_id": "AltSlime"
+}

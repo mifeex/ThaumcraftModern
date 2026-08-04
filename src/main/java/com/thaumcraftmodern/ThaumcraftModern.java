@@ -16,6 +16,7 @@ import com.thaumcraftmodern.registry.ModEnchantments;
 import com.thaumcraftmodern.registry.ModEffects;
 import com.thaumcraftmodern.registry.ModItems;
 import com.thaumcraftmodern.registry.ModMenus;
+import com.thaumcraftmodern.registry.ModLootModifiers;
 import com.thaumcraftmodern.registry.ModParticles;
 import com.thaumcraftmodern.registry.ModSounds;
 import com.thaumcraftmodern.registry.ModStructures;
@@ -63,6 +64,7 @@ public final class ThaumcraftModern {
         ModVillagers.register(modBus);
         ModBlockEntities.register(modBus);
         ModMenus.register(modBus);
+        ModLootModifiers.register(modBus);
         ModParticles.register(modBus);
         ModArcaneRecipes.register(modBus);
         ModSounds.register(modBus);

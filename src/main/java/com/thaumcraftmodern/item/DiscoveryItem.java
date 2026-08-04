@@ -5,6 +5,7 @@ import com.thaumcraftmodern.knowledge.KnowledgeAccess;
 import com.thaumcraftmodern.knowledge.KnowledgeSync;
 import com.thaumcraftmodern.registry.ModSounds;
 import com.thaumcraftmodern.research.ResearchCompletionService;
+import com.thaumcraftmodern.research.ResearchColorResolver;
 import com.thaumcraftmodern.research.ResearchRegistry;
 import com.thaumcraftmodern.network.ModNetwork;
 import com.thaumcraftmodern.network.packet.WarpFeedbackPacket;
@@ -44,6 +45,11 @@ public final class DiscoveryItem extends Item {
 
     public static boolean hasValidPayload(ItemStack stack) {
         return ResearchCompletionService.hasValidDiscoveryPayload(stack);
+    }
+
+    /** Discoveries share TC4's research-note overlay colour contract. */
+    public static int color(ItemStack stack) {
+        return ResearchColorResolver.color(researchId(stack));
     }
 
     public static int copies(ItemStack stack) {

@@ -23,20 +23,14 @@
       "body": "tc.research_page.ENTROPICPROCESSING.1"
     },
     {
-      "type": "unavailable",
+      "type": "recipe",
       "title": "",
-      "body": "",
-      "legacy_type": "recipe",
-      "legacy_content": "AltCrackedBrick",
-      "source_expression": "new ResearchPage((CrucibleRecipe)recipes.get(\"AltCrackedBrick\"))"
+      "recipe": "thaumcraftmodern:altcrackedbrick"
     },
     {
-      "type": "unavailable",
+      "type": "recipe",
       "title": "",
-      "body": "",
-      "legacy_type": "recipe",
-      "legacy_content": "AltBonemeal",
-      "source_expression": "new ResearchPage((CrucibleRecipe)recipes.get(\"AltBonemeal\"))"
+      "recipe": "thaumcraftmodern:altbonemeal"
     }
   ],
   "purchase_cost": [
@@ -53,8 +47,7 @@
       "amount": 1
     }
   ],
-  "inactive": true,
-  "inactive_reason": "referenced gameplay content is not implemented",
+  "inactive": false,
   "legacy": {
     "x": -6,
     "y": 1,

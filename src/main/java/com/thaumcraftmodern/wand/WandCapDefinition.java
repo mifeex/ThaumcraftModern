@@ -12,6 +12,8 @@ public record WandCapDefinition(
         String id,
         float costModifier,
         String translationKey,
+        int craftCostVis,
+        String researchId,
         List<String> specialAspects,
         float specialCostModifier
 ) {
@@ -20,6 +22,7 @@ public record WandCapDefinition(
     public WandCapDefinition {
         id = Objects.requireNonNull(id, "id");
         translationKey = Objects.requireNonNull(translationKey, "translationKey");
+        researchId = Objects.requireNonNull(researchId, "researchId");
         specialAspects = List.copyOf(Objects.requireNonNull(
                 specialAspects,
                 "specialAspects"
@@ -35,6 +38,16 @@ public record WandCapDefinition(
         if (translationKey.isBlank()) {
             throw new IllegalArgumentException(
                     "wand cap translation key cannot be blank: " + id
+            );
+        }
+        if (craftCostVis <= 0) {
+            throw new IllegalArgumentException(
+                    "wand cap craft cost must be positive: " + id
+            );
+        }
+        if (researchId.isBlank()) {
+            throw new IllegalArgumentException(
+                    "wand cap research id cannot be blank: " + id
             );
         }
         if (specialAspects.stream().anyMatch(
@@ -60,7 +73,19 @@ public record WandCapDefinition(
             float costModifier,
             String translationKey
     ) {
-        this(id, costModifier, translationKey, List.of(), costModifier);
+        this(id, costModifier, translationKey, 1, "cap_" + id,
+                List.of(), costModifier);
+    }
+
+    public WandCapDefinition(
+            String id,
+            float costModifier,
+            String translationKey,
+            List<String> specialAspects,
+            float specialCostModifier
+    ) {
+        this(id, costModifier, translationKey, 1, "cap_" + id,
+                specialAspects, specialCostModifier);
     }
 
     public int adjustCentivis(int baseCentivis) {

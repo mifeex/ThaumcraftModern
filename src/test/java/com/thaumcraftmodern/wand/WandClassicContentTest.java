@@ -115,6 +115,36 @@ class WandClassicContentTest {
     }
 
     @Test
+    void dynamicAssemblyRecipesAndClassicCraftCostsArePresent()
+            throws IOException {
+        assertEquals("thaumcraftmodern:arcane_wand_assembly",
+                json("/data/thaumcraftmodern/recipes/arcane_wand_assembly.json")
+                        .get("type").getAsString());
+        assertEquals("thaumcraftmodern:arcane_sceptre_assembly",
+                json("/data/thaumcraftmodern/recipes/arcane_sceptre_assembly.json")
+                        .get("type").getAsString());
+        assertEquals(1, wandCraftCost("wood"));
+        assertEquals(3, wandCraftCost("greatwood"));
+        assertEquals(9, wandCraftCost("silverwood"));
+        assertEquals(8, wandCraftCost("greatwood_staff"));
+        assertEquals(14, wandCraftCost("obsidian_staff"));
+        assertEquals(24, wandCraftCost("silverwood_staff"));
+        assertEquals(32, wandCraftCost("primal_staff"));
+        assertEquals(1, wandCraftCost("iron"));
+        assertEquals(2, wandCraftCost("copper"));
+        assertEquals(3, wandCraftCost("gold"));
+        assertEquals(4, wandCraftCost("silver"));
+        assertEquals(6, wandCraftCost("thaumium"));
+        assertEquals(9, wandCraftCost("void"));
+        JsonObject sceptre = json(
+                "/data/thaumcraftmodern/thaumcraft/research/legacy/sceptre.json");
+        assertFalse(sceptre.get("inactive").getAsBoolean());
+        assertEquals("thaumcraftmodern:arcane_sceptre_assembly",
+                sceptre.getAsJsonArray("pages").get(1).getAsJsonObject()
+                        .get("recipe").getAsString());
+    }
+
+    @Test
     void infusionLayoutResearchProvidesSixIncreasingDensityPreviews()
             throws IOException {
         JsonObject research = json(
@@ -270,6 +300,11 @@ class WandClassicContentTest {
                     new String(stream.readAllBytes(), StandardCharsets.UTF_8)
             ).getAsJsonObject();
         }
+    }
+
+    private static int wandCraftCost(String id) throws IOException {
+        return json("/data/thaumcraftmodern/thaumcraft/wands/" + id + ".json")
+                .get("craft_cost_vis").getAsInt();
     }
 
     private static InputStream resource(String path) {
