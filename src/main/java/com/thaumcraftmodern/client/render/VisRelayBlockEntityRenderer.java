@@ -163,7 +163,9 @@ public final class VisRelayBlockEntityRenderer<T extends VisRelayBlockEntity>
         boolean revealed = Minecraft.getInstance().player != null
                 && Minecraft.getInstance().player
                 .getItemBySlot(EquipmentSlot.HEAD)
-                .is(ModItems.GOGGLES_OF_REVEALING.get());
+                .getItem() instanceof com.thaumcraftmodern.item.RevealingGear gear
+                && gear.reveals(Minecraft.getInstance().player
+                        .getItemBySlot(EquipmentSlot.HEAD));
         // A thin ribbon cannot use the old 10% fallback that only remained
         // visible because two very broad crossed quads overlapped.
         boolean pulsing = tile.pulseTicks() > 0;

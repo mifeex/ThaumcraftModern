@@ -1,18 +1,10 @@
 {
-  "type": "item",
-  "target": "minecraft:creeper_head",
+  "type": "block_tag",
+  "target": "thaumcraftmodern:creeper_head_blocks",
   "display": "",
   "aspects": [
     {
-      "id": "mortuus",
-      "amount": 4
-    },
-    {
-      "id": "spiritus",
-      "amount": 4
-    },
-    {
-      "id": "perditio",
+      "id": "herba",
       "amount": 2
     },
     {

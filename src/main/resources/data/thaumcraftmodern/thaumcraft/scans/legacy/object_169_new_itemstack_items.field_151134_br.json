@@ -3,8 +3,7 @@
   "target": "minecraft:enchanted_book",
   "display": "",
   "aspects": [],
-  "inactive": true,
-  "inactive_reason": "recipe-derived base aspects cannot yet be reproduced safely",
+  "inactive": false,
   "legacy": {
     "registration_mode": "recipe_derived_modifier",
     "target_kind": "item_stack",
@@ -13,5 +12,6 @@
     "aspects": [],
     "aspect_operations": [],
     "source_expression": "ThaumcraftApi.registerComplexObjectTag(new ItemStack(Items.field_151134_bR), new AspectList(new ItemStack(Items.field_151122_aG)))"
-  }
+  },
+  "recipe_derivation": "TC4 generateTags base plus the original registered complex-object modifier."
 }

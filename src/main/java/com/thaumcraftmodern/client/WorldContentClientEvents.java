@@ -31,6 +31,10 @@ import com.thaumcraftmodern.client.render.TaintSwarmRenderer;
 import com.thaumcraftmodern.client.render.WispRenderer;
 import com.thaumcraftmodern.client.render.FacelessWitnessModel;
 import com.thaumcraftmodern.client.render.FacelessWitnessRenderer;
+import com.thaumcraftmodern.client.render.WingedMantleArmorModel;
+import com.thaumcraftmodern.client.render.WingedMantleElytraLayer;
+import com.thaumcraftmodern.client.render.ConvertedVillagerModel;
+import com.thaumcraftmodern.client.render.ConvertedVillagerRenderer;
 import com.thaumcraftmodern.entity.LegacyMobKind;
 import com.thaumcraftmodern.registry.ModBlocks;
 import com.thaumcraftmodern.registry.ModEntities;
@@ -38,6 +42,7 @@ import net.minecraft.client.renderer.ItemBlockRenderTypes;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.ThrownItemRenderer;
 import net.minecraft.client.renderer.entity.NoopRenderer;
+import net.minecraft.client.renderer.entity.player.PlayerRenderer;
 import net.minecraft.client.renderer.BiomeColors;
 import net.minecraft.world.level.FoliageColor;
 import net.minecraftforge.api.distmarker.Dist;
@@ -124,6 +129,11 @@ public final class WorldContentClientEvents {
                         entry.getValue().get(),
                         PechRenderer::new
                 );
+            } else if (entry.getKey() == LegacyMobKind.CONVERTED_VILLAGER) {
+                event.registerEntityRenderer(
+                        entry.getValue().get(),
+                        ConvertedVillagerRenderer::new
+                );
             } else if (entry.getKey()
                     == LegacyMobKind.ELDRITCH_CONSTRUCT) {
                 event.registerEntityRenderer(
@@ -177,12 +187,27 @@ public final class WorldContentClientEvents {
     }
 
     @SubscribeEvent
+    public static void addPlayerLayers(EntityRenderersEvent.AddLayers event) {
+        for (String skin : event.getSkins()) {
+            PlayerRenderer renderer = event.getSkin(skin);
+            if (renderer != null) {
+                renderer.addLayer(new WingedMantleElytraLayer(
+                        renderer, event.getEntityModels()));
+            }
+        }
+    }
+
+    @SubscribeEvent
     public static void registerLayerDefinitions(
             EntityRenderersEvent.RegisterLayerDefinitions event
     ) {
         event.registerLayerDefinition(
                 FacelessWitnessModel.LAYER,
                 FacelessWitnessModel::createBodyLayer
+        );
+        event.registerLayerDefinition(
+                ConvertedVillagerModel.LAYER,
+                ConvertedVillagerModel::createBodyLayer
         );
         event.registerLayerDefinition(
                 EldritchGuardianModel.LAYER,
@@ -243,6 +268,10 @@ public final class WorldContentClientEvents {
         event.registerLayerDefinition(
                 CrimsonCultArmorModel.BOOTS_LAYER,
                 CrimsonCultArmorModel::createBootsLayer
+        );
+        event.registerLayerDefinition(
+                WingedMantleArmorModel.LAYER,
+                WingedMantleArmorModel::createBodyLayer
         );
     }
 
@@ -430,6 +459,14 @@ public final class WorldContentClientEvents {
                     cutout
             );
             ItemBlockRenderTypes.setRenderLayer(ModBlocks.MANA_POD.get(), cutout);
+            ItemBlockRenderTypes.setRenderLayer(
+                    ModBlocks.INFERNAL_FURNACE.get(),
+                    cutout
+            );
+            ItemBlockRenderTypes.setRenderLayer(ModBlocks.ARCANE_LAMP.get(), cutout);
+            ItemBlockRenderTypes.setRenderLayer(ModBlocks.GROWTH_LAMP.get(), cutout);
+            ItemBlockRenderTypes.setRenderLayer(ModBlocks.FERTILITY_LAMP.get(), cutout);
+            ItemBlockRenderTypes.setRenderLayer(ModBlocks.ITEM_GRATE.get(), cutout);
             RenderType translucent = RenderType.translucent();
             ItemBlockRenderTypes.setRenderLayer(
                     ModBlocks.ESSENTIA_RESERVOIR.get(),

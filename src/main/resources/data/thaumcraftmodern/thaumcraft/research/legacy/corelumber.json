@@ -2,7 +2,7 @@
   "id": "corelumber",
   "legacy_id": "CORELUMBER",
   "category": "golemancy",
-  "icon": "thaumcraftmodern:thaumonomicon",
+  "icon": "thaumcraftmodern:lumber_golem_core",
   "title": "tc.research_name.CORELUMBER",
   "subtitle": "tc.research_text.CORELUMBER",
   "concealed": true,
@@ -24,12 +24,9 @@
       "body": "tc.research_page.CORELUMBER.1"
     },
     {
-      "type": "unavailable",
+      "type": "recipe",
       "title": "",
-      "body": "",
-      "legacy_type": "recipe",
-      "legacy_content": "CoreLumber",
-      "source_expression": "new ResearchPage((InfusionRecipe)recipes.get(\"CoreLumber\"))"
+      "recipe": "thaumcraftmodern:core_lumber"
     }
   ],
   "purchase_cost": [
@@ -50,7 +47,7 @@
       "amount": 3
     }
   ],
-  "inactive": true,
+  "inactive": false,
   "inactive_reason": "referenced gameplay content is not implemented",
   "legacy": {
     "x": -1,

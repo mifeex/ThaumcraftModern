@@ -2,7 +2,10 @@ package com.thaumcraftmodern.client;
 
 import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.systems.RenderSystem;
+import java.math.BigDecimal;
+import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 
@@ -15,6 +18,9 @@ import net.minecraft.world.item.ItemStack;
  * through this helper.</p>
  */
 public final class ClassicUiRender {
+    /** Above its icon, but safely below vanilla and custom tooltip layers. */
+    static final float ASPECT_AMOUNT_Z = 10.0F;
+
     private ClassicUiRender() {
     }
 
@@ -147,6 +153,87 @@ public final class ClassicUiRender {
             int rgbColor
     ) {
         drawAspect(graphics, texture, x, y, size, rgbColor, 1.0F);
+    }
+
+    public static void drawAspectTag(
+            GuiGraphics graphics,
+            Font font,
+            ResourceLocation texture,
+            int x,
+            int y,
+            int size,
+            int rgbColor,
+            int amount
+    ) {
+        drawAspectTag(graphics, font, texture, x, y, size, rgbColor,
+                Integer.toString(amount), 1.0F, 0.5F);
+    }
+
+    public static void drawAspectVisTag(
+            GuiGraphics graphics,
+            Font font,
+            ResourceLocation texture,
+            int x,
+            int y,
+            int size,
+            int rgbColor,
+            int centiVis
+    ) {
+        drawAspectTag(graphics, font, texture, x, y, size, rgbColor,
+                formatVis(centiVis), 1.0F, 0.5F);
+    }
+
+    /** Common TC aspect icon, tint and bottom-right amount renderer. */
+    public static void drawAspectTag(
+            GuiGraphics graphics,
+            Font font,
+            ResourceLocation texture,
+            int x,
+            int y,
+            int size,
+            int rgbColor,
+            String amount,
+            float alpha,
+            float textScale
+    ) {
+        drawAspect(graphics, texture, x, y, size, rgbColor, alpha);
+        int textAlpha = Math.max(0, Math.min(255, Math.round(alpha * 255.0F)));
+        graphics.pose().pushPose();
+        graphics.pose().translate(x + size,
+                y + size - font.lineHeight * textScale, ASPECT_AMOUNT_Z);
+        graphics.pose().scale(textScale, textScale, 1.0F);
+        graphics.drawString(font, amount, -font.width(amount), 0,
+                (textAlpha << 24) | 0x00FFFFFF, true);
+        graphics.pose().popPose();
+    }
+
+    /**
+     * Formats TC4's internal centi-vis values for players (100 centi-vis = 1 vis).
+     */
+    public static String formatVis(int centiVis) {
+        return BigDecimal.valueOf(centiVis, 2).stripTrailingZeros().toPlainString();
+    }
+
+    /**
+     * Draws the compact half-scale name/value row used by the original focal
+     * manipulator. Keeping this beside {@link #drawAspect} prevents individual
+     * screens from inventing their own aspect amount scaling and typography.
+     */
+    public static void drawAspectVisRow(
+            GuiGraphics graphics,
+            Font font,
+            Component name,
+            int centiVis,
+            int x,
+            int y,
+            int rgbColor
+    ) {
+        graphics.pose().pushPose();
+        graphics.pose().translate(x, y, 100.0F);
+        graphics.pose().scale(0.5F, 0.5F, 1.0F);
+        graphics.drawString(font, name, 0, 0, rgbColor, false);
+        graphics.drawString(font, formatVis(centiVis), 48, 0, rgbColor, false);
+        graphics.pose().popPose();
     }
 
     public static void drawAspect(

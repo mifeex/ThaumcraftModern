@@ -1,6 +1,8 @@
 {
   "replace": false,
   "values": [
+    "#minecraft:bamboo_blocks",
+    "minecraft:bamboo",
     "thaumcraftmodern:greatwood_log",
     "thaumcraftmodern:silverwood_log",
     "thaumcraftmodern:silverwood_node"

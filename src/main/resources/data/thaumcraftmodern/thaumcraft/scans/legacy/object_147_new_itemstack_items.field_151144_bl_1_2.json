@@ -1,19 +1,19 @@
 {
-  "type": "item",
-  "target": "minecraft:zombie_head",
+  "type": "block_tag",
+  "target": "thaumcraftmodern:zombie_head_blocks",
   "display": "",
   "aspects": [
     {
-      "id": "mortuus",
-      "amount": 4
+      "id": "exanimis",
+      "amount": 2
     },
     {
-      "id": "spiritus",
-      "amount": 4
+      "id": "humanus",
+      "amount": 1
     },
     {
-      "id": "corpus",
-      "amount": 4
+      "id": "terra",
+      "amount": 1
     }
   ],
   "inactive": false,

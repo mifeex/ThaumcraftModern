@@ -18,6 +18,8 @@ public enum LegacyMobKind {
     ELDRITCH_GUARDIAN("eldritch_guardian", 50.0D, 7.0D, 0.28D, 0.8F, 2.25F, "models/eldritch_guardian.png"),
     ELDRITCH_WARDEN("eldritch_warden", 180.0D, 10.0D, 0.25D, 1.5F, 3.5F, "models/eldritch_warden.png"),
     CRIMSON_KNIGHT("crimson_knight", 40.0D, 7.0D, 0.30D, 0.7F, 1.95F, "models/cultist.png"),
+    CRIMSON_INQUISITOR("crimson_inquisitor", 55.0D, 8.0D, 0.31D, 0.75F, 2.05F, "models/cultist.png"),
+    CONVERTED_VILLAGER("converted_villager", 20.0D, 0.0D, 0.30D, 0.6F, 1.95F, "models/villager.png"),
     CRIMSON_CLERIC("crimson_cleric", 32.0D, 5.0D, 0.30D, 0.7F, 1.95F, "models/cultist.png"),
     CRIMSON_PRAETOR("crimson_praetor", 120.0D, 9.0D, 0.30D, 0.8F, 2.1F, "models/cultist.png"),
     ELDRITCH_CONSTRUCT("eldritch_construct", 250.0D, 10.0D, 0.30D, 1.75F, 3.5F, "models/eldritch_golem.png"),

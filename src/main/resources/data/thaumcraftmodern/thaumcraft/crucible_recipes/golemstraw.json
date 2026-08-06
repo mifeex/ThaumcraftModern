@@ -11,7 +11,5 @@
     "motus": 4,
     "spiritus": 4
   },
-  "legacy_id": "GolemStraw",
-  "inactive": true,
-  "inactive_reason": "output item or its complete gameplay behavior is not implemented"
+  "legacy_id": "GolemStraw"
 }

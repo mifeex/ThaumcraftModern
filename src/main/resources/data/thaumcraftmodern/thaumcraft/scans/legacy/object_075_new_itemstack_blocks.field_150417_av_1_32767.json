@@ -1,6 +1,6 @@
 {
-  "type": "block",
-  "target": "minecraft:stone_bricks",
+  "type": "block_tag",
+  "target": "thaumcraftmodern:stone_brick_equivalents",
   "display": "",
   "aspects": [
     {

@@ -34,7 +34,12 @@ import java.util.Objects;
 public final class AdvancedEssentiaBufferBlockEntity extends BlockEntity
         implements EssentiaTransport {
     public static final int CAPACITY_PER_ASPECT = 4;
-    public static final int INPUT_SUCTION = 32;
+    /**
+     * Must be strictly stronger than an ordinary jar. Essentia transport only
+     * moves when local suction is greater than source suction; the previous
+     * 32 == 32 tie made the configured input visibly connect but never pull.
+     */
+    public static final int INPUT_SUCTION = EssentiaJarBlockEntity.SUCTION + 1;
     public static final int RETURN_SUCTION = 64;
     public static final int MAIN_OUTPUT_DECISION_TICKS = 40;
 
@@ -169,7 +174,7 @@ public final class AdvancedEssentiaBufferBlockEntity extends BlockEntity
 
     private void sendToReserve(ServerLevel level) {
         Direction reserve = sideFor(AdvancedBufferSideRole.RESERVE_OUTPUT);
-        String aspect = first(returned);
+        String aspect = requestedAspect(returned, reserve);
         if (reserve == null || aspect == null) return;
         EssentiaTransport remote = EssentiaConnections.neighbour(
                 level, worldPosition, reserve).orElse(null);
@@ -184,7 +189,7 @@ public final class AdvancedEssentiaBufferBlockEntity extends BlockEntity
 
     private boolean reserveAccepts(ServerLevel level) {
         Direction reserve = sideFor(AdvancedBufferSideRole.RESERVE_OUTPUT);
-        String aspect = first(returned);
+        String aspect = requestedAspect(returned, reserve);
         if (reserve == null || aspect == null) return returned.isEmpty();
         EssentiaTransport remote = EssentiaConnections.neighbour(
                 level, worldPosition, reserve).orElse(null);
@@ -310,12 +315,16 @@ public final class AdvancedEssentiaBufferBlockEntity extends BlockEntity
     @Override
     public boolean canOutputTo(Direction side) {
         if (side == null) return false;
-        return role(side) == AdvancedBufferSideRole.MAIN_OUTPUT
-                && controller.state() != AdvancedBufferFlowController.State.RESERVE
-                && controller.state() != AdvancedBufferFlowController.State.BLOCKED
-                || role(side) == AdvancedBufferSideRole.RESERVE_OUTPUT
-                && controller.state()
-                        == AdvancedBufferFlowController.State.RESERVE;
+        if (controller.state() == AdvancedBufferFlowController.State.BLOCKED) {
+            return false;
+        }
+        if (role(side) == AdvancedBufferSideRole.MAIN_OUTPUT) {
+            return controller.state() != AdvancedBufferFlowController.State.RESERVE;
+        }
+        // The reserve face is also a normal supply outlet. Its special role is
+        // selecting the returned queue while the controller is in RESERVE;
+        // it must not leave a directly attached requesting jar permanently dry.
+        return role(side) == AdvancedBufferSideRole.RESERVE_OUTPUT;
     }
 
     @Override
@@ -348,16 +357,12 @@ public final class AdvancedEssentiaBufferBlockEntity extends BlockEntity
 
     @Override
     public @Nullable String essentiaType(Direction side) {
-        if (side != null && role(side)
-                == AdvancedBufferSideRole.RESERVE_OUTPUT) return first(returned);
-        return first(supply);
+        return requestedAspect(outputStore(side), side);
     }
 
     @Override
     public int essentiaAmount(Direction side) {
-        if (side != null && role(side)
-                == AdvancedBufferSideRole.RESERVE_OUTPUT) return returned.total();
-        return supply.total();
+        return outputStore(side).total();
     }
 
     @Override
@@ -368,11 +373,29 @@ public final class AdvancedEssentiaBufferBlockEntity extends BlockEntity
     @Override
     public int takeEssentia(String aspect, int amount, Direction side) {
         if (amount <= 0 || !canOutputTo(side)) return 0;
-        EssentiaStore store = role(side) == AdvancedBufferSideRole.RESERVE_OUTPUT
-                ? returned : supply;
+        EssentiaStore store = outputStore(side);
         if (!store.remove(aspect, 1)) return 0;
         EssentiaSync.changed(this);
         return 1;
+    }
+
+    private EssentiaStore outputStore(@Nullable Direction side) {
+        return side != null
+                && role(side) == AdvancedBufferSideRole.RESERVE_OUTPUT
+                && controller.state() == AdvancedBufferFlowController.State.RESERVE
+                ? returned : supply;
+    }
+
+    private @Nullable String requestedAspect(EssentiaStore store,
+            @Nullable Direction side) {
+        if (level != null && side != null) {
+            EssentiaTransport remote = EssentiaConnections.neighbour(
+                    level, worldPosition, side).orElse(null);
+            String wanted = remote == null ? null
+                    : remote.suctionType(side.getOpposite());
+            if (wanted != null && store.amount(wanted) > 0) return wanted;
+        }
+        return first(store);
     }
 
     @Override

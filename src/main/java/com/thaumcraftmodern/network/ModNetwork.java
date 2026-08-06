@@ -8,9 +8,17 @@ import com.thaumcraftmodern.network.packet.PurchaseResearchPacket;
 import com.thaumcraftmodern.network.packet.RequestResearchNotesPacket;
 import com.thaumcraftmodern.network.packet.ScanFeedbackPacket;
 import com.thaumcraftmodern.network.packet.ThaumatoriumEssentiaSyncPacket;
+import com.thaumcraftmodern.network.packet.ThaumatoriumRecipeSyncPacket;
+import com.thaumcraftmodern.network.packet.GolemBellSyncPacket;
 import com.thaumcraftmodern.network.packet.WarpFeedbackPacket;
 import com.thaumcraftmodern.network.packet.WispZapPacket;
 import com.thaumcraftmodern.network.packet.CycleShovelOrientationPacket;
+import com.thaumcraftmodern.network.packet.ElementalDowsingPacket;
+import com.thaumcraftmodern.network.packet.ChangeWandFocusPacket;
+import com.thaumcraftmodern.network.packet.RunicShieldSyncPacket;
+import com.thaumcraftmodern.network.packet.RunicShieldFxPacket;
+import com.thaumcraftmodern.network.packet.InventoryScanPacket;
+import com.thaumcraftmodern.network.packet.AuraNodeStateSyncPacket;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.server.level.ServerLevel;
@@ -22,7 +30,7 @@ import net.minecraftforge.network.PacketDistributor;
 import net.minecraftforge.network.simple.SimpleChannel;
 
 public final class ModNetwork {
-    private static final String PROTOCOL = "13";
+    private static final String PROTOCOL = "19";
     private static final SimpleChannel CHANNEL = NetworkRegistry.newSimpleChannel(
             new ResourceLocation(ThaumcraftModern.MOD_ID, "main"),
             () -> PROTOCOL,
@@ -107,13 +115,53 @@ public final class ModNetwork {
                 .add();
         CHANNEL.messageBuilder(
                         CycleShovelOrientationPacket.class,
-                        id,
+                        id++,
                         NetworkDirection.PLAY_TO_SERVER
                 )
                 .encoder(CycleShovelOrientationPacket::encode)
                 .decoder(CycleShovelOrientationPacket::decode)
                 .consumerMainThread(CycleShovelOrientationPacket::handle)
                 .add();
+        CHANNEL.messageBuilder(
+                        ElementalDowsingPacket.class,
+                        id++,
+                        NetworkDirection.PLAY_TO_CLIENT
+                )
+                .encoder(ElementalDowsingPacket::encode)
+                .decoder(ElementalDowsingPacket::decode)
+                .consumerMainThread(ElementalDowsingPacket::handle)
+                .add();
+        CHANNEL.messageBuilder(ChangeWandFocusPacket.class, id++, NetworkDirection.PLAY_TO_SERVER)
+                .encoder(ChangeWandFocusPacket::encode)
+                .decoder(ChangeWandFocusPacket::decode)
+                .consumerMainThread(ChangeWandFocusPacket::handle)
+                .add();
+        CHANNEL.messageBuilder(RunicShieldSyncPacket.class, id++, NetworkDirection.PLAY_TO_CLIENT)
+                .encoder(RunicShieldSyncPacket::encode).decoder(RunicShieldSyncPacket::decode)
+                .consumerMainThread(RunicShieldSyncPacket::handle).add();
+        CHANNEL.messageBuilder(RunicShieldFxPacket.class, id++, NetworkDirection.PLAY_TO_CLIENT)
+                .encoder(RunicShieldFxPacket::encode).decoder(RunicShieldFxPacket::decode)
+                .consumerMainThread(RunicShieldFxPacket::handle).add();
+        CHANNEL.messageBuilder(InventoryScanPacket.class, id++,
+                        NetworkDirection.PLAY_TO_SERVER)
+                .encoder(InventoryScanPacket::encode)
+                .decoder(InventoryScanPacket::decode)
+                .consumerMainThread(InventoryScanPacket::handle).add();
+        CHANNEL.messageBuilder(ThaumatoriumRecipeSyncPacket.class, id++,
+                        NetworkDirection.PLAY_TO_CLIENT)
+                .encoder(ThaumatoriumRecipeSyncPacket::encode)
+                .decoder(ThaumatoriumRecipeSyncPacket::decode)
+                .consumerMainThread(ThaumatoriumRecipeSyncPacket::handle).add();
+        CHANNEL.messageBuilder(GolemBellSyncPacket.class, id++,
+                        NetworkDirection.PLAY_TO_CLIENT)
+                .encoder(GolemBellSyncPacket::encode)
+                .decoder(GolemBellSyncPacket::decode)
+                .consumerMainThread(GolemBellSyncPacket::handle).add();
+        CHANNEL.messageBuilder(AuraNodeStateSyncPacket.class, id,
+                        NetworkDirection.PLAY_TO_CLIENT)
+                .encoder(AuraNodeStateSyncPacket::encode)
+                .decoder(AuraNodeStateSyncPacket::decode)
+                .consumerMainThread(AuraNodeStateSyncPacket::handle).add();
     }
 
     public static void sendTo(ServerPlayer player, Object packet) {

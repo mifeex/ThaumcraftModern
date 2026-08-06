@@ -75,6 +75,11 @@ ORE_TAGS: dict[str, tuple[str, str]] = {
 }
 
 ENTITY_IDS = {
+    "Thaumcraft.PrimalOrb": "thaumcraftmodern:primal_orb",
+    # TC4 used one registry identity for every golem material. The port splits
+    # them into entity types; the remaining material types receive sibling
+    # scan definitions carrying the same legacy aspects.
+    "Thaumcraft.Golem": "thaumcraftmodern:straw_golem",
     "Thaumcraft.Firebat": "thaumcraftmodern:firebat",
     "Thaumcraft.Pech": "thaumcraftmodern:pech",
     "Thaumcraft.ThaumSlime": "thaumcraftmodern:thaumic_slime",
@@ -153,18 +158,54 @@ VANILLA_RENAMES = {
 }
 
 VANILLA_META = {
+    # A wildcard legacy wood entry represented every wood species available at
+    # the time. Keep that group identity for all modern wood families as well.
+    ("Blocks", "wooden_button", None): ("block_tag", "minecraft:wooden_buttons"),
+    ("Blocks", "fence_gate", None): ("block_tag", "minecraft:fence_gates"),
+    ("Blocks", "wooden_pressure_plate", None): (
+        "block_tag", "minecraft:wooden_pressure_plates",
+    ),
+    ("Blocks", "trapdoor", None): ("block_tag", "minecraft:wooden_trapdoors"),
+    # Stained glass metadata became sixteen registry entries. Forge's tag is
+    # the exact modern equivalent of the wildcard TC4 registration.
+    ("Blocks", "stained_glass", None): ("block_tag", "forge:stained_glass"),
+    ("Blocks", "stonebrick", None): (
+        "block_tag", "thaumcraftmodern:stone_brick_equivalents",
+    ),
+    ("Blocks", "stonebrick", 1): (
+        "block_tag", "thaumcraftmodern:mossy_stone_brick_equivalents",
+    ),
+    ("Blocks", "sandstone", None): (
+        "block_tag", "thaumcraftmodern:sandstone_equivalents",
+    ),
+    ("Blocks", "sandstone", 1): (
+        "block_tag", "thaumcraftmodern:chiseled_sandstone_equivalents",
+    ),
+    ("Blocks", "sandstone", 2): (
+        "block_tag", "thaumcraftmodern:cut_sandstone_equivalents",
+    ),
+    ("Blocks", "nether_brick", None): (
+        "block_tag", "thaumcraftmodern:nether_brick_equivalents",
+    ),
     ("Blocks", "dirt", 2): ("block", "minecraft:podzol"),
-    ("Blocks", "sandstone", 1): ("block", "minecraft:chiseled_sandstone"),
-    ("Blocks", "sandstone", 2): ("block", "minecraft:cut_sandstone"),
-    ("Blocks", "stonebrick", 1): ("block", "minecraft:mossy_stone_bricks"),
     ("Blocks", "stonebrick", 2): ("block", "minecraft:cracked_stone_bricks"),
     ("Blocks", "stonebrick", 3): ("block", "minecraft:chiseled_stone_bricks"),
     ("Items", "golden_apple", 1): ("item", "minecraft:enchanted_golden_apple"),
-    ("Items", "skull", 0): ("item", "minecraft:skeleton_skull"),
-    ("Items", "skull", 1): ("item", "minecraft:wither_skeleton_skull"),
-    ("Items", "skull", 2): ("item", "minecraft:zombie_head"),
-    ("Items", "skull", 3): ("item", "minecraft:player_head"),
-    ("Items", "skull", 4): ("item", "minecraft:creeper_head"),
+    ("Items", "skull", 0): (
+        "block_tag", "thaumcraftmodern:skeleton_head_blocks",
+    ),
+    ("Items", "skull", 1): (
+        "block_tag", "thaumcraftmodern:wither_skeleton_head_blocks",
+    ),
+    ("Items", "skull", 2): (
+        "block_tag", "thaumcraftmodern:zombie_head_blocks",
+    ),
+    ("Items", "skull", 3): (
+        "block_tag", "thaumcraftmodern:player_head_blocks",
+    ),
+    ("Items", "skull", 4): (
+        "block_tag", "thaumcraftmodern:creeper_head_blocks",
+    ),
 }
 
 RESEARCH_RESOURCE_ICONS = {
@@ -195,8 +236,31 @@ TC_STACKS: dict[tuple[str, int | None], tuple[str, str]] = {
     ("ConfigItems.itemNugget", 0): ("item", "minecraft:iron_nugget"),
     ("ConfigItems.itemNugget", 1): ("item", "minecraft:copper_ingot"),
     ("ConfigItems.itemNugget", 3): ("item", "thaumcraftmodern:silver_nugget"),
-    ("ConfigItems.itemNugget", 5): ("item", "thaumcraftmodern:quicksilver"),
+    ("ConfigItems.itemNugget", 5): (
+        "item",
+        "thaumcraftmodern:quicksilver_nugget",
+    ),
     ("ConfigItems.itemNugget", 6): ("item", "thaumcraftmodern:thaumium_nugget"),
+    ("ConfigItems.itemNugget", 16): ("item", "thaumcraftmodern:native_iron_cluster"),
+    ("ConfigItems.itemNugget", 17): ("item", "thaumcraftmodern:native_copper_cluster"),
+    ("ConfigItems.itemNugget", 18): ("item", "thaumcraftmodern:native_tin_cluster"),
+    ("ConfigItems.itemNugget", 19): ("item", "thaumcraftmodern:native_silver_cluster"),
+    ("ConfigItems.itemNugget", 20): ("item", "thaumcraftmodern:native_lead_cluster"),
+    ("ConfigItems.itemNugget", 31): ("item", "thaumcraftmodern:native_gold_cluster"),
+    ("ConfigItems.itemNuggetBeef", None): ("item", "thaumcraftmodern:beef_nugget"),
+    ("ConfigItems.itemNuggetChicken", None): ("item", "thaumcraftmodern:chicken_nugget"),
+    ("ConfigItems.itemNuggetPork", None): ("item", "thaumcraftmodern:pork_nugget"),
+    ("ConfigItems.itemNuggetFish", None): ("item", "thaumcraftmodern:fish_nugget"),
+    ("ConfigBlocks.blockWoodenDevice", 1): ("block", "thaumcraftmodern:arcane_ear"),
+    ("ConfigItems.itemBaubleBlanks", 3): (
+        "item", "thaumcraftmodern:apprentice_ring_aer",
+    ),
+    ("ConfigBlocks.blockWoodenDevice", 8): (
+        "item_tag", "thaumcraftmodern:thaumcraft_banners",
+    ),
+    ("ConfigBlocks.blockEldritch", None): (
+        "block_tag", "thaumcraftmodern:eldritch_structure_blocks",
+    ),
     ("ConfigItems.itemEldritchObject", 0): ("item", "thaumcraftmodern:eldritch_eye"),
     ("ConfigItems.itemEldritchObject", 1): ("item", "thaumcraftmodern:crimson_rites"),
     ("ConfigItems.itemEldritchObject", 2): ("item", "thaumcraftmodern:void_seed"),
@@ -204,6 +268,70 @@ TC_STACKS: dict[tuple[str, int | None], tuple[str, str]] = {
     ("ConfigItems.itemLootbag", 0): ("item", "thaumcraftmodern:common_loot_bag"),
     ("ConfigItems.itemLootbag", 1): ("item", "thaumcraftmodern:uncommon_loot_bag"),
     ("ConfigItems.itemLootbag", 2): ("item", "thaumcraftmodern:rare_loot_bag"),
+    ("ConfigItems.itemResource", 14): (
+        "item",
+        "thaumcraftmodern:balanced_shard",
+    ),
+    ("ConfigItems.itemHelmetCultistPlate", None): (
+        "item",
+        "thaumcraftmodern:cultist_knight_helmet",
+    ),
+    ("ConfigItems.itemChestCultistPlate", None): (
+        "item",
+        "thaumcraftmodern:cultist_knight_chestplate",
+    ),
+    ("ConfigItems.itemCultistPlate", None): (
+        "item",
+        "thaumcraftmodern:cultist_knight_chestplate",
+    ),
+    ("ConfigItems.itemLegsCultistPlate", None): (
+        "item",
+        "thaumcraftmodern:cultist_knight_leggings",
+    ),
+    ("ConfigItems.itemHelmetCultistRobe", None): (
+        "item",
+        "thaumcraftmodern:cultist_cleric_hood",
+    ),
+    ("ConfigItems.itemChestCultistRobe", None): (
+        "item",
+        "thaumcraftmodern:cultist_cleric_robe",
+    ),
+    ("ConfigItems.itemCultistRobe", None): (
+        "item",
+        "thaumcraftmodern:cultist_cleric_robe",
+    ),
+    ("ConfigItems.itemLegsCultistRobe", None): (
+        "item",
+        "thaumcraftmodern:cultist_cleric_leggings",
+    ),
+    ("ConfigItems.itemHelmetCultistLeaderPlate", None): (
+        "item",
+        "thaumcraftmodern:cultist_praetor_helmet",
+    ),
+    ("ConfigItems.itemHelmetCultistLeader", None): (
+        "item",
+        "thaumcraftmodern:cultist_praetor_helmet",
+    ),
+    ("ConfigItems.itemChestCultistLeaderPlate", None): (
+        "item",
+        "thaumcraftmodern:cultist_praetor_chestplate",
+    ),
+    ("ConfigItems.itemCultistLeader", None): (
+        "item",
+        "thaumcraftmodern:cultist_praetor_chestplate",
+    ),
+    ("ConfigItems.itemLegsCultistLeaderPlate", None): (
+        "item",
+        "thaumcraftmodern:cultist_praetor_leggings",
+    ),
+    ("ConfigItems.itemLegsCultistLeader", None): (
+        "item",
+        "thaumcraftmodern:cultist_praetor_leggings",
+    ),
+    ("ConfigItems.itemBootsCultist", None): (
+        "item",
+        "thaumcraftmodern:cultist_boots",
+    ),
     ("ConfigBlocks.blockCustomOre", 0): ("block", "thaumcraftmodern:cinnabar_ore"),
     ("ConfigBlocks.blockCustomOre", 1): ("block", "thaumcraftmodern:air_infused_stone"),
     ("ConfigBlocks.blockCustomOre", 2): ("block", "thaumcraftmodern:fire_infused_stone"),
@@ -238,8 +366,10 @@ TC_STACKS: dict[tuple[str, int | None], tuple[str, str]] = {
     ("ConfigBlocks.blockCosmeticSolid", 12): ("block", "thaumcraftmodern:ancient_stone"),
     ("ConfigBlocks.blockTable", None): ("block", "thaumcraftmodern:thaumcraft_table"),
     ("ConfigBlocks.blockTable", 15): ("block", "thaumcraftmodern:arcane_workbench"),
+    ("ConfigBlocks.blockTable", 2): ("block", "thaumcraftmodern:research_table"),
     ("ConfigBlocks.blockAlchemyFurnace", None): ("block", "thaumcraftmodern:alchemical_furnace"),
     ("ConfigBlocks.blockMetalDevice", None): ("block", "thaumcraftmodern:crucible"),
+    ("ConfigBlocks.blockCandle", None): ("block", "thaumcraftmodern:tallow_candle"),
     ("ConfigBlocks.blockEldritch", 3): ("block", "thaumcraftmodern:eldritch_altar_part"),
     ("ConfigBlocks.blockEldritch", 4): ("block", "thaumcraftmodern:ancient_stone"),
     ("ConfigBlocks.blockEldritch", 5): ("block", "thaumcraftmodern:ancient_stone"),
@@ -338,6 +468,7 @@ def migrate_scan(path: Path, fields: dict[str, str]) -> bool:
         target_type == "block"
         and not target.startswith("minecraft:")
         and legacy.get("registration_mode") == "recipe_derived_modifier"
+        and not value.get("recipe_derivation")
         and not value.get("inactive")
     ):
         value["inactive"] = True

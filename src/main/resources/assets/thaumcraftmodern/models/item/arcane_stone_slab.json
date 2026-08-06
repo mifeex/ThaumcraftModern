@@ -1,6 +1,3 @@
 {
-  "parent": "minecraft:item/generated",
-  "textures": {
-    "layer0": "thaumcraftmodern:item/knowledgefragment"
-  }
+  "parent": "thaumcraftmodern:block/arcane_stone_slab"
 }

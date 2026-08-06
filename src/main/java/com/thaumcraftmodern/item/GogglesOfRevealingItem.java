@@ -17,12 +17,14 @@ import org.jetbrains.annotations.Nullable;
 import java.util.List;
 
 public final class GogglesOfRevealingItem extends ArmorItem
-        implements VisDiscountGear, ThaumcraftRepairable {
+        implements VisDiscountGear, ThaumcraftRepairable, RevealingGear {
     public static final int VIS_DISCOUNT_PERCENT = 5;
 
     public GogglesOfRevealingItem(Properties properties) {
         super(RevealingArmorMaterial.INSTANCE, Type.HELMET, properties);
     }
+
+    @Override public boolean reveals(ItemStack stack) { return true; }
 
     @Override
     public int visDiscountPercent(

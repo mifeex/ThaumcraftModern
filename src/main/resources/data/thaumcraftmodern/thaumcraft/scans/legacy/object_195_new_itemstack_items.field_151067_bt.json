@@ -4,6 +4,22 @@
   "display": "",
   "aspects": [
     {
+      "id": "ignis",
+      "amount": 3
+    },
+    {
+      "id": "praecantatio",
+      "amount": 1
+    },
+    {
+      "id": "terra",
+      "amount": 2
+    },
+    {
+      "id": "perditio",
+      "amount": 2
+    },
+    {
       "id": "fabrico",
       "amount": 2
     },
@@ -12,8 +28,7 @@
       "amount": 2
     }
   ],
-  "inactive": true,
-  "inactive_reason": "recipe-derived base aspects cannot yet be reproduced safely",
+  "inactive": false,
   "legacy": {
     "registration_mode": "recipe_derived_modifier",
     "target_kind": "item_stack",
@@ -42,5 +57,6 @@
       }
     ],
     "source_expression": "ThaumcraftApi.registerComplexObjectTag(new ItemStack(Items.field_151067_bt), (new AspectList()).add(Aspect.CRAFT, 2).add(Aspect.WATER, 2))"
-  }
+  },
+  "recipe_derivation": "TC4 generateTags base plus the original registered complex-object modifier."
 }

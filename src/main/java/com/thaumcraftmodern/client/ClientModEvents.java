@@ -5,6 +5,16 @@ import com.thaumcraftmodern.client.render.ClassicWandRenderCalibration;
 import com.thaumcraftmodern.client.render.ArcaneWorkbenchBlockEntityRenderer;
 import com.thaumcraftmodern.client.render.RunicMatrixBlockEntityRenderer;
 import com.thaumcraftmodern.client.render.RunicMatrixCubeModel;
+import com.thaumcraftmodern.client.render.ArcaneBellowsBlockEntityRenderer;
+import com.thaumcraftmodern.client.render.ArcaneBellowsModel;
+import com.thaumcraftmodern.client.render.FluxScrubberBlockEntityRenderer;
+import com.thaumcraftmodern.client.render.BrainJarBlockEntityRenderer;
+import com.thaumcraftmodern.client.render.ClassicBrainJarModel;
+import com.thaumcraftmodern.client.render.HungryChestBlockEntityRenderer;
+import com.thaumcraftmodern.client.render.HungryChestModel;
+import com.thaumcraftmodern.client.render.StrawGolemModel;
+import com.thaumcraftmodern.client.render.StrawGolemRenderer;
+import com.thaumcraftmodern.client.render.GolemFishingBobberRenderer;
 import com.thaumcraftmodern.client.render.ArcanePedestalBlockEntityRenderer;
 import com.thaumcraftmodern.client.render.WandRechargePedestalBlockEntityRenderer;
 import com.thaumcraftmodern.client.render.ClientNodeRenderers;
@@ -30,6 +40,8 @@ import com.thaumcraftmodern.client.render.EssentiaReservoirBlockEntityRenderer;
 import com.thaumcraftmodern.client.render.ThaumatoriumBlockEntityRenderer;
 import com.thaumcraftmodern.client.render.ClassicManaPodModel;
 import com.thaumcraftmodern.client.render.ThaumaturgeRobeArmorModel;
+import com.thaumcraftmodern.client.render.FortressArmorModel;
+import com.thaumcraftmodern.client.render.MagicMirrorBlockEntityRenderer;
 import com.thaumcraftmodern.client.render.ManaPodBlockEntityRenderer;
 import com.thaumcraftmodern.client.render.EnergizedAuraNodeBlockEntityRenderer;
 import com.thaumcraftmodern.client.render.NodeDeviceBlockEntityRenderer;
@@ -43,6 +55,8 @@ import com.thaumcraftmodern.client.screen.DeconstructionTableScreen;
 import com.thaumcraftmodern.client.screen.ResearchTableScreen;
 import com.thaumcraftmodern.client.screen.PechScreen;
 import com.thaumcraftmodern.client.screen.ThaumatoriumScreen;
+import com.thaumcraftmodern.client.screen.HandMirrorScreen;
+import com.thaumcraftmodern.client.screen.GolemScreen;
 import com.thaumcraftmodern.item.AspectShardItem;
 import com.thaumcraftmodern.item.EtherealEssenceItem;
 import com.thaumcraftmodern.item.EssentiaPhialItem;
@@ -51,6 +65,7 @@ import com.thaumcraftmodern.item.ThaumaturgeRobeItem;
 import com.thaumcraftmodern.registry.ModBlockEntities;
 import com.thaumcraftmodern.registry.ModBlocks;
 import com.thaumcraftmodern.registry.ModItems;
+import com.thaumcraftmodern.registry.ModEntities;
 import com.thaumcraftmodern.registry.ModMenus;
 import com.thaumcraftmodern.registry.ModParticles;
 import com.thaumcraftmodern.client.particle.NodeBurstParticle;
@@ -62,6 +77,8 @@ import com.thaumcraftmodern.client.particle.CrucibleBubbleParticle;
 import com.thaumcraftmodern.client.particle.TubeVentParticle;
 import net.minecraft.client.gui.screens.MenuScreens;
 import net.minecraft.client.renderer.item.ItemProperties;
+import net.minecraft.client.renderer.entity.ThrownItemRenderer;
+import net.minecraft.client.renderer.entity.NoopRenderer;
 import net.minecraft.client.renderer.BiomeColors;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.api.distmarker.Dist;
@@ -77,6 +94,7 @@ import java.util.concurrent.ThreadLocalRandom;
 import net.minecraftforge.client.event.RegisterClientReloadListenersEvent;
 import net.minecraftforge.client.event.RegisterGuiOverlaysEvent;
 import net.minecraftforge.client.event.ModelEvent;
+import com.thaumcraftmodern.client.render.InfernalFurnaceBakedModel;
 import net.minecraftforge.client.event.RegisterParticleProvidersEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -101,6 +119,10 @@ public final class ClientModEvents {
                     AlchemicalFurnaceScreen::new
             );
             MenuScreens.register(ModMenus.THAUMATORIUM.get(), ThaumatoriumScreen::new);
+            MenuScreens.register(ModMenus.HAND_MIRROR.get(), HandMirrorScreen::new);
+            MenuScreens.register(ModMenus.FOCAL_MANIPULATOR.get(),
+                    com.thaumcraftmodern.client.screen.FocalManipulatorScreen::new);
+            MenuScreens.register(ModMenus.GOLEM.get(), GolemScreen::new);
             ItemProperties.register(
                     ModItems.ESSENTIA_PHIAL.get(),
                     ResourceLocation.fromNamespaceAndPath(
@@ -111,6 +133,10 @@ public final class ClientModEvents {
                             EssentiaPhialItem.aspect(stack).isPresent()
                                     ? 1.0F : 0.0F
             );
+            ItemProperties.register(ModItems.SINISTER_LODESTONE.get(),
+                    ResourceLocation.fromNamespaceAndPath(ThaumcraftModern.MOD_ID, "active"),
+                    (stack, level, entity, seed) -> level != null && entity != null
+                            && ClientSinisterNodeTracker.pointsAt(level,entity) ? 1.0F : 0.0F);
         });
     }
 
@@ -127,7 +153,21 @@ public final class ClientModEvents {
     }
 
     @SubscribeEvent
+    public static void modifyBakedModels(ModelEvent.ModifyBakingResult event) {
+        InfernalFurnaceBakedModel.wrapModels(event);
+    }
+
+    @SubscribeEvent
     public static void registerItemColors(RegisterColorHandlersEvent.Item event) {
+        event.register(
+                (stack, tintIndex) -> stack.getItem()
+                        instanceof com.thaumcraftmodern.item.AspectRingItem ring
+                        ? 0xFF000000 | ring.color()
+                        : 0xFFFFFFFF,
+                ModItems.ASPECT_RINGS.values().stream()
+                        .map(net.minecraftforge.registries.RegistryObject::get)
+                        .toArray(net.minecraft.world.item.Item[]::new)
+        );
         event.register(
                 (stack, tintIndex) -> stack.getItem() instanceof AspectShardItem shard
                         ? 0xFF000000 | shard.color()
@@ -254,6 +294,18 @@ public final class ClientModEvents {
     public static void registerRenderers(
             EntityRenderersEvent.RegisterRenderers event
     ) {
+        event.registerEntityRenderer(ModEntities.FROST_SHARD.get(), ThrownItemRenderer::new);
+        event.registerEntityRenderer(ModEntities.PRIMAL_ORB.get(), NoopRenderer::new);
+        event.registerEntityRenderer(ModEntities.FOCUS_EMBER.get(), NoopRenderer::new);
+        event.registerEntityRenderer(ModEntities.GOLEM_FISHING_BOBBER.get(), GolemFishingBobberRenderer::new);
+        event.registerEntityRenderer(ModEntities.STRAW_GOLEM.get(), StrawGolemRenderer::new);
+        event.registerEntityRenderer(ModEntities.WOOD_GOLEM.get(), StrawGolemRenderer::new);
+        event.registerEntityRenderer(ModEntities.TALLOW_GOLEM.get(), StrawGolemRenderer::new);
+        event.registerEntityRenderer(ModEntities.CLAY_GOLEM.get(), StrawGolemRenderer::new);
+        event.registerEntityRenderer(ModEntities.FLESH_GOLEM.get(), StrawGolemRenderer::new);
+        event.registerEntityRenderer(ModEntities.STONE_GOLEM.get(), StrawGolemRenderer::new);
+        event.registerEntityRenderer(ModEntities.IRON_GOLEM.get(), StrawGolemRenderer::new);
+        event.registerEntityRenderer(ModEntities.THAUMIUM_GOLEM.get(), StrawGolemRenderer::new);
         ClientNodeRenderers.register(
                 event,
                 ModBlockEntities.AURA_NODE.get(),
@@ -298,6 +350,14 @@ public final class ClientModEvents {
                 RunicMatrixBlockEntityRenderer::new
         );
         event.registerBlockEntityRenderer(
+                ModBlockEntities.ARCANE_BELLOWS.get(),
+                ArcaneBellowsBlockEntityRenderer::new
+        );
+        event.registerBlockEntityRenderer(ModBlockEntities.FLUX_SCRUBBER.get(),
+                FluxScrubberBlockEntityRenderer::new);
+        event.registerBlockEntityRenderer(ModBlockEntities.BRAIN_JAR.get(),BrainJarBlockEntityRenderer::new);
+        event.registerBlockEntityRenderer(ModBlockEntities.HUNGRY_CHEST.get(), HungryChestBlockEntityRenderer::new);
+        event.registerBlockEntityRenderer(
                 ModBlockEntities.RESEARCH_TABLE.get(),
                 ResearchTableBlockEntityRenderer::new
         );
@@ -305,6 +365,8 @@ public final class ClientModEvents {
                 ModBlockEntities.DECONSTRUCTION_TABLE.get(),
                 DeconstructionTableBlockEntityRenderer::new
         );
+        event.registerBlockEntityRenderer(ModBlockEntities.WARDED_BLOCK.get(),
+                com.thaumcraftmodern.client.render.WardedBlockEntityRenderer::new);
         event.registerBlockEntityRenderer(
                 ModBlockEntities.CRYSTAL_CLUSTER.get(),
                 CrystalClusterRenderer::new
@@ -365,6 +427,14 @@ public final class ClientModEvents {
                 ModBlockEntities.MANA_POD.get(),
                 ManaPodBlockEntityRenderer::new
         );
+        event.registerBlockEntityRenderer(
+                ModBlockEntities.MAGIC_MIRROR.get(),
+                MagicMirrorBlockEntityRenderer::new
+        );
+        event.registerBlockEntityRenderer(
+                ModBlockEntities.ESSENTIA_MIRROR.get(),
+                MagicMirrorBlockEntityRenderer::new
+        );
     }
 
     @SubscribeEvent
@@ -375,6 +445,13 @@ public final class ClientModEvents {
                 RunicMatrixCubeModel.LAYER,
                 RunicMatrixCubeModel::createBodyLayer
         );
+        event.registerLayerDefinition(
+                ArcaneBellowsModel.LAYER,
+                ArcaneBellowsModel::createBodyLayer
+        );
+        event.registerLayerDefinition(ClassicBrainJarModel.LAYER,ClassicBrainJarModel::createBodyLayer);
+        event.registerLayerDefinition(HungryChestModel.LAYER,HungryChestModel::createBodyLayer);
+        event.registerLayerDefinition(StrawGolemModel.LAYER,StrawGolemModel::createBodyLayer);
         event.registerLayerDefinition(
                 ClassicManaPodModel.LAYER,
                 ClassicManaPodModel::createBodyLayer
@@ -403,6 +480,10 @@ public final class ClientModEvents {
                 ThaumaturgeRobeArmorModel.OUTER_LAYER,
                 ThaumaturgeRobeArmorModel::createOuterLayer
         );
+        event.registerLayerDefinition(
+                FortressArmorModel.LAYER,
+                FortressArmorModel::createLayer
+        );
     }
 
     @SubscribeEvent
@@ -421,6 +502,7 @@ public final class ClientModEvents {
                 ClientScanOverlay::renderNotification
         );
         event.registerAboveAll("warp", ClientWarpOverlay::render);
+        event.registerAboveAll("runic_shield", ClientRunicShieldOverlay::render);
     }
 
     @SubscribeEvent

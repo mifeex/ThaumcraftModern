@@ -4,6 +4,18 @@
   "display": "",
   "aspects": [
     {
+      "id": "metallum",
+      "amount": 18
+    },
+    {
+      "id": "lucrum",
+      "amount": 12
+    },
+    {
+      "id": "messis",
+      "amount": 1
+    },
+    {
       "id": "praecantatio",
       "amount": 2
     },
@@ -12,8 +24,7 @@
       "amount": 4
     }
   ],
-  "inactive": true,
-  "inactive_reason": "recipe-derived base aspects cannot yet be reproduced safely",
+  "inactive": false,
   "legacy": {
     "registration_mode": "recipe_derived_modifier",
     "target_kind": "item_stack",
@@ -42,5 +53,6 @@
       }
     ],
     "source_expression": "ThaumcraftApi.registerComplexObjectTag(new ItemStack(Items.field_151153_ao, 1, 0), (new AspectList()).add(Aspect.MAGIC, 2).add(Aspect.HEAL, 4))"
-  }
+  },
+  "recipe_derivation": "TC4 generateTags base plus the original registered complex-object modifier."
 }

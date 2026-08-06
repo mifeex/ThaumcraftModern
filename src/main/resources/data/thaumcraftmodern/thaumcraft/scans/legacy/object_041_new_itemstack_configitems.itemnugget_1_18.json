@@ -1,6 +1,6 @@
 {
-  "type": "legacy_object",
-  "target": "new ItemStack(ConfigItems.itemNugget, 1, 18)",
+  "type": "item",
+  "target": "thaumcraftmodern:native_tin_cluster",
   "display": "",
   "aspects": [
     {
@@ -20,8 +20,7 @@
       "amount": 2
     }
   ],
-  "inactive": true,
-  "inactive_reason": "legacy item, metadata, or Ore Dictionary target is not mapped",
+  "inactive": false,
   "legacy": {
     "registration_mode": "explicit",
     "target_kind": "item_stack",

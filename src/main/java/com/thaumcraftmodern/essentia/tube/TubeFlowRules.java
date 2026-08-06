@@ -1,6 +1,7 @@
 package com.thaumcraftmodern.essentia.tube;
 
 import net.minecraft.core.Direction;
+import org.jetbrains.annotations.Nullable;
 
 /** Exact directional and suction rules used by TC4's tube subclasses. */
 public final class TubeFlowRules {
@@ -21,6 +22,13 @@ public final class TubeFlowRules {
         return policy.restrictedSuction()
                 ? remoteSuction / 2
                 : remoteSuction - 1;
+    }
+
+    /** A typed destination chooses what a multi-aspect source must provide. */
+    public static @Nullable String requestedAspect(
+            @Nullable String suctionType,
+            @Nullable String advertisedSourceType) {
+        return suctionType != null ? suctionType : advertisedSourceType;
     }
 
     /** The selected facing points away from the side used to receive suction. */

@@ -8,8 +8,13 @@ import com.thaumcraftmodern.network.packet.KnowledgeSyncPacket;
 import com.thaumcraftmodern.network.packet.NodeZapPacket;
 import com.thaumcraftmodern.network.packet.ScanFeedbackPacket;
 import com.thaumcraftmodern.network.packet.ThaumatoriumEssentiaSyncPacket;
+import com.thaumcraftmodern.network.packet.ThaumatoriumRecipeSyncPacket;
+import com.thaumcraftmodern.network.packet.GolemBellSyncPacket;
 import com.thaumcraftmodern.network.packet.WarpFeedbackPacket;
 import com.thaumcraftmodern.network.packet.WispZapPacket;
+import com.thaumcraftmodern.network.packet.ElementalDowsingPacket;
+import com.thaumcraftmodern.network.packet.AuraNodeStateSyncPacket;
+import com.thaumcraftmodern.aura.AuraNodeBlockEntity;
 import com.thaumcraftmodern.client.render.ClientWispZapRenderer;
 import com.thaumcraftmodern.client.render.ClientNodeZapRenderer;
 import com.thaumcraftmodern.research.ResearchCategoryRegistry;
@@ -19,6 +24,7 @@ import com.thaumcraftmodern.scan.ScanRegistry;
 import com.thaumcraftmodern.wand.WandComponentRegistry;
 import net.minecraft.client.Minecraft;
 import com.thaumcraftmodern.world.block.entity.ThaumatoriumBlockEntity;
+import com.thaumcraftmodern.world.menu.ThaumatoriumMenu;
 
 public final class ClientPacketHandlers {
     private ClientPacketHandlers() {
@@ -69,6 +75,7 @@ public final class ClientPacketHandlers {
     }
 
     public static void handleScanFeedback(ScanFeedbackPacket packet) {
+        InventoryThaumometerEvents.onScanFeedback();
         ClientThaumometerResultState.accept(packet);
         ClientScanOverlay.show(packet);
     }
@@ -85,6 +92,14 @@ public final class ClientPacketHandlers {
         ClientNodeZapRenderer.accept(packet);
     }
 
+    public static void handleElementalDowsing(ElementalDowsingPacket packet) {
+        ElementalDowsingClient.start(
+                packet.center(),
+                packet.radius(),
+                packet.durationMillis()
+        );
+    }
+
     public static void handleThaumatoriumEssentia(
             ThaumatoriumEssentiaSyncPacket packet
     ) {
@@ -93,6 +108,39 @@ public final class ClientPacketHandlers {
                 && minecraft.level.getBlockEntity(packet.position())
                 instanceof ThaumatoriumBlockEntity machine) {
             machine.applyClientEssentiaSnapshot(packet.essentia());
+        }
+    }
+
+    public static void handleThaumatoriumRecipes(
+            ThaumatoriumRecipeSyncPacket packet
+    ) {
+        Minecraft minecraft = Minecraft.getInstance();
+        if (minecraft.player != null
+                && minecraft.player.containerMenu instanceof ThaumatoriumMenu menu
+                && menu.containerId == packet.containerId()) {
+            menu.applyRecipeSnapshot(
+                    packet.recipes(),
+                    packet.craftableRecipes(),
+                    packet.selectedRecipes(),
+                    packet.formulaCapacity(),
+                    packet.displayedRecipe()
+            );
+        }
+    }
+
+    public static void handleGolemBellSync(GolemBellSyncPacket packet) {
+        Minecraft minecraft = Minecraft.getInstance();
+        if (minecraft.player != null) {
+            minecraft.player.setItemInHand(packet.hand(), packet.bell().copy());
+        }
+    }
+
+    public static void handleAuraNodeState(AuraNodeStateSyncPacket packet) {
+        Minecraft minecraft = Minecraft.getInstance();
+        if (minecraft.level != null
+                && minecraft.level.getBlockEntity(packet.position())
+                instanceof AuraNodeBlockEntity node) {
+            node.load(packet.state());
         }
     }
 

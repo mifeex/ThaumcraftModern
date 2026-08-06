@@ -4,6 +4,19 @@ import com.thaumcraftmodern.ThaumcraftModern;
 import com.thaumcraftmodern.aura.AuraNodeBlockEntity;
 import com.thaumcraftmodern.nodejar.JarredAuraNodeBlockEntity;
 import com.thaumcraftmodern.world.block.entity.ArcaneWorkbenchBlockEntity;
+import com.thaumcraftmodern.world.block.entity.ArcaneBellowsBlockEntity;
+import com.thaumcraftmodern.world.block.entity.ArcaneLevitatorBlockEntity;
+import com.thaumcraftmodern.world.block.entity.ArcaneLampBlockEntity;
+import com.thaumcraftmodern.world.block.entity.GrowthLampBlockEntity;
+import com.thaumcraftmodern.world.block.entity.FertilityLampBlockEntity;
+import com.thaumcraftmodern.world.block.entity.ItemGrateBlockEntity;
+import com.thaumcraftmodern.world.block.entity.BrainJarBlockEntity;
+import com.thaumcraftmodern.world.block.entity.HungryChestBlockEntity;
+import com.thaumcraftmodern.world.block.entity.FluxScrubberBlockEntity;
+import com.thaumcraftmodern.world.block.entity.FocalManipulatorBlockEntity;
+import com.thaumcraftmodern.world.block.entity.TemporaryHoleBlockEntity;
+import com.thaumcraftmodern.world.block.entity.WardedBlockEntity;
+import com.thaumcraftmodern.world.block.entity.ArcaneDoorBlockEntity;
 import com.thaumcraftmodern.world.block.entity.ArcanePedestalBlockEntity;
 import com.thaumcraftmodern.world.block.entity.WandRechargePedestalBlockEntity;
 import com.thaumcraftmodern.world.block.entity.RunicMatrixBlockEntity;
@@ -29,6 +42,8 @@ import com.thaumcraftmodern.world.block.entity.EtherealBloomBlockEntity;
 import com.thaumcraftmodern.world.block.entity.ManaPodBlockEntity;
 import com.thaumcraftmodern.world.block.entity.MnemonicMatrixBlockEntity;
 import com.thaumcraftmodern.world.block.entity.NitorBlockEntity;
+import com.thaumcraftmodern.world.block.entity.MagicMirrorBlockEntity;
+import com.thaumcraftmodern.world.block.entity.EssentiaMirrorBlockEntity;
 import com.thaumcraftmodern.world.block.entity.PavingStoneOfWardingBlockEntity;
 import com.thaumcraftmodern.world.block.entity.ResearchTableBlockEntity;
 import com.thaumcraftmodern.world.block.entity.WardingAuraBlockEntity;
@@ -48,6 +63,45 @@ import net.minecraftforge.registries.RegistryObject;
 public final class ModBlockEntities {
     public static final DeferredRegister<BlockEntityType<?>> BLOCK_ENTITIES =
             DeferredRegister.create(ForgeRegistries.BLOCK_ENTITY_TYPES, ThaumcraftModern.MOD_ID);
+
+    public static final RegistryObject<BlockEntityType<ArcaneBellowsBlockEntity>>
+            ARCANE_BELLOWS = BLOCK_ENTITIES.register("arcane_bellows",
+                    () -> BlockEntityType.Builder.of(ArcaneBellowsBlockEntity::new,
+                            ModBlocks.ARCANE_BELLOWS.get()).build(null));
+    public static final RegistryObject<BlockEntityType<ArcaneLevitatorBlockEntity>> ARCANE_LEVITATOR =
+            BLOCK_ENTITIES.register("arcane_levitator", () -> BlockEntityType.Builder.of(
+                    ArcaneLevitatorBlockEntity::new, ModBlocks.ARCANE_LEVITATOR.get()).build(null));
+    public static final RegistryObject<BlockEntityType<ArcaneLampBlockEntity>> ARCANE_LAMP =
+            BLOCK_ENTITIES.register("arcane_lamp", () -> BlockEntityType.Builder.of(
+                    ArcaneLampBlockEntity::new, ModBlocks.ARCANE_LAMP.get()).build(null));
+    public static final RegistryObject<BlockEntityType<GrowthLampBlockEntity>> GROWTH_LAMP =
+            BLOCK_ENTITIES.register("lamp_growth", () -> BlockEntityType.Builder.of(
+                    GrowthLampBlockEntity::new, ModBlocks.GROWTH_LAMP.get()).build(null));
+    public static final RegistryObject<BlockEntityType<FertilityLampBlockEntity>> FERTILITY_LAMP =
+            BLOCK_ENTITIES.register("lamp_fertility", () -> BlockEntityType.Builder.of(
+                    FertilityLampBlockEntity::new, ModBlocks.FERTILITY_LAMP.get()).build(null));
+    public static final RegistryObject<BlockEntityType<ItemGrateBlockEntity>> ITEM_GRATE =
+            BLOCK_ENTITIES.register("item_grate", () -> BlockEntityType.Builder.of(
+                    ItemGrateBlockEntity::new, ModBlocks.ITEM_GRATE.get()).build(null));
+    public static final RegistryObject<BlockEntityType<BrainJarBlockEntity>> BRAIN_JAR =
+            BLOCK_ENTITIES.register("brain_jar", () -> BlockEntityType.Builder.of(
+                    BrainJarBlockEntity::new, ModBlocks.BRAIN_JAR.get()).build(null));
+    public static final RegistryObject<BlockEntityType<HungryChestBlockEntity>> HUNGRY_CHEST =
+            BLOCK_ENTITIES.register("hungry_chest", () -> BlockEntityType.Builder.of(
+                    HungryChestBlockEntity::new, ModBlocks.HUNGRY_CHEST.get()).build(null));
+    public static final RegistryObject<BlockEntityType<FluxScrubberBlockEntity>> FLUX_SCRUBBER =
+            BLOCK_ENTITIES.register("flux_scrubber", () -> BlockEntityType.Builder.of(
+                    FluxScrubberBlockEntity::new, ModBlocks.FLUX_SCRUBBER.get()).build(null));
+    public static final RegistryObject<BlockEntityType<ArcaneDoorBlockEntity>> ARCANE_DOOR=
+            BLOCK_ENTITIES.register("arcane_door",()->BlockEntityType.Builder.of(ArcaneDoorBlockEntity::new,ModBlocks.ARCANE_DOOR.get()).build(null));
+    public static final RegistryObject<BlockEntityType<MagicMirrorBlockEntity>>
+            MAGIC_MIRROR = BLOCK_ENTITIES.register("magic_mirror",
+                    () -> BlockEntityType.Builder.of(MagicMirrorBlockEntity::new,
+                            ModBlocks.MAGIC_MIRROR.get()).build(null));
+    public static final RegistryObject<BlockEntityType<EssentiaMirrorBlockEntity>>
+            ESSENTIA_MIRROR = BLOCK_ENTITIES.register("essentia_mirror",
+                    () -> BlockEntityType.Builder.of(EssentiaMirrorBlockEntity::new,
+                            ModBlocks.ESSENTIA_MIRROR.get()).build(null));
 
     public static final RegistryObject<BlockEntityType<ResearchTableBlockEntity>> RESEARCH_TABLE =
             BLOCK_ENTITIES.register("research_table",
@@ -79,6 +133,16 @@ public final class ModBlockEntities {
                             ModBlocks.DECONSTRUCTION_TABLE.get()
                     ).build(null)
             );
+    public static final RegistryObject<BlockEntityType<FocalManipulatorBlockEntity>>
+            FOCAL_MANIPULATOR = BLOCK_ENTITIES.register("focal_manipulator",
+                    () -> BlockEntityType.Builder.of(FocalManipulatorBlockEntity::new,
+                            ModBlocks.FOCAL_MANIPULATOR.get()).build(null));
+    public static final RegistryObject<BlockEntityType<TemporaryHoleBlockEntity>> TEMPORARY_HOLE =
+            BLOCK_ENTITIES.register("temporary_hole", () -> BlockEntityType.Builder.of(
+                    TemporaryHoleBlockEntity::new, ModBlocks.TEMPORARY_HOLE.get()).build(null));
+    public static final RegistryObject<BlockEntityType<WardedBlockEntity>> WARDED_BLOCK =
+            BLOCK_ENTITIES.register("warded_block", () -> BlockEntityType.Builder.of(
+                    WardedBlockEntity::new, ModBlocks.WARDED_BLOCK.get()).build(null));
     public static final RegistryObject<BlockEntityType<CrystalClusterBlockEntity>>
             CRYSTAL_CLUSTER = BLOCK_ENTITIES.register(
                     "crystal_cluster",

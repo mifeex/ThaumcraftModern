@@ -25,16 +25,19 @@ final class ClassicWandModel {
     private static final String ROD = "rod";
     private static final String TOP_CAP = "top_cap";
     private static final String BOTTOM_CAP = "bottom_cap";
+    private static final String FOCUS = "focus";
 
     private final ModelPart rod;
     private final ModelPart topCap;
     private final ModelPart bottomCap;
+    private final ModelPart focus;
 
     ClassicWandModel() {
         ModelPart root = createBodyLayer().bakeRoot();
         rod = root.getChild(ROD);
         topCap = root.getChild(TOP_CAP);
         bottomCap = root.getChild(BOTTOM_CAP);
+        focus = root.getChild(FOCUS);
     }
 
     private static LayerDefinition createBodyLayer() {
@@ -58,6 +61,12 @@ final class ClassicWandModel {
                 BOTTOM_CAP,
                 cap(),
                 PartPose.offset(0.0F, 20.0F, 0.0F)
+        );
+        root.addOrReplaceChild(
+                FOCUS,
+                CubeListBuilder.create().texOffs(0, 0).addBox(
+                        -3.0F, -6.0F, -3.0F, 6.0F, 6.0F, 6.0F),
+                PartPose.ZERO
         );
 
         return LayerDefinition.create(mesh, 64, 32);
@@ -100,6 +109,11 @@ final class ClassicWandModel {
         bottomCap.render(poseStack, vertices, light, overlay);
         renderCapClosure(poseStack.last(), vertices, light, overlay,
                 21.01F / 16.0F, 1.0F);
+    }
+
+    void renderFocus(PoseStack poseStack, VertexConsumer vertices, int light,
+                     int overlay, float red, float green, float blue, float alpha) {
+        focus.render(poseStack, vertices, light, overlay, red, green, blue, alpha);
     }
 
     /**

@@ -3,7 +3,7 @@ package com.thaumcraftmodern.world.block.entity;
 import com.thaumcraftmodern.construction.CraftingStructureDisassembly;
 import com.thaumcraftmodern.aspect.AspectDefinition;
 import com.thaumcraftmodern.aspect.AspectRegistryRuntime;
-import com.thaumcraftmodern.essentia.EssentiaTransport;
+import com.thaumcraftmodern.essentia.EssentiaAirHandler;
 import com.thaumcraftmodern.infusion.InfusionRecipeDefinition;
 import com.thaumcraftmodern.infusion.InfusionRecipeRegistry;
 import com.thaumcraftmodern.infusion.InfusionInstability;
@@ -80,6 +80,7 @@ public final class RunicMatrixBlockEntity extends BlockEntity {
     private int symmetry;
     private int instability;
     private int recipeInstability;
+    private int remainingExperienceLevels;
     private @Nullable ResourceLocation recipeId;
     private @Nullable UUID ownerId;
     private ItemStack centralSnapshot = ItemStack.EMPTY;
@@ -184,12 +185,14 @@ public final class RunicMatrixBlockEntity extends BlockEntity {
         centralSnapshot = center.item().copy();
         centralSnapshot.setCount(1);
         remainingEssentia.clear();
-        remainingEssentia.putAll(recipe.essentia());
+        remainingEssentia.putAll(recipe.effectiveEssentia(centralSnapshot));
         remainingComponents.clear();
-        for (int index = 0; index < recipe.components().size(); index++) {
+        for (int index = 0;
+                index < recipe.effectiveComponents(centralSnapshot).size(); index++) {
             remainingComponents.add(index);
         }
-        recipeInstability = recipe.instability();
+        recipeInstability = recipe.effectiveInstability(centralSnapshot);
+        remainingExperienceLevels = recipe.experienceLevels(centralSnapshot);
         componentCharge = 0;
         refreshSymmetry();
         instability = symmetry + recipeInstability;
@@ -216,6 +219,30 @@ public final class RunicMatrixBlockEntity extends BlockEntity {
         }
         if (!validInput) {
             fail(level);
+            return;
+        }
+        if (remainingExperienceLevels > 0) {
+            List<net.minecraft.world.entity.player.Player> players =
+                    level.getEntitiesOfClass(
+                            net.minecraft.world.entity.player.Player.class,
+                            effectBounds());
+            for (net.minecraft.world.entity.player.Player player : players) {
+                if (player.experienceLevel <= 0) continue;
+                player.giveExperienceLevels(-1);
+                remainingExperienceLevels--;
+                int damage = level.random.nextInt(2);
+                if (damage > 0) player.hurt(level.damageSources().magic(), damage);
+                level.playSound(null, player.blockPosition(),
+                        net.minecraft.sounds.SoundEvents.FIRE_EXTINGUISH,
+                        SoundSource.PLAYERS, 1.0F,
+                        2.0F + level.random.nextFloat() * 0.4F);
+                setEffect(player.blockPosition(), 0xCC66FF, 20,
+                        EffectType.ESSENTIA);
+                sync();
+                return;
+            }
+            if (!players.isEmpty()) addMissingIngredientInstability(level, 3);
+            sync();
             return;
         }
         boolean needsEssentia = false;
@@ -250,7 +277,8 @@ public final class RunicMatrixBlockEntity extends BlockEntity {
                  pendingIndex < remainingComponents.size();
                  pendingIndex++) {
                 int componentIndex = remainingComponents.get(pendingIndex);
-                Ingredient ingredient = recipe.components().get(componentIndex);
+                Ingredient ingredient = recipe.effectiveComponents(centralSnapshot)
+                        .get(componentIndex);
                 ArcanePedestalBlockEntity pedestal = findPedestalWith(ingredient);
                 if (pedestal == null) {
                     addMissingIngredientInstability(level, 1 + pendingIndex);
@@ -280,22 +308,14 @@ public final class RunicMatrixBlockEntity extends BlockEntity {
     }
 
     private @Nullable BlockPos drainOneEssentia(ServerLevel level, String aspect) {
-        for (int x = -ESSENTIA_RANGE; x <= ESSENTIA_RANGE; x++) {
-            for (int y = -ESSENTIA_RANGE; y <= ESSENTIA_RANGE; y++) {
-                for (int z = -ESSENTIA_RANGE; z <= ESSENTIA_RANGE; z++) {
-                    BlockPos sourcePos = worldPosition.offset(x, y, z);
-                    if (sourcePos.equals(worldPosition) || !level.hasChunkAt(sourcePos)) continue;
-                    if (!(level.getBlockEntity(sourcePos) instanceof EssentiaTransport source)) continue;
-                    for (Direction side : Direction.values()) {
-                        if (source.canOutputTo(side)
-                                && source.takeEssentia(aspect, 1, side) == 1) {
-                            return sourcePos;
-                        }
-                    }
-                }
-            }
-        }
-        return null;
+        return EssentiaAirHandler.drain(
+                level,
+                worldPosition,
+                aspect,
+                null,
+                ESSENTIA_RANGE,
+                false
+        );
     }
 
     private void increaseInstabilityRandom(ServerLevel level, int bound) {
@@ -524,10 +544,11 @@ public final class RunicMatrixBlockEntity extends BlockEntity {
 
     private void finish(ServerLevel level, ArcanePedestalBlockEntity center,
             InfusionRecipeDefinition recipe) {
-        center.setInfusionItem(recipe.output());
+        center.setInfusionItem(recipe.createResult(center.item()));
         crafting = false;
         instability = 0;
         recipeInstability = 0;
+        remainingExperienceLevels = 0;
         componentCharge = 0;
         remainingEssentia.clear();
         remainingComponents.clear();
@@ -556,6 +577,7 @@ public final class RunicMatrixBlockEntity extends BlockEntity {
         componentCharge = 0;
         instability = 0;
         recipeInstability = 0;
+        remainingExperienceLevels = 0;
         effectType = EffectType.NONE;
         level.playSound(null, worldPosition, ModSounds.CRAFT_FAIL.get(),
                 SoundSource.BLOCKS, 1.0F, 0.6F);
@@ -682,6 +704,7 @@ public final class RunicMatrixBlockEntity extends BlockEntity {
         tag.putInt("Symmetry", symmetry);
         tag.putInt("Instability", instability);
         tag.putInt("RecipeInstability", recipeInstability);
+        tag.putInt("RecipeExperience", remainingExperienceLevels);
         if (recipeId != null) tag.putString("Recipe", recipeId.toString());
         if (ownerId != null) tag.putUUID("Owner", ownerId);
         if (!centralSnapshot.isEmpty()) tag.put("Central", centralSnapshot.save(new CompoundTag()));
@@ -708,6 +731,7 @@ public final class RunicMatrixBlockEntity extends BlockEntity {
         componentCharge = Math.max(0, tag.getInt("ComponentCharge"));
         symmetry = tag.getInt("Symmetry");
         recipeInstability = Math.max(0, tag.getInt("RecipeInstability"));
+        remainingExperienceLevels = Math.max(0, tag.getInt("RecipeExperience"));
         instability = tag.contains("Instability", Tag.TAG_INT)
                 ? tag.getInt("Instability")
                 : symmetry + recipeInstability;

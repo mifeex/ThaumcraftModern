@@ -12,8 +12,10 @@ import com.thaumcraftmodern.config.ThaumcraftModernClientConfig;
 import com.thaumcraftmodern.crucible.CrucibleRecipeDefinition;
 import com.thaumcraftmodern.crucible.CrucibleRecipeRegistry;
 import com.thaumcraftmodern.construction.InfusionAltarResearchRecipe;
+import com.thaumcraftmodern.construction.InfernalFurnaceResearchRecipe;
 import com.thaumcraftmodern.construction.ThaumatoriumResearchRecipe;
 import com.thaumcraftmodern.item.ResearchNotesItem;
+import com.thaumcraftmodern.item.RunicShieldService;
 import com.thaumcraftmodern.item.ScribingToolsItem;
 import com.thaumcraftmodern.knowledge.KnowledgeAccess;
 import com.thaumcraftmodern.knowledge.PlayerThaumKnowledge;
@@ -53,6 +55,7 @@ import net.minecraft.world.item.crafting.AbstractCookingRecipe;
 import net.minecraft.world.item.crafting.CraftingRecipe;
 import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.ShapedRecipe;
+import net.minecraft.world.level.block.Blocks;
 
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -115,7 +118,7 @@ public final class ThaumonomiconScreen extends Screen {
     private static final int RESEARCH_ICON_SIZE = 16;
     private static final int RESEARCH_ICON_OFFSET = 5;
     /** Exact TC4 GuiResearchBrowser incomplete-node brightness values. */
-    private static final long RESEARCH_AVAILABLE_PULSE_MILLIS = 600L;
+    private static final long RESEARCH_AVAILABLE_PULSE_MILLIS = 800L;
     private static final float RESEARCH_AVAILABLE_PULSE_BASE = 0.75F;
     private static final float RESEARCH_AVAILABLE_PULSE_AMPLITUDE = 0.25F;
     private static final int RESEARCH_LOCKED_FRAME_TINT = 0xFF4D4D4D;
@@ -458,6 +461,13 @@ public final class ThaumonomiconScreen extends Screen {
              */
             renderResearchIcon(graphics, research, x, y, iconTint);
         }
+        /*
+         * Item-backed research icons are submitted to GuiGraphics' shared
+         * buffer and may otherwise be drawn only after the scissor is gone.
+         * Flush while the tree viewport is still active so dragged nodes can
+         * never leak through the wooden frame into the world behind the book.
+         */
+        graphics.flush();
         graphics.disableScissor();
         graphics.pose().popPose();
         renderTreeTooltip(
@@ -849,6 +859,10 @@ public final class ThaumonomiconScreen extends Screen {
             }
         }
 
+        if (!isWithinResearchViewport(localMouseX, localMouseY)) {
+            return;
+        }
+
         for (ResearchDefinition research : visibleResearch()) {
             int x = researchX(research);
             int y = researchY(research);
@@ -874,6 +888,13 @@ public final class ThaumonomiconScreen extends Screen {
             );
             return;
         }
+    }
+
+    static boolean isWithinResearchViewport(double x, double y) {
+        return x >= TREE_INNER_X
+                && x < TREE_INNER_X + TREE_INNER_WIDTH
+                && y >= TREE_INNER_Y
+                && y < TREE_INNER_Y + TREE_INNER_HEIGHT;
     }
 
     private void renderResearchTooltip(
@@ -1193,6 +1214,9 @@ public final class ThaumonomiconScreen extends Screen {
         }
         List<Component> tooltip = new ArrayList<>();
         tooltip.add(hovered.stack().getHoverName());
+        if (RunicShieldService.finalCharge(hovered.stack()) > 0) {
+            tooltip.add(RunicShieldService.chargeTooltip(hovered.stack()));
+        }
         if (researchForItem(hovered.stack()).isPresent()) {
             tooltip.add(Component.translatable(
                     "screen.thaumcraftmodern.thaumonomicon.open_item_page"
@@ -1389,6 +1413,16 @@ public final class ThaumonomiconScreen extends Screen {
         if (display == null) {
             return;
         }
+        RunicAugmentationPreview runicPreview = RunicAugmentationPreview.atTime(
+                page, display, Util.getMillis());
+        List<InfusionDisplayDefinition.ComponentStack> displayedComponents =
+                runicPreview == null ? display.components()
+                        : runicPreview.components();
+        List<AspectCost> displayedCosts = runicPreview == null
+                ? page.aspectCosts() : runicPreview.costs();
+        InfusionDisplayDefinition.Instability displayedInstability =
+                runicPreview == null ? display.instability()
+                        : runicPreview.instability();
         int layoutX = x + (pageWidth - INFUSION_LAYOUT_WIDTH) / 2;
         int centerX = layoutX + INFUSION_LAYOUT_WIDTH / 2;
 
@@ -1413,7 +1447,17 @@ public final class ThaumonomiconScreen extends Screen {
                 0xFFFFFFFF
         );
 
+        ItemStack central = infusionStack(display.centralItem(), 1);
         ItemStack output = infusionStack(display.outputItem(), 1);
+        if (runicPreview != null) {
+            if (runicPreview.inputHardening() > 0) {
+                central.getOrCreateTag().putByte("RS.HARDEN",
+                        (byte) runicPreview.inputHardening());
+            }
+            output.getOrCreateTag().putByte("RS.HARDEN",
+                    (byte) runicPreview.outputHardening());
+        }
+        output = durabilityPreview(output);
         ThaumonomiconRecipeOutputRenderer.render(
                 graphics,
                 font,
@@ -1428,12 +1472,11 @@ public final class ThaumonomiconScreen extends Screen {
                 y + 6 + INFUSION_OUTPUT_Y_OFFSET
                         + ThaumonomiconRecipeOutputRenderer.ITEM_OFFSET_Y,
                 16, 16);
-        ItemStack central = infusionStack(display.centralItem(), 1);
         int centralX = centerX - 8;
         int centralY = y + INFUSION_CENTRAL_Y + INFUSION_MATRIX_Y_OFFSET;
         renderLinkedItem(graphics, central, centralX, centralY);
 
-        int componentCount = display.components().size();
+        int componentCount = displayedComponents.size();
         for (int index = 0; index < componentCount; index++) {
             double angle = -Math.PI / 2.0D
                     + Math.PI * 2.0D * index / componentCount;
@@ -1446,14 +1489,13 @@ public final class ThaumonomiconScreen extends Screen {
                     + (int) (Math.sin(angle) * INFUSION_COMPONENT_RADIUS)
                     - 8;
             InfusionDisplayDefinition.ComponentStack component =
-                    display.components().get(index);
+                    displayedComponents.get(index);
             ItemStack stack = infusionStack(component, index);
             renderLinkedItem(graphics, stack, itemX, itemY);
-            graphics.renderItemDecorations(font, stack, itemX, itemY);
         }
 
         int aspectHeight = ThaumonomiconAspectCostRenderer.requiredHeight(
-                page.aspectCosts(), pageWidth
+                displayedCosts, pageWidth
         );
         int minimumAspectTop = y
                 + INFUSION_RECIPE_CONTENT_BOTTOM
@@ -1467,7 +1509,7 @@ public final class ThaumonomiconScreen extends Screen {
         String hoveredAspect = ThaumonomiconAspectCostRenderer.render(
                 graphics,
                 font,
-                page.aspectCosts(),
+                displayedCosts,
                 x,
                 pageWidth,
                 aspectBottom,
@@ -1479,7 +1521,7 @@ public final class ThaumonomiconScreen extends Screen {
         Component instability = classicBookText(Component.translatable(
                 "screen.thaumcraftmodern.thaumonomicon.instability",
                 Component.translatable(
-                        display.instability().translationKey()
+                        displayedInstability.translationKey()
                 )
         ));
         graphics.drawCenteredString(
@@ -1490,7 +1532,7 @@ public final class ThaumonomiconScreen extends Screen {
                         y + INFUSION_INSTABILITY_Y,
                         aspectBottom + INFUSION_SECTION_GAP
                 ),
-                display.instability().color()
+                displayedInstability.color()
         );
     }
 
@@ -1508,7 +1550,11 @@ public final class ThaumonomiconScreen extends Screen {
             int slotIndex
     ) {
         if (!component.isTag()) {
-            return infusionStack(component.item(), component.count());
+            ItemStack stack = infusionStack(component.item(), component.count());
+            if (!component.potion().isBlank()) {
+                stack.getOrCreateTag().putString("Potion", component.potion());
+            }
+            return stack;
         }
         ItemStack stack = cyclingIngredient(
                 Ingredient.of(ItemTags.create(new ResourceLocation(component.tag()))),
@@ -1683,7 +1729,8 @@ public final class ThaumonomiconScreen extends Screen {
             renderLinkedItem(graphics, displayed, itemX, itemY);
         }
 
-        ItemStack result = recipe.getResultItem(minecraft.level.registryAccess());
+        ItemStack result = durabilityPreview(
+                recipe.getResultItem(minecraft.level.registryAccess()));
         ThaumonomiconRecipeOutputRenderer.render(
                 graphics,
                 font,
@@ -1821,7 +1868,6 @@ public final class ThaumonomiconScreen extends Screen {
             int mouseY
     ) {
         renderLinkedItem(graphics, stack, x, y);
-        graphics.renderItemDecorations(font, stack, x, y);
     }
 
     private void renderCrucibleRecipe(
@@ -1847,7 +1893,7 @@ public final class ThaumonomiconScreen extends Screen {
         int contentY = y
                 + ThaumonomiconCrucibleRecipeLayout.CONTENT_OFFSET_Y;
 
-        ItemStack output = recipe.output();
+        ItemStack output = durabilityPreview(recipe.output());
         ThaumonomiconRecipeOutputRenderer.render(
                 graphics,
                 font,
@@ -1911,12 +1957,6 @@ public final class ThaumonomiconScreen extends Screen {
         }
         if (!catalyst.isEmpty()) {
             renderLinkedItem(graphics, catalyst, catalystX, catalystY);
-            graphics.renderItemDecorations(
-                    font,
-                    catalyst,
-                    catalystX,
-                    catalystY
-            );
         }
 
         List<AspectCost> costs = recipe.aspects().entrySet().stream()
@@ -2221,6 +2261,21 @@ public final class ThaumonomiconScreen extends Screen {
                             .toList()
             );
         }
+        if (InfernalFurnaceResearchRecipe.ID.equals(recipeId)) {
+            InfernalFurnaceResearchRecipe.Snapshot recipe =
+                    InfernalFurnaceResearchRecipe.snapshot();
+            return new CompoundRecipeView(
+                    recipe.width(), recipe.height(), recipe.depth(),
+                    recipe.costs(),
+                    recipe.cells().stream().map(cell -> switch (cell) {
+                        case EMPTY -> ItemStack.EMPTY;
+                        case NETHER_BRICKS -> new ItemStack(Blocks.NETHER_BRICKS);
+                        case OBSIDIAN -> new ItemStack(Blocks.OBSIDIAN);
+                        case LAVA -> new ItemStack(Items.LAVA_BUCKET);
+                        case IRON_BARS -> new ItemStack(Blocks.IRON_BARS);
+                    }).toList()
+            );
+        }
         return null;
     }
 
@@ -2336,8 +2391,14 @@ public final class ThaumonomiconScreen extends Screen {
 
     private void renderLinkedItem(GuiGraphics graphics, ItemStack stack,
             int x, int y) {
-        graphics.renderItem(stack, x, y);
-        registerItemLink(stack, x, y, 16, 16);
+        ItemStack displayed = durabilityPreview(stack);
+        graphics.renderItem(displayed, x, y);
+        graphics.renderItemDecorations(font, displayed, x, y);
+        registerItemLink(displayed, x, y, 16, 16);
+    }
+
+    private static ItemStack durabilityPreview(ItemStack stack) {
+        return ThaumonomiconDurabilityPreview.atTime(stack, Util.getMillis());
     }
 
     private void registerItemLink(ItemStack stack, int x, int y,
@@ -2780,8 +2841,17 @@ public final class ThaumonomiconScreen extends Screen {
 
     private boolean isUnlocked(ResearchDefinition research) {
         return currentKnowledge()
-                .map(knowledge -> ResearchProgressService.isAvailable(research, knowledge))
+                .map(knowledge -> researchIsUnlocked(
+                        knowledge.hasCompletedResearch(research.id()),
+                        ResearchProgressService.isAvailable(research, knowledge)
+                ))
                 .orElse(false);
+    }
+
+    static boolean researchIsUnlocked(boolean completed, boolean available) {
+        // A completed hidden research remains fully readable even when its
+        // one-time reveal condition is no longer represented as available.
+        return completed || available;
     }
 
     private Optional<ResearchCategoryDefinition> selectedCategory() {

@@ -5,6 +5,8 @@ import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.mojang.math.Axis;
 import com.thaumcraftmodern.ThaumcraftModern;
 import com.thaumcraftmodern.item.WandItem;
+import com.thaumcraftmodern.focus.WandFocusService;
+import com.thaumcraftmodern.focus.WandFocusType;
 import com.thaumcraftmodern.wand.WandForm;
 import com.thaumcraftmodern.wand.WandState;
 import com.thaumcraftmodern.wand.WandVisService;
@@ -38,6 +40,8 @@ public final class ClassicWandItemRenderer
             ThaumcraftModern.MOD_ID,
             "textures/misc/script.png"
     );
+    private static final ResourceLocation FOCUS_CUBE = new ResourceLocation(
+            "minecraft", "textures/block/white_concrete.png");
     private static final Map<HumanoidArm, ReleaseState> RELEASE_STATES =
             new EnumMap<>(HumanoidArm.class);
 
@@ -128,6 +132,7 @@ public final class ClassicWandItemRenderer
             );
         }
         renderAssembledTool(
+                stack,
                 wand,
                 state,
                 poseStack,
@@ -163,6 +168,7 @@ public final class ClassicWandItemRenderer
         poseStack.pushPose();
         ArcaneWorkbenchWandTransform.apply(poseStack, wand.form());
         renderAssembledTool(
+                stack,
                 wand,
                 state,
                 poseStack,
@@ -176,6 +182,7 @@ public final class ClassicWandItemRenderer
     }
 
     private void renderAssembledTool(
+            ItemStack stack,
             WandItem wand,
             WandState state,
             PoseStack poseStack,
@@ -220,6 +227,9 @@ public final class ClassicWandItemRenderer
             );
         }
 
+        WandFocusService.type(stack).ifPresent(type -> renderFocus(
+                type, wand.form(), poseStack, buffers, packedOverlay));
+
         if (state.rodId().equals("primal_staff")) {
             float time = animationTime();
             float pulse = 0.28F + (Mth.sin(time * 0.35F) + 1.0F) * 0.18F;
@@ -238,6 +248,37 @@ public final class ClassicWandItemRenderer
             renderStaffRunes(poseStack, buffers, packedOverlay, time);
             poseStack.popPose();
         }
+    }
+
+    private void renderFocus(
+            WandFocusType type,
+            WandForm form,
+            PoseStack poseStack,
+            MultiBufferSource buffers,
+            int packedOverlay
+    ) {
+        int color = type.color();
+        float red = ((color >> 16) & 255) / 255.0F;
+        float green = ((color >> 8) & 255) / 255.0F;
+        float blue = (color & 255) / 255.0F;
+        poseStack.pushPose();
+        if (form == WandForm.STAFF) {
+            poseStack.translate(0.0D, 0.1525D, 0.0D);
+            poseStack.scale(0.525F, 0.5525F, 0.525F);
+        } else {
+            poseStack.scale(0.5F, 0.5F, 0.5F);
+        }
+        model.renderFocus(
+                poseStack,
+                buffers.getBuffer(RenderType.entityTranslucentEmissive(FOCUS_CUBE)),
+                LightTexture.FULL_BRIGHT,
+                packedOverlay,
+                red,
+                green,
+                blue,
+                0.95F
+        );
+        poseStack.popPose();
     }
 
     private static void translate(

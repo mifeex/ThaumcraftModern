@@ -1,11 +1,14 @@
 package com.thaumcraftmodern.client.screen;
 
+import com.thaumcraftmodern.research.InfusionDisplayDefinition;
+import com.thaumcraftmodern.research.ResearchPageDefinition;
 import org.junit.jupiter.api.Test;
 
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.security.MessageDigest;
 import java.util.HexFormat;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -55,6 +58,11 @@ final class ThaumonomiconRecipePresentationFidelityTest {
         assertFalse(renderer.contains("graphics.renderTooltip("));
         assertTrue(screen.contains("renderItemLinkTooltip("));
         assertTrue(screen.contains("tooltip.add(hovered.stack().getHoverName())"));
+        assertTrue(screen.contains(
+                "RunicShieldService.chargeTooltip(hovered.stack())"));
+        assertTrue(screen.contains("durabilityPreview(stack)"));
+        assertTrue(screen.contains(
+                "graphics.renderItemDecorations(font, displayed, x, y)"));
     }
 
     @Test
@@ -98,6 +106,36 @@ final class ThaumonomiconRecipePresentationFidelityTest {
         assertTrue(screen.contains("cyclingIngredient(recipe.catalyst(), 0)"));
         assertTrue(screen.contains("Util.getMillis() / 1_000L + slotIndex"));
         assertFalse(screen.contains("renderLinkedItem(graphics, options[0]"));
+    }
+
+    @Test
+    void runicAugmentationPageCyclesTheFiveClassicHardeningPreviews() {
+        InfusionDisplayDefinition display = new InfusionDisplayDefinition(
+                "minecraft:iron_chestplate", "minecraft:iron_chestplate",
+                List.of(
+                        new InfusionDisplayDefinition.ComponentStack(
+                                "minecraft:ender_pearl", 1),
+                        new InfusionDisplayDefinition.ComponentStack(
+                                "thaumcraftmodern:salis_mundus", 1)),
+                InfusionDisplayDefinition.Instability.MODERATE, "");
+        ResearchPageDefinition page = new ResearchPageDefinition(
+                ResearchPageDefinition.Type.INFUSION, "", "",
+                "thaumcraftmodern:runic_augmentation", List.of(), display);
+
+        var first = RunicAugmentationPreview.atTime(
+                page, display, 0L);
+        var fifth = RunicAugmentationPreview.atTime(
+                page, display, 4_000L);
+        assertEquals(2, first.components().size());
+        assertEquals(6, fifth.components().size());
+        assertEquals(1, first.outputHardening());
+        assertEquals(4, fifth.inputHardening());
+        assertEquals(5, fifth.outputHardening());
+        assertEquals(512, fifth.costs().stream()
+                .filter(cost -> cost.aspectId().equals("potentia"))
+                .findFirst().orElseThrow().amount());
+        assertEquals(InfusionDisplayDefinition.Instability.HIGH,
+                fifth.instability());
     }
 
     @Test

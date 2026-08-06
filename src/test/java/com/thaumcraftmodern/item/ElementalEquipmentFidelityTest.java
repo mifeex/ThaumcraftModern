@@ -35,8 +35,9 @@ class ElementalEquipmentFidelityTest {
         String pickaxe = russian.get("tc.research_page.ELEMENTALPICK.1").getAsString();
         String axe = russian.get("tc.research_page.ELEMENTALAXE.2").getAsString();
 
-        assertTrue(sword.contains("Shift и ПКМ"));
+        assertTrue(sword.contains("Shift + ПКМ"));
         assertTrue(sword.contains("атаки блокируются"));
+        assertTrue(sword.contains("подъём при этом не действует"));
         assertTrue(pickaxe.contains("оранжевыми частицами"));
         assertTrue(pickaxe.contains("сквозь камень"));
         assertTrue(axe.contains("пока Вы не подберёте"));
@@ -70,17 +71,28 @@ class ElementalEquipmentFidelityTest {
     }
 
     @Test
-    void travellerBootsPreviewCyclesTheSameFishTagAsItsRecipe() throws Exception {
+    void travellerBootsUseOnlyTheFourRawFishVariants() throws Exception {
         JsonObject recipe = json(Path.of(
                 "src/main/resources/data/thaumcraftmodern/thaumcraft/infusion_recipes/boots_traveller.json"));
         JsonObject research = json(Path.of(
                 "src/main/resources/data/thaumcraftmodern/thaumcraft/research/legacy/bootstraveller.json"));
 
-        assertEquals("minecraft:fishes", recipe.getAsJsonArray("components")
+        assertEquals("thaumcraftmodern:raw_fishes", recipe.getAsJsonArray("components")
                 .get(5).getAsJsonObject().get("tag").getAsString());
         JsonObject display = research.getAsJsonArray("pages").get(1).getAsJsonObject();
-        assertEquals("minecraft:fishes", display.getAsJsonArray("components")
+        assertEquals("thaumcraftmodern:raw_fishes", display.getAsJsonArray("components")
                 .get(5).getAsJsonObject().get("tag").getAsString());
+
+        JsonObject tag = json(Path.of(
+                "src/main/resources/data/thaumcraftmodern/tags/items/raw_fishes.json"));
+        assertEquals(List.of(
+                "minecraft:cod",
+                "minecraft:salmon",
+                "minecraft:pufferfish",
+                "minecraft:tropical_fish"
+        ), tag.getAsJsonArray("values").asList().stream()
+                .map(value -> value.getAsString())
+                .toList());
     }
 
     @Test

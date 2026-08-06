@@ -18,7 +18,7 @@ import net.minecraft.nbt.Tag;
  * persistence and copy semantics to this class.
  */
 public final class PlayerThaumKnowledge {
-    public static final int SERIAL_VERSION = 4;
+    public static final int SERIAL_VERSION = 5;
     public static final int STARTING_PRIMAL_AMOUNT = 5;
 
     private static final String VERSION_KEY = "version";
@@ -35,6 +35,7 @@ public final class PlayerThaumKnowledge {
     private static final String WARP_NORMAL_KEY = "normal";
     private static final String WARP_TEMPORARY_KEY = "temporary";
     private static final String WARP_COUNTER_KEY = "counter";
+    private static final String RUNIC_CHARGE_KEY = "runic_charge";
 
     private static final Set<String> STARTING_PRIMAL_ASPECTS = orderedReadOnlySet(
             "aer",
@@ -54,6 +55,7 @@ public final class PlayerThaumKnowledge {
     private int normalWarp;
     private int temporaryWarp;
     private int warpCounter;
+    private int runicCharge;
 
     public PlayerThaumKnowledge() {
         this(
@@ -63,6 +65,7 @@ public final class PlayerThaumKnowledge {
                 Set.of(),
                 Set.of(),
                 Set.of(),
+                0,
                 0,
                 0,
                 0,
@@ -80,7 +83,8 @@ public final class PlayerThaumKnowledge {
             int permanentWarp,
             int normalWarp,
             int temporaryWarp,
-            int warpCounter) {
+            int warpCounter,
+            int runicCharge) {
         this.knownAspects = new LinkedHashSet<>(knownAspects);
         this.knownAspects.addAll(STARTING_PRIMAL_ASPECTS);
         this.aspectAmounts = new LinkedHashMap<>();
@@ -103,6 +107,7 @@ public final class PlayerThaumKnowledge {
         this.normalWarp = requireNonNegative(normalWarp, "normal warp");
         this.temporaryWarp = requireNonNegative(temporaryWarp, "temporary warp");
         this.warpCounter = requireNonNegative(warpCounter, "warp counter");
+        this.runicCharge = requireNonNegative(runicCharge, "runic charge");
     }
 
     public static Set<String> startingPrimalAspects() {
@@ -221,6 +226,12 @@ public final class PlayerThaumKnowledge {
         return warpCounter;
     }
 
+    public int runicCharge() { return runicCharge; }
+    public int setRunicCharge(int amount) {
+        runicCharge = requireNonNegative(amount, "runic charge");
+        return runicCharge;
+    }
+
     public int setWarpCounter(int amount) {
         warpCounter = requireNonNegative(amount, "warp counter");
         return warpCounter;
@@ -294,7 +305,8 @@ public final class PlayerThaumKnowledge {
                 permanentWarp,
                 normalWarp,
                 temporaryWarp,
-                warpCounter
+                warpCounter,
+                runicCharge
         );
     }
 
@@ -322,6 +334,7 @@ public final class PlayerThaumKnowledge {
         normalWarp = source.normalWarp;
         temporaryWarp = source.temporaryWarp;
         warpCounter = source.warpCounter;
+        runicCharge = source.runicCharge;
     }
 
     public CompoundTag serialize() {
@@ -339,6 +352,7 @@ public final class PlayerThaumKnowledge {
         warp.putInt(WARP_TEMPORARY_KEY, temporaryWarp);
         warp.putInt(WARP_COUNTER_KEY, warpCounter);
         result.put(WARP_KEY, warp);
+        result.putInt(RUNIC_CHARGE_KEY, runicCharge);
         return result;
     }
 
@@ -380,7 +394,8 @@ public final class PlayerThaumKnowledge {
                         ? warp.getInt(WARP_COUNTER_KEY)
                         : warp.getInt(WARP_PERMANENT_KEY)
                                 + warp.getInt(WARP_NORMAL_KEY)
-                                + warp.getInt(WARP_TEMPORARY_KEY));
+                                + warp.getInt(WARP_TEMPORARY_KEY),
+                version >= 5 ? tag.getInt(RUNIC_CHARGE_KEY) : 0);
     }
 
     public CompoundTag serializeNBT() {

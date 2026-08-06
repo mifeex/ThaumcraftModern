@@ -7,6 +7,9 @@ import com.thaumcraftmodern.world.menu.DeconstructionTableMenu;
 import com.thaumcraftmodern.world.menu.ResearchTableMenu;
 import com.thaumcraftmodern.world.menu.PechMenu;
 import com.thaumcraftmodern.world.menu.ThaumatoriumMenu;
+import com.thaumcraftmodern.world.menu.HandMirrorMenu;
+import com.thaumcraftmodern.world.menu.FocalManipulatorMenu;
+import com.thaumcraftmodern.world.menu.GolemMenu;
 import net.minecraft.world.inventory.MenuType;
 import net.minecraftforge.common.extensions.IForgeMenuType;
 import net.minecraftforge.eventbus.api.IEventBus;
@@ -47,6 +50,14 @@ public final class ModMenus {
     public static final RegistryObject<MenuType<ThaumatoriumMenu>> THAUMATORIUM =
             MENUS.register("thaumatorium",
                     () -> IForgeMenuType.create(ThaumatoriumMenu::fromNetwork));
+    public static final RegistryObject<MenuType<HandMirrorMenu>> HAND_MIRROR =
+            MENUS.register("hand_mirror",
+                    () -> IForgeMenuType.create(HandMirrorMenu::fromNetwork));
+    public static final RegistryObject<MenuType<FocalManipulatorMenu>> FOCAL_MANIPULATOR =
+            MENUS.register("focal_manipulator",
+                    () -> IForgeMenuType.create(FocalManipulatorMenu::fromNetwork));
+    public static final RegistryObject<MenuType<GolemMenu>> GOLEM =
+            MENUS.register("golem", () -> IForgeMenuType.create(GolemMenu::fromNetwork));
 
     private ModMenus() {
     }

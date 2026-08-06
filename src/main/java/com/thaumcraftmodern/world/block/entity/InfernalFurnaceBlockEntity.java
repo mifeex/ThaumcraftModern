@@ -1,10 +1,15 @@
 package com.thaumcraftmodern.world.block.entity;
 
+import com.thaumcraftmodern.aura.AuraNodeBlockEntity;
+import com.thaumcraftmodern.aura.AuraNodeState;
+import com.thaumcraftmodern.aura.PrimalAspect;
 import com.thaumcraftmodern.essentia.EssentiaConnections;
 import com.thaumcraftmodern.essentia.EssentiaTransport;
 import com.thaumcraftmodern.registry.ModBlockEntities;
 import com.thaumcraftmodern.registry.ModItems;
 import com.thaumcraftmodern.world.block.InfernalFurnaceBlock;
+import com.thaumcraftmodern.world.block.ArcaneBellowsBlock;
+import com.thaumcraftmodern.registry.ModBlocks;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.NonNullList;
@@ -30,6 +35,7 @@ import net.minecraftforge.common.Tags;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
+import java.util.EnumMap;
 
 /** Exact tick and transport contract of TC4 {@code TileArcaneFurnace}. */
 public final class InfernalFurnaceBlockEntity extends BlockEntity
@@ -47,6 +53,8 @@ public final class InfernalFurnaceBlockEntity extends BlockEntity
     private int furnaceMaxCookTime;
     private int speedyTime;
     private int drawDelay;
+    private BlockPos cachedAuraNode;
+    private int auraSearchCooldown;
 
     public InfernalFurnaceBlockEntity(BlockPos pos, BlockState state) {
         super(ModBlockEntities.INFERNAL_FURNACE.get(), pos, state);
@@ -69,6 +77,7 @@ public final class InfernalFurnaceBlockEntity extends BlockEntity
             cookedFlag = true;
         }
         if (cookedFlag && speedyTime > 0) speedyTime--;
+        if (speedyTime <= 0) speedyTime = drainIgnisVis(level, 5);
         if (furnaceMaxCookTime == 0) furnaceMaxCookTime = calcCookTime();
         if (furnaceCookTime > furnaceMaxCookTime) {
             furnaceCookTime = furnaceMaxCookTime;
@@ -78,6 +87,40 @@ public final class InfernalFurnaceBlockEntity extends BlockEntity
             furnaceCookTime = furnaceMaxCookTime = calcCookTime();
             setChanged();
         }
+    }
+
+    private int drainIgnisVis(ServerLevel level, int maximum) {
+        AuraNodeBlockEntity node = cachedAuraNode == null ? null
+                : level.getBlockEntity(cachedAuraNode) instanceof AuraNodeBlockEntity found
+                ? found : null;
+        if (node == null && auraSearchCooldown-- <= 0) {
+            auraSearchCooldown = 40;
+            double nearest = Double.MAX_VALUE;
+            for (int x = -10; x <= 10; x++) for (int y = -10; y <= 10; y++)
+                for (int z = -10; z <= 10; z++) {
+                    BlockPos candidate = worldPosition.offset(x, y, z);
+                    if (!level.hasChunkAt(candidate)
+                            || !(level.getBlockEntity(candidate)
+                            instanceof AuraNodeBlockEntity found)) continue;
+                    double distance = candidate.distSqr(worldPosition);
+                    if (distance < nearest) {
+                        nearest = distance;
+                        node = found;
+                        cachedAuraNode = candidate.immutable();
+                    }
+                }
+        }
+        if (node == null) return 0;
+        AuraNodeState state = node.snapshotState();
+        AuraNodeState.Snapshot snapshot = state.snapshot();
+        int consumed = Math.min(maximum,
+                snapshot.current().getOrDefault(PrimalAspect.IGNIS, 0));
+        if (consumed <= 0) return 0;
+        EnumMap<PrimalAspect, Integer> remaining =
+                new EnumMap<>(snapshot.current());
+        remaining.put(PrimalAspect.IGNIS,
+                remaining.get(PrimalAspect.IGNIS) - consumed);
+        return node.replaceCurrent(snapshot.revision(), remaining) ? consumed : 0;
     }
 
     private void nozzleTick(ServerLevel level) {
@@ -170,9 +213,15 @@ public final class InfernalFurnaceBlockEntity extends BlockEntity
                 worldPosition.getY() + 0.55D,
                 worldPosition.getZ() + 0.5D,
                 5, 0.2D, 0.1D, 0.2D, 0.02D);
-        level.playSound(null, worldPosition, SoundEvents.LAVA_POP,
-                SoundSource.BLOCKS, 0.15F,
-                0.9F + level.random.nextFloat() * 0.15F);
+        // TC4's client event emitted five independently varied lava pops for
+        // every completed operation. Broadcasting them from the server keeps
+        // the same audible burst for every nearby player.
+        for (int i = 0; i < 5; i++) {
+            level.playSound(null, worldPosition, SoundEvents.LAVA_POP,
+                    SoundSource.BLOCKS,
+                    0.1F + level.random.nextFloat() * 0.1F,
+                    0.9F + level.random.nextFloat() * 0.15F);
+        }
     }
 
     private void spawnOutput(ServerLevel level, ItemStack stack, double x,
@@ -215,9 +264,18 @@ public final class InfernalFurnaceBlockEntity extends BlockEntity
     }
 
     private int attachedBellows() {
-        // Bellows are two blocks from the lava core in TC4. Their dedicated
-        // block vertical will expose the classic orientation here.
-        return 0;
+        if (level == null) return 0;
+        int bellows = 0;
+        for (Direction direction : Direction.values()) {
+            if (direction == Direction.UP) continue;
+            BlockPos position = worldPosition.relative(direction, 2);
+            BlockState state = level.getBlockState(position);
+            if (state.is(ModBlocks.ARCANE_BELLOWS.get())
+                    && state.getValue(ArcaneBellowsBlock.FACING)
+                    == direction.getOpposite()
+                    && !level.hasNeighborSignal(position)) bellows++;
+        }
+        return Math.min(3, bellows);
     }
 
     public static int rollBonusCount(ServerLevel level, int bellows) {

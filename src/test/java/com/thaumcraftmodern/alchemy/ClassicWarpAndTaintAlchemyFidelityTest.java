@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test;
 
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.zip.ZipFile;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -55,6 +56,19 @@ final class ClassicWarpAndTaintAlchemyFidelityTest {
         assertEquals("entropicprocessing", death.getAsJsonArray("parents").get(0).getAsString());
         assertEquals(3, death.get("completion_warp").getAsInt());
         assertActiveRecipe(death, "thaumcraftmodern:liquiddeath");
+    }
+
+    @Test
+    void packagedThaumonomiconContainsRecipeItemLinkClass() throws Exception {
+        Path jar = Files.list(Path.of("build/libs"))
+                .filter(path -> path.getFileName().toString().matches(
+                        "thaumcraftmodern-[0-9.]+\\.jar"))
+                .findFirst().orElseThrow();
+        try (ZipFile zip = new ZipFile(jar.toFile())) {
+            assertTrue(zip.getEntry(
+                    "com/thaumcraftmodern/client/screen/ThaumonomiconScreen$ItemLinkRegion.class")
+                    != null);
+        }
     }
 
     @Test

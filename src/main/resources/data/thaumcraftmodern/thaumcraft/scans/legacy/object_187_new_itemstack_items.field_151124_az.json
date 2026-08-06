@@ -4,6 +4,10 @@
   "display": "",
   "aspects": [
     {
+      "id": "arbor",
+      "amount": 3
+    },
+    {
       "id": "aqua",
       "amount": 4
     },
@@ -12,8 +16,7 @@
       "amount": 4
     }
   ],
-  "inactive": true,
-  "inactive_reason": "recipe-derived base aspects cannot yet be reproduced safely",
+  "inactive": false,
   "legacy": {
     "registration_mode": "recipe_derived_modifier",
     "target_kind": "item_stack",
@@ -42,5 +45,6 @@
       }
     ],
     "source_expression": "ThaumcraftApi.registerComplexObjectTag(new ItemStack(Items.field_151124_az), (new AspectList()).add(Aspect.WATER, 4).add(Aspect.TRAVEL, 4))"
-  }
+  },
+  "recipe_derivation": "TC4 generateTags base plus the original registered complex-object modifier."
 }

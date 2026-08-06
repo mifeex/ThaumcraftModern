@@ -2,7 +2,7 @@
   "id": "golemstraw",
   "legacy_id": "GOLEMSTRAW",
   "category": "golemancy",
-  "icon": "thaumcraftmodern:thaumonomicon",
+  "icon": "thaumcraftmodern:straw_golem",
   "title": "tc.research_name.GOLEMSTRAW",
   "subtitle": "tc.research_text.GOLEMSTRAW",
   "concealed": true,
@@ -28,12 +28,9 @@
       "body": "tc.research_page.GOLEMSTRAW.2"
     },
     {
-      "type": "unavailable",
+      "type": "recipe",
       "title": "",
-      "body": "",
-      "legacy_type": "recipe",
-      "legacy_content": "GolemStraw",
-      "source_expression": "new ResearchPage((CrucibleRecipe)recipes.get(\"GolemStraw\"))"
+      "recipe": "thaumcraftmodern:golemstraw"
     },
     {
       "type": "text",
@@ -41,8 +38,7 @@
       "body": "tc.research_page.GOLEMSTRAW.3"
     }
   ],
-  "inactive": true,
-  "inactive_reason": "referenced gameplay content is not implemented",
+  "inactive": false,
   "legacy": {
     "x": 0,
     "y": 2,

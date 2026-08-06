@@ -1,10 +1,13 @@
 package com.thaumcraftmodern.aura;
 
 import com.thaumcraftmodern.ThaumcraftModern;
+import com.thaumcraftmodern.network.ModNetwork;
+import com.thaumcraftmodern.network.packet.AuraNodeStateSyncPacket;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.Connection;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
@@ -23,6 +26,8 @@ import java.util.Objects;
 public final class AuraNodeBlockEntity extends BlockEntity {
     private static final String STATE_KEY = "AuraNode";
     private static final String MOUND_GUARDIAN_KEY = "MoundGuardianSpawner";
+    private static final String LAST_ACTIVE_KEY = "lastActive";
+    private static final String REGENERATION_WAIT_KEY = "RegenerationWait";
 
     private AuraNodeState state;
     private boolean explicitlyInitialized;
@@ -32,6 +37,8 @@ public final class AuraNodeBlockEntity extends BlockEntity {
     private long drainGameTime = Long.MIN_VALUE;
     private int classicTicks;
     private int regenerationWait;
+    private long lastActiveMillis;
+    private boolean catchUpPending;
     private boolean moundGuardianSpawner;
 
     public AuraNodeBlockEntity(
@@ -196,6 +203,29 @@ public final class AuraNodeBlockEntity extends BlockEntity {
         regenerationWait = Math.max(0, ticks);
     }
 
+    synchronized long lastActiveMillis() {
+        return lastActiveMillis;
+    }
+
+    synchronized void initializeLastActive(long nowMillis) {
+        if (lastActiveMillis > 0L) {
+            return;
+        }
+        lastActiveMillis = Math.max(1L, nowMillis);
+        setChanged();
+    }
+
+    synchronized void setLastActiveMillis(long nextMillis) {
+        lastActiveMillis = Math.max(0L, nextMillis);
+        setChanged();
+    }
+
+    synchronized boolean consumeCatchUpPending() {
+        boolean pending = catchUpPending;
+        catchUpPending = false;
+        return pending;
+    }
+
     public synchronized boolean replaceAspects(
             long expectedRevision,
             Map<String, Integer> current,
@@ -233,6 +263,25 @@ public final class AuraNodeBlockEntity extends BlockEntity {
         return true;
     }
 
+    synchronized boolean replaceModifier(AuraNodeModifier nextModifier) {
+        Objects.requireNonNull(nextModifier, "nextModifier");
+        if (level == null || level.isClientSide
+                || state.modifier() == nextModifier) {
+            return false;
+        }
+        AuraNodeState.Snapshot snapshot = state.snapshot();
+        state = AuraNodeState.withAspects(
+                snapshot.nodeId(),
+                snapshot.type(),
+                nextModifier,
+                snapshot.aspectsCurrent(),
+                snapshot.aspectsMaximum(),
+                Math.addExact(snapshot.revision(), 1L)
+        );
+        markChangedAndSync();
+        return true;
+    }
+
     public static void serverTick(
             net.minecraft.server.level.ServerLevel level,
             BlockPos position,
@@ -250,6 +299,12 @@ public final class AuraNodeBlockEntity extends BlockEntity {
     protected synchronized void saveAdditional(CompoundTag tag) {
         super.saveAdditional(tag);
         tag.put(STATE_KEY, AuraNodeCodec.encode(state));
+        if (lastActiveMillis > 0L) {
+            tag.putLong(LAST_ACTIVE_KEY, lastActiveMillis);
+        }
+        if (regenerationWait > 0) {
+            tag.putInt(REGENERATION_WAIT_KEY, regenerationWait);
+        }
         if (moundGuardianSpawner) {
             tag.putBoolean(MOUND_GUARDIAN_KEY, true);
         }
@@ -264,6 +319,9 @@ public final class AuraNodeBlockEntity extends BlockEntity {
         );
         state = decoded.state();
         explicitlyInitialized = true;
+        lastActiveMillis = Math.max(0L, tag.getLong(LAST_ACTIVE_KEY));
+        regenerationWait = Math.max(0, tag.getInt(REGENERATION_WAIT_KEY));
+        catchUpPending = lastActiveMillis > 0L;
         moundGuardianSpawner = tag.getBoolean(MOUND_GUARDIAN_KEY);
         recoveryDiagnostic = decoded.diagnostic();
         if (tag.contains("DrainEntity", CompoundTag.TAG_INT)
@@ -324,6 +382,16 @@ public final class AuraNodeBlockEntity extends BlockEntity {
         if (level != null) {
             BlockState blockState = getBlockState();
             level.sendBlockUpdated(worldPosition, blockState, blockState, 3);
+            if (level instanceof ServerLevel serverLevel) {
+                ModNetwork.sendToTrackingChunk(
+                        serverLevel,
+                        worldPosition,
+                        new AuraNodeStateSyncPacket(
+                                worldPosition,
+                                getUpdateTag()
+                        )
+                );
+            }
         }
     }
 }

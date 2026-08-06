@@ -52,6 +52,7 @@ import com.thaumcraftmodern.wand.WandVisService;
 import com.thaumcraftmodern.world.block.ResearchTableBlock;
 import com.thaumcraftmodern.world.block.ResearchTablePart;
 import com.thaumcraftmodern.world.block.ClassicPartBlock;
+import com.thaumcraftmodern.world.block.InfernalFurnaceBlock;
 import com.thaumcraftmodern.world.block.CrucibleBlock;
 import com.thaumcraftmodern.world.block.EerieBiomeService;
 import com.thaumcraftmodern.world.block.EssentiaTubeBlock;
@@ -1891,7 +1892,7 @@ public final class FirstDiscoveryGameTests {
         helper.succeed();
     }
 
-    @GameTest(template = "empty")
+    @GameTest(template = "empty", timeoutTicks = 220)
     public static void wandFormsClassicInfernalFurnace(
             GameTestHelper helper
     ) {
@@ -1911,7 +1912,7 @@ public final class FirstDiscoveryGameTests {
                     } else {
                         helper.setBlock(
                                 position,
-                                corner ? Blocks.NETHERRACK : Blocks.OBSIDIAN
+                                corner ? Blocks.NETHER_BRICKS : Blocks.OBSIDIAN
                         );
                     }
                 }
@@ -1942,12 +1943,12 @@ public final class FirstDiscoveryGameTests {
         BlockState grate = helper.getBlockState(anchor.offset(1, 1, 0));
         helper.assertTrue(
                 core.is(ModBlocks.INFERNAL_FURNACE.get())
-                        && core.getValue(ClassicPartBlock.PART) == 0,
+                        && core.getValue(InfernalFurnaceBlock.PART) == 0,
                 "Infernal Furnace lava core did not become metadata part 0"
         );
         helper.assertTrue(
                 grate.is(ModBlocks.INFERNAL_FURNACE.get())
-                        && grate.getValue(ClassicPartBlock.PART) == 10,
+                        && grate.getValue(InfernalFurnaceBlock.PART) == 10,
                 "Infernal Furnace iron bars did not become grate part 10"
         );
         helper.assertTrue(
@@ -1955,7 +1956,28 @@ public final class FirstDiscoveryGameTests {
                         && WandVisService.visCentivis(wand, "terra") == 500,
                 "Infernal Furnace did not consume adjusted 55 Ignis/Terra vis"
         );
-        helper.succeed();
+        BlockPos absoluteCore = helper.absolutePos(anchor.offset(1, 1, 1));
+        ItemEntity rawIron = new ItemEntity(
+                helper.getLevel(),
+                absoluteCore.getX() + 0.5D,
+                absoluteCore.getY() + 1.3D,
+                absoluteCore.getZ() + 0.5D,
+                new ItemStack(Items.RAW_IRON)
+        );
+        rawIron.setNeverPickUp();
+        helper.getLevel().addFreshEntity(rawIron);
+        helper.runAfterDelay(155, () -> {
+            boolean ejected = helper.getEntities(
+                            EntityType.ITEM,
+                            anchor.offset(1, 1, 0),
+                            3.0D
+                    ).stream()
+                    .map(ItemEntity::getItem)
+                    .anyMatch(stack -> stack.is(Items.IRON_INGOT));
+            helper.assertTrue(ejected,
+                    "Infernal Furnace did not absorb, smelt and eject raw iron");
+            helper.succeed();
+        });
     }
 
     @GameTest(template = "empty")

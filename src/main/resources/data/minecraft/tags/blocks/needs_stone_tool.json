@@ -2,6 +2,10 @@
   "replace": false,
   "values": [
     "thaumcraftmodern:crucible",
+    "thaumcraftmodern:arcane_lamp",
+    "thaumcraftmodern:lamp_growth",
+    "thaumcraftmodern:lamp_fertility",
+    "thaumcraftmodern:item_grate",
     "thaumcraftmodern:arcane_alembic",
     "thaumcraftmodern:mnemonic_matrix",
     "thaumcraftmodern:alchemical_construct",

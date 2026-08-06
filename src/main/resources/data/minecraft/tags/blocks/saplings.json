@@ -1,6 +1,7 @@
 {
   "replace": false,
   "values": [
+    "minecraft:bamboo_sapling",
     "thaumcraftmodern:greatwood_sapling",
     "thaumcraftmodern:silverwood_sapling"
   ]

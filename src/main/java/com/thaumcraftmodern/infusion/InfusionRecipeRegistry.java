@@ -41,8 +41,9 @@ public final class InfusionRecipeRegistry {
         return recipes.values().stream()
                 .filter(recipe -> recipe.research().isBlank()
                         || knowsResearch.test(recipe.research()))
-                .filter(recipe -> recipe.central().test(central))
-                .filter(recipe -> matchesComponents(recipe.components(), components))
+                .filter(recipe -> recipe.matchesCentral(central))
+                .filter(recipe -> matchesComponents(
+                        recipe.effectiveComponents(central), components))
                 .findFirst();
     }
 

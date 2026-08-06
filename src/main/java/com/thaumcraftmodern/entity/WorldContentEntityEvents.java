@@ -23,6 +23,14 @@ public final class WorldContentEntityEvents {
                 ModEntities.FACELESS_WITNESS.get(),
                 FacelessWitnessEntity.createAttributes().build()
         );
+        event.put(ModEntities.STRAW_GOLEM.get(), ClassicGolemEntity.createAttributes(GolemMaterial.STRAW).build());
+        event.put(ModEntities.WOOD_GOLEM.get(), ClassicGolemEntity.createAttributes(GolemMaterial.WOOD).build());
+        event.put(ModEntities.TALLOW_GOLEM.get(), ClassicGolemEntity.createAttributes(GolemMaterial.TALLOW).build());
+        event.put(ModEntities.CLAY_GOLEM.get(), ClassicGolemEntity.createAttributes(GolemMaterial.CLAY).build());
+        event.put(ModEntities.FLESH_GOLEM.get(), ClassicGolemEntity.createAttributes(GolemMaterial.FLESH).build());
+        event.put(ModEntities.STONE_GOLEM.get(), ClassicGolemEntity.createAttributes(GolemMaterial.STONE).build());
+        event.put(ModEntities.IRON_GOLEM.get(), ClassicGolemEntity.createAttributes(GolemMaterial.IRON).build());
+        event.put(ModEntities.THAUMIUM_GOLEM.get(), ClassicGolemEntity.createAttributes(GolemMaterial.THAUMIUM).build());
         for (var entry : ModEntities.entries()) {
             event.put(
                     entry.getValue().get(),

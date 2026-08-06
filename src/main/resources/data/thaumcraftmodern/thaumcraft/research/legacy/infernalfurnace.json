@@ -2,7 +2,7 @@
   "id": "infernalfurnace",
   "legacy_id": "INFERNALFURNACE",
   "category": "artifice",
-  "icon": "thaumcraftmodern:thaumonomicon",
+  "icon_resource": "thaumcraftmodern:textures/misc/r_infernalfurnace.png",
   "title": "tc.research_name.INFERNALFURNACE",
   "subtitle": "tc.research_text.INFERNALFURNACE",
   "concealed": true,
@@ -24,12 +24,9 @@
       "body": "tc.research_page.INFERNALFURNACE.1"
     },
     {
-      "type": "unavailable",
+      "type": "compound_crafting",
       "title": "",
-      "body": "",
-      "legacy_type": "recipe",
-      "legacy_content": "InfernalFurnace",
-      "source_expression": "new ResearchPage((List)recipes.get(\"InfernalFurnace\"))"
+      "recipe": "thaumcraftmodern:infernal_furnace_construct"
     },
     {
       "type": "text",
@@ -37,8 +34,8 @@
       "body": "tc.research_page.INFERNALFURNACE.2"
     }
   ],
-  "inactive": true,
-  "inactive_reason": "referenced gameplay content is not implemented",
+  "inactive": false,
+  "inactive_reason": null,
   "legacy": {
     "x": -4,
     "y": -1,

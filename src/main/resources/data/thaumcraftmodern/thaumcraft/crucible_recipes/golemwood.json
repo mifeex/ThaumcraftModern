@@ -12,6 +12,5 @@
     "spiritus": 4
   },
   "legacy_id": "GolemWood",
-  "inactive": true,
-  "inactive_reason": "output item or its complete gameplay behavior is not implemented"
+  "inactive": false
 }

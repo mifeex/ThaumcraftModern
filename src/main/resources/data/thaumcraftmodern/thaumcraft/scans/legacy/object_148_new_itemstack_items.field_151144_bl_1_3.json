@@ -1,6 +1,6 @@
 {
-  "type": "item",
-  "target": "minecraft:player_head",
+  "type": "block_tag",
+  "target": "thaumcraftmodern:player_head_blocks",
   "display": "",
   "aspects": [
     {

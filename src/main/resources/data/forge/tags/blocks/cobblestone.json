@@ -1,0 +1,20 @@
+{
+  "replace": false,
+  "values": [
+    "minecraft:andesite_slab",
+    "minecraft:andesite_stairs",
+    "minecraft:andesite_wall",
+    "minecraft:polished_andesite_slab",
+    "minecraft:polished_andesite_stairs",
+    "minecraft:diorite_slab",
+    "minecraft:diorite_stairs",
+    "minecraft:diorite_wall",
+    "minecraft:polished_diorite_slab",
+    "minecraft:polished_diorite_stairs",
+    "minecraft:granite_slab",
+    "minecraft:granite_stairs",
+    "minecraft:granite_wall",
+    "minecraft:polished_granite_slab",
+    "minecraft:polished_granite_stairs"
+  ]
+}

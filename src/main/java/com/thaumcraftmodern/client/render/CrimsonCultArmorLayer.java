@@ -24,6 +24,7 @@ public final class CrimsonCultArmorLayer extends RenderLayer<
         HumanoidModel<LegacyThaumcraftMob>> {
     private static final Map<LegacyMobKind, ResourceLocation> TEXTURES = Map.of(
             LegacyMobKind.CRIMSON_KNIGHT, texture("cultist_plate_armor.png"),
+            LegacyMobKind.CRIMSON_INQUISITOR, texture("inquisitor_plate_armor.png"),
             LegacyMobKind.CRIMSON_CLERIC, texture("cultist_robe_armor.png"),
             LegacyMobKind.CRIMSON_PRAETOR, texture("cultist_leader_armor.png")
     );
@@ -43,8 +44,9 @@ public final class CrimsonCultArmorLayer extends RenderLayer<
     ) {
         super(parent);
         this.armorModels = Map.of(
-                LegacyMobKind.CRIMSON_KNIGHT, knightModel,
-                LegacyMobKind.CRIMSON_CLERIC, clericModel,
+            LegacyMobKind.CRIMSON_KNIGHT, knightModel,
+            LegacyMobKind.CRIMSON_INQUISITOR, knightModel,
+            LegacyMobKind.CRIMSON_CLERIC, clericModel,
                 LegacyMobKind.CRIMSON_PRAETOR, praetorModel
         );
         this.bootsModel = bootsModel;

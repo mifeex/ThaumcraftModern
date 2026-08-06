@@ -2,7 +2,7 @@
   "id": "coresorting",
   "legacy_id": "CORESORTING",
   "category": "golemancy",
-  "icon": "thaumcraftmodern:thaumonomicon",
+  "icon": "thaumcraftmodern:sorting_golem_core",
   "title": "tc.research_name.CORESORTING",
   "subtitle": "tc.research_text.CORESORTING",
   "concealed": true,
@@ -25,12 +25,9 @@
       "body": "tc.research_page.CORESORTING.1"
     },
     {
-      "type": "unavailable",
+      "type": "recipe",
       "title": "",
-      "body": "",
-      "legacy_type": "recipe",
-      "legacy_content": "CoreSorting",
-      "source_expression": "new ResearchPage((InfusionRecipe)recipes.get(\"CoreSorting\"))"
+      "recipe": "thaumcraftmodern:core_sorting"
     }
   ],
   "purchase_cost": [
@@ -51,7 +48,7 @@
       "amount": 3
     }
   ],
-  "inactive": true,
+  "inactive": false,
   "inactive_reason": "referenced gameplay content is not implemented",
   "legacy": {
     "x": -7,

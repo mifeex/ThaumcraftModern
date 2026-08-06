@@ -1,19 +1,19 @@
 {
-  "type": "item",
-  "target": "minecraft:skeleton_skull",
+  "type": "block_tag",
+  "target": "thaumcraftmodern:skeleton_head_blocks",
   "display": "",
   "aspects": [
     {
-      "id": "mortuus",
-      "amount": 4
-    },
-    {
-      "id": "spiritus",
-      "amount": 4
-    },
-    {
       "id": "exanimis",
-      "amount": 4
+      "amount": 3
+    },
+    {
+      "id": "humanus",
+      "amount": 1
+    },
+    {
+      "id": "terra",
+      "amount": 1
     }
   ],
   "inactive": false,

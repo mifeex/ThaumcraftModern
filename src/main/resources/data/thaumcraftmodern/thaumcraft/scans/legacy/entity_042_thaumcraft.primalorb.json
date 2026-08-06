@@ -1,6 +1,6 @@
 {
-  "type": "legacy_entity",
-  "target": "Thaumcraft.PrimalOrb",
+  "type": "entity",
+  "target": "thaumcraftmodern:primal_orb",
   "display": "",
   "aspects": [
     {
@@ -20,8 +20,7 @@
       "amount": 10
     }
   ],
-  "inactive": true,
-  "inactive_reason": "legacy entity type is not implemented or mapped",
+  "inactive": false,
   "legacy": {
     "legacy_entity_id": "Thaumcraft.PrimalOrb",
     "modern_target": null,

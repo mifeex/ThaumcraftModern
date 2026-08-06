@@ -1,8 +1,12 @@
 {
-  "type": "block",
-  "target": "minecraft:oak_pressure_plate",
+  "type": "block_tag",
+  "target": "minecraft:wooden_pressure_plates",
   "display": "",
   "aspects": [
+    {
+      "id": "arbor",
+      "amount": 1
+    },
     {
       "id": "machina",
       "amount": 1

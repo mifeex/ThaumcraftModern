@@ -2,7 +2,7 @@
   "id": "coregather",
   "legacy_id": "COREGATHER",
   "category": "golemancy",
-  "icon": "thaumcraftmodern:blank_golem_core",
+  "icon": "thaumcraftmodern:gather_golem_core",
   "title": "tc.research_name.COREGATHER",
   "subtitle": "tc.research_text.COREGATHER",
   "concealed": true,
@@ -33,12 +33,9 @@
       "body": "tc.research_page.COREGATHER.2"
     },
     {
-      "type": "unavailable",
+      "type": "recipe",
       "title": "",
-      "body": "",
-      "legacy_type": "recipe",
-      "legacy_content": "CoreGather",
-      "source_expression": "new ResearchPage((CrucibleRecipe)recipes.get(\"CoreGather\"))"
+      "recipe": "thaumcraftmodern:coregather"
     }
   ],
   "inactive": false,

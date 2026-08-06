@@ -1,0 +1,7 @@
+{
+  "parent": "thaumcraftmodern:block/magic_mirror",
+  "textures": {
+    "particle": "#frame",
+    "frame": "thaumcraftmodern:block/mirrorframe2"
+  }
+}

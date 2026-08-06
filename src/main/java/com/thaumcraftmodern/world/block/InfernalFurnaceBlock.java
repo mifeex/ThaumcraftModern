@@ -5,7 +5,11 @@ import com.thaumcraftmodern.registry.ModBlockEntities;
 import com.thaumcraftmodern.world.block.entity.InfernalFurnaceBlockEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.item.ItemEntity;
@@ -51,6 +55,34 @@ public final class InfernalFurnaceBlock extends BaseEntityBlock {
 
     @Override public RenderShape getRenderShape(BlockState state) {
         return RenderShape.MODEL;
+    }
+
+    @Override public void animateTick(BlockState state, Level level,
+            BlockPos pos, RandomSource random) {
+        if (state.getValue(PART) != 0) return;
+        BlockPos above = pos.above();
+        BlockState aboveState = level.getBlockState(above);
+        if (!aboveState.isAir() && aboveState.isSolidRender(level, above)) return;
+
+        // Vanilla 1.20.1 LavaFluid.animateTick: an occasional lava droplet
+        // with a pop, plus a rarer independent ambient crackle.
+        if (random.nextInt(100) == 0) {
+            double x = pos.getX() + random.nextDouble();
+            double y = pos.getY() + 1.0D;
+            double z = pos.getZ() + random.nextDouble();
+            level.addParticle(ParticleTypes.LAVA, x, y, z,
+                    0.0D, 0.0D, 0.0D);
+            level.playLocalSound(x, y, z, SoundEvents.LAVA_POP,
+                    SoundSource.BLOCKS,
+                    0.2F + random.nextFloat() * 0.2F,
+                    0.9F + random.nextFloat() * 0.15F, false);
+        }
+        if (random.nextInt(200) == 0) {
+            level.playLocalSound(pos.getX(), pos.getY(), pos.getZ(),
+                    SoundEvents.LAVA_AMBIENT, SoundSource.BLOCKS,
+                    0.2F + random.nextFloat() * 0.2F,
+                    0.9F + random.nextFloat() * 0.15F, false);
+        }
     }
 
     @Override public VoxelShape getShape(BlockState state, BlockGetter level,

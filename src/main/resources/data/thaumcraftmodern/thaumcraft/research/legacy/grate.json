@@ -2,7 +2,7 @@
   "id": "grate",
   "legacy_id": "GRATE",
   "category": "artifice",
-  "icon": "thaumcraftmodern:thaumonomicon",
+  "icon": "thaumcraftmodern:item_grate",
   "title": "tc.research_name.GRATE",
   "subtitle": "tc.research_text.GRATE",
   "concealed": false,
@@ -20,17 +20,9 @@
       "title": "",
       "body": "tc.research_page.GRATE.1"
     },
-    {
-      "type": "unavailable",
-      "title": "",
-      "body": "",
-      "legacy_type": "recipe",
-      "legacy_content": "Grate",
-      "source_expression": "new ResearchPage((IRecipe)recipes.get(\"Grate\"))"
-    }
+    {"type":"recipe","title":"","recipe":"thaumcraftmodern:item_grate"}
   ],
-  "inactive": true,
-  "inactive_reason": "referenced gameplay content is not implemented",
+  "inactive": false,
   "legacy": {
     "x": 2,
     "y": -1,

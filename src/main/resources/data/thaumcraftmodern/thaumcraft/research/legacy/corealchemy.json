@@ -2,7 +2,7 @@
   "id": "corealchemy",
   "legacy_id": "COREALCHEMY",
   "category": "golemancy",
-  "icon": "thaumcraftmodern:thaumonomicon",
+  "icon": "thaumcraftmodern:alchemy_golem_core",
   "title": "tc.research_name.COREALCHEMY",
   "subtitle": "tc.research_text.COREALCHEMY",
   "concealed": true,
@@ -24,12 +24,9 @@
       "body": "tc.research_page.COREALCHEMY.1"
     },
     {
-      "type": "unavailable",
+      "type": "recipe",
       "title": "",
-      "body": "",
-      "legacy_type": "recipe",
-      "legacy_content": "CoreAlchemy",
-      "source_expression": "new ResearchPage((InfusionRecipe)recipes.get(\"CoreAlchemy\"))"
+      "recipe": "thaumcraftmodern:core_alchemy"
     },
     {
       "type": "text",
@@ -55,7 +52,7 @@
       "amount": 3
     }
   ],
-  "inactive": true,
+  "inactive": false,
   "inactive_reason": "referenced gameplay content is not implemented",
   "legacy": {
     "x": -9,

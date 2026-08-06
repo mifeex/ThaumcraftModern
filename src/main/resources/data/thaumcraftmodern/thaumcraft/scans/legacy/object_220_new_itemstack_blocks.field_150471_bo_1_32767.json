@@ -1,6 +1,6 @@
 {
-  "type": "block",
-  "target": "minecraft:oak_button",
+  "type": "block_tag",
+  "target": "minecraft:wooden_buttons",
   "display": "",
   "aspects": [
     {

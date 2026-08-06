@@ -19,29 +19,36 @@ import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 
 public final class ElementalSwordItem extends SwordItem {
+    private static final String DEFENDING = "tc4ZephyrDefending";
     private static final ThreadLocal<Boolean> SWEEPING = ThreadLocal.withInitial(() -> false);
 
     public ElementalSwordItem(Properties properties) {
         super(ElementalTier.INSTANCE, 3, -2.4F, properties);
     }
 
-    @Override public UseAnim getUseAnimation(ItemStack stack) { return UseAnim.BLOCK; }
+    @Override
+    public UseAnim getUseAnimation(ItemStack stack) {
+        return isDefending(stack) ? UseAnim.BLOCK : UseAnim.NONE;
+    }
     @Override public int getUseDuration(ItemStack stack) { return 72_000; }
 
     @Override
     public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand hand) {
-        if (!player.isShiftKeyDown()) {
-            return InteractionResultHolder.pass(player.getItemInHand(hand));
-        }
+        ItemStack stack = player.getItemInHand(hand);
+        stack.getOrCreateTag().putBoolean(DEFENDING, player.isShiftKeyDown());
         player.startUsingItem(hand);
-        return InteractionResultHolder.consume(player.getItemInHand(hand));
+        return InteractionResultHolder.consume(stack);
     }
 
     @Override
     public void onUseTick(Level level, LivingEntity living, ItemStack stack, int remaining) {
         if (!(living instanceof Player player)) return;
-        if (!player.isShiftKeyDown()) {
-            player.stopUsingItem();
+        if (isDefending(stack)) {
+            if (!player.isShiftKeyDown()) {
+                player.stopUsingItem();
+                return;
+            }
+            renderDefensiveStance(level, player, remaining);
             return;
         }
         int elapsed = getUseDuration(stack) - remaining;
@@ -72,6 +79,30 @@ public final class ElementalSwordItem extends SwordItem {
         }
         if (elapsed % 20 == 0) {
             stack.hurtAndBreak(1, player, broken -> broken.broadcastBreakEvent(player.getUsedItemHand()));
+        }
+    }
+
+    @Override
+    public void releaseUsing(ItemStack stack, Level level, LivingEntity living, int remaining) {
+        stack.getOrCreateTag().remove(DEFENDING);
+        super.releaseUsing(stack, level, living, remaining);
+    }
+
+    static boolean isDefending(ItemStack stack) {
+        return stack.hasTag() && stack.getTag().getBoolean(DEFENDING);
+    }
+
+    private void renderDefensiveStance(Level level, Player player, int remaining) {
+        int elapsed = getUseDuration(player.getUseItem()) - remaining;
+        if (level instanceof ServerLevel server) {
+            server.sendParticles(ParticleTypes.CLOUD, player.getX(),
+                    player.getY() + player.getBbHeight() * 0.5D, player.getZ(),
+                    4, 0.65D, player.getBbHeight() * 0.35D, 0.65D, 0.015D);
+            if (elapsed == 0 || elapsed % 20 == 0) {
+                server.playSound(null, player.blockPosition(), ModSounds.WIND.get(),
+                        SoundSource.PLAYERS, 0.35F,
+                        1.1F + server.random.nextFloat() * 0.1F);
+            }
         }
     }
 

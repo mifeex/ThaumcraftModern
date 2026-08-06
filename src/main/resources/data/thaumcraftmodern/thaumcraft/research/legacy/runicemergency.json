@@ -2,7 +2,7 @@
   "id": "runicemergency",
   "legacy_id": "RUNICEMERGENCY",
   "category": "artifice",
-  "icon": "thaumcraftmodern:thaumonomicon",
+  "icon": "thaumcraftmodern:runic_amulet_emergency",
   "title": "tc.research_name.RUNICEMERGENCY",
   "subtitle": "tc.research_text.RUNICEMERGENCY",
   "concealed": true,
@@ -23,12 +23,15 @@
       "body": "tc.research_page.RUNICEMERGENCY.1"
     },
     {
-      "type": "unavailable",
+      "type": "infusion",
       "title": "",
       "body": "",
       "legacy_type": "recipe",
       "legacy_content": "RunicAmuletEmergency",
-      "source_expression": "new ResearchPage((InfusionRecipe)recipes.get(\"RunicAmuletEmergency\"))"
+      "source_expression": "new ResearchPage((InfusionRecipe)recipes.get(\"RunicAmuletEmergency\"))",
+      "recipe": "thaumcraftmodern:runic_amulet_emergency", "output":"thaumcraftmodern:runic_amulet_emergency", "central":"thaumcraftmodern:runic_amulet",
+      "components":[{"item":"thaumcraftmodern:balanced_shard"},{"item":"thaumcraftmodern:earth_shard"},{"item":"thaumcraftmodern:earth_shard"},{"item":"minecraft:potion","potion":"minecraft:strong_strength"},{"item":"thaumcraftmodern:earth_shard"},{"item":"thaumcraftmodern:earth_shard"}],
+      "aspect_costs":[{"id":"tutamen","amount":20},{"id":"praecantatio","amount":35},{"id":"terra","amount":32},{"id":"vacuos","amount":32}], "instability":"high"
     }
   ],
   "purchase_cost": [
@@ -49,8 +52,7 @@
       "amount": 4
     }
   ],
-  "inactive": true,
-  "inactive_reason": "referenced gameplay content is not implemented",
+  "inactive": false,
   "legacy": {
     "x": 4,
     "y": 5,

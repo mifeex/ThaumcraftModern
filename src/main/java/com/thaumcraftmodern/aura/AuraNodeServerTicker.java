@@ -59,12 +59,20 @@ final class AuraNodeServerTicker {
         );
         node.advanceClassicTick();
         int ticks = node.classicTicks();
+        long nowMillis = System.currentTimeMillis();
+        node.initializeLastActive(nowMillis);
         if (node.regenerationWait() > 0) {
             node.decrementRegenerationWait();
         }
 
         AuraNodeState.Snapshot snapshot = node.snapshotState().snapshot();
         int stabilizerLock = stabilizerLock(level, position);
+        catchUpRegeneration(
+                level.random,
+                node,
+                stabilizerLock,
+                nowMillis
+        );
         tickTaintNode(level, position, node, snapshot, ticks);
         if (snapshot.type() == AuraNodeType.DARK) {
             tickDarkNode(level, position, ticks);
@@ -78,19 +86,27 @@ final class AuraNodeServerTicker {
                 hungryBreakBlock(level, position);
             }
         }
-        if (snapshot.type() == AuraNodeType.UNSTABLE
-                && stabilizerLock == 0
-                && ticks % 100 == 0
-                && level.random.nextBoolean()) {
-            dischargeUnstableAspect(level, position, node);
-        }
+        tickNodeStability(
+                level,
+                position,
+                node,
+                snapshot,
+                stabilizerLock,
+                ticks
+        );
         if (snapshot.modifier() == AuraNodeModifier.FADING
                 && stabilizerLock == 0
                 && ticks % 1200 == 0
                 && decayEmptyAspects(level, position, node)) {
             return;
         }
-        regenerate(level.random, ticks, node, stabilizerLock);
+        regenerate(
+                level.random,
+                ticks,
+                node,
+                stabilizerLock,
+                nowMillis
+        );
         discharge(level, position, node, stabilizerLock);
     }
 
@@ -369,41 +385,116 @@ final class AuraNodeServerTicker {
             RandomSource random,
             int ticks,
             AuraNodeBlockEntity node,
-            int stabilizerLock
+            int stabilizerLock,
+            long nowMillis
     ) {
-        int interval = switch (node.snapshotState().modifier()) {
-            case BRIGHT -> 400;
-            case PALE -> 900;
-            case FADING -> 0;
-            case NORMAL -> 600;
-        };
-        if (stabilizerLock == 1) {
-            interval *= 2;
-        } else if (stabilizerLock == 2) {
-            interval *= 20;
-        }
+        int interval = AuraNodeRegenerationPolicy.interval(
+                node.snapshotState().modifier(),
+                stabilizerLock
+        );
         if (interval <= 0
                 || node.regenerationWait() > 0
                 || ticks % interval != 0) {
             return;
         }
+        node.setLastActiveMillis(nowMillis);
+        rechargeOneMissingAspect(random, node);
+    }
+
+    private static void catchUpRegeneration(
+            RandomSource random,
+            AuraNodeBlockEntity node,
+            int stabilizerLock,
+            long nowMillis
+    ) {
+        if (!node.consumeCatchUpPending()) {
+            return;
+        }
+        AuraNodeState.Snapshot snapshot = node.snapshotState().snapshot();
+        int interval = AuraNodeRegenerationPolicy.interval(
+                snapshot.modifier(),
+                stabilizerLock
+        );
+        int maximumCycles = snapshot.aspectsMaximum().values().stream()
+                .mapToInt(Integer::intValue)
+                .sum();
+        int cycles = AuraNodeRegenerationPolicy.missedCycles(
+                nowMillis,
+                node.lastActiveMillis(),
+                interval,
+                maximumCycles
+        );
+        for (int cycle = 0; cycle < cycles; cycle++) {
+            if (!rechargeOneMissingAspect(random, node)) {
+                break;
+            }
+        }
+        if (cycles > 0) {
+            node.setLastActiveMillis(
+                    AuraNodeRegenerationPolicy.advanceLastActive(
+                            node.lastActiveMillis(),
+                            interval,
+                            cycles
+                    )
+            );
+        }
+    }
+
+    private static boolean rechargeOneMissingAspect(
+            RandomSource random,
+            AuraNodeBlockEntity node
+    ) {
         AuraNodeState.Snapshot snapshot = node.snapshotState().snapshot();
         List<String> missing = snapshot.aspectsCurrent().keySet().stream()
                 .filter(aspect -> snapshot.aspectsCurrent().get(aspect)
                         < snapshot.aspectsMaximum().get(aspect))
                 .toList();
         if (missing.isEmpty()) {
-            return;
+            return false;
         }
         String aspect = missing.get(random.nextInt(missing.size()));
         Map<String, Integer> current =
                 new LinkedHashMap<>(snapshot.aspectsCurrent());
         current.put(aspect, current.get(aspect) + 1);
-        node.replaceAspects(
+        return node.replaceAspects(
                 snapshot.revision(),
                 current,
                 snapshot.aspectsMaximum()
         );
+    }
+
+    private static void tickNodeStability(
+            ServerLevel level,
+            BlockPos position,
+            AuraNodeBlockEntity node,
+            AuraNodeState.Snapshot snapshot,
+            int stabilizerLock,
+            int ticks
+    ) {
+        if (ticks % 100 != 0) {
+            return;
+        }
+        if (snapshot.type() == AuraNodeType.UNSTABLE
+                && level.random.nextBoolean()) {
+            if (stabilizerLock == 0) {
+                dischargeUnstableAspect(level, position, node);
+            } else if (level.random.nextInt(
+                    AuraNodeRegenerationPolicy.unstableImprovementBound(
+                            stabilizerLock
+                    )
+            ) == 42) {
+                node.replaceType(AuraNodeType.NORMAL);
+            }
+        }
+        if (snapshot.modifier() == AuraNodeModifier.FADING
+                && stabilizerLock > 0
+                && level.random.nextInt(
+                        AuraNodeRegenerationPolicy.fadingImprovementBound(
+                                stabilizerLock
+                        )
+                ) == 69) {
+            node.replaceModifier(AuraNodeModifier.PALE);
+        }
     }
 
     private static void discharge(
@@ -509,12 +600,7 @@ final class AuraNodeServerTicker {
     private static int regenerationInterval(
             AuraNodeState.Snapshot snapshot
     ) {
-        return switch (snapshot.modifier()) {
-            case BRIGHT -> 400;
-            case PALE -> 900;
-            case FADING -> 0;
-            case NORMAL -> 600;
-        };
+        return AuraNodeRegenerationPolicy.interval(snapshot.modifier(), 0);
     }
 
     private static void dischargeUnstableAspect(

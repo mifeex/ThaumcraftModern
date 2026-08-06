@@ -444,33 +444,16 @@ public final class ResearchTableScreen extends AbstractContainerScreen<ResearchT
             int x = paletteX(visibleIndex);
             int y = paletteY(visibleIndex);
             int amount = knowledge.aspectAmount(aspectId);
-            if (amount > 0) {
-                ClassicUiRender.drawAspect(
-                        graphics,
-                        new ResourceLocation(definition.icon()),
-                        x,
-                        y,
-                        16,
-                        definition.color()
-                );
-            } else {
-                ClassicUiRender.drawTintedScaledTexture(
-                        graphics,
-                        new ResourceLocation(definition.icon()),
-                        x,
-                        y,
-                        16,
-                        16,
-                        0,
-                        0,
-                        32,
-                        32,
-                        32,
-                        32,
-                        0xFF353535
-                );
-            }
-            renderAspectCount(graphics, amount, x, y);
+            ClassicUiRender.drawAspectTag(
+                    graphics,
+                    font,
+                    new ResourceLocation(definition.icon()),
+                    x,
+                    y,
+                    16,
+                    amount > 0 ? definition.color() : 0x353535,
+                    amount
+            );
             if (mouseX >= x && mouseX < x + 16 && mouseY >= y && mouseY < y + 16) {
                 hoveredAspect = definition;
             }
@@ -729,20 +712,6 @@ public final class ResearchTableScreen extends AbstractContainerScreen<ResearchT
                     color
             );
         }
-    }
-
-    private void renderAspectCount(GuiGraphics graphics, int amount, int x, int y) {
-        String text = Integer.toString(amount);
-        float scale = 0.75F;
-        graphics.pose().pushPose();
-        graphics.pose().translate(
-                x + 15 - font.width(text) * scale,
-                y + 9,
-                100.0F
-        );
-        graphics.pose().scale(scale, scale, 1.0F);
-        graphics.drawString(font, text, 0, 0, 0xFFFFFFFF, true);
-        graphics.pose().popPose();
     }
 
     private void renderDropTargetHighlights(GuiGraphics graphics, int mouseX, int mouseY) {
@@ -1229,15 +1198,16 @@ public final class ResearchTableScreen extends AbstractContainerScreen<ResearchT
             }
             int x = leftPos + 148 + index * 16;
             int y = topPos + 21;
-            ClassicUiRender.drawAspect(
+            ClassicUiRender.drawAspectTag(
                     graphics,
+                    font,
                     new ResourceLocation(aspect.icon()),
                     x,
                     y,
                     16,
-                    aspect.color()
+                    aspect.color(),
+                    cost.amount()
             );
-            renderAspectCount(graphics, cost.amount(), x, y);
         }
     }
 

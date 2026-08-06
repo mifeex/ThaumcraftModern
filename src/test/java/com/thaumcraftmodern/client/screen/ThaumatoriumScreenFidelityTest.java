@@ -7,6 +7,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class ThaumatoriumScreenFidelityTest {
@@ -44,6 +45,36 @@ class ThaumatoriumScreenFidelityTest {
     }
 
     @Test
+    void serverSynchronizesEveryAvailableVariantAndSelectionState()
+            throws IOException {
+        String menu = Files.readString(Path.of(
+                "src/main/java/com/thaumcraftmodern/world/menu/ThaumatoriumMenu.java"
+        ));
+        String packet = Files.readString(Path.of(
+                "src/main/java/com/thaumcraftmodern/network/packet/ThaumatoriumRecipeSyncPacket.java"
+        ));
+        String screen = Files.readString(Path.of(
+                "src/main/java/com/thaumcraftmodern/client/screen/ThaumatoriumScreen.java"
+        ));
+        String machine = Files.readString(Path.of(
+                "src/main/java/com/thaumcraftmodern/world/block/entity/ThaumatoriumBlockEntity.java"
+        ));
+        assertTrue(menu.contains("machine.availableRecipes(player)"));
+        assertTrue(menu.contains("new ThaumatoriumRecipeSyncPacket("));
+        assertTrue(menu.contains("clientRecipes = List.copyOf(recipes)"));
+        assertTrue(menu.contains("clientCraftableRecipes = List.copyOf(craftableRecipes)"));
+        assertTrue(menu.contains("clientFormulae = List.copyOf(formulae)"));
+        assertTrue(packet.contains("List<CrucibleRecipeDefinition> recipes"));
+        assertTrue(packet.contains("List<ResourceLocation> craftableRecipes"));
+        assertTrue(packet.contains("recipe.aspects().forEach"));
+        assertFalse(machine.contains("hasRevealedResearch(recipe.research())"));
+        assertTrue(machine.contains("hasCompletedResearch(recipe.research())"));
+        assertTrue(screen.contains("menu.craftable(recipe)"));
+        assertTrue(screen.contains(
+                "lastRecipeRevision != menu.recipeRevision()"));
+    }
+
+    @Test
     void selectionIndicatorAndAspectWidgetsUseOriginalTextureRegions()
             throws IOException {
         String source = Files.readString(Path.of(
@@ -58,6 +89,17 @@ class ThaumatoriumScreenFidelityTest {
         assertTrue(source.contains("48,"));
         assertTrue(source.contains("leftPos + 88, topPos + 16"));
         assertTrue(source.contains("176, 56, 24, 24"));
+        assertTrue(source.contains("RECIPE_ARROW_X = 128"));
+        assertTrue(source.contains("RECIPE_PREVIOUS_Y = 16"));
+        assertTrue(source.contains("RECIPE_NEXT_Y = 24"));
+        assertTrue(source.contains("RECIPE_ARROW_WIDTH = 16"));
+        assertTrue(source.contains("RECIPE_ARROW_HEIGHT = 8"));
+        assertTrue(source.contains(
+                "RECIPE_COUNTER_RIGHT_X = RECIPE_ARROW_X + 10"));
+        assertTrue(source.contains(
+                "graphics.drawString(font, text, -font.width(text), 0"));
+        assertTrue(source.contains("index > 0 ? 192 : 176, 16"));
+        assertTrue(source.contains("index < recipeCount - 1 ? 192 : 176, 24"));
         assertTrue(source.contains("leftPos + 32, topPos + 40"));
         assertTrue(source.contains("startAspect > 0 ? 192 : 176"));
         assertTrue(source.contains("leftPos + 136, topPos + 40"));
@@ -70,7 +112,8 @@ class ThaumatoriumScreenFidelityTest {
         assertTrue(source.contains("ASPECT_PROGRESS_Y_OFFSET = 58"));
         assertTrue(source.contains("ASPECT_PROGRESS_WIDTH = 12"));
         assertTrue(source.contains("ASPECT_PROGRESS_HEIGHT = 4"));
-        assertTrue(source.contains("ClassicUiRender.drawAspect("));
+        assertTrue(source.contains("ClassicUiRender.drawAspectTag("));
+        assertTrue(source.contains("entry.getValue()"));
         assertTrue(source.contains("graphics.blit(\n"
                 + "                            TEXTURE,"));
         assertTrue(source.contains("                            176,\n"

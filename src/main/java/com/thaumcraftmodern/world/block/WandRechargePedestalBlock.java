@@ -1,5 +1,6 @@
 package com.thaumcraftmodern.world.block;
 
+import com.thaumcraftmodern.item.VisStorageItem;
 import com.thaumcraftmodern.registry.ModBlockEntities;
 import com.thaumcraftmodern.wand.WandVisService;
 import com.thaumcraftmodern.world.block.entity.WandRechargePedestalBlockEntity;
@@ -57,7 +58,10 @@ public final class WandRechargePedestalBlock extends BaseEntityBlock {
             return InteractionResult.CONSUME;
         }
         ItemStack held = player.getItemInHand(hand);
-        if (!WandVisService.isWand(held)) return InteractionResult.PASS;
+        if (!WandVisService.isWand(held)
+                && !(held.getItem() instanceof VisStorageItem)) {
+            return InteractionResult.PASS;
+        }
         ItemStack placed = held.copy();
         placed.setCount(1);
         pedestal.setItem(0, placed);

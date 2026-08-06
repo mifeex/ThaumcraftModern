@@ -1,6 +1,6 @@
 {
-  "type": "legacy_object",
-  "target": "new ItemStack(ConfigItems.itemNugget, 1, 20)",
+  "type": "item",
+  "target": "thaumcraftmodern:native_lead_cluster",
   "display": "",
   "aspects": [
     {
@@ -16,8 +16,7 @@
       "amount": 1
     }
   ],
-  "inactive": true,
-  "inactive_reason": "legacy item, metadata, or Ore Dictionary target is not mapped",
+  "inactive": false,
   "legacy": {
     "registration_mode": "explicit",
     "target_kind": "item_stack",

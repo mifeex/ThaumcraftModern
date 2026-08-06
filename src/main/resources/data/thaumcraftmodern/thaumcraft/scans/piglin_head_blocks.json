@@ -1,0 +1,11 @@
+{
+  "type":"block_tag",
+  "target":"thaumcraftmodern:piglin_head_blocks",
+  "display":"",
+  "aspects":[
+    {"id":"perditio","amount":2},
+    {"id":"victus","amount":1}
+  ],
+  "inactive":false,
+  "modern_rule":"Piglin head uses the current Piglin entity scan aspects."
+}

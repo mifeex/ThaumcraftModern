@@ -2,7 +2,7 @@
   "id": "mirroressentia",
   "legacy_id": "MIRRORESSENTIA",
   "category": "artifice",
-  "icon": "thaumcraftmodern:thaumonomicon",
+  "icon": "thaumcraftmodern:essentia_mirror",
   "title": "tc.research_name.MIRRORESSENTIA",
   "subtitle": "tc.research_text.MIRRORESSENTIA",
   "concealed": true,
@@ -23,12 +23,44 @@
       "body": "tc.research_page.MIRRORESSENTIA.1"
     },
     {
-      "type": "unavailable",
-      "title": "",
-      "body": "",
-      "legacy_type": "recipe",
-      "legacy_content": "MirrorEssentia",
-      "source_expression": "new ResearchPage((InfusionRecipe)recipes.get(\"MirrorEssentia\"))"
+      "type": "infusion",
+      "title": "recipe.type.infusion",
+      "output": "thaumcraftmodern:essentia_mirror",
+      "central": "thaumcraftmodern:mirrored_glass",
+      "components": [
+        {
+          "item": "minecraft:iron_ingot",
+          "count": 1
+        },
+        {
+          "item": "minecraft:iron_ingot",
+          "count": 1
+        },
+        {
+          "item": "minecraft:iron_ingot",
+          "count": 1
+        },
+        {
+          "item": "minecraft:ender_pearl",
+          "count": 1
+        }
+      ],
+      "aspect_costs": [
+        {
+          "id": "iter",
+          "amount": 8
+        },
+        {
+          "id": "aqua",
+          "amount": 8
+        },
+        {
+          "id": "permutatio",
+          "amount": 8
+        }
+      ],
+      "instability": "moderate",
+      "detail": "recipe.type.infusion"
     },
     {
       "type": "text",
@@ -54,8 +86,8 @@
       "amount": 3
     }
   ],
-  "inactive": true,
-  "inactive_reason": "referenced gameplay content is not implemented",
+  "inactive": false,
+  "inactive_reason": null,
   "legacy": {
     "x": -1,
     "y": 10,

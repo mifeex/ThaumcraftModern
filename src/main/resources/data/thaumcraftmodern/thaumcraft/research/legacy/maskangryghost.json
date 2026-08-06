@@ -2,7 +2,7 @@
   "id": "maskangryghost",
   "legacy_id": "MASKANGRYGHOST",
   "category": "artifice",
-  "icon": "thaumcraftmodern:thaumonomicon",
+  "icon_resource": "thaumcraftmodern:textures/misc/r_mask1.png",
   "title": "tc.research_name.MASKANGRYGHOST",
   "subtitle": "tc.research_text.MASKANGRYGHOST",
   "concealed": true,
@@ -23,12 +23,52 @@
       "body": "tc.research_page.MASKANGRYGHOST.1"
     },
     {
-      "type": "unavailable",
-      "title": "",
-      "body": "",
-      "legacy_type": "recipe",
-      "legacy_content": "MaskAngryGhost",
-      "source_expression": "new ResearchPage((InfusionRecipe)recipes.get(\"MaskAngryGhost\"))"
+      "type": "infusion",
+      "title": "recipe.type.infusion",
+      "output": "thaumcraftmodern:fortress_helmet_mask_angry_ghost",
+      "central": "thaumcraftmodern:fortress_helmet",
+      "components": [
+        {
+          "item": "minecraft:white_dye",
+          "count": 1
+        },
+        {
+          "item": "minecraft:iron_ingot",
+          "count": 1
+        },
+        {
+          "item": "minecraft:leather",
+          "count": 1
+        },
+        {
+          "item": "minecraft:poisonous_potato",
+          "count": 1
+        },
+        {
+          "item": "minecraft:wither_skeleton_skull",
+          "count": 1
+        },
+        {
+          "item": "minecraft:iron_ingot",
+          "count": 1
+        }
+      ],
+      "aspect_costs": [
+        {
+          "id": "perditio",
+          "amount": 64
+        },
+        {
+          "id": "mortuus",
+          "amount": 64
+        },
+        {
+          "id": "tutamen",
+          "amount": 16
+        }
+      ],
+      "instability": "dangerous",
+      "detail": "recipe.type.infusion"
     }
   ],
   "purchase_cost": [
@@ -45,8 +85,8 @@
       "amount": 3
     }
   ],
-  "inactive": true,
-  "inactive_reason": "referenced gameplay content is not implemented",
+  "inactive": false,
+  "inactive_reason": null,
   "legacy": {
     "x": -10,
     "y": 9,

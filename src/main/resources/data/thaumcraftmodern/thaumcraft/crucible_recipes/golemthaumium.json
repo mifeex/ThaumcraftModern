@@ -12,6 +12,5 @@
     "spiritus": 8
   },
   "legacy_id": "GolemThaumium",
-  "inactive": true,
-  "inactive_reason": "output item or its complete gameplay behavior is not implemented"
+  "inactive": false
 }

@@ -130,7 +130,20 @@ class RestoredInfusionRecipeCoverageTest {
                                 "thaumcraftmodern:order_shard", "thaumcraftmodern:vis_filter",
                                 "thaumcraftmodern:order_shard", "thaumcraftmodern:vis_filter"),
                         "thaumcraftmodern:compound_recharge_focus",
-                        map("ordo", 10, "praecantatio", 15, "permutatio", 10))
+                        map("ordo", 10, "praecantatio", 15, "permutatio", 10)),
+                spec("brain_jar", "jarbrain", 4,
+                        "thaumcraftmodern:warded_jar",
+                        List.of("thaumcraftmodern:zombie_brain", "minecraft:spider_eye",
+                                "minecraft:water_bucket", "minecraft:spider_eye"),
+                        "thaumcraftmodern:brain_jar",
+                        map("cognitio", 10, "sensus", 10, "exanimis", 20)),
+                spec("sinister_lodestone", "sinstone", 5,
+                        "minecraft:flint",
+                        List.of("thaumcraftmodern:quicksilver", "thaumcraftmodern:order_shard",
+                                "thaumcraftmodern:salis_mundus",
+                                "thaumcraftmodern:entropy_shard"),
+                        "thaumcraftmodern:sinister_lodestone",
+                        map("sensus", 8, "tenebrae", 8, "alienis", 8, "auram", 8))
         );
     }
 

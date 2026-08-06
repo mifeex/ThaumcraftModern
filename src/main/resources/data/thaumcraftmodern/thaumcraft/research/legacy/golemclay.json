@@ -2,7 +2,7 @@
   "id": "golemclay",
   "legacy_id": "GOLEMCLAY",
   "category": "golemancy",
-  "icon": "thaumcraftmodern:thaumonomicon",
+  "icon": "thaumcraftmodern:clay_golem",
   "title": "tc.research_name.GOLEMCLAY",
   "subtitle": "tc.research_text.GOLEMCLAY",
   "concealed": true,
@@ -23,12 +23,9 @@
       "body": "tc.research_page.GOLEMCLAY.1"
     },
     {
-      "type": "unavailable",
+      "type": "recipe",
       "title": "",
-      "body": "",
-      "legacy_type": "recipe",
-      "legacy_content": "GolemClay",
-      "source_expression": "new ResearchPage((CrucibleRecipe)recipes.get(\"GolemClay\"))"
+      "recipe": "thaumcraftmodern:golemclay"
     }
   ],
   "purchase_cost": [
@@ -49,8 +46,7 @@
       "amount": 3
     }
   ],
-  "inactive": true,
-  "inactive_reason": "referenced gameplay content is not implemented",
+  "inactive": false,
   "legacy": {
     "x": 2,
     "y": 6,

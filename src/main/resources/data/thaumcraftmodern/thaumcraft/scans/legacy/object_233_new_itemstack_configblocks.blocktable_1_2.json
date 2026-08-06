@@ -1,6 +1,6 @@
 {
   "type": "block",
-  "target": "thaumcraftmodern:thaumcraft_table",
+  "target": "thaumcraftmodern:research_table",
   "display": "",
   "aspects": [
     {

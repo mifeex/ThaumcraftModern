@@ -2,7 +2,8 @@
   "id": "sinstone",
   "legacy_id": "SINSTONE",
   "category": "artifice",
-  "icon": "thaumcraftmodern:thaumonomicon",
+  "icon": "thaumcraftmodern:sinister_lodestone",
+  "icon_resource": "thaumcraftmodern:textures/item/sinister_stone_active.png",
   "title": "tc.research_name.SINSTONE",
   "subtitle": "tc.research_text.SINSTONE",
   "concealed": true,
@@ -23,16 +24,27 @@
       "body": "tc.research_page.SINSTONE.1"
     },
     {
-      "type": "unavailable",
-      "title": "",
-      "body": "",
-      "legacy_type": "recipe",
-      "legacy_content": "SinStone",
-      "source_expression": "new ResearchPage((InfusionRecipe)recipes.get(\"SinStone\"))"
+      "type": "infusion",
+      "title": "recipe.type.infusion",
+      "output": "thaumcraftmodern:sinister_lodestone",
+      "central": "minecraft:flint",
+      "components": [
+        {"item": "thaumcraftmodern:quicksilver", "count": 1},
+        {"item": "thaumcraftmodern:order_shard", "count": 1},
+        {"item": "thaumcraftmodern:salis_mundus", "count": 1},
+        {"item": "thaumcraftmodern:entropy_shard", "count": 1}
+      ],
+      "aspect_costs": [
+        {"id": "sensus", "amount": 8},
+        {"id": "tenebrae", "amount": 8},
+        {"id": "alienis", "amount": 8},
+        {"id": "auram", "amount": 8}
+      ],
+      "instability": "moderate",
+      "detail": "tc.research_text.SINSTONE"
     }
   ],
-  "inactive": true,
-  "inactive_reason": "referenced gameplay content is not implemented",
+  "inactive": false,
   "legacy": {
     "x": 6,
     "y": 2,

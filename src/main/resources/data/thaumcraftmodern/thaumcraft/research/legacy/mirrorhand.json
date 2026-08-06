@@ -2,7 +2,7 @@
   "id": "mirrorhand",
   "legacy_id": "MIRRORHAND",
   "category": "artifice",
-  "icon": "thaumcraftmodern:thaumonomicon",
+  "icon": "thaumcraftmodern:hand_mirror",
   "title": "tc.research_name.MIRRORHAND",
   "subtitle": "tc.research_text.MIRRORHAND",
   "concealed": true,
@@ -23,12 +23,36 @@
       "body": "tc.research_page.MIRRORHAND.1"
     },
     {
-      "type": "unavailable",
-      "title": "",
-      "body": "",
-      "legacy_type": "recipe",
-      "legacy_content": "MirrorHand",
-      "source_expression": "new ResearchPage((InfusionRecipe)recipes.get(\"MirrorHand\"))"
+      "type": "infusion",
+      "title": "recipe.type.infusion",
+      "output": "thaumcraftmodern:hand_mirror",
+      "central": "thaumcraftmodern:magic_mirror",
+      "components": [
+        {
+          "item": "minecraft:stick",
+          "count": 1
+        },
+        {
+          "item": "minecraft:compass",
+          "count": 1
+        },
+        {
+          "item": "minecraft:map",
+          "count": 1
+        }
+      ],
+      "aspect_costs": [
+        {
+          "id": "instrumentum",
+          "amount": 16
+        },
+        {
+          "id": "iter",
+          "amount": 16
+        }
+      ],
+      "instability": "very_high",
+      "detail": "recipe.type.infusion"
     }
   ],
   "purchase_cost": [
@@ -49,8 +73,8 @@
       "amount": 3
     }
   ],
-  "inactive": true,
-  "inactive_reason": "referenced gameplay content is not implemented",
+  "inactive": false,
+  "inactive_reason": null,
   "legacy": {
     "x": 1,
     "y": 9,

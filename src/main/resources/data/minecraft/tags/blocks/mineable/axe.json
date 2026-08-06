@@ -1,6 +1,7 @@
 {
   "replace": false,
   "values": [
+    "thaumcraftmodern:arcane_bellows",
     "thaumcraftmodern:research_table",
     "thaumcraftmodern:thaumcraft_table",
     "thaumcraftmodern:arcane_workbench",

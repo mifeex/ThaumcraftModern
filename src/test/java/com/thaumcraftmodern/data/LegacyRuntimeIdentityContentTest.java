@@ -85,11 +85,11 @@ final class LegacyRuntimeIdentityContentTest {
                         + "with legacy Blocks.grass is removed"
         );
         assertTrue(
-                activeKeys.contains("block:minecraft:sandstone"),
-                "the recipe-derived sandstone scan is not active"
+                activeKeys.contains("block_tag:thaumcraftmodern:sandstone_equivalents"),
+                "the shared recipe-derived sandstone scan is not active"
         );
         assertEquals(
-                30,
+                25,
                 activeRecipeDerivedVanillaBlocks.size(),
                 "all migrated recipe-derived vanilla block scans must be active"
         );
@@ -98,7 +98,7 @@ final class LegacyRuntimeIdentityContentTest {
                 report.getAsJsonArray("unresolved_without_1_20_1_equivalent").size(),
                 unresolved
         );
-        assertEquals(34, unresolved);
+        assertEquals(6, unresolved);
     }
 
     @Test

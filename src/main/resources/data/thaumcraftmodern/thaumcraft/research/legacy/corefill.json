@@ -2,7 +2,7 @@
   "id": "corefill",
   "legacy_id": "COREFILL",
   "category": "golemancy",
-  "icon": "thaumcraftmodern:thaumonomicon",
+  "icon": "thaumcraftmodern:fill_golem_core",
   "title": "tc.research_name.COREFILL",
   "subtitle": "tc.research_text.COREFILL",
   "concealed": true,
@@ -23,12 +23,9 @@
       "body": "tc.research_page.COREFILL.1"
     },
     {
-      "type": "unavailable",
+      "type": "recipe",
       "title": "",
-      "body": "",
-      "legacy_type": "recipe",
-      "legacy_content": "CoreFill",
-      "source_expression": "new ResearchPage((CrucibleRecipe)recipes.get(\"CoreFill\"))"
+      "recipe": "thaumcraftmodern:corefill"
     }
   ],
   "purchase_cost": [
@@ -45,7 +42,7 @@
       "amount": 3
     }
   ],
-  "inactive": true,
+  "inactive": false,
   "inactive_reason": "referenced gameplay content is not implemented",
   "legacy": {
     "x": -5,

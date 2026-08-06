@@ -2,7 +2,7 @@
   "id": "armorfortress",
   "legacy_id": "ARMORFORTRESS",
   "category": "artifice",
-  "icon": "thaumcraftmodern:thaumonomicon",
+  "icon": "thaumcraftmodern:fortress_helmet",
   "title": "tc.research_name.ARMORFORTRESS",
   "subtitle": "tc.research_text.ARMORFORTRESS",
   "concealed": true,
@@ -30,32 +30,144 @@
       "body": "tc.research_page.ARMORFORTRESS.2"
     },
     {
-      "type": "unavailable",
-      "title": "",
-      "body": "",
-      "legacy_type": "recipe",
-      "legacy_content": "ThaumiumFortressHelm",
-      "source_expression": "new ResearchPage((InfusionRecipe)recipes.get(\"ThaumiumFortressHelm\"))"
+      "type": "infusion",
+      "title": "recipe.type.infusion",
+      "output": "thaumcraftmodern:fortress_helmet",
+      "central": "thaumcraftmodern:thaumium_helmet",
+      "components": [
+        {
+          "item": "thaumcraftmodern:thaumium_ingot",
+          "count": 1
+        },
+        {
+          "item": "thaumcraftmodern:thaumium_ingot",
+          "count": 1
+        },
+        {
+          "item": "minecraft:gold_ingot",
+          "count": 1
+        },
+        {
+          "item": "minecraft:gold_ingot",
+          "count": 1
+        },
+        {
+          "item": "minecraft:emerald",
+          "count": 1
+        }
+      ],
+      "aspect_costs": [
+        {
+          "id": "metallum",
+          "amount": 24
+        },
+        {
+          "id": "tutamen",
+          "amount": 16
+        },
+        {
+          "id": "praecantatio",
+          "amount": 16
+        }
+      ],
+      "instability": "high",
+      "detail": "recipe.type.infusion"
     },
     {
-      "type": "unavailable",
-      "title": "",
-      "body": "",
-      "legacy_type": "recipe",
-      "legacy_content": "ThaumiumFortressChest",
-      "source_expression": "new ResearchPage((InfusionRecipe)recipes.get(\"ThaumiumFortressChest\"))"
+      "type": "infusion",
+      "title": "recipe.type.infusion",
+      "output": "thaumcraftmodern:fortress_chestplate",
+      "central": "thaumcraftmodern:thaumium_chestplate",
+      "components": [
+        {
+          "item": "thaumcraftmodern:thaumium_ingot",
+          "count": 1
+        },
+        {
+          "item": "thaumcraftmodern:thaumium_ingot",
+          "count": 1
+        },
+        {
+          "item": "thaumcraftmodern:thaumium_ingot",
+          "count": 1
+        },
+        {
+          "item": "thaumcraftmodern:thaumium_ingot",
+          "count": 1
+        },
+        {
+          "item": "minecraft:gold_ingot",
+          "count": 1
+        },
+        {
+          "item": "minecraft:leather",
+          "count": 1
+        }
+      ],
+      "aspect_costs": [
+        {
+          "id": "metallum",
+          "amount": 24
+        },
+        {
+          "id": "tutamen",
+          "amount": 24
+        },
+        {
+          "id": "praecantatio",
+          "amount": 16
+        }
+      ],
+      "instability": "high",
+      "detail": "recipe.type.infusion"
     },
     {
-      "type": "unavailable",
-      "title": "",
-      "body": "",
-      "legacy_type": "recipe",
-      "legacy_content": "ThaumiumFortressLegs",
-      "source_expression": "new ResearchPage((InfusionRecipe)recipes.get(\"ThaumiumFortressLegs\"))"
+      "type": "infusion",
+      "title": "recipe.type.infusion",
+      "output": "thaumcraftmodern:fortress_leggings",
+      "central": "thaumcraftmodern:thaumium_leggings",
+      "components": [
+        {
+          "item": "thaumcraftmodern:thaumium_ingot",
+          "count": 1
+        },
+        {
+          "item": "thaumcraftmodern:thaumium_ingot",
+          "count": 1
+        },
+        {
+          "item": "thaumcraftmodern:thaumium_ingot",
+          "count": 1
+        },
+        {
+          "item": "minecraft:gold_ingot",
+          "count": 1
+        },
+        {
+          "item": "minecraft:leather",
+          "count": 1
+        }
+      ],
+      "aspect_costs": [
+        {
+          "id": "metallum",
+          "amount": 24
+        },
+        {
+          "id": "tutamen",
+          "amount": 20
+        },
+        {
+          "id": "praecantatio",
+          "amount": 16
+        }
+      ],
+      "instability": "high",
+      "detail": "recipe.type.infusion"
     }
   ],
-  "inactive": true,
-  "inactive_reason": "referenced gameplay content is not implemented",
+  "inactive": false,
+  "inactive_reason": null,
   "legacy": {
     "x": -8,
     "y": 9,

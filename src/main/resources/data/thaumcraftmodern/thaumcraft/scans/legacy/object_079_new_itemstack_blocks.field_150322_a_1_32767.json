@@ -1,14 +1,19 @@
 {
-  "type": "block",
-  "target": "minecraft:sandstone",
+  "type": "block_tag",
+  "target": "thaumcraftmodern:sandstone_equivalents",
   "display": "",
   "aspects": [
     {
       "id": "terra",
-      "amount": 1
+      "amount": 3
+    },
+    {
+      "id": "perditio",
+      "amount": 3
     }
   ],
   "inactive": false,
+  "recipe_derivation": "Four TC4 sand blocks scaled by the original 0.75 crafting factor; the complex Terra add/remove modifier is net zero.",
   "legacy": {
     "registration_mode": "recipe_derived_modifier",
     "target_kind": "item_stack",

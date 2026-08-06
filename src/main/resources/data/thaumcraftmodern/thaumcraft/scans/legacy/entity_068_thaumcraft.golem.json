@@ -1,6 +1,6 @@
 {
-  "type": "legacy_entity",
-  "target": "Thaumcraft.Golem",
+  "type": "entity",
+  "target": "thaumcraftmodern:straw_golem",
   "display": "",
   "aspects": [
     {
@@ -16,8 +16,7 @@
       "amount": 2
     }
   ],
-  "inactive": true,
-  "inactive_reason": "legacy entity type is not implemented or mapped",
+  "inactive": false,
   "legacy": {
     "legacy_entity_id": "Thaumcraft.Golem",
     "modern_target": null,

@@ -4,7 +4,7 @@
     "item": "minecraft:iron_block"
   },
   "output": {
-    "item": "thaumcraftmodern:iron_golem_placer"
+    "item": "thaumcraftmodern:iron_golem"
   },
   "aspects": {
     "humanus": 4,
@@ -12,6 +12,5 @@
     "spiritus": 4
   },
   "legacy_id": "GolemIron",
-  "inactive": true,
-  "inactive_reason": "output item or its complete gameplay behavior is not implemented"
+  "inactive": false
 }

@@ -9,6 +9,7 @@ import com.thaumcraftmodern.item.JarLabelItem;
 import com.thaumcraftmodern.nodejar.NodeJarFactory;
 import com.thaumcraftmodern.item.WandItem;
 import com.thaumcraftmodern.wand.WandComponentRegistry;
+import com.thaumcraftmodern.entity.GolemCoreType;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.CreativeModeTab;
@@ -28,11 +29,55 @@ public final class ModCreativeTabs {
                     .displayItems((parameters, output) -> {
                         output.accept(ModItems.THAUMONOMICON.get());
                         output.accept(ModItems.THAUMOMETER.get());
+                        output.accept(ModItems.HUNGRY_CHEST.get());
+                        output.accept(ModItems.STRAW_GOLEM.get());
+                        output.accept(ModItems.WOOD_GOLEM.get());
+                        output.accept(ModItems.TALLOW_GOLEM.get());
+                        output.accept(ModItems.CLAY_GOLEM.get());
+                        output.accept(ModItems.FLESH_GOLEM.get());
+                        output.accept(ModItems.STONE_GOLEM.get());
+                        output.accept(ModItems.IRON_GOLEM.get());
+                        output.accept(ModItems.THAUMIUM_GOLEM.get());
+                        output.accept(ModItems.ARCANE_RECIPE_COMPONENTS.get("golem_bell").get());
+                        output.accept(ModItems.ARCANE_RECIPE_COMPONENTS.get("blank_golem_core").get());
+                        for (GolemCoreType core : GolemCoreType.values()) {
+                            output.accept(ModItems.golemCore(core).get());
+                        }
+                        output.accept(ModItems.ARCANE_RECIPE_COMPONENTS.get("golem_upgrade_aer").get());
+                        output.accept(ModItems.ARCANE_RECIPE_COMPONENTS.get("golem_upgrade_terra").get());
+                        output.accept(ModItems.ARCANE_RECIPE_COMPONENTS.get("golem_upgrade_ignis").get());
+                        output.accept(ModItems.ARCANE_RECIPE_COMPONENTS.get("golem_upgrade_aqua").get());
+                        output.accept(ModItems.ARCANE_RECIPE_COMPONENTS.get("golem_upgrade_ordo").get());
+                        output.accept(ModItems.ARCANE_RECIPE_COMPONENTS.get("golem_upgrade_perditio").get());
+                        output.accept(ModItems.TALLOW_BLOCK.get());
+                        output.accept(ModItems.FLESH_BLOCK.get());
+                        output.accept(ModItems.GOLEM_FETTER.get());
                         output.accept(ModItems.ETHEREAL_BLOOM.get());
                         output.accept(ModItems.SANITY_CHECKER.get());
                         output.accept(ModItems.SANITY_SOAP.get());
                         output.accept(ModItems.BATH_SALTS.get());
                         output.accept(ModItems.BOTTLED_TAINT.get());
+                        output.accept(ModItems.MUNDANE_AMULET.get());
+                        output.accept(ModItems.MUNDANE_RING.get());
+                        output.accept(ModItems.ARCANE_RECIPE_COMPONENTS
+                                .get("blank_belt").get());
+                        output.accept(ModItems.VIS_STONE.get());
+                        output.accept(ModItems.VIS_STORAGE_AMULET.get());
+                        output.accept(ModItems.RUNIC_RING_LESSER.get());
+                        output.accept(ModItems.RUNIC_RING.get());
+                        output.accept(ModItems.RUNIC_RING_CHARGED.get());
+                        output.accept(ModItems.RUNIC_RING_REGEN.get());
+                        output.accept(ModItems.RUNIC_AMULET.get());
+                        output.accept(ModItems.RUNIC_AMULET_EMERGENCY.get());
+                        output.accept(ModItems.RUNIC_GIRDLE.get());
+                        output.accept(ModItems.RUNIC_GIRDLE_KINETIC.get());
+                        output.accept(ModItems.ARCANE_LEVITATOR.get());
+                        output.accept(ModItems.ARCANE_DOOR.get());
+                        output.accept(ModItems.BRAIN_JAR.get());
+                        output.accept(ModItems.FLUX_SCRUBBER.get());
+                        output.accept(ModItems.SINISTER_LODESTONE.get());
+                        output.accept(ModItems.IRON_KEY.get());
+                        output.accept(ModItems.GOLD_KEY.get());
                         output.accept(ModItems.LIQUID_DEATH_BUCKET.get());
                         output.accept(ModItems.IRON_WAND_CAP.get());
                         output.accept(ModItems.GOLD_WAND_CAP.get());
@@ -77,10 +122,38 @@ public final class ModCreativeTabs {
                                     ModItems.CRAFTING_SCEPTRE.get())
                                     .createFilled("silverwood", "thaumium"));
                         });
+                        output.accept(ModItems.ARCANE_RECIPE_COMPONENTS
+                                .get("focus_fire").get());
+                        output.accept(ModItems.ARCANE_RECIPE_COMPONENTS
+                                .get("focus_frost").get());
+                        output.accept(ModItems.ARCANE_RECIPE_COMPONENTS
+                                .get("focus_shock").get());
+                        output.accept(ModItems.ARCANE_RECIPE_COMPONENTS
+                                .get("focus_excavation").get());
+                        output.accept(ModItems.ARCANE_RECIPE_COMPONENTS
+                                .get("focus_trade").get());
+                        output.accept(ModItems.ARCANE_RECIPE_COMPONENTS
+                                .get("focus_primal").get());
+                        output.accept(ModItems.ARCANE_RECIPE_COMPONENTS
+                                .get("focus_hellbat").get());
+                        output.accept(ModItems.ARCANE_RECIPE_COMPONENTS
+                                .get("focus_portable_hole").get());
+                        output.accept(ModItems.ARCANE_RECIPE_COMPONENTS
+                                .get("focus_warding").get());
                         output.accept(ModItems.GOGGLES_OF_REVEALING.get());
+                        output.accept(ModItems.MAGIC_MIRROR.get());
+                        output.accept(ModItems.ESSENTIA_MIRROR.get());
+                        output.accept(ModItems.HAND_MIRROR.get());
                         output.accept(ModItems.THAUMATURGE_ROBE.get());
                         output.accept(ModItems.THAUMATURGE_LEGGINGS.get());
                         output.accept(ModItems.THAUMATURGE_BOOTS.get());
+                        output.accept(ModItems.FORTRESS_HELMET.get());
+                        output.accept(ModItems.FORTRESS_HELMET_MASK_GRINNING_DEVIL.get());
+                        output.accept(ModItems.FORTRESS_HELMET_MASK_ANGRY_GHOST.get());
+                        output.accept(ModItems.FORTRESS_HELMET_MASK_SIPPING_FIEND.get());
+                        output.accept(ModItems.FORTRESS_CHESTPLATE.get());
+                        output.accept(ModItems.FORTRESS_LEGGINGS.get());
+                        output.accept(ModItems.FORTRESS_BOOTS.get());
                         output.accept(ModItems.CULTIST_KNIGHT_HELMET.get());
                         output.accept(ModItems.CULTIST_KNIGHT_CHESTPLATE.get());
                         output.accept(ModItems.CULTIST_KNIGHT_LEGGINGS.get());
@@ -91,6 +164,10 @@ public final class ModCreativeTabs {
                         output.accept(ModItems.CULTIST_PRAETOR_CHESTPLATE.get());
                         output.accept(ModItems.CULTIST_PRAETOR_LEGGINGS.get());
                         output.accept(ModItems.CULTIST_BOOTS.get());
+                        output.accept(ModItems.WINGED_MANTLE_HOOD.get());
+                        output.accept(ModItems.WINGED_MANTLE_CHESTPLATE.get());
+                        output.accept(ModItems.WINGED_MANTLE_LEGGINGS.get());
+                        output.accept(ModItems.WINGED_MANTLE_BOOTS.get());
                         output.accept(NodeJarFactory.deterministicCreativeStack(
                                 ModItems.JARRED_AURA_NODE.get()
                         ));
@@ -103,15 +180,28 @@ public final class ModCreativeTabs {
                         output.accept(ModItems.VIS_CHARGE_RELAY.get());
                         output.accept(ModItems.DECONSTRUCTION_TABLE.get());
                         output.accept(ModItems.ARCANE_RECIPE_COMPONENTS
+                                .get("arcane_lamp").get());
+                        output.accept(ModItems.ARCANE_RECIPE_COMPONENTS
+                                .get("lamp_growth").get());
+                        output.accept(ModItems.ARCANE_RECIPE_COMPONENTS
+                                .get("lamp_fertility").get());
+                        output.accept(ModItems.ARCANE_RECIPE_COMPONENTS
+                                .get("item_grate").get());
+                        output.accept(ModItems.ARCANE_RECIPE_COMPONENTS
                                 .get("arcane_ear").get());
                         output.accept(ModItems.ARCANE_STONE.get());
                         output.accept(ModItems.ARCANE_STONE_BRICK.get());
+                        output.accept(ModItems.ARCANE_STONE_SLAB.get());
+                        output.accept(ModItems.ARCANE_RECIPE_COMPONENTS
+                                .get("focal_manipulator").get());
                         output.accept(ModItems.ARCANE_RECIPE_COMPONENTS
                                 .get("paving_stone_of_travel").get());
                         output.accept(ModItems.ARCANE_RECIPE_COMPONENTS
                                 .get("paving_stone_of_warding").get());
                         output.accept(ModItems.CRUCIBLE.get());
                         output.accept(ModItems.ALCHEMICAL_FURNACE.get());
+                        output.accept(ModItems.ARCANE_RECIPE_COMPONENTS
+                                .get("arcane_bellows").get());
                         output.accept(ModItems.RUNIC_MATRIX.get());
                         output.accept(ModItems.ARCANE_PEDESTAL.get());
                         output.accept(ModItems.WAND_RECHARGE_PEDESTAL.get());

@@ -2,9 +2,8 @@
   "id": "sinstone",
   "legacy_id": "SinStone",
   "legacy_kind": "infusion",
-  "inactive": true,
-  "inactive_reason": "recipe type or referenced content is not implemented",
-  "modern_recipe": "",
+  "inactive": false,
+  "modern_recipe": "thaumcraftmodern:sinister_lodestone",
   "required_aspects": [
     {
       "id": "sensus",

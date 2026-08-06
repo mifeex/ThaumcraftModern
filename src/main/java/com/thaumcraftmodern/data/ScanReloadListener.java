@@ -10,6 +10,7 @@ import com.thaumcraftmodern.scan.AspectReward;
 import com.thaumcraftmodern.scan.ScanDefinition;
 import com.thaumcraftmodern.scan.ScanRegistry;
 import com.thaumcraftmodern.scan.ScanTargetType;
+import com.thaumcraftmodern.scan.RuntimeRecipeScanGenerator;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.packs.resources.ResourceManager;
 import net.minecraft.server.packs.resources.SimpleJsonResourceReloadListener;
@@ -67,13 +68,17 @@ public final class ScanReloadListener extends SimpleJsonResourceReloadListener {
                         ),
                         GsonHelper.getAsString(json, "target"),
                         GsonHelper.getAsString(json, "display", ""),
-                        aspects
+                        aspects,
+                        json.has("knowledge_key")
+                                ? GsonHelper.getAsString(json, "knowledge_key")
+                                : null
                 ));
             } catch (RuntimeException ex) {
                 ThaumcraftModern.LOGGER.error("Invalid scan definition {}", file.getKey(), ex);
             }
         }
         ScanRegistry.replace(definitions);
+        RuntimeRecipeScanGenerator.invalidate();
         ThaumcraftModern.LOGGER.info(
                 "Loaded {} explicit scan definitions; skipped {} inactive definitions; "
                         + "automatic fallback is {} (saved inferred scan keys remain readable)",

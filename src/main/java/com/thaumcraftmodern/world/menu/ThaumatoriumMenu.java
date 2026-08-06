@@ -4,6 +4,8 @@ import com.thaumcraftmodern.aspect.AspectRegistryRuntime;
 import com.thaumcraftmodern.crucible.CrucibleRecipeDefinition;
 import com.thaumcraftmodern.registry.ModBlocks;
 import com.thaumcraftmodern.registry.ModMenus;
+import com.thaumcraftmodern.network.ModNetwork;
+import com.thaumcraftmodern.network.packet.ThaumatoriumRecipeSyncPacket;
 import com.thaumcraftmodern.world.block.entity.ThaumatoriumBlockEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.FriendlyByteBuf;
@@ -19,6 +21,8 @@ import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
 
 import java.util.List;
+import java.util.ArrayList;
+import java.util.Objects;
 
 public final class ThaumatoriumMenu extends AbstractContainerMenu {
     private final Container container;
@@ -28,6 +32,17 @@ public final class ThaumatoriumMenu extends AbstractContainerMenu {
     private final List<String> aspectIds;
     private final int[] synchronizedReserved;
     private final ContainerData reservedData;
+    private List<CrucibleRecipeDefinition> clientRecipes = List.of();
+    private List<ResourceLocation> clientCraftableRecipes = List.of();
+    private List<ResourceLocation> clientFormulae = List.of();
+    private int clientFormulaCapacity = 1;
+    private ResourceLocation clientDisplayedRecipe;
+    private int recipeRevision;
+    private List<ResourceLocation> lastSentRecipes = List.of();
+    private List<ResourceLocation> lastSentCraftableRecipes = List.of();
+    private List<ResourceLocation> lastSentFormulae = List.of();
+    private int lastSentCapacity = -1;
+    private ResourceLocation lastSentDisplayedRecipe;
 
     public static ThaumatoriumMenu fromNetwork(int id, Inventory inventory,
             FriendlyByteBuf buffer) {
@@ -88,19 +103,87 @@ public final class ThaumatoriumMenu extends AbstractContainerMenu {
     }
 
     public List<CrucibleRecipeDefinition> recipes() {
-        return machine == null ? List.of() : machine.availableRecipes(inventory.player);
+        return machine == null || inventory.player.level().isClientSide
+                ? clientRecipes : machine.availableRecipes(inventory.player);
     }
 
     public boolean selected(CrucibleRecipeDefinition recipe) {
-        return machine != null && machine.hasFormula(recipe.id());
+        return inventory.player.level().isClientSide
+                ? clientFormulae.contains(recipe.id())
+                : machine != null && machine.hasFormula(recipe.id());
+    }
+
+    public boolean craftable(CrucibleRecipeDefinition recipe) {
+        return inventory.player.level().isClientSide
+                ? clientCraftableRecipes.contains(recipe.id())
+                : machine != null && machine.canSelectRecipe(inventory.player, recipe.id());
     }
 
     public ResourceLocation displayedRecipeId() {
-        return machine == null ? null : machine.displayedRecipe();
+        return inventory.player.level().isClientSide
+                ? clientDisplayedRecipe
+                : machine == null ? null : machine.displayedRecipe();
     }
 
-    public int formulaCount() { return machine == null ? 0 : machine.formulaCount(); }
-    public int formulaCapacity() { return machine == null ? 1 : machine.formulaCapacity(); }
+    public int formulaCount() {
+        return inventory.player.level().isClientSide
+                ? clientFormulae.size()
+                : machine == null ? 0 : machine.formulaCount();
+    }
+    public int formulaCapacity() {
+        return inventory.player.level().isClientSide
+                ? clientFormulaCapacity
+                : machine == null ? 1 : machine.formulaCapacity();
+    }
+    public int recipeRevision() { return recipeRevision; }
+
+    public void applyRecipeSnapshot(
+            List<CrucibleRecipeDefinition> recipes,
+            List<ResourceLocation> craftableRecipes,
+            List<ResourceLocation> formulae,
+            int capacity,
+            ResourceLocation displayedRecipe
+    ) {
+        clientRecipes = List.copyOf(recipes);
+        clientCraftableRecipes = List.copyOf(craftableRecipes);
+        clientFormulae = List.copyOf(formulae);
+        clientFormulaCapacity = Math.max(1, capacity);
+        clientDisplayedRecipe = displayedRecipe;
+        recipeRevision++;
+    }
+
+    @Override
+    public void broadcastChanges() {
+        super.broadcastChanges();
+        if (!(inventory.player instanceof net.minecraft.server.level.ServerPlayer player)
+                || machine == null) {
+            return;
+        }
+        List<CrucibleRecipeDefinition> recipes = machine.availableRecipes(player);
+        List<ResourceLocation> recipeIds = recipes.stream()
+                .map(CrucibleRecipeDefinition::id).toList();
+        List<ResourceLocation> formulae = machine.formulae();
+        List<ResourceLocation> craftableRecipes = recipes.stream()
+                .filter(recipe -> machine.canSelectRecipe(player, recipe.id()))
+                .map(CrucibleRecipeDefinition::id)
+                .toList();
+        int capacity = machine.formulaCapacity();
+        ResourceLocation displayed = machine.displayedRecipe();
+        if (recipeIds.equals(lastSentRecipes)
+                && craftableRecipes.equals(lastSentCraftableRecipes)
+                && formulae.equals(lastSentFormulae)
+                && capacity == lastSentCapacity
+                && Objects.equals(displayed, lastSentDisplayedRecipe)) {
+            return;
+        }
+        lastSentRecipes = new ArrayList<>(recipeIds);
+        lastSentCraftableRecipes = new ArrayList<>(craftableRecipes);
+        lastSentFormulae = new ArrayList<>(formulae);
+        lastSentCapacity = capacity;
+        lastSentDisplayedRecipe = displayed;
+        ModNetwork.sendTo(player, new ThaumatoriumRecipeSyncPacket(
+                containerId, recipes, craftableRecipes, formulae, capacity, displayed));
+    }
     public int reservedAmount(String aspect) {
         int index = aspectIds.indexOf(aspect);
         if (index < 0) {

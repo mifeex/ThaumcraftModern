@@ -2,7 +2,7 @@
   "id": "focusportablehole",
   "legacy_id": "FOCUSPORTABLEHOLE",
   "category": "thaumaturgy",
-  "icon": "thaumcraftmodern:thaumonomicon",
+  "icon": "thaumcraftmodern:focus_portable_hole",
   "title": "tc.research_name.FOCUSPORTABLEHOLE",
   "subtitle": "tc.research_text.FOCUSPORTABLEHOLE",
   "concealed": true,
@@ -23,17 +23,9 @@
       "title": "",
       "body": "tc.research_page.FOCUSPORTABLEHOLE.1"
     },
-    {
-      "type": "unavailable",
-      "title": "",
-      "body": "",
-      "legacy_type": "recipe",
-      "legacy_content": "FocusPortableHole",
-      "source_expression": "new ResearchPage((InfusionRecipe)recipes.get(\"FocusPortableHole\"))"
-    }
+    {"type":"infusion","title":"","recipe":"thaumcraftmodern:focus_portable_hole"}
   ],
-  "inactive": true,
-  "inactive_reason": "referenced gameplay content is not implemented",
+  "inactive": false,
   "legacy": {
     "x": 7,
     "y": -2,

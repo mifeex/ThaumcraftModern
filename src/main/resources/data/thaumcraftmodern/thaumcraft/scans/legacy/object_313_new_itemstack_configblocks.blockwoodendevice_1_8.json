@@ -1,6 +1,7 @@
 {
-  "type": "legacy_object",
-  "target": "new ItemStack(ConfigBlocks.blockWoodenDevice, 1, 8)",
+  "type": "item_tag",
+  "target": "thaumcraftmodern:thaumcraft_banners",
+  "knowledge_key": "block_tag:minecraft:banners",
   "display": "",
   "aspects": [
     {
@@ -16,8 +17,7 @@
       "amount": 3
     }
   ],
-  "inactive": true,
-  "inactive_reason": "legacy item, metadata, or Ore Dictionary target is not mapped",
+  "inactive": false,
   "legacy": {
     "registration_mode": "explicit",
     "target_kind": "item_stack",

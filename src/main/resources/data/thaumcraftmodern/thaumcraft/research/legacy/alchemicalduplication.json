@@ -2,7 +2,7 @@
   "id": "alchemicalduplication",
   "legacy_id": "ALCHEMICALDUPLICATION",
   "category": "alchemy",
-  "icon": "thaumcraftmodern:thaumonomicon",
+  "icon": "thaumcraftmodern:textures/misc/r_alchmult.png",
   "title": "tc.research_name.ALCHEMICALDUPLICATION",
   "subtitle": "tc.research_text.ALCHEMICALDUPLICATION",
   "concealed": true,

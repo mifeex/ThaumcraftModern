@@ -44,4 +44,10 @@ final class TubeFlowRulesTest {
         assertEquals(Direction.WEST,
                 TubeFlowRules.controlledSide(Direction.EAST));
     }
+
+    @Test
+    void destinationSuctionSelectsMatchingAspectFromMultiAspectBuffer() {
+        assertEquals("aer", TubeFlowRules.requestedAspect("aer", "ignis"));
+        assertEquals("ignis", TubeFlowRules.requestedAspect(null, "ignis"));
+    }
 }

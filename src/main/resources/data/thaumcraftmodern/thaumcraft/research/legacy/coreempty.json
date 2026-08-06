@@ -2,7 +2,7 @@
   "id": "coreempty",
   "legacy_id": "COREEMPTY",
   "category": "golemancy",
-  "icon": "thaumcraftmodern:thaumonomicon",
+  "icon": "thaumcraftmodern:empty_golem_core",
   "title": "tc.research_name.COREEMPTY",
   "subtitle": "tc.research_text.COREEMPTY",
   "concealed": true,
@@ -23,12 +23,9 @@
       "body": "tc.research_page.COREEMPTY.1"
     },
     {
-      "type": "unavailable",
+      "type": "recipe",
       "title": "",
-      "body": "",
-      "legacy_type": "recipe",
-      "legacy_content": "CoreEmpty",
-      "source_expression": "new ResearchPage((CrucibleRecipe)recipes.get(\"CoreEmpty\"))"
+      "recipe": "thaumcraftmodern:coreempty"
     }
   ],
   "purchase_cost": [
@@ -45,7 +42,7 @@
       "amount": 3
     }
   ],
-  "inactive": true,
+  "inactive": false,
   "inactive_reason": "referenced gameplay content is not implemented",
   "legacy": {
     "x": -5,

@@ -2,6 +2,7 @@ package com.thaumcraftmodern.item;
 
 import com.thaumcraftmodern.aura.PrimalAspect;
 import com.thaumcraftmodern.aura.NodeChargingService;
+import com.thaumcraftmodern.focus.WandFocusService;
 import com.thaumcraftmodern.client.WandClientItemExtensions;
 import com.thaumcraftmodern.registry.ModItems;
 import com.thaumcraftmodern.registry.ModSounds;
@@ -19,6 +20,9 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionResult;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResultHolder;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Entity;
@@ -244,7 +248,14 @@ public final class WandItem extends Item {
             }
         }
         if (!state.is(Blocks.BOOKSHELF)) {
-            return InteractionResult.PASS;
+            if (context.getPlayer() instanceof ServerPlayer serverPlayer) {
+                return WandFocusService.cast(context.getItemInHand(), level,
+                        serverPlayer, context.getHand(), new net.minecraft.world.phys.BlockHitResult(
+                                context.getClickLocation(), context.getClickedFace(), position,
+                                context.isInside()));
+            }
+            return WandFocusService.type(context.getItemInHand()).isPresent()
+                    ? InteractionResult.SUCCESS : InteractionResult.PASS;
         }
         if (level.isClientSide) {
             return InteractionResult.SUCCESS;
@@ -279,6 +290,21 @@ public final class WandItem extends Item {
         );
         spawnThaumonomiconSparkles((ServerLevel) level, position);
         return InteractionResult.CONSUME;
+    }
+
+    @Override
+    public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand hand) {
+        ItemStack stack = player.getItemInHand(hand);
+        if (WandFocusService.type(stack).isEmpty()) return InteractionResultHolder.pass(stack);
+        if (level.isClientSide) {
+            if (WandFocusService.type(stack).orElseThrow().continuous()) player.startUsingItem(hand);
+            return InteractionResultHolder.success(stack);
+        }
+        net.minecraft.world.phys.HitResult aimed = player.pick(20.0D, 1.0F, false);
+        WandFocusService.cast(stack, level, (ServerPlayer) player, hand,
+                aimed instanceof net.minecraft.world.phys.BlockHitResult blockHit
+                        ? blockHit : null);
+        return InteractionResultHolder.consume(stack);
     }
 
     @Override
@@ -318,6 +344,7 @@ public final class WandItem extends Item {
             int remainingUseDuration
     ) {
         NodeChargingService.tick(level, entity, stack, remainingUseDuration);
+        WandFocusService.tick(stack, level, entity);
     }
 
     @Override
@@ -328,6 +355,7 @@ public final class WandItem extends Item {
             int remainingUseDuration
     ) {
         NodeChargingService.clear(entity, stack);
+        WandFocusService.stopped(entity);
     }
 
     @Override
@@ -370,6 +398,9 @@ public final class WandItem extends Item {
                     )
                     .withStyle(ChatFormatting.DARK_GRAY));
         }
+        WandFocusService.focusStack(stack).ifPresent(focus -> tooltip.add(
+                Component.translatable("tooltip.thaumcraftmodern.wand.focus", focus.getHoverName())
+                        .withStyle(ChatFormatting.GOLD)));
         for (PrimalAspect aspect : PrimalAspect.ordered()) {
             tooltip.add(Component.translatable(
                             "tooltip.thaumcraftmodern.wand.vis",

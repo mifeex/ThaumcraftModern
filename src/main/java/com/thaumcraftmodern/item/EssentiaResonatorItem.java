@@ -1,6 +1,7 @@
 package com.thaumcraftmodern.item;
 
 import com.thaumcraftmodern.essentia.EssentiaTransport;
+import com.thaumcraftmodern.essentia.EssentiaConnections;
 import com.thaumcraftmodern.world.block.entity.AdvancedEssentiaBufferBlockEntity;
 import net.minecraft.core.Direction;
 import net.minecraft.network.chat.Component;
@@ -37,6 +38,19 @@ public final class EssentiaResonatorItem extends Item {
                                 ? Component.translatable("tc.resonator3")
                                 : Component.translatable("tc.aspect." + aspect),
                         Component.translatable(buffer.diagnosticReasonKey())),
+                        false);
+                Direction clickedSide = context.getClickedFace();
+                player.displayClientMessage(Component.translatable(
+                        "message.thaumcraftmodern.resonator.advanced_side",
+                        Component.translatable("direction.minecraft."
+                                + clickedSide.getName()),
+                        Component.translatable(
+                                "message.thaumcraftmodern.advanced_buffer.role."
+                                        + buffer.role(clickedSide).name()
+                                                .toLowerCase()),
+                        buffer.suctionAmount(clickedSide),
+                        EssentiaConnections.neighbour(context.getLevel(),
+                                buffer.getBlockPos(), clickedSide).isPresent()),
                         false);
             }
             return InteractionResult.sidedSuccess(

@@ -1,0 +1,10 @@
+{
+  "type": "block",
+  "target": "minecraft:glass_pane",
+  "display": "",
+  "aspects": [
+    { "id": "vitreus", "amount": 1 }
+  ],
+  "inactive": false,
+  "legacy_equivalent": "paneGlass"
+}

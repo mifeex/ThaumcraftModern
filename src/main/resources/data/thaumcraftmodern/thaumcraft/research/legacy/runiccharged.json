@@ -2,7 +2,7 @@
   "id": "runiccharged",
   "legacy_id": "RUNICCHARGED",
   "category": "artifice",
-  "icon": "thaumcraftmodern:thaumonomicon",
+  "icon": "thaumcraftmodern:runic_ring_charged",
   "title": "tc.research_name.RUNICCHARGED",
   "subtitle": "tc.research_text.RUNICCHARGED",
   "concealed": true,
@@ -23,12 +23,15 @@
       "body": "tc.research_page.RUNICCHARGED.1"
     },
     {
-      "type": "unavailable",
+      "type": "infusion",
       "title": "",
       "body": "",
       "legacy_type": "recipe",
       "legacy_content": "RunicRingCharged",
-      "source_expression": "new ResearchPage((InfusionRecipe)recipes.get(\"RunicRingCharged\"))"
+      "source_expression": "new ResearchPage((InfusionRecipe)recipes.get(\"RunicRingCharged\"))",
+      "recipe": "thaumcraftmodern:runic_ring_charged", "output":"thaumcraftmodern:runic_ring_charged", "central":"thaumcraftmodern:runic_ring",
+      "components":[{"item":"thaumcraftmodern:balanced_shard"},{"item":"thaumcraftmodern:order_shard"},{"item":"thaumcraftmodern:order_shard"},{"item":"minecraft:potion","potion":"minecraft:strong_swiftness"},{"item":"thaumcraftmodern:order_shard"},{"item":"thaumcraftmodern:order_shard"}],
+      "aspect_costs":[{"id":"tutamen","amount":16},{"id":"praecantatio","amount":16},{"id":"potentia","amount":64}], "instability":"high"
     }
   ],
   "purchase_cost": [
@@ -45,8 +48,7 @@
       "amount": 6
     }
   ],
-  "inactive": true,
-  "inactive_reason": "referenced gameplay content is not implemented",
+  "inactive": false,
   "legacy": {
     "x": 2,
     "y": 3,

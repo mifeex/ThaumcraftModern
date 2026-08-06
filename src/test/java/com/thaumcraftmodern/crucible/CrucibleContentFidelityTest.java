@@ -34,6 +34,24 @@ class CrucibleContentFidelityTest {
     }
 
     @Test
+    void secondaryAlchemyResearchUsesOriginalTc4Icons() throws IOException {
+        assertResearchIcon("alchemicalduplication", "r_alchmult.png");
+        assertResearchIcon("alchemicalmanufacture", "r_alchman.png");
+        assertResearchIcon("entropicprocessing", "r_alchent.png");
+    }
+
+    private static void assertResearchIcon(String researchId, String fileName)
+            throws IOException {
+        assertEquals(
+                "thaumcraftmodern:textures/misc/" + fileName,
+                research(researchId).get("icon").getAsString()
+        );
+        assertTrue(Files.isRegularFile(ROOT.resolve(
+                "assets/thaumcraftmodern/textures/misc/" + fileName
+        )));
+    }
+
+    @Test
     void classicRecipeCostsAndOutputsRemainDataDriven()
             throws IOException {
         JsonObject alumentum = crucibleRecipe("alumentum");

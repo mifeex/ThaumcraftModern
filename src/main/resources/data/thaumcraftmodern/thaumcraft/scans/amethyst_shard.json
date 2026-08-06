@@ -1,0 +1,12 @@
+{
+  "type": "item",
+  "target": "minecraft:amethyst_shard",
+  "display": "",
+  "aspects": [
+    { "id": "sensus", "amount": 2 },
+    { "id": "lucrum", "amount": 4 },
+    { "id": "vitreus", "amount": 2 }
+  ],
+  "inactive": false,
+  "modern_rule": "Explicit modern-content aspect assignment."
+}

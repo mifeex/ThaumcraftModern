@@ -18,9 +18,9 @@ public final class ElementalEquipmentEvents {
     @SubscribeEvent
     public static void blockZephyrSwordAttacks(LivingAttackEvent event) {
         if (!(event.getEntity() instanceof ServerPlayer player)
-                || !player.isShiftKeyDown()
                 || !player.isUsingItem()
-                || !(player.getUseItem().getItem() instanceof ElementalSwordItem)) {
+                || !(player.getUseItem().getItem() instanceof ElementalSwordItem)
+                || !ElementalSwordItem.isDefending(player.getUseItem())) {
             return;
         }
         event.setCanceled(true);

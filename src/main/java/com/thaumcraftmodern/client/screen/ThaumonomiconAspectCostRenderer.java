@@ -204,15 +204,16 @@ final class ThaumonomiconAspectCostRenderer {
         if (icon == null) {
             return;
         }
-        ClassicUiRender.drawAspect(
+        ClassicUiRender.drawAspectTag(
                 graphics,
+                font,
                 icon,
                 x,
                 y,
                 ThaumonomiconAspectCostLayout.ICON_SIZE,
-                definition.color()
+                definition.color(),
+                cost.amount()
         );
-        drawAmount(graphics, font, cost.amount(), x, y);
     }
 
     static int requiredHeight(List<AspectCost> costs, int width) {
@@ -220,27 +221,6 @@ final class ThaumonomiconAspectCostRenderer {
                 costs.size(),
                 width
         );
-    }
-
-    private static void drawAmount(
-            GuiGraphics graphics,
-            Font font,
-            int amount,
-            int x,
-            int y
-    ) {
-        String text = Integer.toString(amount);
-        int textX = 32 - font.width(text);
-        int textY = 32 - font.lineHeight;
-        graphics.pose().pushPose();
-        graphics.pose().translate(x, y, 1.0F);
-        graphics.pose().scale(0.5F, 0.5F, 1.0F);
-        graphics.drawString(font, text, textX - 1, textY, 0x000000, false);
-        graphics.drawString(font, text, textX + 1, textY, 0x000000, false);
-        graphics.drawString(font, text, textX, textY - 1, 0x000000, false);
-        graphics.drawString(font, text, textX, textY + 1, 0x000000, false);
-        graphics.drawString(font, text, textX, textY, 0xFFFFFF, false);
-        graphics.pose().popPose();
     }
 
     private static boolean contains(

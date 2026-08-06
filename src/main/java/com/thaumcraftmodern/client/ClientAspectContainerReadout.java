@@ -2,7 +2,7 @@ package com.thaumcraftmodern.client;
 
 import com.thaumcraftmodern.aura.AuraNodeState;
 import com.thaumcraftmodern.aura.PrimalAspect;
-import com.thaumcraftmodern.item.GogglesOfRevealingItem;
+import com.thaumcraftmodern.item.RevealingGear;
 import com.thaumcraftmodern.scan.AspectReward;
 import com.thaumcraftmodern.scan.ScanTargeting;
 import net.minecraft.client.Minecraft;
@@ -51,8 +51,8 @@ final class ClientAspectContainerReadout {
 
     static boolean wearingGoggles(Minecraft minecraft) {
         return minecraft.player != null
-                && minecraft.player.getItemBySlot(EquipmentSlot.HEAD)
-                        .getItem() instanceof GogglesOfRevealingItem;
+                && RevealingGear.equipped(minecraft.player
+                        .getItemBySlot(EquipmentSlot.HEAD));
     }
 
     static List<AspectReward> nodeContents(AuraNodeState.Snapshot snapshot) {

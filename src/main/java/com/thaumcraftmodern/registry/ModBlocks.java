@@ -5,6 +5,18 @@ import com.thaumcraftmodern.aura.AuraNodeBlock;
 import com.thaumcraftmodern.crystal.CrystalClusterVariant;
 import com.thaumcraftmodern.nodejar.JarredAuraNodeBlock;
 import com.thaumcraftmodern.world.block.ArcaneWorkbenchBlock;
+import com.thaumcraftmodern.world.block.ArcaneBellowsBlock;
+import com.thaumcraftmodern.world.block.ArcaneDoorBlock;
+import com.thaumcraftmodern.world.block.ArcaneLevitatorBlock;
+import com.thaumcraftmodern.world.block.ArcaneLampBlock;
+import com.thaumcraftmodern.world.block.ArcaneLampLightBlock;
+import com.thaumcraftmodern.world.block.BrainJarBlock;
+import com.thaumcraftmodern.world.block.HungryChestBlock;
+import com.thaumcraftmodern.world.block.GolemFetterBlock;
+import com.thaumcraftmodern.world.block.FluxScrubberBlock;
+import com.thaumcraftmodern.world.block.FocalManipulatorBlock;
+import com.thaumcraftmodern.world.block.TemporaryHoleBlock;
+import com.thaumcraftmodern.world.block.WardedBlock;
 import com.thaumcraftmodern.world.block.ArcanePedestalBlock;
 import com.thaumcraftmodern.world.block.WandRechargePedestalBlock;
 import com.thaumcraftmodern.world.block.CompoundRechargeFocusBlock;
@@ -32,7 +44,9 @@ import com.thaumcraftmodern.world.block.FluxGasBlock;
 import com.thaumcraftmodern.world.block.FluxGooBlock;
 import com.thaumcraftmodern.world.block.InfusionPillarBlock;
 import com.thaumcraftmodern.world.block.InfernalFurnaceBlock;
+import com.thaumcraftmodern.world.block.ItemGrateBlock;
 import com.thaumcraftmodern.world.block.ManaPodBlock;
+import com.thaumcraftmodern.world.block.MagicMirrorBlock;
 import com.thaumcraftmodern.world.block.MnemonicMatrixBlock;
 import com.thaumcraftmodern.world.block.NitorBlock;
 import com.thaumcraftmodern.world.block.LootVesselBlock;
@@ -124,6 +138,19 @@ public final class ModBlocks {
                                     .noOcclusion()
                     )
             );
+    public static final RegistryObject<Block> FOCAL_MANIPULATOR =
+            BLOCKS.register("focal_manipulator", () -> new FocalManipulatorBlock(
+                    BlockBehaviour.Properties.of().mapColor(MapColor.STONE)
+                            .strength(2.0F, 10.0F).requiresCorrectToolForDrops()
+                            .sound(SoundType.STONE).noOcclusion()));
+    public static final RegistryObject<Block> TEMPORARY_HOLE = BLOCKS.register(
+            "temporary_hole", () -> new TemporaryHoleBlock(BlockBehaviour.Properties.of()
+                    .mapColor(MapColor.NONE).noCollission().noOcclusion().noLootTable()
+                    .strength(-1.0F, 3600000.0F)));
+    public static final RegistryObject<Block> WARDED_BLOCK = BLOCKS.register(
+            "warded_block", () -> new WardedBlock(BlockBehaviour.Properties.of()
+                    .mapColor(MapColor.NONE).noOcclusion().noLootTable()
+                    .strength(-1.0F, 3600000.0F)));
     public static final RegistryObject<Block> AIR_CRYSTAL_CLUSTER =
             crystalCluster("air_crystal_cluster", CrystalClusterVariant.AIR);
     public static final RegistryObject<Block> FIRE_CRYSTAL_CLUSTER =
@@ -161,6 +188,11 @@ public final class ModBlocks {
             BLOCKS.register(
                     "arcane_stone_brick",
                     () -> new Block(arcaneStoneProperties())
+            );
+    public static final RegistryObject<Block> ARCANE_STONE_SLAB =
+            BLOCKS.register(
+                    "arcane_stone_slab",
+                    () -> new SlabBlock(arcaneStoneProperties())
             );
     public static final RegistryObject<Block> PAVING_STONE_OF_TRAVEL =
             BLOCKS.register(
@@ -284,7 +316,7 @@ public final class ModBlocks {
             () -> new EssentiaJarBlock(
                     BlockBehaviour.Properties.of()
                             .mapColor(MapColor.NONE)
-                            .strength(0.3F)
+                            .strength(0.2F)
                             .sound(SoundType.GLASS)
                             .noOcclusion()
                             .noLootTable()
@@ -314,7 +346,7 @@ public final class ModBlocks {
     public static final RegistryObject<Block> VOID_JAR = BLOCKS.register(
             "void_jar",
             () -> new VoidJarBlock(BlockBehaviour.Properties.of()
-                    .mapColor(MapColor.NONE).strength(0.3F)
+                    .mapColor(MapColor.NONE).strength(0.2F)
                     .sound(SoundType.GLASS).noOcclusion().noLootTable())
     );
     public static final RegistryObject<Block> ESSENTIA_CENTRIFUGE = BLOCKS.register(
@@ -330,6 +362,18 @@ public final class ModBlocks {
             () -> new EssentiaReservoirBlock(
                     unrestrictedMetalProperties().noOcclusion())
     );
+    public static final RegistryObject<Block> MAGIC_MIRROR = BLOCKS.register(
+            "magic_mirror",
+            () -> new MagicMirrorBlock(BlockBehaviour.Properties.copy(Blocks.GLASS)
+                    .strength(1.0F, 10.0F).sound(SoundType.GLASS)
+                    .noCollission().noOcclusion().noLootTable(), false)
+    );
+    public static final RegistryObject<Block> ESSENTIA_MIRROR = BLOCKS.register(
+            "essentia_mirror",
+            () -> new MagicMirrorBlock(BlockBehaviour.Properties.copy(Blocks.GLASS)
+                    .strength(1.0F, 10.0F).sound(SoundType.GLASS)
+                    .noCollission().noOcclusion().noLootTable(), true)
+    );
     public static final RegistryObject<Block> MNEMONIC_MATRIX = BLOCKS.register(
             "mnemonic_matrix",
             () -> new MnemonicMatrixBlock(metalDeviceProperties().noOcclusion())
@@ -339,6 +383,59 @@ public final class ModBlocks {
                     "alchemical_construct",
                     () -> new Block(metalDeviceProperties())
             );
+    public static final RegistryObject<Block> ARCANE_BELLOWS = BLOCKS.register(
+            "arcane_bellows",
+            () -> new ArcaneBellowsBlock(
+                    BlockBehaviour.Properties.copy(Blocks.OAK_PLANKS)
+                            .strength(2.5F).noOcclusion()
+            )
+    );
+    public static final RegistryObject<Block> ARCANE_LAMP = BLOCKS.register(
+            "arcane_lamp", () -> new ArcaneLampBlock(
+                    metalDeviceProperties().noOcclusion()
+                            .lightLevel(state -> 15), ArcaneLampBlock.Kind.ARCANE));
+    public static final RegistryObject<Block> GROWTH_LAMP = BLOCKS.register(
+            "lamp_growth", () -> new ArcaneLampBlock(
+                    metalDeviceProperties().noOcclusion().lightLevel(state ->
+                            state.getValue(ArcaneLampBlock.LIT) ? 15 : 8),
+                    ArcaneLampBlock.Kind.GROWTH));
+    public static final RegistryObject<Block> FERTILITY_LAMP = BLOCKS.register(
+            "lamp_fertility", () -> new ArcaneLampBlock(
+                    metalDeviceProperties().noOcclusion().lightLevel(state ->
+                            state.getValue(ArcaneLampBlock.LIT) ? 15 : 8),
+                    ArcaneLampBlock.Kind.FERTILITY));
+    public static final RegistryObject<Block> ITEM_GRATE = BLOCKS.register(
+            "item_grate", () -> new ItemGrateBlock(
+                    metalDeviceProperties().noOcclusion()));
+    public static final RegistryObject<Block> ARCANE_LAMP_LIGHT = BLOCKS.register(
+            "arcane_lamp_light", () -> new ArcaneLampLightBlock(
+                    BlockBehaviour.Properties.of().mapColor(MapColor.NONE)
+                            .replaceable().instabreak().noCollission().noOcclusion()
+                            .noLootTable().lightLevel(state -> 15)));
+    public static final RegistryObject<Block> ARCANE_LEVITATOR = BLOCKS.register(
+            "arcane_levitator", () -> new ArcaneLevitatorBlock(
+                    BlockBehaviour.Properties.copy(Blocks.OAK_PLANKS).strength(2.5F, 15F).noOcclusion()));
+    public static final RegistryObject<Block> ARCANE_DOOR = BLOCKS.register(
+            "arcane_door", () -> new ArcaneDoorBlock(
+                    BlockBehaviour.Properties.copy(Blocks.IRON_DOOR).strength(15F, 999F).noOcclusion()));
+    public static final RegistryObject<Block> BRAIN_JAR = BLOCKS.register(
+            "brain_jar", () -> new BrainJarBlock(
+                    BlockBehaviour.Properties.copy(Blocks.GLASS).strength(0.2F).noOcclusion()));
+    public static final RegistryObject<Block> HUNGRY_CHEST = BLOCKS.register(
+            "hungry_chest", () -> new HungryChestBlock(
+                    BlockBehaviour.Properties.copy(Blocks.OAK_PLANKS).strength(2.5F).noOcclusion()));
+    public static final RegistryObject<Block> GOLEM_FETTER = BLOCKS.register(
+            "golem_fetter", () -> new GolemFetterBlock(
+                    BlockBehaviour.Properties.copy(Blocks.STONE).strength(2F, 10F)));
+    public static final RegistryObject<Block> TALLOW_BLOCK = BLOCKS.register(
+            "tallow_block", () -> new Block(
+                    BlockBehaviour.Properties.copy(Blocks.HONEYCOMB_BLOCK).strength(4F).sound(SoundType.STONE)));
+    public static final RegistryObject<Block> FLESH_BLOCK = BLOCKS.register(
+            "flesh_block", () -> new Block(
+                    BlockBehaviour.Properties.copy(Blocks.MUD).strength(2F).sound(SoundType.SLIME_BLOCK)));
+    public static final RegistryObject<Block> FLUX_SCRUBBER = BLOCKS.register(
+            "flux_scrubber", () -> new FluxScrubberBlock(
+                    metalDeviceProperties().noOcclusion()));
     public static final RegistryObject<Block> ADVANCED_ALCHEMICAL_CONSTRUCT =
             BLOCKS.register(
                     "advanced_alchemical_construct",
@@ -459,7 +556,7 @@ public final class ModBlocks {
             () -> new JarredAuraNodeBlock(
                     BlockBehaviour.Properties.of()
                             .mapColor(MapColor.NONE)
-                            .strength(0.3F)
+                            .strength(0.2F)
                             .sound(SoundType.GLASS)
                             .noOcclusion()
                             .noLootTable()
@@ -761,7 +858,6 @@ public final class ModBlocks {
             () -> new Block(
                     BlockBehaviour.Properties.copy(Blocks.OBSIDIAN)
                             .strength(30.0F, 1200.0F)
-                            .noLootTable()
             )
     );
     public static final RegistryObject<Block> ELDRITCH_ALTAR_PART =

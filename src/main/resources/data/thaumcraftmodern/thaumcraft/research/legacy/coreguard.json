@@ -2,7 +2,7 @@
   "id": "coreguard",
   "legacy_id": "COREGUARD",
   "category": "golemancy",
-  "icon": "thaumcraftmodern:thaumonomicon",
+  "icon": "thaumcraftmodern:guard_golem_core",
   "title": "tc.research_name.COREGUARD",
   "subtitle": "tc.research_text.COREGUARD",
   "concealed": true,
@@ -23,12 +23,9 @@
       "body": "tc.research_page.COREGUARD.1"
     },
     {
-      "type": "unavailable",
+      "type": "recipe",
       "title": "",
-      "body": "",
-      "legacy_type": "recipe",
-      "legacy_content": "CoreGuard",
-      "source_expression": "new ResearchPage((CrucibleRecipe)recipes.get(\"CoreGuard\"))"
+      "recipe": "thaumcraftmodern:coreguard"
     },
     {
       "type": "unavailable",
@@ -39,7 +36,7 @@
       "source_expression": "new ResearchPage(\"UPGRADEORDER\", \"tc.research_page.COREGUARD.2\")"
     }
   ],
-  "inactive": true,
+  "inactive": false,
   "inactive_reason": "referenced gameplay content is not implemented",
   "legacy": {
     "x": -4,

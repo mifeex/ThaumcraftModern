@@ -5,6 +5,8 @@ import com.thaumcraftmodern.essentia.AdvancedBufferFlowController.Snapshot;
 import com.thaumcraftmodern.essentia.AdvancedBufferFlowController.State;
 import com.thaumcraftmodern.essentia.tube.TubePolicyRegistry;
 import com.thaumcraftmodern.world.block.entity.EssentiaTubeBlockEntity;
+import com.thaumcraftmodern.world.block.entity.AdvancedEssentiaBufferBlockEntity;
+import com.thaumcraftmodern.world.block.entity.EssentiaJarBlockEntity;
 import net.minecraft.core.BlockPos;
 import org.junit.jupiter.api.Test;
 
@@ -21,6 +23,14 @@ final class AdvancedEssentiaBufferFlowTest {
             true, false, false, true);
     private static final Signals READY_RETURN = new Signals(
             false, true, true, true);
+
+    @Test
+    void configuredInputCanPullFromAnOrdinaryJar() {
+        assertTrue(AdvancedEssentiaBufferBlockEntity.INPUT_SUCTION
+                > EssentiaJarBlockEntity.SUCTION);
+        assertTrue(AdvancedEssentiaBufferBlockEntity.INPUT_SUCTION
+                >= EssentiaJarBlockEntity.SUCTION);
+    }
 
     @Test
     void consumerWinsWhileTheMainPathIsForward() {
@@ -114,5 +124,24 @@ final class AdvancedEssentiaBufferFlowTest {
         assertTrue(buffer.contains(
                 "level.sendBlockUpdated(worldPosition, state, state,"));
         assertTrue(buffer.contains("Block.UPDATE_CLIENTS"));
+    }
+
+    @Test
+    void reserveOutputAlsoServesOrdinarySupplyUntilReturnMode()
+            throws Exception {
+        String buffer = Files.readString(Path.of(
+                "src/main/java/com/thaumcraftmodern/world/block/entity/"
+                        + "AdvancedEssentiaBufferBlockEntity.java"));
+        assertTrue(buffer.contains(
+                "return role(side) == AdvancedBufferSideRole.RESERVE_OUTPUT;"));
+        assertTrue(buffer.contains(
+                "controller.state() == AdvancedBufferFlowController.State.RESERVE\n"
+                        + "                ? returned : supply"));
+        assertTrue(buffer.contains(
+                "remote.suctionType(side.getOpposite())"));
+        assertTrue(buffer.contains(
+                "store.amount(wanted) > 0"));
+        assertTrue(buffer.contains(
+                "String aspect = requestedAspect(returned, reserve)"));
     }
 }

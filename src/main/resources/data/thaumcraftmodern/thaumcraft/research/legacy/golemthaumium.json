@@ -2,7 +2,7 @@
   "id": "golemthaumium",
   "legacy_id": "GOLEMTHAUMIUM",
   "category": "golemancy",
-  "icon": "thaumcraftmodern:thaumonomicon",
+  "icon": "thaumcraftmodern:thaumium_golem",
   "title": "tc.research_name.GOLEMTHAUMIUM",
   "subtitle": "tc.research_text.GOLEMTHAUMIUM",
   "concealed": true,
@@ -24,24 +24,17 @@
       "body": "tc.research_page.GOLEMTHAUMIUM.1"
     },
     {
-      "type": "unavailable",
+      "type": "recipe",
       "title": "",
-      "body": "",
-      "legacy_type": "recipe",
-      "legacy_content": "BlockThaumium",
-      "source_expression": "new ResearchPage((IRecipe)recipes.get(\"BlockThaumium\"))"
+      "recipe": "thaumcraftmodern:thaumium_block"
     },
     {
-      "type": "unavailable",
+      "type": "recipe",
       "title": "",
-      "body": "",
-      "legacy_type": "recipe",
-      "legacy_content": "GolemThaumium",
-      "source_expression": "new ResearchPage((CrucibleRecipe)recipes.get(\"GolemThaumium\"))"
+      "recipe": "thaumcraftmodern:golemthaumium"
     }
   ],
-  "inactive": true,
-  "inactive_reason": "referenced gameplay content is not implemented",
+  "inactive": false,
   "legacy": {
     "x": 2,
     "y": 10,

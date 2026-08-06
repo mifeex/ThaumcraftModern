@@ -16,6 +16,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.util.RandomSource;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
@@ -59,6 +60,15 @@ public final class WarpEvents {
                     (int) (counter - Math.max(5.0D, Math.sqrt(counter) * 2.0D))
             ));
             int effect = random.nextInt(warp);
+            ItemStack fortressHelmet = player.getItemBySlot(
+                    net.minecraft.world.entity.EquipmentSlot.HEAD);
+            if (fortressHelmet.getItem()
+                    instanceof com.thaumcraftmodern.item.FortressArmorItem
+                    && Integer.valueOf(0).equals(
+                            com.thaumcraftmodern.item.FortressArmorItem.mask(
+                                    fortressHelmet))) {
+                effect -= 2 + random.nextInt(4);
+            }
             ModNetwork.sendTo(player, new WarpFeedbackPacket(
                     WarpFeedbackPacket.TEMPORARY,
                     0,

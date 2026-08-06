@@ -10,6 +10,7 @@ import com.thaumcraftmodern.registry.ModBlocks;
 import com.thaumcraftmodern.registry.ModBlockEntities;
 import com.thaumcraftmodern.wand.WandState;
 import com.thaumcraftmodern.wand.WandVisService;
+import com.thaumcraftmodern.item.VisStorageItem;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.NonNullList;
@@ -67,6 +68,9 @@ public final class WandRechargePedestalBlockEntity extends BlockEntity
     }
 
     private boolean tryTransfer(ServerLevel level) {
+        if (item().getItem() instanceof VisStorageItem storage) {
+            return tryTransferToStorage(level, storage);
+        }
         Optional<WandState> wandState = WandVisService.state(item());
         if (wandState.isEmpty()) return false;
         WandState wand = wandState.get();
@@ -97,6 +101,47 @@ public final class WandRechargePedestalBlockEntity extends BlockEntity
                 setDrain(level, nodePos, transfer.sourceAspectId(), transfer.color());
                 return true;
             }
+        }
+        return false;
+    }
+
+    private boolean tryTransferToStorage(ServerLevel level,
+            VisStorageItem storage) {
+        Map<PrimalAspect, Integer> stored = new java.util.EnumMap<>(
+                PrimalAspect.class);
+        for (PrimalAspect aspect : PrimalAspect.ordered()) {
+            stored.put(aspect, storage.visCentivis(item(), aspect));
+        }
+        WandState state = new WandState(1, "vis_storage", "vis_storage", stored);
+        for (BlockPos nodePos : nodes) {
+            if (!level.isLoaded(nodePos)
+                    || !(level.getBlockEntity(nodePos)
+                    instanceof AuraNodeBlockEntity node)) continue;
+            AuraNodeState.Snapshot snapshot = node.snapshotState().snapshot();
+            boolean compoundFocus = level.getBlockState(worldPosition.above())
+                    .is(ModBlocks.COMPOUND_RECHARGE_FOCUS.get());
+            Optional<TransferSelection> selected = selectTransfer(
+                    state, storage.capacityCentivis(), snapshot,
+                    compoundFocus, AspectRegistryRuntime.catalog());
+            if (selected.isEmpty()) continue;
+            TransferSelection transfer = selected.get();
+            Map<String, Integer> next = new LinkedHashMap<>(
+                    snapshot.aspectsCurrent());
+            next.put(transfer.sourceAspectId(),
+                    next.get(transfer.sourceAspectId()) - 1);
+            if (!node.replaceAspects(snapshot.revision(), next,
+                    snapshot.aspectsMaximum())) continue;
+            int accepted = storage.addCentivis(item(),
+                    transfer.targetPrimal(), CENTIVIS_PER_VIS);
+            if (accepted != CENTIVIS_PER_VIS) {
+                throw new IllegalStateException(
+                        "validated amulet transfer was not accepted");
+            }
+            setChanged();
+            level.updateNeighbourForOutputSignal(worldPosition,
+                    getBlockState().getBlock());
+            setDrain(level, nodePos, transfer.sourceAspectId(), transfer.color());
+            return true;
         }
         return false;
     }
@@ -226,6 +271,16 @@ public final class WandRechargePedestalBlockEntity extends BlockEntity
     }
 
     public int comparatorLevel() {
+        if (item().getItem() instanceof VisStorageItem storage) {
+            long total = 0;
+            for (PrimalAspect aspect : PrimalAspect.ordered()) {
+                total += storage.visCentivis(item(), aspect);
+            }
+            long maximum = (long) storage.capacityCentivis()
+                    * PrimalAspect.ordered().size();
+            return maximum <= 0 ? 0
+                    : (int) Math.floor(total * 14.0D / maximum) + 1;
+        }
         Optional<WandState> state = WandVisService.state(item());
         if (state.isEmpty()) return 0;
         long total = 0;
@@ -266,7 +321,9 @@ public final class WandRechargePedestalBlockEntity extends BlockEntity
     @Override public int[] getSlotsForFace(Direction side) { return SLOT; }
     @Override public boolean canPlaceItemThroughFace(int slot, ItemStack stack,
             @Nullable Direction side) {
-        return slot == 0 && item().isEmpty() && WandVisService.isWand(stack);
+        return slot == 0 && item().isEmpty()
+                && (WandVisService.isWand(stack)
+                || stack.getItem() instanceof VisStorageItem);
     }
     @Override public boolean canTakeItemThroughFace(int slot, ItemStack stack, Direction side) {
         return slot == 0;

@@ -2,7 +2,7 @@
   "id": "corefishing",
   "legacy_id": "COREFISHING",
   "category": "golemancy",
-  "icon": "thaumcraftmodern:thaumonomicon",
+  "icon": "thaumcraftmodern:fishing_golem_core",
   "title": "tc.research_name.COREFISHING",
   "subtitle": "tc.research_text.COREFISHING",
   "concealed": true,
@@ -24,12 +24,9 @@
       "body": "tc.research_page.COREFISHING.1"
     },
     {
-      "type": "unavailable",
+      "type": "recipe",
       "title": "",
-      "body": "",
-      "legacy_type": "recipe",
-      "legacy_content": "CoreFishing",
-      "source_expression": "new ResearchPage((InfusionRecipe)recipes.get(\"CoreFishing\"))"
+      "recipe": "thaumcraftmodern:core_fishing"
     },
     {
       "type": "unavailable",
@@ -82,7 +79,7 @@
       "amount": 3
     }
   ],
-  "inactive": true,
+  "inactive": false,
   "inactive_reason": "referenced gameplay content is not implemented",
   "legacy": {
     "x": -2,

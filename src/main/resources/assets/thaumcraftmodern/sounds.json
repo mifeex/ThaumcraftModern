@@ -367,5 +367,17 @@
   "swing": {
     "category": "player",
     "sounds": ["thaumcraftmodern:swing1", "thaumcraftmodern:swing2"]
+  },
+  "runic_shield_effect": {
+    "category": "players",
+    "sounds": [{"name":"thaumcraftmodern:runic_shield_effect","stream":false}]
+  },
+  "runic_shield_charge": {
+    "category": "players",
+    "sounds": [{"name":"thaumcraftmodern:runic_shield_charge","stream":false}]
+  },
+  "upgrade": {
+    "category": "neutral",
+    "sounds": ["thaumcraftmodern:upgrade"]
   }
 }

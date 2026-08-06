@@ -2,7 +2,7 @@
   "id": "focuswarding",
   "legacy_id": "FOCUSWARDING",
   "category": "thaumaturgy",
-  "icon": "thaumcraftmodern:thaumonomicon",
+  "icon": "thaumcraftmodern:focus_warding",
   "title": "tc.research_name.FOCUSWARDING",
   "subtitle": "tc.research_text.FOCUSWARDING",
   "concealed": true,
@@ -23,17 +23,9 @@
       "title": "",
       "body": "tc.research_page.FOCUSWARDING.1"
     },
-    {
-      "type": "unavailable",
-      "title": "",
-      "body": "",
-      "legacy_type": "recipe",
-      "legacy_content": "FocusWarding",
-      "source_expression": "new ResearchPage((InfusionRecipe)recipes.get(\"FocusWarding\"))"
-    }
+    {"type":"infusion","title":"","recipe":"thaumcraftmodern:focus_warding"}
   ],
-  "inactive": true,
-  "inactive_reason": "referenced gameplay content is not implemented",
+  "inactive": false,
   "legacy": {
     "x": -2,
     "y": -4,

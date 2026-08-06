@@ -1,14 +1,19 @@
 {
-  "type": "block",
-  "target": "minecraft:mossy_stone_bricks",
+  "type": "block_tag",
+  "target": "thaumcraftmodern:mossy_stone_brick_equivalents",
   "display": "",
   "aspects": [
+    {
+      "id": "terra",
+      "amount": 1
+    },
     {
       "id": "herba",
       "amount": 1
     }
   ],
   "inactive": false,
+  "recipe_derivation": "TC4 Stone Bricks Terra 2, then remove Terra 1 and add Herba 1.",
   "legacy": {
     "registration_mode": "explicit",
     "target_kind": "item_stack",

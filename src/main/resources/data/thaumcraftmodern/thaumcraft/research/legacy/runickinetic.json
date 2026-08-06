@@ -2,7 +2,7 @@
   "id": "runickinetic",
   "legacy_id": "RUNICKINETIC",
   "category": "artifice",
-  "icon": "thaumcraftmodern:thaumonomicon",
+  "icon": "thaumcraftmodern:runic_girdle_kinetic",
   "title": "tc.research_name.RUNICKINETIC",
   "subtitle": "tc.research_text.RUNICKINETIC",
   "concealed": true,
@@ -23,12 +23,15 @@
       "body": "tc.research_page.RUNICKINETIC.1"
     },
     {
-      "type": "unavailable",
+      "type": "infusion",
       "title": "",
       "body": "",
       "legacy_type": "recipe",
       "legacy_content": "RunicGirdleKinetic",
-      "source_expression": "new ResearchPage((InfusionRecipe)recipes.get(\"RunicGirdleKinetic\"))"
+      "source_expression": "new ResearchPage((InfusionRecipe)recipes.get(\"RunicGirdleKinetic\"))",
+      "recipe": "thaumcraftmodern:runic_girdle_kinetic", "output":"thaumcraftmodern:runic_girdle_kinetic", "central":"thaumcraftmodern:runic_girdle",
+      "components":[{"item":"thaumcraftmodern:balanced_shard"},{"item":"thaumcraftmodern:air_shard"},{"item":"thaumcraftmodern:air_shard"},{"item":"minecraft:splash_potion","potion":"minecraft:strong_harming"},{"item":"thaumcraftmodern:air_shard"},{"item":"thaumcraftmodern:air_shard"}],
+      "aspect_costs":[{"id":"tutamen","amount":33},{"id":"praecantatio","amount":55},{"id":"aer","amount":64}], "instability":"high"
     }
   ],
   "purchase_cost": [
@@ -45,8 +48,7 @@
       "amount": 6
     }
   ],
-  "inactive": true,
-  "inactive_reason": "referenced gameplay content is not implemented",
+  "inactive": false,
   "legacy": {
     "x": 2,
     "y": 5,

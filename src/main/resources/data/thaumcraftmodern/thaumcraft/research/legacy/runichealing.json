@@ -2,7 +2,7 @@
   "id": "runichealing",
   "legacy_id": "RUNICHEALING",
   "category": "artifice",
-  "icon": "thaumcraftmodern:thaumonomicon",
+  "icon": "thaumcraftmodern:runic_ring_regen",
   "title": "tc.research_name.RUNICHEALING",
   "subtitle": "tc.research_text.RUNICHEALING",
   "concealed": true,
@@ -23,12 +23,15 @@
       "body": "tc.research_page.RUNICHEALING.1"
     },
     {
-      "type": "unavailable",
+      "type": "infusion",
       "title": "",
       "body": "",
       "legacy_type": "recipe",
       "legacy_content": "RunicRingHealing",
-      "source_expression": "new ResearchPage((InfusionRecipe)recipes.get(\"RunicRingHealing\"))"
+      "source_expression": "new ResearchPage((InfusionRecipe)recipes.get(\"RunicRingHealing\"))",
+      "recipe": "thaumcraftmodern:runic_ring_regen", "output":"thaumcraftmodern:runic_ring_regen", "central":"thaumcraftmodern:runic_ring",
+      "components":[{"item":"thaumcraftmodern:balanced_shard"},{"item":"thaumcraftmodern:water_shard"},{"item":"thaumcraftmodern:water_shard"},{"item":"minecraft:potion","potion":"minecraft:long_regeneration"},{"item":"thaumcraftmodern:water_shard"},{"item":"thaumcraftmodern:water_shard"}],
+      "aspect_costs":[{"id":"tutamen","amount":16},{"id":"praecantatio","amount":16},{"id":"aqua","amount":32},{"id":"victus","amount":32}], "instability":"high"
     }
   ],
   "purchase_cost": [
@@ -49,8 +52,7 @@
       "amount": 4
     }
   ],
-  "inactive": true,
-  "inactive_reason": "referenced gameplay content is not implemented",
+  "inactive": false,
   "legacy": {
     "x": 4,
     "y": 3,

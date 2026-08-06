@@ -31,6 +31,8 @@ minecraft {
             workingDirectory project.file(configuredRunDirectory)
             property 'forge.logging.markers', 'REGISTRIES'
             property 'forge.logging.console.level', 'info'
+            property 'mixin.env.remapRefMap', 'true'
+            property 'mixin.env.refMapRemappingFile', "${projectDir}/build/createSrgToMcp/output.srg"
 
             mods {
                 "${mod_id}" {
@@ -73,6 +75,114 @@ tasks.named('processResources', ProcessResources).configure {
         include 'phial.png', 'essence.png'
         into 'assets/thaumcraftmodern/textures/item'
     }
+    from(zipTree('reference/original/Thaumcraft_1.7.10_4.2.3.5.jar')) {
+        include 'assets/thaumcraft/textures/items/bauble_amulet.png',
+                'assets/thaumcraft/textures/items/bauble_ring.png',
+                'assets/thaumcraft/textures/items/bauble_belt.png',
+                'assets/thaumcraft/textures/items/bauble_ring_iron.png',
+                'assets/thaumcraft/textures/items/vis_amulet.png',
+                'assets/thaumcraft/textures/items/vis_amulet.png.mcmeta',
+                'assets/thaumcraft/textures/items/vis_amulet_lesser.png',
+                'assets/thaumcraft/textures/items/runic_*.png',
+                'assets/thaumcraft/textures/items/runic_*.png.mcmeta'
+        eachFile { details ->
+            details.path = details.path.replace(
+                    'assets/thaumcraft/textures/items/',
+                    'assets/thaumcraftmodern/textures/item/')
+        }
+        includeEmptyDirs = false
+    }
+}
+
+tasks.named('processResources', ProcessResources).configure {
+    from(zipTree('reference/original/Thaumcraft_1.7.10_4.2.3.5.jar')) {
+        include 'assets/thaumcraft/textures/models/hemis*.png',
+                'assets/thaumcraft/textures/models/hemis*.png.mcmeta',
+                'assets/thaumcraft/textures/misc/r_runicupg.png',
+                'assets/thaumcraft/sounds/runicShieldEffect.ogg',
+                'assets/thaumcraft/sounds/runicShieldCharge.ogg'
+        eachFile { details ->
+            details.path = details.path
+                    .replace('assets/thaumcraft/textures/models/',
+                            'assets/thaumcraftmodern/textures/models/')
+                    .replace('assets/thaumcraft/textures/misc/',
+                            'assets/thaumcraftmodern/textures/misc/')
+                    .replace('assets/thaumcraft/sounds/runicShieldEffect.ogg',
+                            'assets/thaumcraftmodern/sounds/runic_shield_effect.ogg')
+                    .replace('assets/thaumcraft/sounds/runicShieldCharge.ogg',
+                            'assets/thaumcraftmodern/sounds/runic_shield_charge.ogg')
+        }
+        includeEmptyDirs = false
+    }
+}
+
+tasks.named('processResources', ProcessResources).configure {
+    from(zipTree('reference/original/Thaumcraft_1.7.10_4.2.3.5.jar')) {
+        include 'assets/thaumcraft/textures/blocks/furnace*.png'
+        exclude 'assets/thaumcraft/textures/blocks/furnace0.png',
+                'assets/thaumcraft/textures/blocks/furnace6.png',
+                'assets/thaumcraft/textures/blocks/furnace7.png'
+        eachFile { details ->
+            details.path = details.path.replace(
+                    'assets/thaumcraft/textures/blocks/',
+                    'assets/thaumcraftmodern/textures/block/')
+        }
+        includeEmptyDirs = false
+    }
+    from(zipTree('reference/original/Thaumcraft_1.7.10_4.2.3.5.jar')) {
+        include 'assets/thaumcraft/textures/misc/r_infernalfurnace.png'
+        eachFile { details ->
+            details.path = 'assets/thaumcraftmodern/textures/misc/r_infernalfurnace.png'
+        }
+        includeEmptyDirs = false
+    }
+    from(zipTree('reference/original/Thaumcraft_1.7.10_4.2.3.5.jar')) {
+        include 'assets/thaumcraft/textures/items/nuggetchicken.png',
+                'assets/thaumcraft/textures/items/nuggetbeef.png',
+                'assets/thaumcraft/textures/items/nuggetpork.png',
+                'assets/thaumcraft/textures/items/nuggetfish.png'
+        eachFile { details ->
+            details.path = details.path.replace(
+                    'assets/thaumcraft/textures/items/nugget',
+                    'assets/thaumcraftmodern/textures/item/')
+        }
+        includeEmptyDirs = false
+    }
+    from(zipTree('reference/original/Thaumcraft_1.7.10_4.2.3.5.jar')) {
+        include 'assets/thaumcraft/textures/models/bellows.png'
+        eachFile { details ->
+            details.path = 'assets/thaumcraftmodern/textures/block/bellows.png'
+        }
+        includeEmptyDirs = false
+    }
+    from(zipTree('reference/original/Thaumcraft_1.7.10_4.2.3.5.jar')) {
+        include 'assets/thaumcraft/textures/blocks/lifterside.png',
+                'assets/thaumcraft/textures/blocks/liftertop.png',
+                'assets/thaumcraft/textures/blocks/arcaneearbottom.png',
+                'assets/thaumcraft/textures/blocks/adoorbot.png',
+                'assets/thaumcraft/textures/blocks/adoortop.png'
+        eachFile { details -> details.path = details.path.replace(
+                'assets/thaumcraft/textures/blocks/',
+                'assets/thaumcraftmodern/textures/block/') }
+        includeEmptyDirs = false
+    }
+    from(zipTree('reference/original/Thaumcraft_1.7.10_4.2.3.5.jar')) {
+        include 'assets/thaumcraft/textures/items/arcanedoor.png'
+        eachFile { details -> details.path = details.path.replace(
+                'assets/thaumcraft/textures/items/',
+                'assets/thaumcraftmodern/textures/item/') }
+        includeEmptyDirs = false
+    }
+    from(zipTree('reference/original/Thaumcraft_1.7.10_4.2.3.5.jar')) {
+        include 'assets/thaumcraft/textures/models/brain2.png',
+                'assets/thaumcraft/textures/models/fluxscrubber.png',
+                'assets/thaumcraft/textures/models/jar.png',
+                'assets/thaumcraft/textures/models/jarbrine.png'
+        eachFile { details -> details.path = details.path.replace(
+                'assets/thaumcraft/textures/models/',
+                'assets/thaumcraftmodern/textures/block/') }
+        includeEmptyDirs = false
+    }
 }
 
 tasks.named('processResources', ProcessResources).configure {
@@ -92,11 +202,18 @@ tasks.named('processResources', ProcessResources).configure {
 }
 
 repositories {
+    maven {
+        name = 'Illusive Soulworks maven'
+        url = 'https://maven.theillusivec4.top/'
+    }
     mavenCentral()
 }
 
 dependencies {
     minecraft "net.minecraftforge:forge:${minecraft_version}-${forge_version}"
+    compileOnly fg.deobf("top.theillusivec4.curios:curios-forge:${curios_version}:api")
+    runtimeOnly fg.deobf("top.theillusivec4.curios:curios-forge:${curios_version}")
+    testCompileOnly fg.deobf("top.theillusivec4.curios:curios-forge:${curios_version}:api")
 
     testImplementation platform('org.junit:junit-bom:5.10.3')
     testImplementation 'org.junit.jupiter:junit-jupiter'

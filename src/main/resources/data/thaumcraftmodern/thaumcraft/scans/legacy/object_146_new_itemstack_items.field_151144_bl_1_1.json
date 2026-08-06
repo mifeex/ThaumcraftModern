@@ -1,23 +1,19 @@
 {
-  "type": "item",
-  "target": "minecraft:wither_skeleton_skull",
+  "type": "block_tag",
+  "target": "thaumcraftmodern:wither_skeleton_head_blocks",
   "display": "",
   "aspects": [
-    {
-      "id": "mortuus",
-      "amount": 4
-    },
-    {
-      "id": "spiritus",
-      "amount": 4
-    },
     {
       "id": "exanimis",
       "amount": 4
     },
     {
-      "id": "venenum",
-      "amount": 4
+      "id": "humanus",
+      "amount": 1
+    },
+    {
+      "id": "ignis",
+      "amount": 2
     }
   ],
   "inactive": false,

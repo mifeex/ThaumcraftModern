@@ -31,6 +31,48 @@ class ScanRegistryTest {
     }
 
     @Test
+    void serializedDefinitionsPreserveSharedKnowledgeKey() {
+        ScanDefinition pennant = new ScanDefinition(
+                ScanTargetType.ITEM_TAG,
+                "thaumcraftmodern:thaumcraft_banners",
+                "",
+                List.of(new AspectReward("pannus", 3)),
+                "block_tag:minecraft:banners"
+        );
+        ScanRegistry.replace(List.of(pennant));
+
+        ScanDefinition restored = ScanRegistry.deserialize(ScanRegistry.serialize()).get(0);
+
+        assertEquals("item_tag:thaumcraftmodern:thaumcraft_banners", restored.scanKey());
+        assertEquals("block_tag:minecraft:banners", restored.knowledgeKey());
+    }
+
+    @Test
+    void runtimeDefinitionsNeverOverrideAndAreRemovedWithTheGeneratedLayer() {
+        ScanDefinition explicit = new ScanDefinition(
+                ScanTargetType.ITEM, "example:gear", "",
+                List.of(new AspectReward("machina", 7)));
+        ScanDefinition collision = new ScanDefinition(
+                ScanTargetType.ITEM, "example:gear", "",
+                List.of(new AspectReward("machina", 1)));
+        ScanDefinition generated = new ScanDefinition(
+                ScanTargetType.ITEM, "example:shaft", "",
+                List.of(new AspectReward("machina", 2)));
+        ScanRegistry.replace(List.of(explicit));
+
+        ScanRegistry.replaceGenerated(List.of(collision, generated));
+        assertEquals(explicit, ScanRegistry.findHistorical(
+                ScanTargetType.ITEM, "example:gear").orElseThrow());
+        assertEquals(generated, ScanRegistry.findHistorical(
+                ScanTargetType.ITEM, "example:shaft").orElseThrow());
+
+        ScanRegistry.replaceGenerated(List.of());
+        assertFalse(ScanRegistry.find(
+                ScanTargetType.ITEM, "example:shaft", false,
+                (type, target) -> Optional.empty()).isPresent());
+    }
+
+    @Test
     void missingDefinitionDoesNotUseHeuristicsByDefault() {
         ScanRegistry.replace(List.of());
 

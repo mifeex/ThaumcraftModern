@@ -1,8 +1,12 @@
 {
-  "type": "block",
-  "target": "minecraft:oak_trapdoor",
+  "type": "block_tag",
+  "target": "minecraft:wooden_trapdoors",
   "display": "",
   "aspects": [
+    {
+      "id": "arbor",
+      "amount": 2
+    },
     {
       "id": "motus",
       "amount": 1

@@ -4,6 +4,10 @@
   "display": "",
   "aspects": [
     {
+      "id": "metallum",
+      "amount": 6
+    },
+    {
       "id": "machina",
       "amount": 2
     },
@@ -12,8 +16,7 @@
       "amount": 1
     }
   ],
-  "inactive": true,
-  "inactive_reason": "recipe-derived base aspects cannot yet be reproduced safely",
+  "inactive": false,
   "legacy": {
     "registration_mode": "recipe_derived_modifier",
     "target_kind": "item_stack",
@@ -42,5 +45,6 @@
       }
     ],
     "source_expression": "ThaumcraftApi.registerComplexObjectTag(new ItemStack(Items.field_151139_aw), (new AspectList()).add(Aspect.MECHANISM, 2).add(Aspect.MOTION, 1))"
-  }
+  },
+  "recipe_derivation": "TC4 generateTags base plus the original registered complex-object modifier."
 }

@@ -296,18 +296,11 @@ public final class EssentiaTubeBlockEntity extends BlockEntity
                     && !remote.canReturnEssentia()) {
                 continue;
             }
-            String wanted = suctionType;
             String remoteType = remote.essentiaType(direction.getOpposite());
-            if (wanted != null && remoteType != null
-                    && !wanted.equals(remoteType)) {
-                continue;
-            }
+            String wanted = TubeFlowRules.requestedAspect(suctionType, remoteType);
             if (suction <= remote.suctionAmount(direction.getOpposite())
                     || suction < remote.minimumSuction()) {
                 continue;
-            }
-            if (wanted == null) {
-                wanted = remoteType;
             }
             if (wanted == null) {
                 wanted = remote.essentiaType(null);

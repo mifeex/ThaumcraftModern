@@ -2,7 +2,7 @@
   "id": "corebutcher",
   "legacy_id": "COREBUTCHER",
   "category": "golemancy",
-  "icon": "thaumcraftmodern:thaumonomicon",
+  "icon": "thaumcraftmodern:butcher_golem_core",
   "title": "tc.research_name.COREBUTCHER",
   "subtitle": "tc.research_text.COREBUTCHER",
   "concealed": true,
@@ -24,12 +24,9 @@
       "body": "tc.research_page.COREBUTCHER.1"
     },
     {
-      "type": "unavailable",
+      "type": "recipe",
       "title": "",
-      "body": "",
-      "legacy_type": "recipe",
-      "legacy_content": "CoreButcher",
-      "source_expression": "new ResearchPage((CrucibleRecipe)recipes.get(\"CoreButcher\"))"
+      "recipe": "thaumcraftmodern:corebutcher"
     }
   ],
   "purchase_cost": [
@@ -50,7 +47,7 @@
       "amount": 3
     }
   ],
-  "inactive": true,
+  "inactive": false,
   "inactive_reason": "referenced gameplay content is not implemented",
   "legacy": {
     "x": -3,

@@ -2,7 +2,7 @@
   "id": "coreharvest",
   "legacy_id": "COREHARVEST",
   "category": "golemancy",
-  "icon": "thaumcraftmodern:thaumonomicon",
+  "icon": "thaumcraftmodern:harvest_golem_core",
   "title": "tc.research_name.COREHARVEST",
   "subtitle": "tc.research_text.COREHARVEST",
   "concealed": true,
@@ -23,12 +23,9 @@
       "body": "tc.research_page.COREHARVEST.1"
     },
     {
-      "type": "unavailable",
+      "type": "recipe",
       "title": "",
-      "body": "",
-      "legacy_type": "recipe",
-      "legacy_content": "CoreHarvest",
-      "source_expression": "new ResearchPage((CrucibleRecipe)recipes.get(\"CoreHarvest\"))"
+      "recipe": "thaumcraftmodern:coreharvest"
     },
     {
       "type": "unavailable",
@@ -39,7 +36,7 @@
       "source_expression": "new ResearchPage(\"UPGRADEORDER\", \"tc.research_page.COREHARVEST.2\")"
     }
   ],
-  "inactive": true,
+  "inactive": false,
   "inactive_reason": "referenced gameplay content is not implemented",
   "legacy": {
     "x": -2,

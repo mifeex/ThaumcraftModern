@@ -45,14 +45,31 @@ public final class InfusionRecipeReloadListener extends SimpleJsonResourceReload
                 for (Map.Entry<String, JsonElement> cost : costs.entrySet()) {
                     essentia.put(cost.getKey(), GsonHelper.convertToInt(cost.getValue(), cost.getKey()));
                 }
+                JsonObject modifier = json.has("result_modifier")
+                        ? GsonHelper.getAsJsonObject(json, "result_modifier") : null;
+                InfusionRecipeDefinition.ResultKind resultKind = modifier == null
+                        ? InfusionRecipeDefinition.ResultKind.FIXED
+                        : InfusionRecipeDefinition.ResultKind.valueOf(
+                                GsonHelper.getAsString(modifier, "type")
+                                        .toUpperCase(java.util.Locale.ROOT));
+                String modifierKey = modifier == null ? ""
+                        : GsonHelper.getAsString(modifier, "key");
+                int modifierValue = modifier == null ? 0
+                        : GsonHelper.getAsInt(modifier, "value", 0);
                 recipes.add(new InfusionRecipeDefinition(
                         file.getKey(),
                         GsonHelper.getAsString(json, "research", ""),
                         GsonHelper.getAsInt(json, "instability", 0),
-                        Ingredient.fromJson(json.get("central")),
+                        json.has("central") ? Ingredient.fromJson(json.get("central"))
+                                : Ingredient.EMPTY,
                         components,
-                        readStack(GsonHelper.getAsJsonObject(json, "result")),
-                        essentia
+                        json.has("result")
+                                ? readStack(GsonHelper.getAsJsonObject(json, "result"))
+                                : ItemStack.EMPTY,
+                        essentia,
+                        resultKind,
+                        modifierKey,
+                        modifierValue
                 ));
             } catch (RuntimeException exception) {
                 ThaumcraftModern.LOGGER.error("Invalid infusion recipe {}", file.getKey(), exception);

@@ -1,6 +1,7 @@
 {
   "replace": false,
   "values": [
+    "minecraft:bamboo_mosaic",
     "thaumcraftmodern:greatwood_planks",
     "thaumcraftmodern:silverwood_planks"
   ]

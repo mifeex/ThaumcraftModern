@@ -2,9 +2,8 @@
   "id": "arcanelamp",
   "legacy_id": "ArcaneLamp",
   "legacy_kind": "arcane_shaped",
-  "inactive": true,
-  "inactive_reason": "recipe type or referenced content is not implemented",
-  "modern_recipe": "",
+  "inactive": false,
+  "modern_recipe": "thaumcraftmodern:arcane_lamp",
   "required_aspects": [
     {
       "id": "ignis",

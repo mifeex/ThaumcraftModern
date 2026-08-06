@@ -2,7 +2,7 @@
   "id": "visamulet",
   "legacy_id": "VISAMULET",
   "category": "thaumaturgy",
-  "icon": "thaumcraftmodern:thaumonomicon",
+  "icon": "thaumcraftmodern:vis_storage_amulet",
   "title": "tc.research_name.VISAMULET",
   "subtitle": "tc.research_text.VISAMULET",
   "concealed": true,
@@ -23,12 +23,26 @@
       "body": "tc.research_page.VISAMULET.1"
     },
     {
-      "type": "unavailable",
+      "type": "infusion",
       "title": "",
-      "body": "",
-      "legacy_type": "recipe",
-      "legacy_content": "VisAmulet",
-      "source_expression": "new ResearchPage((InfusionRecipe)recipes.get(\"VisAmulet\"))"
+      "recipe": "thaumcraftmodern:vis_storage_amulet",
+      "instability": 6,
+      "essentia": {
+        "auram": 24,
+        "potentia": 64,
+        "praecantatio": 64,
+        "vacuos": 24
+      },
+      "central": {"item": "thaumcraftmodern:mundane_amulet", "count": 1},
+      "components": [
+        {"item": "thaumcraftmodern:salis_mundus", "count": 1},
+        {"item": "thaumcraftmodern:balanced_crystal_cluster", "count": 1},
+        {"item": "thaumcraftmodern:balanced_crystal_cluster", "count": 1},
+        {"item": "thaumcraftmodern:salis_mundus", "count": 1},
+        {"item": "thaumcraftmodern:balanced_crystal_cluster", "count": 1},
+        {"item": "thaumcraftmodern:balanced_crystal_cluster", "count": 1}
+      ],
+      "result": {"item": "thaumcraftmodern:vis_storage_amulet", "count": 1}
     },
     {
       "type": "text",
@@ -36,8 +50,8 @@
       "body": "tc.research_page.VISAMULET.2"
     }
   ],
-  "inactive": true,
-  "inactive_reason": "referenced gameplay content is not implemented",
+  "inactive": false,
+  "inactive_reason": null,
   "legacy": {
     "x": -9,
     "y": -8,

@@ -73,7 +73,8 @@ class EssentiaVisualFidelityTest {
         assertTrue(hudRegistry.contains("register(EssentiaJarBlockEntity.class"));
         assertTrue(hudRegistry.contains("jar.aspect(), jar.amount()"));
         assertTrue(hudRegistry.contains("CLASSIC_FACE_OFFSET = 0.6D"));
-        assertTrue(jarBlock.contains("box(3, 0, 3, 13, 12, 13)"));
+        assertTrue(jarBlock.contains(
+                "box(3.5, 0, 3.5, 12.5, 11.5, 12.5)"));
         assertTrue(jarBlock.contains("return SHAPE;"));
         assertTrue(itemModel.contains("minecraft:builtin/entity"));
         assertTrue(itemRenderer.contains("WardedJarItem.contents(stack)"));

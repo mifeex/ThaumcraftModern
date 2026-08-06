@@ -8,6 +8,7 @@ import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.common.MinecraftForge;
+import top.theillusivec4.curios.api.CuriosApi;
 
 import java.util.Objects;
 
@@ -36,6 +37,17 @@ public final class VisDiscountService {
                     total,
                     percentFromGear(stack, player, aspect)
             );
+        }
+        var curios = CuriosApi.getCuriosInventory(player).resolve();
+        if (curios.isPresent()) {
+            var equipped = curios.get().getEquippedCurios();
+            for (int slot = 0; slot < equipped.getSlots(); slot++) {
+                total = Math.addExact(
+                        total,
+                        percentFromGear(equipped.getStackInSlot(slot),
+                                player, aspect)
+                );
+            }
         }
         for (MobEffectInstance instance : player.getActiveEffects()) {
             if (instance.getEffect() instanceof VisDiscountEffect effect) {

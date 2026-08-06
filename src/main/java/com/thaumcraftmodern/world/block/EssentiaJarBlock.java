@@ -35,8 +35,8 @@ import org.jetbrains.annotations.Nullable;
 import java.util.List;
 
 public final class EssentiaJarBlock extends BaseEntityBlock {
-    /** Exact TC4 BlockJar.JAR_AABB: 3/16..13/16 wide and 12/16 high. */
-    private static final VoxelShape SHAPE = box(3, 0, 3, 13, 12, 13);
+    /** Slightly reduced from TC4's 3..13 by 12 outline for modern perspective. */
+    private static final VoxelShape SHAPE = box(3.5, 0, 3.5, 12.5, 11.5, 12.5);
 
     public EssentiaJarBlock(Properties properties) {
         super(properties);

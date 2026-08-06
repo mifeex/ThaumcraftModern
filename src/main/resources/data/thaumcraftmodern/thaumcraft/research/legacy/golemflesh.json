@@ -2,7 +2,7 @@
   "id": "golemflesh",
   "legacy_id": "GOLEMFLESH",
   "category": "golemancy",
-  "icon": "thaumcraftmodern:thaumonomicon",
+  "icon": "thaumcraftmodern:flesh_golem",
   "title": "tc.research_name.GOLEMFLESH",
   "subtitle": "tc.research_text.GOLEMFLESH",
   "concealed": true,
@@ -23,24 +23,17 @@
       "body": "tc.research_page.GOLEMFLESH.1"
     },
     {
-      "type": "unavailable",
+      "type": "recipe",
       "title": "",
-      "body": "",
-      "legacy_type": "recipe",
-      "legacy_content": "BlockFlesh",
-      "source_expression": "new ResearchPage((IRecipe)recipes.get(\"BlockFlesh\"))"
+      "recipe": "thaumcraftmodern:flesh_block"
     },
     {
-      "type": "unavailable",
+      "type": "recipe",
       "title": "",
-      "body": "",
-      "legacy_type": "recipe",
-      "legacy_content": "GolemFlesh",
-      "source_expression": "new ResearchPage((CrucibleRecipe)recipes.get(\"GolemFlesh\"))"
+      "recipe": "thaumcraftmodern:golemflesh"
     }
   ],
-  "inactive": true,
-  "inactive_reason": "referenced gameplay content is not implemented",
+  "inactive": false,
   "legacy": {
     "x": 4,
     "y": 4,

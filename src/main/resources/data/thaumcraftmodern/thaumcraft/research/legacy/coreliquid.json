@@ -2,7 +2,7 @@
   "id": "coreliquid",
   "legacy_id": "CORELIQUID",
   "category": "golemancy",
-  "icon": "thaumcraftmodern:thaumonomicon",
+  "icon": "thaumcraftmodern:liquid_golem_core",
   "title": "tc.research_name.CORELIQUID",
   "subtitle": "tc.research_text.CORELIQUID",
   "concealed": true,
@@ -23,12 +23,9 @@
       "body": "tc.research_page.CORELIQUID.1"
     },
     {
-      "type": "unavailable",
+      "type": "recipe",
       "title": "",
-      "body": "",
-      "legacy_type": "recipe",
-      "legacy_content": "CoreLiquid",
-      "source_expression": "new ResearchPage((CrucibleRecipe)recipes.get(\"CoreLiquid\"))"
+      "recipe": "thaumcraftmodern:coreliquid"
     },
     {
       "type": "unavailable",
@@ -39,7 +36,7 @@
       "source_expression": "new ResearchPage(\"UPGRADEENTROPY\", \"tc.research_page.CORELIQUID.2\")"
     }
   ],
-  "inactive": true,
+  "inactive": false,
   "inactive_reason": "referenced gameplay content is not implemented",
   "legacy": {
     "x": -7,

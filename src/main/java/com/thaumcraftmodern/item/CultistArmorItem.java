@@ -132,6 +132,7 @@ public final class CultistArmorItem extends ArmorItem
                     }
                     default -> { }
                 }
+                model.suppressChestGeometryForLeggings(slot);
                 return model;
             }
         });

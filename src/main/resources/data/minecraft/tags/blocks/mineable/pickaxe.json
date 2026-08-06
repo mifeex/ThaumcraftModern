@@ -3,10 +3,15 @@
   "values": [
     "thaumcraftmodern:arcane_stone",
     "thaumcraftmodern:arcane_stone_brick",
+    "thaumcraftmodern:arcane_stone_slab",
     "thaumcraftmodern:thaumium_block",
     "thaumcraftmodern:paving_stone_of_travel",
     "thaumcraftmodern:paving_stone_of_warding",
     "thaumcraftmodern:crucible",
+    "thaumcraftmodern:arcane_lamp",
+    "thaumcraftmodern:lamp_growth",
+    "thaumcraftmodern:lamp_fertility",
+    "thaumcraftmodern:item_grate",
     "thaumcraftmodern:alchemical_furnace",
     "thaumcraftmodern:runic_matrix",
     "thaumcraftmodern:arcane_pedestal",
@@ -51,6 +56,9 @@
     "thaumcraftmodern:advanced_node_stabilizer",
     "thaumcraftmodern:node_transducer",
     "thaumcraftmodern:vis_relay",
-    "thaumcraftmodern:vis_charge_relay"
+    "thaumcraftmodern:vis_charge_relay",
+    "thaumcraftmodern:focal_manipulator",
+    "thaumcraftmodern:golem_fetter",
+    "thaumcraftmodern:tallow_block"
   ]
 }

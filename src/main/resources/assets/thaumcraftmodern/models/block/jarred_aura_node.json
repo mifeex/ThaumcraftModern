@@ -11,8 +11,8 @@
   "elements": [
     {
       "name": "jar_body",
-      "from": [3, 0, 3],
-      "to": [13, 12, 13],
+      "from": [3.5, 0, 3.5],
+      "to": [12.5, 11.5, 12.5],
       "faces": {
         "down": {"texture": "#bottom"},
         "up": {"texture": "#top"},
@@ -24,8 +24,8 @@
     },
     {
       "name": "jar_lid",
-      "from": [5, 12, 5],
-      "to": [11, 14, 11],
+      "from": [5.25, 11.5, 5.25],
+      "to": [10.75, 13.5, 10.75],
       "faces": {
         "down": {"texture": "#bottom"},
         "up": {"texture": "#top"},

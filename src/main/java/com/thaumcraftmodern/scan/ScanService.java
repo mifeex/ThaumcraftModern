@@ -71,12 +71,15 @@ public final class ScanService {
                 return;
             }
 
-            if (knowledge.hasScan(target.scanKey())) {
+            String knowledgeKey = target instanceof ScanSessionManager.NodeTarget
+                    ? target.scanKey()
+                    : definition.knowledgeKey();
+            if (knowledge.hasScan(knowledgeKey)) {
                 return;
             }
 
             PlayerThaumKnowledge stagedKnowledge = knowledge.copy();
-            stagedKnowledge.recordScan(target.scanKey());
+            stagedKnowledge.recordScan(knowledgeKey);
             if (target instanceof ScanSessionManager.NodeTarget) {
                 /*
                  * Preserve the shared phenomenon criterion for research while
@@ -97,7 +100,7 @@ public final class ScanService {
                             ))
                             .toList();
             knowledge.copyFrom(stagedKnowledge);
-            KnowledgeSync.send(player, "scan:" + target.scanKey());
+            KnowledgeSync.send(player, "scan:" + knowledgeKey);
             ModNetwork.sendTo(player, new ScanFeedbackPacket(
                     true,
                     "message.thaumcraftmodern.scan.success",

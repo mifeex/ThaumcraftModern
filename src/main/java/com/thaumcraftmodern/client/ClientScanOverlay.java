@@ -105,6 +105,27 @@ public final class ClientScanOverlay {
         }
     }
 
+    /** Draws the same scan result above an open inventory/container GUI. */
+    public static void renderScreenNotification(
+            GuiGraphics graphics,
+            int screenWidth,
+            int screenHeight
+    ) {
+        Minecraft minecraft = Minecraft.getInstance();
+        ScanFeedbackPacket notification = visibleNotification();
+        if (minecraft.player == null || minecraft.options.hideGui
+                || notification == null) {
+            return;
+        }
+        if (notification.success()) {
+            renderSuccessNotification(graphics, minecraft, notification,
+                    screenWidth, screenHeight);
+        } else if (isStudyFailure(notification.messageKey())) {
+            renderFailureNotification(graphics, minecraft, notification,
+                    screenWidth, screenHeight);
+        }
+    }
+
     /**
      * Compatibility entrypoint retained for callers which registered the old
      * failure-only overlay.
@@ -857,8 +878,9 @@ public final class ClientScanOverlay {
             int iconX = left + (width - rowWidth) / 2
                     + column * horizontalSpacing;
             int iconY = startY + row * verticalSpacing;
-            ClassicUiRender.drawAspect(
+            ClassicUiRender.drawAspectTag(
                     graphics,
+                    minecraft.font,
                     value.known()
                             ? new ResourceLocation(definition.icon())
                             : UNKNOWN_ASPECT,
@@ -866,25 +888,10 @@ public final class ClientScanOverlay {
                     iconY,
                     iconSize,
                     definition.color(),
-                    alpha
-            );
-            int textAlpha = Mth.clamp(Math.round(alpha * 255.0F), 0, 255);
-            graphics.pose().pushPose();
-            graphics.pose().translate(
-                    iconX + iconSize - 3,
-                    iconY + iconSize - Math.round(7.0F * textScale),
-                    1.0F
-            );
-            graphics.pose().scale(textScale, textScale, 1.0F);
-            graphics.drawString(
-                    minecraft.font,
                     Integer.toString(value.amount()),
-                    0,
-                    0,
-                    (textAlpha << 24) | 0x00FFFFFF,
-                    true
+                    alpha,
+                    textScale
             );
-            graphics.pose().popPose();
         }
     }
 

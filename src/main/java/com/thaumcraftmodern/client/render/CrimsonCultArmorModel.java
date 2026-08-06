@@ -12,6 +12,7 @@ import net.minecraft.client.model.geom.builders.LayerDefinition;
 import net.minecraft.client.model.geom.builders.MeshDefinition;
 import net.minecraft.client.model.geom.builders.PartDefinition;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.entity.EquipmentSlot;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -38,6 +39,18 @@ public final class CrimsonCultArmorModel
 
     public CrimsonCultArmorModel(ModelPart root) {
         super(root);
+    }
+
+    /**
+     * Vanilla enables the body root for leggings so its texture can provide a
+     * waistband. The restored cult models instead attach the full robe or
+     * breastplate geometry to that root, so allowing the vanilla visibility
+     * pass to expose it makes every pair of leggings repeat the chest piece.
+     */
+    public void suppressChestGeometryForLeggings(EquipmentSlot slot) {
+        if (slot == EquipmentSlot.LEGS) {
+            body.getAllParts().skip(1).forEach(part -> part.visible = false);
+        }
     }
 
     public static LayerDefinition createKnightLayer() {

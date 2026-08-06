@@ -201,6 +201,10 @@ public final class LegacyThaumcraftMob extends Monster
     private Vec3 wispWaypoint = Vec3.ZERO;
     private int firebatAttackCooldown;
     private BlockPos firebatFlightTarget;
+    private UUID focusBatOwner;
+    private boolean focusBatSummoned;
+    private boolean focusBatExplosive;
+    private boolean focusBatVampire;
     private boolean constructChargingBeam;
     private int constructAngerTicks;
     private int constructArcTicks;
@@ -220,7 +224,7 @@ public final class LegacyThaumcraftMob extends Monster
                         BossEvent.BossBarOverlay.PROGRESS
                 )
                 : null;
-        equipCrimsonIronSword();
+        equipCrimsonWeapon();
         registerKindGoals();
         if (kind.flying()) {
             moveControl = new FlyingMoveControl(this, 12, true);
@@ -260,12 +264,17 @@ public final class LegacyThaumcraftMob extends Monster
         return super.getName();
     }
 
-    private void equipCrimsonIronSword() {
+    private void equipCrimsonWeapon() {
         if (kind == LegacyMobKind.CRIMSON_KNIGHT
                 || kind == LegacyMobKind.CRIMSON_PRAETOR) {
             setItemSlot(
                     EquipmentSlot.MAINHAND,
                     new ItemStack(Items.IRON_SWORD)
+            );
+        } else if (kind == LegacyMobKind.CRIMSON_INQUISITOR) {
+            setItemSlot(
+                    EquipmentSlot.MAINHAND,
+                    new ItemStack(Items.IRON_AXE)
             );
         }
     }
@@ -413,6 +422,23 @@ public final class LegacyThaumcraftMob extends Monster
         return entityData.get(FIREBAT_HANGING);
     }
 
+    public void configureFocusBat(UUID owner, boolean devil, boolean explosive,
+                                  boolean vampire, int potency) {
+        if (kind != LegacyMobKind.FIREBAT) return;
+        focusBatOwner = owner;
+        focusBatSummoned = true;
+        focusBatExplosive = explosive;
+        focusBatVampire = vampire;
+        setFirebatHanging(false);
+        var damage = getAttribute(Attributes.ATTACK_DAMAGE);
+        if (damage != null) damage.setBaseValue((devil ? 5.0D : 2.0D) + potency);
+        if (devil) {
+            var health = getAttribute(Attributes.MAX_HEALTH);
+            if (health != null) health.setBaseValue(20.0D);
+            setHealth(20.0F);
+        }
+    }
+
     private void setFirebatHanging(boolean hanging) {
         entityData.set(FIREBAT_HANGING, hanging);
         if (hanging) {
@@ -467,6 +493,17 @@ public final class LegacyThaumcraftMob extends Monster
             return hit;
         }
         boolean hit = super.doHurtTarget(target);
+        if (hit && kind == LegacyMobKind.FIREBAT && focusBatVampire
+                && focusBatOwner != null && level() instanceof ServerLevel server) {
+            Player found = server.getPlayerByUUID(focusBatOwner);
+            if (found instanceof ServerPlayer owner) owner.heal(1.0F);
+        }
+        if (kind == LegacyMobKind.CRIMSON_INQUISITOR
+                && target instanceof Player player
+                && player.isBlocking()
+                && player.getUseItem().is(Items.SHIELD)) {
+            player.disableShield(true);
+        }
         if (hit && kind == LegacyMobKind.ELDRITCH_CRAB) {
             playSound(ModSounds.CRAB_CLAW.get(), 1.0F, getVoicePitch());
         } else if (hit && kind == LegacyMobKind.TAINT_SWARM) {
@@ -659,7 +696,8 @@ public final class LegacyThaumcraftMob extends Monster
                 );
             }
             if (kind != LegacyMobKind.THAUMIC_SLIME
-                    && kind != LegacyMobKind.PECH) {
+                    && kind != LegacyMobKind.PECH
+                    && kind != LegacyMobKind.CONVERTED_VILLAGER) {
                 goalSelector.addGoal(
                         3,
                         new MeleeAttackGoal(
@@ -670,6 +708,7 @@ public final class LegacyThaumcraftMob extends Monster
                 );
             }
             if (kind == LegacyMobKind.CRIMSON_KNIGHT
+                    || kind == LegacyMobKind.CRIMSON_INQUISITOR
                     || kind == LegacyMobKind.CRIMSON_CLERIC
                     || kind == LegacyMobKind.ELDRITCH_GUARDIAN) {
                 goalSelector.addGoal(
@@ -682,7 +721,9 @@ public final class LegacyThaumcraftMob extends Monster
                     new WaterAvoidingRandomStrollGoal(this, 0.8D)
             );
         }
-        if (kind != LegacyMobKind.PECH && kind != LegacyMobKind.WISP) {
+        if (kind != LegacyMobKind.PECH
+                && kind != LegacyMobKind.WISP
+                && kind != LegacyMobKind.CONVERTED_VILLAGER) {
             NearestAttackableTargetGoal<Player> playerTargetGoal =
                     new NearestAttackableTargetGoal<>(
                             this,
@@ -1065,6 +1106,10 @@ public final class LegacyThaumcraftMob extends Monster
             firebatAttackCooldown--;
         }
         if (level().isClientSide) {
+            return;
+        }
+        if (focusBatSummoned && (getTarget() == null || !getTarget().isAlive())) {
+            discard();
             return;
         }
         BlockPos above = BlockPos.containing(
@@ -1622,6 +1667,7 @@ public final class LegacyThaumcraftMob extends Monster
     @Override
     protected SoundEvent getAmbientSound() {
         return switch (kind) {
+            case CONVERTED_VILLAGER -> SoundEvents.VILLAGER_AMBIENT;
             case ELDRITCH_GUARDIAN -> ModSounds.EG_IDLE.get();
             case CRIMSON_CLERIC -> ModSounds.CULTIST_CHANT.get();
             case WISP -> ModSounds.WISP_LIVE.get();
@@ -1664,6 +1710,7 @@ public final class LegacyThaumcraftMob extends Monster
     @Override
     protected SoundEvent getHurtSound(DamageSource source) {
         return switch (kind) {
+            case CONVERTED_VILLAGER -> SoundEvents.VILLAGER_HURT;
             case WISP -> SoundEvents.FIRE_EXTINGUISH;
             case FIREBAT -> SoundEvents.BAT_HURT;
             case PECH -> ModSounds.PECH_HIT.get();
@@ -1683,6 +1730,7 @@ public final class LegacyThaumcraftMob extends Monster
     @Override
     protected SoundEvent getDeathSound() {
         return switch (kind) {
+            case CONVERTED_VILLAGER -> SoundEvents.VILLAGER_DEATH;
             case ELDRITCH_GUARDIAN -> ModSounds.EG_DEATH.get();
             case WISP -> ModSounds.WISP_DEAD.get();
             case FIREBAT -> SoundEvents.BAT_DEATH;
@@ -1714,6 +1762,7 @@ public final class LegacyThaumcraftMob extends Monster
     @Override
     public float getVoicePitch() {
         return switch (kind) {
+            case CONVERTED_VILLAGER -> 0.72F;
             case WISP -> 0.25F;
             case MIND_SPIDER, TAINTED_CRAWLER -> 0.7F;
             case FIREBAT -> (getRandom().nextFloat()
@@ -1742,6 +1791,9 @@ public final class LegacyThaumcraftMob extends Monster
             Player player,
             InteractionHand hand
     ) {
+        if (kind == LegacyMobKind.CONVERTED_VILLAGER) {
+            return InteractionResult.PASS;
+        }
         if (kind != LegacyMobKind.PECH
                 || player.isShiftKeyDown()
                 || !isPechTamed()) {
@@ -2035,6 +2087,7 @@ public final class LegacyThaumcraftMob extends Monster
     private boolean isCrimsonCultist() {
         return kind == LegacyMobKind.CRIMSON_CLERIC
                 || kind == LegacyMobKind.CRIMSON_KNIGHT
+                || kind == LegacyMobKind.CRIMSON_INQUISITOR
                 || kind == LegacyMobKind.CRIMSON_PRAETOR;
     }
 
@@ -2152,6 +2205,9 @@ public final class LegacyThaumcraftMob extends Monster
 
     @Override
     public void die(DamageSource source) {
+        if (kind == LegacyMobKind.FIREBAT && focusBatExplosive && !level().isClientSide)
+            level().explode(this, getX(), getY(), getZ(), 1.5F,
+                    Level.ExplosionInteraction.NONE);
         if (kind == LegacyMobKind.THAUMIC_SLIME
                 && !level().isClientSide
                 && !slimeSplit) {
@@ -2216,7 +2272,7 @@ public final class LegacyThaumcraftMob extends Monster
     protected ResourceLocation getDefaultLootTable() {
         String table = switch (kind) {
             case ANGRY_ZOMBIE, FURIOUS_ZOMBIE -> "brainy_zombie";
-            case WISP -> "empty";
+            case WISP, CONVERTED_VILLAGER -> "empty";
             case FIREBAT -> "firebat";
             case PECH -> "pech";
             case THAUMIC_SLIME, TAINTED_CRAWLER, TAINTACLE,
@@ -2226,7 +2282,7 @@ public final class LegacyThaumcraftMob extends Monster
                     TAINTED_VILLAGER -> "taint";
             case GIANT_TAINTACLE -> "giant_taintacle";
             case ELDRITCH_GUARDIAN -> "eldritch_guardian";
-            case CRIMSON_KNIGHT, CRIMSON_CLERIC -> "crimson_cultist";
+            case CRIMSON_KNIGHT, CRIMSON_INQUISITOR, CRIMSON_CLERIC -> "crimson_cultist";
             case CRIMSON_PRAETOR -> "crimson_boss";
             case ELDRITCH_WARDEN, ELDRITCH_CONSTRUCT -> "eldritch_boss";
             case ELDRITCH_CRAB -> "eldritch";
@@ -2272,6 +2328,10 @@ public final class LegacyThaumcraftMob extends Monster
         }
         if (kind == LegacyMobKind.FIREBAT) {
             tag.putBoolean("FirebatHanging", isFirebatHanging());
+            tag.putBoolean("FocusSummoned", focusBatSummoned);
+            tag.putBoolean("FocusExplosive", focusBatExplosive);
+            tag.putBoolean("FocusVampire", focusBatVampire);
+            if (focusBatOwner != null) tag.putUUID("FocusOwner", focusBatOwner);
         }
         if (kind == LegacyMobKind.ELDRITCH_CONSTRUCT) {
             tag.putBoolean("ConstructHeadless", isConstructHeadless());
@@ -2290,7 +2350,7 @@ public final class LegacyThaumcraftMob extends Monster
     @Override
     public void readAdditionalSaveData(CompoundTag tag) {
         super.readAdditionalSaveData(tag);
-        equipCrimsonIronSword();
+        equipCrimsonWeapon();
         entityData.set(HARMLESS, tag.getBoolean("WarpHarmless"));
         entityData.set(
                 WARP_VIEWER,
@@ -2391,6 +2451,10 @@ public final class LegacyThaumcraftMob extends Monster
                     !tag.contains("FirebatHanging")
                             || tag.getBoolean("FirebatHanging")
             );
+            focusBatSummoned = tag.getBoolean("FocusSummoned");
+            focusBatExplosive = tag.getBoolean("FocusExplosive");
+            focusBatVampire = tag.getBoolean("FocusVampire");
+            focusBatOwner = tag.hasUUID("FocusOwner") ? tag.getUUID("FocusOwner") : null;
         }
         if (kind == LegacyMobKind.ELDRITCH_CONSTRUCT) {
             entityData.set(

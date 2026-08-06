@@ -10,7 +10,5 @@
     "fames": 5,
     "vacuos": 5
   },
-  "legacy_id": "CoreFill",
-  "inactive": true,
-  "inactive_reason": "output item or its complete gameplay behavior is not implemented"
+  "legacy_id": "CoreFill"
 }

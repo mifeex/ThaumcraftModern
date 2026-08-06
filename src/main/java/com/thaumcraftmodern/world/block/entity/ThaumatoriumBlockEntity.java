@@ -272,8 +272,7 @@ public final class ThaumatoriumBlockEntity extends BlockEntity
     public boolean selectRecipe(ServerPlayer player, ResourceLocation id) {
         CrucibleRecipeDefinition recipe = CrucibleRecipeRegistry.all().stream()
                 .filter(candidate -> candidate.id().equals(id)).findFirst().orElse(null);
-        if (recipe == null || !recipe.research().isBlank()
-                && KnowledgeAccess.get(player).map(k -> k.hasCompletedResearch(recipe.research())).orElse(false) == false) return false;
+        if (recipe == null || !canSelectRecipe(player, recipe)) return false;
         if (formulae.remove(id)) {
             formulaOwners.remove(id);
             if (id.equals(displayedRecipe)) displayedRecipe = null;
@@ -311,6 +310,18 @@ public final class ThaumatoriumBlockEntity extends BlockEntity
                                 .map(k -> k.hasCompletedResearch(recipe.research()))
                                 .orElse(false))
                 .toList();
+    }
+
+    public boolean canSelectRecipe(Player player, ResourceLocation id) {
+        CrucibleRecipeDefinition recipe = findRecipe(id);
+        return recipe != null && canSelectRecipe(player, recipe);
+    }
+
+    private boolean canSelectRecipe(Player player, CrucibleRecipeDefinition recipe) {
+        return recipe.research().isBlank()
+                || KnowledgeAccess.get(player)
+                        .map(knowledge -> knowledge.hasCompletedResearch(recipe.research()))
+                        .orElse(false);
     }
 
     public boolean insertCatalyst(ServerPlayer player, ItemStack offered) {

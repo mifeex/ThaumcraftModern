@@ -142,6 +142,9 @@ public final class ResearchRegistry {
                             componentTag.putString("item", component.item());
                         }
                         componentTag.putInt("count", component.count());
+                        if (!component.potion().isBlank()) {
+                            componentTag.putString("potion", component.potion());
+                        }
                         components.add(componentTag);
                     }
                     infusion.put("components", components);
@@ -213,7 +216,8 @@ public final class ResearchRegistry {
                                         component.getString("tag"), count
                                 )
                                 : new InfusionDisplayDefinition.ComponentStack(
-                                        component.getString("item"), count
+                                        component.getString("item"), count,
+                                        component.getString("potion")
                                 ));
                     }
                     infusionDisplay = new InfusionDisplayDefinition(

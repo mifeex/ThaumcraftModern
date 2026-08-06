@@ -26,28 +26,19 @@
       "recipe": "thaumcraftmodern:primal_charm"
     },
     {
-      "type": "unavailable",
+      "type": "recipe",
       "title": "",
-      "body": "",
-      "legacy_type": "recipe",
-      "legacy_content": "MundaneAmulet",
-      "source_expression": "new ResearchPage((IRecipe)recipes.get(\"MundaneAmulet\"))"
+      "recipe": "thaumcraftmodern:mundane_amulet"
     },
     {
-      "type": "unavailable",
+      "type": "recipe",
       "title": "",
-      "body": "",
-      "legacy_type": "recipe",
-      "legacy_content": "MundaneRing",
-      "source_expression": "new ResearchPage((IRecipe)recipes.get(\"MundaneRing\"))"
+      "recipe": "thaumcraftmodern:mundane_ring"
     },
     {
-      "type": "unavailable",
+      "type": "recipe",
       "title": "",
-      "body": "",
-      "legacy_type": "recipe",
-      "legacy_content": "MundaneBelt",
-      "source_expression": "new ResearchPage((IRecipe)recipes.get(\"MundaneBelt\"))"
+      "recipe": "thaumcraftmodern:mundane_belt"
     },
     {
       "type": "recipe",

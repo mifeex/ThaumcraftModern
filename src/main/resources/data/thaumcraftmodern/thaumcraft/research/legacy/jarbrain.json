@@ -2,7 +2,7 @@
   "id": "jarbrain",
   "legacy_id": "JARBRAIN",
   "category": "artifice",
-  "icon": "thaumcraftmodern:thaumonomicon",
+  "icon": "thaumcraftmodern:brain_jar",
   "title": "tc.research_name.JARBRAIN",
   "subtitle": "tc.research_text.JARBRAIN",
   "concealed": true,
@@ -24,16 +24,26 @@
       "body": "tc.research_page.JARBRAIN.1"
     },
     {
-      "type": "unavailable",
-      "title": "",
-      "body": "",
-      "legacy_type": "recipe",
-      "legacy_content": "JarBrain",
-      "source_expression": "new ResearchPage((InfusionRecipe)recipes.get(\"JarBrain\"))"
+      "type": "infusion",
+      "title": "recipe.type.infusion",
+      "output": "thaumcraftmodern:brain_jar",
+      "central": "thaumcraftmodern:warded_jar",
+      "components": [
+        {"item": "thaumcraftmodern:zombie_brain", "count": 1},
+        {"item": "minecraft:spider_eye", "count": 1},
+        {"item": "minecraft:water_bucket", "count": 1},
+        {"item": "minecraft:spider_eye", "count": 1}
+      ],
+      "aspect_costs": [
+        {"id": "cognitio", "amount": 10},
+        {"id": "sensus", "amount": 10},
+        {"id": "exanimis", "amount": 20}
+      ],
+      "instability": "moderate",
+      "detail": "tc.research_text.JARBRAIN"
     }
   ],
-  "inactive": true,
-  "inactive_reason": "referenced gameplay content is not implemented",
+  "inactive": false,
   "legacy": {
     "x": -5,
     "y": 9,

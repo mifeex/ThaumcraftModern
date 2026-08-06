@@ -4,12 +4,15 @@
   "display": "",
   "aspects": [
     {
+      "id": "arbor",
+      "amount": 1
+    },
+    {
       "id": "iter",
       "amount": 4
     }
   ],
-  "inactive": true,
-  "inactive_reason": "recipe-derived base aspects cannot yet be reproduced safely",
+  "inactive": false,
   "legacy": {
     "registration_mode": "recipe_derived_modifier",
     "target_kind": "item_stack",
@@ -29,5 +32,6 @@
       }
     ],
     "source_expression": "ThaumcraftApi.registerComplexObjectTag(new ItemStack(Items.field_151146_bM, 1, 32767), (new AspectList()).add(Aspect.TRAVEL, 4))"
-  }
+  },
+  "recipe_derivation": "TC4 generateTags base plus the original registered complex-object modifier."
 }

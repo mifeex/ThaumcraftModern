@@ -1,1 +1,8 @@
-{"replace":false,"values":["thaumcraftmodern:greatwood_stairs","thaumcraftmodern:silverwood_stairs"]}
+{
+  "replace": false,
+  "values": [
+    "minecraft:bamboo_mosaic_stairs",
+    "thaumcraftmodern:greatwood_stairs",
+    "thaumcraftmodern:silverwood_stairs"
+  ]
+}

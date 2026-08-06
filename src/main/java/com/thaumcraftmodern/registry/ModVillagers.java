@@ -2,6 +2,7 @@ package com.thaumcraftmodern.registry;
 
 import com.google.common.collect.ImmutableSet;
 import com.thaumcraftmodern.ThaumcraftModern;
+import com.thaumcraftmodern.aura.PrimalAspect;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
@@ -106,6 +107,9 @@ public final class ModVillagers {
             event.getTrades().get(2).add(sells(ModItems.MANA_BEAN.get(), 4, 1, 8, 10));
             event.getTrades().get(2).add(sells(ModItems.KNOWLEDGE_FRAGMENT.get(), 6, 1, 6, 10));
             event.getTrades().get(3).add(sells(ModItems.GREATWOOD_SAPLING.get(), 8, 1, 4, 20));
+            event.getTrades().get(4).add(sellsRandomAspectRing());
+            event.getTrades().get(4).add(sellsRandomCost(
+                    ModItems.VIS_STONE.get(), 5, 7, 1, 4, 30));
             event.getTrades().get(4).add(sells(ModItems.SILVERWOOD_SAPLING.get(), 16, 1, 2, 30));
         } else if (event.getType() == THAUMIC_BANKER.get()) {
             event.getTrades().get(1).add(buys(Items.GOLD_INGOT, 2, 3, 16, 2));
@@ -149,6 +153,36 @@ public final class ModVillagers {
         return (trader, random) -> new MerchantOffer(
                 new ItemStack(item, count),
                 new ItemStack(Items.EMERALD, emeralds),
+                maxUses,
+                xp,
+                0.05F
+        );
+    }
+
+    private static net.minecraft.world.entity.npc.VillagerTrades.ItemListing
+            sellsRandomAspectRing() {
+        return (trader, random) -> {
+            PrimalAspect aspect = PrimalAspect.ordered().get(
+                    random.nextInt(PrimalAspect.ordered().size()));
+            int emeralds = 5 + random.nextInt(3);
+            return new MerchantOffer(
+                    new ItemStack(Items.EMERALD, emeralds),
+                    new ItemStack(ModItems.ASPECT_RINGS.get(aspect).get()),
+                    4,
+                    30,
+                    0.05F
+            );
+        };
+    }
+
+    private static net.minecraft.world.entity.npc.VillagerTrades.ItemListing
+            sellsRandomCost(net.minecraft.world.level.ItemLike item,
+            int minimumEmeralds, int maximumEmeralds, int count,
+            int maxUses, int xp) {
+        return (trader, random) -> new MerchantOffer(
+                new ItemStack(Items.EMERALD, minimumEmeralds
+                        + random.nextInt(maximumEmeralds - minimumEmeralds + 1)),
+                new ItemStack(item, count),
                 maxUses,
                 xp,
                 0.05F

@@ -1,14 +1,23 @@
 {
-  "type": "block",
-  "target": "minecraft:cut_sandstone",
+  "type": "block_tag",
+  "target": "thaumcraftmodern:cut_sandstone_equivalents",
   "display": "",
   "aspects": [
+    {
+      "id": "terra",
+      "amount": 2
+    },
+    {
+      "id": "perditio",
+      "amount": 3
+    },
     {
       "id": "ordo",
       "amount": 1
     }
   ],
   "inactive": false,
+  "recipe_derivation": "TC4 Sandstone Terra 3 Perditio 3, then remove Terra 1 and add Ordo 1.",
   "legacy": {
     "registration_mode": "explicit",
     "target_kind": "item_stack",

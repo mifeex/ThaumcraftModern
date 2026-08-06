@@ -1,0 +1,11 @@
+{
+  "type": "block_tag",
+  "target": "forge:stained_glass_panes",
+  "display": "",
+  "aspects": [
+    { "id": "vitreus", "amount": 1 },
+    { "id": "sensus", "amount": 1 }
+  ],
+  "inactive": false,
+  "modern_rule": "Colored glass keeps the original glass aspects and gains one Sensus."
+}

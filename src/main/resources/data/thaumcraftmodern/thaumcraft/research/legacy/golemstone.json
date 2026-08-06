@@ -2,7 +2,7 @@
   "id": "golemstone",
   "legacy_id": "GOLEMSTONE",
   "category": "golemancy",
-  "icon": "thaumcraftmodern:thaumonomicon",
+  "icon": "thaumcraftmodern:stone_golem",
   "title": "tc.research_name.GOLEMSTONE",
   "subtitle": "tc.research_text.GOLEMSTONE",
   "concealed": true,
@@ -23,12 +23,9 @@
       "body": "tc.research_page.GOLEMSTONE.1"
     },
     {
-      "type": "unavailable",
+      "type": "recipe",
       "title": "",
-      "body": "",
-      "legacy_type": "recipe",
-      "legacy_content": "GolemStone",
-      "source_expression": "new ResearchPage((CrucibleRecipe)recipes.get(\"GolemStone\"))"
+      "recipe": "thaumcraftmodern:golemstone"
     }
   ],
   "purchase_cost": [
@@ -49,8 +46,7 @@
       "amount": 3
     }
   ],
-  "inactive": true,
-  "inactive_reason": "referenced gameplay content is not implemented",
+  "inactive": false,
   "legacy": {
     "x": 2,
     "y": 8,

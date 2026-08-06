@@ -1,10 +1,14 @@
 {
-  "type": "block",
-  "target": "minecraft:white_stained_glass",
+  "type": "block_tag",
+  "target": "forge:stained_glass",
   "display": "",
   "aspects": [
     {
       "id": "vitreus",
+      "amount": 1
+    },
+    {
+      "id": "sensus",
       "amount": 1
     }
   ],

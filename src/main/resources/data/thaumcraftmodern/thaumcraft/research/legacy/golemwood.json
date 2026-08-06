@@ -2,7 +2,7 @@
   "id": "golemwood",
   "legacy_id": "GOLEMWOOD",
   "category": "golemancy",
-  "icon": "thaumcraftmodern:thaumonomicon",
+  "icon": "thaumcraftmodern:wood_golem",
   "title": "tc.research_name.GOLEMWOOD",
   "subtitle": "tc.research_text.GOLEMWOOD",
   "concealed": true,
@@ -23,12 +23,9 @@
       "body": "tc.research_page.GOLEMWOOD.1"
     },
     {
-      "type": "unavailable",
+      "type": "recipe",
       "title": "",
-      "body": "",
-      "legacy_type": "recipe",
-      "legacy_content": "GolemWood",
-      "source_expression": "new ResearchPage((CrucibleRecipe)recipes.get(\"GolemWood\"))"
+      "recipe": "thaumcraftmodern:golemwood"
     }
   ],
   "purchase_cost": [
@@ -49,8 +46,7 @@
       "amount": 3
     }
   ],
-  "inactive": true,
-  "inactive_reason": "referenced gameplay content is not implemented",
+  "inactive": false,
   "legacy": {
     "x": 2,
     "y": 4,

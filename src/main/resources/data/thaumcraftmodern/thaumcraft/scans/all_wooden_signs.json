@@ -1,0 +1,10 @@
+{
+  "type": "block_tag",
+  "target": "minecraft:all_signs",
+  "display": "",
+  "aspects": [
+    { "id": "arbor", "amount": 1 }
+  ],
+  "inactive": false,
+  "modern_rule": "Standing, wall, and hanging signs inherit the TC4 oak-sign recipe aspects."
+}

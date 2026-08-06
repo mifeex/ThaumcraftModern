@@ -20,6 +20,7 @@ public final class ModSounds {
     public static final RegistryObject<SoundEvent> ERASE = sound("erase");
     public static final RegistryObject<SoundEvent> WHISPERS = sound("whispers");
     public static final RegistryObject<SoundEvent> HEARTBEAT = sound("heartbeat");
+    public static final RegistryObject<SoundEvent> UPGRADE = sound("upgrade");
     public static final RegistryObject<SoundEvent> CRYSTAL = sound("crystal");
     public static final RegistryObject<SoundEvent> BUBBLE = sound("bubble");
     public static final RegistryObject<SoundEvent> SPILL = sound("spill");
@@ -93,6 +94,10 @@ public final class ModSounds {
     public static final RegistryObject<SoundEvent> INFUSER = sound("infuser");
     public static final RegistryObject<SoundEvent> INFUSER_START =
             sound("infuser_start");
+    public static final RegistryObject<SoundEvent> RUNIC_SHIELD_EFFECT =
+            sound("runic_shield_effect");
+    public static final RegistryObject<SoundEvent> RUNIC_SHIELD_CHARGE =
+            sound("runic_shield_charge");
 
     private ModSounds() {
     }

@@ -16,11 +16,9 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.item.ItemStack;
 
-import java.text.DecimalFormat;
 import java.util.Map;
 
 public final class ArcaneWorkbenchScreen extends AbstractContainerScreen<ArcaneWorkbenchMenu> {
-    private static final DecimalFormat VIS_FORMAT = new DecimalFormat("#######.##");
     private static final ResourceLocation BACKGROUND = new ResourceLocation(
             ThaumcraftModern.MOD_ID,
             "textures/gui/gui_arcaneworkbench.png"
@@ -84,21 +82,15 @@ public final class ArcaneWorkbenchScreen extends AbstractContainerScreen<ArcaneW
                     available,
                     timeMillis
             );
-            ClassicUiRender.drawAspect(
+            ClassicUiRender.drawAspectVisTag(
                     graphics,
+                    font,
                     new ResourceLocation(definition.icon()),
                     leftPos + position[0] - 8,
                     topPos + position[1] - 8,
                     16,
-                    color
-            );
-            graphics.drawString(
-                    font,
-                    formatVis(centivis),
-                    leftPos + position[0] + 5,
-                    topPos + position[1] + 3,
-                    0xFFFFFF,
-                    true
+                    color,
+                    centivis
             );
         }
 
@@ -121,9 +113,4 @@ public final class ArcaneWorkbenchScreen extends AbstractContainerScreen<ArcaneW
         // The classic TC4 screen deliberately has no foreground labels.
     }
 
-    private static String formatVis(int centivis) {
-        return VIS_FORMAT.format(
-                centivis / (double) WandVisService.CENTIVIS_PER_VIS
-        );
-    }
 }

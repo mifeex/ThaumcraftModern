@@ -1,0 +1,10 @@
+{
+  "type": "block_tag",
+  "target": "minecraft:wooden_fences",
+  "display": "",
+  "aspects": [
+    { "id": "arbor", "amount": 2 }
+  ],
+  "inactive": false,
+  "modern_rule": "Every modern wood-family fence inherits the TC4 oak-fence recipe aspects."
+}

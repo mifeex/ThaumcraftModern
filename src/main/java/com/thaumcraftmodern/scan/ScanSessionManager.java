@@ -113,7 +113,11 @@ public final class ScanSessionManager {
 
     private static void start(ServerPlayer player, ScanSession session) {
         boolean alreadyStudied = KnowledgeAccess.get(player)
-                .map(knowledge -> knowledge.hasScan(session.target.scanKey()))
+                .map(knowledge -> knowledge.hasScan(
+                        session.target instanceof NodeTarget
+                                ? session.target.scanKey()
+                                : ScanRegistry.knowledgeKey(
+                                        session.target.type(), session.target.targetId())))
                 .orElse(false);
         if (alreadyStudied) {
             SESSIONS.remove(player.getUUID());
@@ -340,7 +344,8 @@ public final class ScanSessionManager {
             NodeTarget,
             EntityTarget,
             ItemTarget,
-            DroppedItemTarget {
+            DroppedItemTarget,
+            InventoryItemTarget {
         ResourceKey<Level> dimension();
 
         ScanTargetType type();
@@ -464,6 +469,17 @@ public final class ScanSessionManager {
                 return itemEntity.getBoundingBox().getCenter();
             }
             return player.getEyePosition().add(player.getLookAngle().scale(0.75D));
+        }
+    }
+
+    public record InventoryItemTarget(
+            ResourceKey<Level> dimension,
+            ScanTargetType type,
+            String targetId
+    ) implements ScanTarget {
+        @Override
+        public Vec3 effectPosition(ServerPlayer player) {
+            return player.getEyePosition();
         }
     }
 

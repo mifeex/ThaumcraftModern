@@ -32,9 +32,17 @@ public final class ThaumatoriumScreen
     private static final int ASPECT_PROGRESS_Y_OFFSET = 58;
     private static final int ASPECT_PROGRESS_WIDTH = 12;
     private static final int ASPECT_PROGRESS_HEIGHT = 4;
+    private static final int RECIPE_ARROW_X = 128;
+    private static final int RECIPE_PREVIOUS_Y = 16;
+    private static final int RECIPE_NEXT_Y = 24;
+    private static final int RECIPE_ARROW_WIDTH = 16;
+    private static final int RECIPE_ARROW_HEIGHT = 8;
+    private static final int RECIPE_COUNTER_RIGHT_X = RECIPE_ARROW_X + 10;
+    private static final int RECIPE_COUNTER_Y = 32;
 
     private int index;
     private int lastSize = -1;
+    private int lastRecipeRevision = -1;
     private int startAspect;
 
     public ThaumatoriumScreen(
@@ -62,6 +70,7 @@ public final class ThaumatoriumScreen
                     index = recipeIndex;
                     startAspect = 0;
                     lastSize = recipes.size();
+                    lastRecipeRevision = menu.recipeRevision();
                     return;
                 }
             }
@@ -74,6 +83,7 @@ public final class ThaumatoriumScreen
         }
         startAspect = 0;
         lastSize = recipes.size();
+        lastRecipeRevision = menu.recipeRevision();
     }
 
     @Override
@@ -144,7 +154,8 @@ public final class ThaumatoriumScreen
     }
 
     private void updateIndex(List<CrucibleRecipeDefinition> recipes) {
-        if (lastSize != recipes.size()) {
+        if (lastSize != recipes.size()
+                || lastRecipeRevision != menu.recipeRevision()) {
             refreshIndex();
         }
         index = Mth.clamp(index, 0, recipes.size() - 1);
@@ -156,11 +167,14 @@ public final class ThaumatoriumScreen
             int aspectCount
     ) {
         if (recipeCount > 1) {
-            graphics.blit(TEXTURE, leftPos + 128, topPos + 16,
-                    index > 0 ? 192 : 176, 16, 16, 8, 256, 256);
-            graphics.blit(TEXTURE, leftPos + 128, topPos + 24,
-                    index < recipeCount - 1 ? 192 : 176,
-                    24, 16, 8, 256, 256);
+            graphics.blit(TEXTURE, leftPos + RECIPE_ARROW_X,
+                    topPos + RECIPE_PREVIOUS_Y,
+                    index > 0 ? 192 : 176, 16,
+                    RECIPE_ARROW_WIDTH, RECIPE_ARROW_HEIGHT, 256, 256);
+            graphics.blit(TEXTURE, leftPos + RECIPE_ARROW_X,
+                    topPos + RECIPE_NEXT_Y,
+                    index < recipeCount - 1 ? 192 : 176, 24,
+                    RECIPE_ARROW_WIDTH, RECIPE_ARROW_HEIGHT, 256, 256);
         }
         if (aspectCount > MAX_VISIBLE_ASPECTS) {
             startAspect = Mth.clamp(
@@ -243,13 +257,15 @@ public final class ThaumatoriumScreen
             int y = topPos + 40;
             ResourceLocation icon = ResourceLocation.tryParse(definition.icon());
             if (icon != null) {
-                ClassicUiRender.drawAspect(
+                ClassicUiRender.drawAspectTag(
                         graphics,
+                        font,
                         icon,
                         x,
                         y,
                         16,
-                        definition.color()
+                        definition.color(),
+                        entry.getValue()
                 );
             }
 
@@ -283,14 +299,6 @@ public final class ThaumatoriumScreen
                 }
             }
 
-            graphics.drawString(
-                    font,
-                    Integer.toString(entry.getValue()),
-                    x + 10,
-                    y + 8,
-                    0xFFFFFF,
-                    true
-            );
             drawn++;
         }
     }
@@ -320,7 +328,8 @@ public final class ThaumatoriumScreen
             float partialTick
     ) {
         boolean disabled = !menu.selected(recipe)
-                && menu.formulaCount() >= menu.formulaCapacity();
+                && (!menu.craftable(recipe)
+                || menu.formulaCount() >= menu.formulaCapacity());
         if (disabled) {
             float ticks = minecraft != null && minecraft.player != null
                     ? minecraft.player.tickCount + partialTick : 0.0F;
@@ -343,9 +352,10 @@ public final class ThaumatoriumScreen
         }
         String text = recipeCounterText(index, recipeCount);
         graphics.pose().pushPose();
-        graphics.pose().translate(leftPos + 136, topPos + 33, 0.0F);
+        graphics.pose().translate(leftPos + RECIPE_COUNTER_RIGHT_X,
+                topPos + RECIPE_COUNTER_Y, 0.0F);
         graphics.pose().scale(0.5F, 0.5F, 1.0F);
-        graphics.drawString(font, text, -font.width(text) / 2, 0,
+        graphics.drawString(font, text, -font.width(text), 0,
                 0xFFFFFF, false);
         graphics.pose().popPose();
     }
@@ -374,6 +384,7 @@ public final class ThaumatoriumScreen
         }
         CrucibleRecipeDefinition recipe = recipes.get(index);
         if (inside(mouseX, mouseY, 112, 16, 16, 16)
+                && menu.craftable(recipe)
                 && (menu.selected(recipe)
                 || menu.formulaCount() < menu.formulaCapacity())) {
             if (minecraft != null && minecraft.gameMode != null) {
@@ -386,14 +397,18 @@ public final class ThaumatoriumScreen
             return true;
         }
         if (recipes.size() > 1) {
-            if (index > 0 && inside(mouseX, mouseY, 128, 16, 16, 8)) {
+            if (index > 0 && inside(mouseX, mouseY,
+                    RECIPE_ARROW_X, RECIPE_PREVIOUS_Y,
+                    RECIPE_ARROW_WIDTH, RECIPE_ARROW_HEIGHT)) {
                 index--;
                 startAspect = 0;
                 playClickSound();
                 return true;
             }
             if (index < recipes.size() - 1
-                    && inside(mouseX, mouseY, 128, 24, 16, 8)) {
+                    && inside(mouseX, mouseY,
+                    RECIPE_ARROW_X, RECIPE_NEXT_Y,
+                    RECIPE_ARROW_WIDTH, RECIPE_ARROW_HEIGHT)) {
                 index++;
                 startAspect = 0;
                 playClickSound();

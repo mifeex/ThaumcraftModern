@@ -1,6 +1,6 @@
 {
-  "type": "legacy_object",
-  "target": "new ItemStack(ConfigItems.itemBaubleBlanks, 1, 3)",
+  "type": "item",
+  "target": "thaumcraftmodern:apprentice_ring_aer",
   "display": "",
   "aspects": [
     {
@@ -8,8 +8,7 @@
       "amount": 5
     }
   ],
-  "inactive": true,
-  "inactive_reason": "legacy item, metadata, or Ore Dictionary target is not mapped",
+  "inactive": false,
   "legacy": {
     "registration_mode": "explicit",
     "target_kind": "item_stack",

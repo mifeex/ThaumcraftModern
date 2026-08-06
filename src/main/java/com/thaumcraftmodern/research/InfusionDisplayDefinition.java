@@ -51,13 +51,18 @@ public record InfusionDisplayDefinition(
      * an item tag; tag components deliberately keep the preview aligned with
      * the executable recipe's acceptable alternatives.
      */
-    public record ComponentStack(String item, String tag, int count) {
+    public record ComponentStack(String item, String tag, int count,
+            String potion) {
         public ComponentStack(String item, int count) {
-            this(item, "", count);
+            this(item, "", count, "");
+        }
+
+        public ComponentStack(String item, int count, String potion) {
+            this(item, "", count, potion);
         }
 
         public static ComponentStack tagged(String tag, int count) {
-            return new ComponentStack("", tag, count);
+            return new ComponentStack("", tag, count, "");
         }
 
         public ComponentStack {
@@ -78,6 +83,13 @@ public record InfusionDisplayDefinition(
             if (count <= 0) {
                 throw new IllegalArgumentException(
                         "infusion component count must be positive"
+                );
+            }
+            potion = potion == null ? "" : potion;
+            if (!potion.isBlank()
+                    && (hasTag || ResourceLocation.tryParse(potion) == null)) {
+                throw new IllegalArgumentException(
+                        "infusion potion must be a valid id on an item component"
                 );
             }
         }

@@ -4,6 +4,14 @@
   "display": "",
   "aspects": [
     {
+      "id": "terra",
+      "amount": 2
+    },
+    {
+      "id": "ignis",
+      "amount": 2
+    },
+    {
       "id": "vacuos",
       "amount": 1
     },
@@ -12,8 +20,7 @@
       "amount": 1
     }
   ],
-  "inactive": true,
-  "inactive_reason": "recipe-derived base aspects cannot yet be reproduced safely",
+  "inactive": false,
   "legacy": {
     "registration_mode": "recipe_derived_modifier",
     "target_kind": "item_stack",
@@ -42,5 +49,6 @@
       }
     ],
     "source_expression": "ThaumcraftApi.registerComplexObjectTag(new ItemStack(Items.field_151162_bE), (new AspectList()).add(Aspect.VOID, 1).add(Aspect.PLANT, 1))"
-  }
+  },
+  "recipe_derivation": "TC4 generateTags base plus the original registered complex-object modifier."
 }

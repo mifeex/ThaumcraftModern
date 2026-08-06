@@ -24,6 +24,7 @@ import com.thaumcraftmodern.config.ThaumcraftModernServerConfig;
 
 public final class ScanRegistry {
     private static volatile Map<String, ScanDefinition> definitions = Map.of();
+    private static volatile Map<String, ScanDefinition> explicitDefinitions = Map.of();
     private static final Map<String, Optional<ScanDefinition>> AUTOMATIC_DEFINITIONS =
             new ConcurrentHashMap<>();
     private static final Map<String, String> BLOCK_SCAN_ALIASES = Map.of(
@@ -55,6 +56,20 @@ public final class ScanRegistry {
                         );
                     }
                 });
+        definitions = Map.copyOf(next);
+        explicitDefinitions = definitions;
+        AUTOMATIC_DEFINITIONS.clear();
+    }
+
+    /** Replaces only the runtime recipe-derived layer; datapack definitions win. */
+    public static synchronized void replaceGenerated(
+            Collection<ScanDefinition> generated
+    ) {
+        Map<String, ScanDefinition> next = new LinkedHashMap<>(explicitDefinitions);
+        generated.stream()
+                .sorted(Comparator.comparing(ScanDefinition::scanKey))
+                .forEach(definition -> next.putIfAbsent(
+                        definition.scanKey(), definition));
         definitions = Map.copyOf(next);
         AUTOMATIC_DEFINITIONS.clear();
     }
@@ -232,6 +247,13 @@ public final class ScanRegistry {
         return type.name().toLowerCase(Locale.ROOT) + ":" + targetId;
     }
 
+    /** Returns the shared player-knowledge key selected by a direct or tag scan. */
+    public static String knowledgeKey(ScanTargetType type, String targetId) {
+        return find(type, targetId)
+                .map(ScanDefinition::knowledgeKey)
+                .orElseGet(() -> scanKey(type, targetId));
+    }
+
     /**
      * Compatibility aliases share one scan definition and one player-knowledge
      * key. Deepslate infused stone differs only in host rock, not in essentia.
@@ -248,6 +270,7 @@ public final class ScanRegistry {
             entry.putString("type", definition.type().name());
             entry.putString("target", definition.targetId());
             entry.putString("display", definition.displayKey());
+            entry.putString("knowledge_key", definition.knowledgeKey());
             ListTag aspects = new ListTag();
             for (AspectReward reward : definition.aspects()) {
                 CompoundTag aspect = new CompoundTag();
@@ -278,7 +301,10 @@ public final class ScanRegistry {
                     ScanTargetType.valueOf(entry.getString("type")),
                     entry.getString("target"),
                     entry.getString("display"),
-                    aspects
+                    aspects,
+                    entry.contains("knowledge_key", Tag.TAG_STRING)
+                            ? entry.getString("knowledge_key")
+                            : null
             ));
         }
         return result;

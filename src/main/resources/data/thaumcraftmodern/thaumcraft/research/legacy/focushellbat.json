@@ -2,7 +2,7 @@
   "id": "focushellbat",
   "legacy_id": "FOCUSHELLBAT",
   "category": "thaumaturgy",
-  "icon": "thaumcraftmodern:thaumonomicon",
+  "icon": "thaumcraftmodern:focus_hellbat",
   "title": "tc.research_name.FOCUSHELLBAT",
   "subtitle": "tc.research_text.FOCUSHELLBAT",
   "concealed": true,
@@ -24,17 +24,9 @@
       "title": "",
       "body": "tc.research_page.FOCUSHELLBAT.1"
     },
-    {
-      "type": "unavailable",
-      "title": "",
-      "body": "",
-      "legacy_type": "recipe",
-      "legacy_content": "FocusHellbat",
-      "source_expression": "new ResearchPage((InfusionRecipe)recipes.get(\"FocusHellbat\"))"
-    }
+    {"type":"infusion","title":"","recipe":"thaumcraftmodern:focus_hellbat"}
   ],
-  "inactive": true,
-  "inactive_reason": "referenced gameplay content is not implemented",
+  "inactive": false,
   "legacy": {
     "x": 3,
     "y": -7,

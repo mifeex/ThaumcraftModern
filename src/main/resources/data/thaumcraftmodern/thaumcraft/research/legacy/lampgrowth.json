@@ -2,7 +2,7 @@
   "id": "lampgrowth",
   "legacy_id": "LAMPGROWTH",
   "category": "artifice",
-  "icon": "thaumcraftmodern:thaumonomicon",
+  "icon": "thaumcraftmodern:lamp_growth",
   "title": "tc.research_name.LAMPGROWTH",
   "subtitle": "tc.research_text.LAMPGROWTH",
   "concealed": true,
@@ -34,16 +34,14 @@
       "body": "tc.research_page.LAMPGROWTH.1"
     },
     {
-      "type": "unavailable",
-      "title": "",
-      "body": "",
-      "legacy_type": "recipe",
-      "legacy_content": "LampGrowth",
-      "source_expression": "new ResearchPage((InfusionRecipe)recipes.get(\"LampGrowth\"))"
+      "type":"infusion","title":"recipe.type.infusion",
+      "output":"thaumcraftmodern:lamp_growth","central":"thaumcraftmodern:arcane_lamp",
+      "components":[{"item":"minecraft:gold_ingot"},{"item":"minecraft:bone_meal"},{"item":"thaumcraftmodern:earth_shard"},{"item":"minecraft:gold_ingot"},{"item":"minecraft:bone_meal"},{"item":"thaumcraftmodern:earth_shard"}],
+      "aspect_costs":[{"id":"herba","amount":16},{"id":"lux","amount":8},{"id":"victus","amount":16}],
+      "instability":"moderate","detail":""
     }
   ],
-  "inactive": true,
-  "inactive_reason": "referenced gameplay content is not implemented",
+  "inactive": false,
   "legacy": {
     "x": -4,
     "y": 3,

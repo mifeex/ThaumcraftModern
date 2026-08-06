@@ -1,6 +1,6 @@
 {
-  "type": "legacy_object",
-  "target": "new ItemStack(ConfigItems.itemNuggetPork, 1, 32767)",
+  "type": "item",
+  "target": "thaumcraftmodern:pork_nugget",
   "display": "",
   "aspects": [
     {
@@ -8,8 +8,7 @@
       "amount": 1
     }
   ],
-  "inactive": true,
-  "inactive_reason": "legacy item, metadata, or Ore Dictionary target is not mapped",
+  "inactive": false,
   "legacy": {
     "registration_mode": "explicit",
     "target_kind": "item_stack",

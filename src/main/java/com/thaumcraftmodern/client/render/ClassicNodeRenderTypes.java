@@ -14,7 +14,7 @@ import net.minecraft.resources.ResourceLocation;
  * SRC_ALPHA/ONE or SRC_ALPHA/ONE_MINUS_SRC_ALPHA, and disables the depth test
  * only while revealing an ordinary node through a Thaumometer or Goggles.</p>
  */
-final class ClassicNodeRenderTypes extends RenderStateShard {
+public final class ClassicNodeRenderTypes extends RenderStateShard {
     static final ResourceLocation NODE_TEXTURE = new ResourceLocation(
             ThaumcraftModern.MOD_ID,
             "textures/misc/nodes.png"
@@ -60,7 +60,7 @@ final class ClassicNodeRenderTypes extends RenderStateShard {
         });
     }
 
-    static RenderType node(boolean additive, boolean seeThrough) {
+    public static RenderType node(boolean additive, boolean seeThrough) {
         if (additive) {
             return seeThrough ? SEE_THROUGH_ADDITIVE : DEPTH_ADDITIVE;
         }

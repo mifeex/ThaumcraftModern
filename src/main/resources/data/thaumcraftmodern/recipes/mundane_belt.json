@@ -1,5 +1,6 @@
 {
   "type": "minecraft:crafting_shaped",
+  "category": "misc",
   "pattern": [" L ", "L L", " I "],
   "key": {
     "L": {"item": "minecraft:leather"},

@@ -2,7 +2,7 @@
   "id": "golemiron",
   "legacy_id": "GOLEMIRON",
   "category": "golemancy",
-  "icon": "thaumcraftmodern:thaumonomicon",
+  "icon": "thaumcraftmodern:iron_golem",
   "title": "tc.research_name.GOLEMIRON",
   "subtitle": "tc.research_text.GOLEMIRON",
   "concealed": true,
@@ -23,12 +23,9 @@
       "body": "tc.research_page.GOLEMIRON.1"
     },
     {
-      "type": "unavailable",
+      "type": "recipe",
       "title": "",
-      "body": "",
-      "legacy_type": "recipe",
-      "legacy_content": "GolemIron",
-      "source_expression": "new ResearchPage((CrucibleRecipe)recipes.get(\"GolemIron\"))"
+      "recipe": "thaumcraftmodern:golemiron"
     }
   ],
   "purchase_cost": [
@@ -49,8 +46,7 @@
       "amount": 3
     }
   ],
-  "inactive": true,
-  "inactive_reason": "referenced gameplay content is not implemented",
+  "inactive": false,
   "legacy": {
     "x": 0,
     "y": 10,

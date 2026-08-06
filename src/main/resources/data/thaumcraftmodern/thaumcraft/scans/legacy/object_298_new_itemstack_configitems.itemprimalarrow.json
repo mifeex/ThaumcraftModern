@@ -8,8 +8,8 @@
       "amount": 1
     }
   ],
-  "inactive": true,
-  "inactive_reason": "recipe-derived base aspects cannot yet be reproduced safely",
+  "inactive": false,
+  "recipe_derivation": "TC4 output count of eight floors every recipe-derived contribution to zero; only the registered Telum modifier remains",
   "legacy": {
     "registration_mode": "recipe_derived_modifier",
     "target_kind": "item_stack",

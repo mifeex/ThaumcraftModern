@@ -351,7 +351,8 @@ public final class ResearchReloadListener extends SimpleJsonResourceReloadListen
                 ));
             } else {
                 components.add(new InfusionDisplayDefinition.ComponentStack(
-                        GsonHelper.getAsString(component, "item"), count
+                        GsonHelper.getAsString(component, "item"), count,
+                        GsonHelper.getAsString(component, "potion", "")
                 ));
             }
         }

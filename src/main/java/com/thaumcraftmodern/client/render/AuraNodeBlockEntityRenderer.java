@@ -44,7 +44,7 @@ final class AuraNodeBlockEntityRenderer
                 : NodeVisibilityService.decideFromPlayer(
                         player,
                         stack -> stack.is(thaumometer),
-                        stack -> stack.is(goggles)
+                        com.thaumcraftmodern.item.RevealingGear::equipped
                 );
         ClassicAuraNodeRenderer.renderWorldNode(
                 node.snapshotState(),

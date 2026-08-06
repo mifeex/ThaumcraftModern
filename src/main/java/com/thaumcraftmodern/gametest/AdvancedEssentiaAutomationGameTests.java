@@ -6,6 +6,7 @@ import com.thaumcraftmodern.essentia.tube.TubeEssentiaReleaseRisk;
 import com.thaumcraftmodern.essentia.tube.TubeEssentiaReleaseRules;
 import com.thaumcraftmodern.registry.ModBlocks;
 import com.thaumcraftmodern.world.block.entity.AdvancedEssentiaBufferBlockEntity;
+import com.thaumcraftmodern.world.block.entity.ArcaneAlembicBlockEntity;
 import com.thaumcraftmodern.world.block.entity.EssentiaBufferBlockEntity;
 import com.thaumcraftmodern.world.block.entity.EssentiaJarBlockEntity;
 import com.thaumcraftmodern.world.block.entity.EssentiaTubeBlockEntity;
@@ -98,11 +99,68 @@ public final class AdvancedEssentiaAutomationGameTests {
     }
 
     @GameTest(template = "empty", batch = "advancedEssentia", timeoutTicks = 80)
+    public static void improvedBufferMovesMatchingEssentiaFromAlembicToJar(
+            GameTestHelper helper) {
+        BlockPos bufferPos = helper.absolutePos(new BlockPos(8, 5, 8));
+        BlockPos inputTubePos = bufferPos.below();
+        BlockPos alembicPos = inputTubePos.below();
+        BlockPos outputTubePos = bufferPos.north();
+        BlockPos jarPos = outputTubePos.below();
+        for (BlockPos pos : new BlockPos[] {
+                bufferPos, inputTubePos, alembicPos, outputTubePos, jarPos
+        }) {
+            helper.getLevel().setBlock(pos, Blocks.AIR.defaultBlockState(), 3);
+        }
+        helper.getLevel().setBlock(alembicPos,
+                ModBlocks.ARCANE_ALEMBIC.get().defaultBlockState(), 3);
+        helper.getLevel().setBlock(inputTubePos,
+                ModBlocks.ESSENTIA_TUBE.get().defaultBlockState(), 3);
+        helper.getLevel().setBlock(bufferPos,
+                ModBlocks.ADVANCED_ESSENTIA_BUFFER.get().defaultBlockState(), 3);
+        helper.getLevel().setBlock(outputTubePos,
+                ModBlocks.ESSENTIA_TUBE.get().defaultBlockState(), 3);
+        helper.getLevel().setBlock(jarPos,
+                ModBlocks.WARDED_JAR.get().defaultBlockState(), 3);
+
+        ArcaneAlembicBlockEntity alembic = (ArcaneAlembicBlockEntity)
+                helper.getLevel().getBlockEntity(alembicPos);
+        EssentiaTubeBlockEntity inputTube = (EssentiaTubeBlockEntity)
+                helper.getLevel().getBlockEntity(inputTubePos);
+        AdvancedEssentiaBufferBlockEntity buffer =
+                (AdvancedEssentiaBufferBlockEntity) helper.getLevel()
+                        .getBlockEntity(bufferPos);
+        EssentiaTubeBlockEntity outputTube = (EssentiaTubeBlockEntity)
+                helper.getLevel().getBlockEntity(outputTubePos);
+        EssentiaJarBlockEntity jar = (EssentiaJarBlockEntity)
+                helper.getLevel().getBlockEntity(jarPos);
+        helper.assertTrue(alembic.acceptFromFurnace("aqua", 8) == 8
+                        && jar.addEssentia("aqua", 14, Direction.UP) == 14,
+                "Could not prepare matching Aqua source and destination");
+
+        for (int tick = 0; tick < 160; tick++) {
+            EssentiaTubeBlockEntity.serverTick(helper.getLevel(), inputTubePos,
+                    helper.getLevel().getBlockState(inputTubePos), inputTube);
+            EssentiaTubeBlockEntity.serverTick(helper.getLevel(), outputTubePos,
+                    helper.getLevel().getBlockState(outputTubePos), outputTube);
+            AdvancedEssentiaBufferBlockEntity.serverTick(helper.getLevel(),
+                    bufferPos, helper.getLevel().getBlockState(bufferPos), buffer);
+            EssentiaJarBlockEntity.serverTick(helper.getLevel(), jarPos,
+                    helper.getLevel().getBlockState(jarPos), jar);
+        }
+
+        helper.assertTrue(alembic.storedAmount() < 8 && jar.amount() > 14,
+                "Improved buffer did not move Aqua from alembic to matching jar");
+        helper.succeed();
+    }
+
+    @GameTest(template = "empty", batch = "advancedEssentia", timeoutTicks = 80)
     public static void improvedBufferUsesMatchingNonFullMainJar(
             GameTestHelper helper) {
         BufferRoutingRig rig = bufferRoutingRig(helper);
         helper.assertTrue(rig.mainJar().addEssentia(
                         "aer", 1, Direction.UP) == 1
+                        && rig.buffer().addEssentia(
+                                "ignis", 1, Direction.DOWN) == 1
                         && rig.buffer().addEssentia(
                                 "aer", 1, Direction.DOWN) == 1,
                 "Could not prepare the matching-main-jar routing case");
@@ -111,8 +169,48 @@ public final class AdvancedEssentiaAutomationGameTests {
 
         helper.assertTrue(rig.mainJar().amount() == 2
                         && rig.reserveJar().amount() == 0
-                        && rig.buffer().totalAmount() == 0,
-                "Buffer did not prefer the matching non-full main jar");
+                        && rig.buffer().supplyContents()
+                                .getOrDefault("ignis", 0) == 1,
+                "Main output depended on aspect insertion order");
+        helper.succeed();
+    }
+
+    @GameTest(template = "empty", batch = "advancedEssentia", timeoutTicks = 80)
+    public static void reserveFaceFeedsJarDirectlyBelowInNormalFlow(
+            GameTestHelper helper) {
+        BlockPos bufferPos = helper.absolutePos(new BlockPos(8, 4, 8));
+        BlockPos jarPos = bufferPos.below();
+        helper.getLevel().setBlock(bufferPos, Blocks.AIR.defaultBlockState(), 3);
+        helper.getLevel().setBlock(jarPos, Blocks.AIR.defaultBlockState(), 3);
+        helper.getLevel().setBlock(bufferPos,
+                ModBlocks.ADVANCED_ESSENTIA_BUFFER.get().defaultBlockState(), 3);
+        helper.getLevel().setBlock(jarPos,
+                ModBlocks.WARDED_JAR.get().defaultBlockState(), 3);
+        AdvancedEssentiaBufferBlockEntity buffer =
+                (AdvancedEssentiaBufferBlockEntity) helper.getLevel()
+                        .getBlockEntity(bufferPos);
+        EssentiaJarBlockEntity jar = (EssentiaJarBlockEntity)
+                helper.getLevel().getBlockEntity(jarPos);
+
+        buffer.cycleRole(Direction.EAST);
+        buffer.cycleRole(Direction.DOWN);
+        buffer.cycleRole(Direction.DOWN);
+        helper.assertTrue(buffer.role(Direction.DOWN)
+                        == AdvancedBufferSideRole.RESERVE_OUTPUT,
+                "Could not configure the lower face as reserve output");
+        helper.assertTrue(buffer.addEssentia("aer", 1, Direction.EAST) == 1,
+                "Could not load the improved buffer through its input face");
+
+        for (int tick = 0; tick < 40; tick++) {
+            AdvancedEssentiaBufferBlockEntity.serverTick(helper.getLevel(),
+                    bufferPos, helper.getLevel().getBlockState(bufferPos), buffer);
+            EssentiaJarBlockEntity.serverTick(helper.getLevel(), jarPos,
+                    helper.getLevel().getBlockState(jarPos), jar);
+        }
+
+        helper.assertTrue("aer".equals(jar.aspect()) && jar.amount() == 1
+                        && buffer.totalAmount() == 0,
+                "Reserve face did not feed the requesting jar directly below");
         helper.succeed();
     }
 
@@ -178,8 +276,12 @@ public final class AdvancedEssentiaAutomationGameTests {
         EssentiaTubeBlockEntity reversed = (EssentiaTubeBlockEntity)
                 helper.getLevel().getBlockEntity(rig.mainTubePos());
         reversed.toggleManualReturnFromWand();
-        helper.assertTrue(rig.buffer().addEssentia(
-                        "aer", 1, Direction.DOWN) == 1,
+        helper.assertTrue(rig.reserveJar().addEssentia(
+                        "aer", 1, Direction.UP) == 1
+                        && rig.buffer().addEssentia(
+                                "ignis", 1, Direction.DOWN) == 1
+                        && rig.buffer().addEssentia(
+                                "aer", 1, Direction.DOWN) == 1,
                 "Could not prepare reversed-path routing case");
 
         for (int tick = 0; tick < 200; tick++) {
@@ -199,9 +301,10 @@ public final class AdvancedEssentiaAutomationGameTests {
 
         helper.assertTrue(reversed.returnEnabled()
                         && "aer".equals(rig.reserveJar().aspect())
-                        && rig.reserveJar().amount() == 1
-                        && rig.buffer().totalAmount() == 0,
-                "Reversed tube did not activate the reserve route");
+                        && rig.reserveJar().amount() == 2
+                        && rig.buffer().returnedContents()
+                                .getOrDefault("ignis", 0) == 1,
+                "Reversed output depended on aspect insertion order");
         helper.succeed();
     }
 

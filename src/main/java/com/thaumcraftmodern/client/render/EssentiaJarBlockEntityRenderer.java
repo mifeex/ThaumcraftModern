@@ -43,8 +43,8 @@ public final class EssentiaJarBlockEntityRenderer
         int red = (color >> 16) & 255;
         int green = (color >> 8) & 255;
         int blue = color & 255;
-        float min = 4.0F / 16.0F;
-        float max = 12.0F / 16.0F;
+        float min = 4.25F / 16.0F;
+        float max = 11.75F / 16.0F;
         float bottom = 1.0F / 16.0F;
         float top = bottom + 10.0F / 16.0F
                 * amount / EssentiaJarBlockEntity.CAPACITY;

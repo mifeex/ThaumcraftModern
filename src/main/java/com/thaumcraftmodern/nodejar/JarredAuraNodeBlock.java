@@ -36,7 +36,7 @@ import java.util.function.Supplier;
  * registries or Thaumometer visual files.
  */
 public final class JarredAuraNodeBlock extends BaseEntityBlock {
-    private static final VoxelShape OUTLINE = box(3, 0, 3, 13, 12, 13);
+    private static final VoxelShape OUTLINE = box(3.5, 0, 3.5, 12.5, 11.5, 12.5);
     private static final int UPDATE_FLAGS =
             Block.UPDATE_ALL | Block.UPDATE_SUPPRESS_DROPS;
 

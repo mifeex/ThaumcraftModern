@@ -2,15 +2,24 @@ package com.thaumcraftmodern.item;
 
 import com.thaumcraftmodern.client.ElementalDowsingClient;
 import com.thaumcraftmodern.registry.ModSounds;
+import com.thaumcraftmodern.network.ModNetwork;
+import com.thaumcraftmodern.network.packet.ElementalDowsingPacket;
+import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionResult;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.PickaxeItem;
 import net.minecraft.world.item.context.UseOnContext;
+import net.minecraft.world.level.ClipContext;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.phys.BlockHitResult;
+import net.minecraft.world.phys.HitResult;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.fml.DistExecutor;
 
@@ -39,16 +48,51 @@ public final class ElementalPickaxeItem extends PickaxeItem {
         Player player = context.getPlayer();
         if (player == null) return InteractionResult.PASS;
         if (player.isShiftKeyDown()) return InteractionResult.PASS;
-        ItemStack stack = context.getItemInHand();
-        if (context.getLevel() instanceof ServerLevel level) {
-            stack.hurtAndBreak(5, player, broken -> broken.broadcastBreakEvent(context.getHand()));
-            level.playSound(null, context.getClickedPos(), ModSounds.WAND_FAIL.get(),
-                    SoundSource.PLAYERS, 0.2F, 0.2F + level.random.nextFloat() * 0.2F);
+        activateDowsing(context.getLevel(), player, context.getHand(),
+                context.getItemInHand(), context.getClickedPos());
+        return InteractionResult.sidedSuccess(context.getLevel().isClientSide);
+    }
+
+    @Override
+    public InteractionResultHolder<ItemStack> use(
+            Level level,
+            Player player,
+            InteractionHand hand
+    ) {
+        ItemStack stack = player.getItemInHand(hand);
+        if (player.isShiftKeyDown()) return InteractionResultHolder.pass(stack);
+        HitResult hit = getPlayerPOVHitResult(level, player, ClipContext.Fluid.ANY);
+        BlockPos center = hit instanceof BlockHitResult blockHit
+                && hit.getType() == HitResult.Type.BLOCK
+                ? blockHit.getBlockPos()
+                : player.blockPosition();
+        activateDowsing(level, player, hand, stack, center);
+        return InteractionResultHolder.sidedSuccess(stack, level.isClientSide);
+    }
+
+    private static void activateDowsing(
+            Level level,
+            Player player,
+            InteractionHand hand,
+            ItemStack stack,
+            BlockPos center
+    ) {
+        if (level instanceof ServerLevel server) {
+            stack.hurtAndBreak(5, player, broken -> broken.broadcastBreakEvent(hand));
+            server.playSound(null, center, ModSounds.WAND_FAIL.get(),
+                    SoundSource.PLAYERS, 0.55F,
+                    0.2F + server.random.nextFloat() * 0.2F);
+            if (player instanceof ServerPlayer serverPlayer) {
+                ModNetwork.sendTo(serverPlayer, new ElementalDowsingPacket(
+                        center,
+                        DOWSING_RADIUS,
+                        DOWSING_MILLIS
+                ));
+            }
         } else {
             DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () ->
-                    ElementalDowsingClient.start(context.getClickedPos(), DOWSING_RADIUS, DOWSING_MILLIS));
-            player.swing(context.getHand());
+                    ElementalDowsingClient.start(center, DOWSING_RADIUS, DOWSING_MILLIS));
+            player.swing(hand);
         }
-        return InteractionResult.sidedSuccess(context.getLevel().isClientSide);
     }
 }

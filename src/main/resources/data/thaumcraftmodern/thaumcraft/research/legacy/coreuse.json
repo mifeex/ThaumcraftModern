@@ -2,7 +2,7 @@
   "id": "coreuse",
   "legacy_id": "COREUSE",
   "category": "golemancy",
-  "icon": "thaumcraftmodern:thaumonomicon",
+  "icon": "thaumcraftmodern:use_golem_core",
   "title": "tc.research_name.COREUSE",
   "subtitle": "tc.research_text.COREUSE",
   "concealed": true,
@@ -29,12 +29,9 @@
       "body": "tc.research_page.COREUSE.2"
     },
     {
-      "type": "unavailable",
+      "type": "recipe",
       "title": "",
-      "body": "",
-      "legacy_type": "recipe",
-      "legacy_content": "CoreUse",
-      "source_expression": "new ResearchPage((InfusionRecipe)recipes.get(\"CoreUse\"))"
+      "recipe": "thaumcraftmodern:core_use"
     },
     {
       "type": "unavailable",
@@ -45,7 +42,7 @@
       "source_expression": "new ResearchPage(\"UPGRADEAIR\", \"tc.research_page.COREUSE.3\")"
     }
   ],
-  "inactive": true,
+  "inactive": false,
   "inactive_reason": "referenced gameplay content is not implemented",
   "legacy": {
     "x": -7,

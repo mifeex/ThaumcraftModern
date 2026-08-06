@@ -2,7 +2,7 @@
   "id": "golemtallow",
   "legacy_id": "GOLEMTALLOW",
   "category": "golemancy",
-  "icon": "thaumcraftmodern:thaumonomicon",
+  "icon": "thaumcraftmodern:tallow_golem",
   "title": "tc.research_name.GOLEMTALLOW",
   "subtitle": "tc.research_text.GOLEMTALLOW",
   "concealed": true,
@@ -24,24 +24,17 @@
       "body": "tc.research_page.GOLEMTALLOW.1"
     },
     {
-      "type": "unavailable",
+      "type": "recipe",
       "title": "",
-      "body": "",
-      "legacy_type": "recipe",
-      "legacy_content": "BlockTallow",
-      "source_expression": "new ResearchPage((IRecipe)recipes.get(\"BlockTallow\"))"
+      "recipe": "thaumcraftmodern:tallow_block"
     },
     {
-      "type": "unavailable",
+      "type": "recipe",
       "title": "",
-      "body": "",
-      "legacy_type": "recipe",
-      "legacy_content": "GolemTallow",
-      "source_expression": "new ResearchPage((CrucibleRecipe)recipes.get(\"GolemTallow\"))"
+      "recipe": "thaumcraftmodern:golemtallow"
     }
   ],
-  "inactive": true,
-  "inactive_reason": "referenced gameplay content is not implemented",
+  "inactive": false,
   "legacy": {
     "x": 4,
     "y": 6,

@@ -1,0 +1,10 @@
+{
+  "type": "block_tag",
+  "target": "minecraft:wooden_doors",
+  "display": "",
+  "aspects": [
+    { "id": "arbor", "amount": 4 }
+  ],
+  "inactive": false,
+  "modern_rule": "Every modern wood-family door inherits the TC4 oak-door recipe aspects."
+}

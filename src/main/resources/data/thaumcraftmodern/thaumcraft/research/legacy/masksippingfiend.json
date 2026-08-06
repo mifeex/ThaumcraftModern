@@ -2,7 +2,7 @@
   "id": "masksippingfiend",
   "legacy_id": "MASKSIPPINGFIEND",
   "category": "artifice",
-  "icon": "thaumcraftmodern:thaumonomicon",
+  "icon_resource": "thaumcraftmodern:textures/misc/r_mask2.png",
   "title": "tc.research_name.MASKSIPPINGFIEND",
   "subtitle": "tc.research_text.MASKSIPPINGFIEND",
   "concealed": true,
@@ -23,12 +23,52 @@
       "body": "tc.research_page.MASKSIPPINGFIEND.1"
     },
     {
-      "type": "unavailable",
-      "title": "",
-      "body": "",
-      "legacy_type": "recipe",
-      "legacy_content": "MaskSippingFiend",
-      "source_expression": "new ResearchPage((InfusionRecipe)recipes.get(\"MaskSippingFiend\"))"
+      "type": "infusion",
+      "title": "recipe.type.infusion",
+      "output": "thaumcraftmodern:fortress_helmet_mask_sipping_fiend",
+      "central": "thaumcraftmodern:fortress_helmet",
+      "components": [
+        {
+          "item": "minecraft:red_dye",
+          "count": 1
+        },
+        {
+          "item": "minecraft:iron_ingot",
+          "count": 1
+        },
+        {
+          "item": "minecraft:leather",
+          "count": 1
+        },
+        {
+          "item": "minecraft:ghast_tear",
+          "count": 1
+        },
+        {
+          "item": "minecraft:milk_bucket",
+          "count": 1
+        },
+        {
+          "item": "minecraft:iron_ingot",
+          "count": 1
+        }
+      ],
+      "aspect_costs": [
+        {
+          "id": "exanimis",
+          "amount": 64
+        },
+        {
+          "id": "victus",
+          "amount": 64
+        },
+        {
+          "id": "tutamen",
+          "amount": 16
+        }
+      ],
+      "instability": "dangerous",
+      "detail": "recipe.type.infusion"
     }
   ],
   "purchase_cost": [
@@ -45,8 +85,8 @@
       "amount": 3
     }
   ],
-  "inactive": true,
-  "inactive_reason": "referenced gameplay content is not implemented",
+  "inactive": false,
+  "inactive_reason": null,
   "legacy": {
     "x": -10,
     "y": 10,

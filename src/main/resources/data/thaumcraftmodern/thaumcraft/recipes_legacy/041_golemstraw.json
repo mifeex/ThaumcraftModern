@@ -2,8 +2,6 @@
   "id": "golemstraw",
   "legacy_id": "GolemStraw",
   "legacy_kind": "crucible",
-  "inactive": true,
-  "inactive_reason": "output item or its complete gameplay behavior is not implemented",
   "modern_recipe": [
     "thaumcraftmodern:golemstraw"
   ],

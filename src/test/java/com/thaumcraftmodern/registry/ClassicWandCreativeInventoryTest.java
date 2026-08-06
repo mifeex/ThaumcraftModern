@@ -39,6 +39,22 @@ final class ClassicWandCreativeInventoryTest {
         assertTrue(source.contains("\"inert_void_wand_cap\""));
     }
 
+    @Test
+    void exposesAllBasicWandFociButNotTheFocusPouch() throws Exception {
+        String source = Files.readString(Path.of(
+                "src/main/java/com/thaumcraftmodern/registry/ModCreativeTabs.java"
+        ));
+
+        assertEquals(1, occurrences(source, ".get(\"focus_fire\").get()"));
+        assertEquals(1, occurrences(source, ".get(\"focus_frost\").get()"));
+        assertEquals(1, occurrences(source, ".get(\"focus_shock\").get()"));
+        assertEquals(1, occurrences(source,
+                ".get(\"focus_excavation\").get()"));
+        assertEquals(1, occurrences(source, ".get(\"focus_trade\").get()"));
+        assertEquals(1, occurrences(source, ".get(\"focus_primal\").get()"));
+        assertFalse(source.contains("focus_pouch"));
+    }
+
     private static int occurrences(String source, String needle) {
         return (source.length() - source.replace(needle, "").length())
                 / needle.length();

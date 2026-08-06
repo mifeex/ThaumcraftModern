@@ -35,7 +35,7 @@ import org.jetbrains.annotations.Nullable;
 import java.util.List;
 
 public final class VoidJarBlock extends BaseEntityBlock {
-    private static final VoxelShape SHAPE = box(3, 0, 3, 13, 12, 13);
+    private static final VoxelShape SHAPE = box(3.5, 0, 3.5, 12.5, 11.5, 12.5);
     public VoidJarBlock(Properties properties) { super(properties); }
     @Override public RenderShape getRenderShape(BlockState state) { return RenderShape.MODEL; }
     @Override public VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) { return SHAPE; }

@@ -2,7 +2,7 @@
   "id": "runicarmor",
   "legacy_id": "RUNICARMOR",
   "category": "artifice",
-  "icon": "thaumcraftmodern:thaumonomicon",
+  "icon": "thaumcraftmodern:runic_ring",
   "title": "tc.research_name.RUNICARMOR",
   "subtitle": "tc.research_text.RUNICARMOR",
   "concealed": true,
@@ -30,32 +30,43 @@
       "body": "tc.research_page.RUNICARMOR.2"
     },
     {
-      "type": "unavailable",
+      "type": "infusion",
       "title": "",
       "body": "",
       "legacy_type": "recipe",
       "legacy_content": "RunicRing",
-      "source_expression": "new ResearchPage((InfusionRecipe)recipes.get(\"RunicRing\"))"
+      "source_expression": "new ResearchPage((InfusionRecipe)recipes.get(\"RunicRing\"))",
+      "recipe": "thaumcraftmodern:runic_ring",
+      "output": "thaumcraftmodern:runic_ring", "central": "thaumcraftmodern:mundane_ring",
+      "components": [{"item":"thaumcraftmodern:salis_mundus"},{"item":"thaumcraftmodern:thaumium_ingot"},{"item":"thaumcraftmodern:enchanted_fabric"},{"item":"thaumcraftmodern:quicksilver"},{"item":"thaumcraftmodern:scribing_tools"}],
+      "aspect_costs": [{"id":"tutamen","amount":10},{"id":"praecantatio","amount":25},{"id":"potentia","amount":25}], "instability": "minor"
     },
     {
-      "type": "unavailable",
+      "type": "infusion",
       "title": "",
       "body": "",
       "legacy_type": "recipe",
       "legacy_content": "RunicAmulet",
-      "source_expression": "new ResearchPage((InfusionRecipe)recipes.get(\"RunicAmulet\"))"
+      "source_expression": "new ResearchPage((InfusionRecipe)recipes.get(\"RunicAmulet\"))",
+      "recipe": "thaumcraftmodern:runic_amulet",
+      "output": "thaumcraftmodern:runic_amulet", "central": "thaumcraftmodern:mundane_amulet",
+      "components": [{"item":"thaumcraftmodern:salis_mundus"},{"item":"thaumcraftmodern:thaumium_ingot"},{"item":"thaumcraftmodern:enchanted_fabric"},{"item":"thaumcraftmodern:quicksilver"},{"item":"thaumcraftmodern:quicksilver"},{"item":"thaumcraftmodern:scribing_tools"}],
+      "aspect_costs": [{"id":"tutamen","amount":20},{"id":"praecantatio","amount":35},{"id":"potentia","amount":35}], "instability": "moderate"
     },
     {
-      "type": "unavailable",
+      "type": "infusion",
       "title": "",
       "body": "",
       "legacy_type": "recipe",
       "legacy_content": "RunicGirdle",
-      "source_expression": "new ResearchPage((InfusionRecipe)recipes.get(\"RunicGirdle\"))"
+      "source_expression": "new ResearchPage((InfusionRecipe)recipes.get(\"RunicGirdle\"))",
+      "recipe": "thaumcraftmodern:runic_girdle",
+      "output": "thaumcraftmodern:runic_girdle", "central": "thaumcraftmodern:blank_belt",
+      "components": [{"item":"thaumcraftmodern:salis_mundus"},{"item":"thaumcraftmodern:thaumium_ingot"},{"item":"thaumcraftmodern:enchanted_fabric"},{"item":"thaumcraftmodern:quicksilver"},{"item":"thaumcraftmodern:quicksilver"},{"item":"thaumcraftmodern:quicksilver"},{"item":"thaumcraftmodern:scribing_tools"}],
+      "aspect_costs": [{"id":"tutamen","amount":30},{"id":"praecantatio","amount":50},{"id":"potentia","amount":50}], "instability": "moderate"
     }
   ],
-  "inactive": true,
-  "inactive_reason": "referenced gameplay content is not implemented",
+  "inactive": false,
   "legacy": {
     "x": 3,
     "y": 4,

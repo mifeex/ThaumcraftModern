@@ -1,8 +1,12 @@
 {
-  "type": "block",
-  "target": "minecraft:oak_fence_gate",
+  "type": "block_tag",
+  "target": "minecraft:fence_gates",
   "display": "",
   "aspects": [
+    {
+      "id": "arbor",
+      "amount": 4
+    },
     {
       "id": "machina",
       "amount": 1

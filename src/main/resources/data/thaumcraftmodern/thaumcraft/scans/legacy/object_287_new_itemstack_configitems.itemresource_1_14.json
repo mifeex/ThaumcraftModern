@@ -1,6 +1,6 @@
 {
-  "type": "legacy_object",
-  "target": "new ItemStack(ConfigItems.itemResource, 1, 14)",
+  "type": "item",
+  "target": "thaumcraftmodern:balanced_shard",
   "display": "",
   "aspects": [
     {
@@ -9,7 +9,6 @@
     }
   ],
   "inactive": true,
-  "inactive_reason": "legacy item, metadata, or Ore Dictionary target is not mapped",
   "legacy": {
     "registration_mode": "explicit",
     "target_kind": "item_stack",
@@ -29,5 +28,6 @@
       }
     ],
     "source_expression": "ThaumcraftApi.registerObjectTag(new ItemStack(ConfigItems.itemResource, 1, 14), (new AspectList(new ItemStack(ConfigItems.itemShard, 1, 6))).add(Aspect.MAGIC, 2).remove(Aspect.CRYSTAL))"
-  }
+  },
+  "inactive_reason": "multiple legacy registrations collapse to one modern target"
 }

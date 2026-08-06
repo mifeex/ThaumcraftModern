@@ -2,7 +2,7 @@
   "id": "vampbat",
   "legacy_id": "VAMPBAT",
   "category": "thaumaturgy",
-  "icon": "thaumcraftmodern:thaumonomicon",
+  "icon": "thaumcraftmodern:textures/foci/vampirebats.png",
   "title": "tc.research_name.VAMPBAT",
   "subtitle": "tc.research_text.VAMPBAT",
   "concealed": true,
@@ -39,8 +39,7 @@
       "amount": 5
     }
   ],
-  "inactive": true,
-  "inactive_reason": "referenced gameplay content is not implemented",
+  "inactive": false,
   "legacy": {
     "x": 4,
     "y": -8,

@@ -2,9 +2,8 @@
   "id": "lampfertility",
   "legacy_id": "LampFertility",
   "legacy_kind": "infusion",
-  "inactive": true,
-  "inactive_reason": "recipe type or referenced content is not implemented",
-  "modern_recipe": "",
+  "inactive": false,
+  "modern_recipe": "thaumcraftmodern:lamp_fertility",
   "required_aspects": [
     {
       "id": "bestia",

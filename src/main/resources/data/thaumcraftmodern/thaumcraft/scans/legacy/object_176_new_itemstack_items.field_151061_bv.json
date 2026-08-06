@@ -4,12 +4,31 @@
   "display": "",
   "aspects": [
     {
+      "id": "alienis",
+      "amount": 3
+    },
+    {
+      "id": "praecantatio",
+      "amount": 3
+    },
+    {
+      "id": "iter",
+      "amount": 3
+    },
+    {
+      "id": "herba",
+      "amount": 2
+    },
+    {
+      "id": "ignis",
+      "amount": 2
+    },
+    {
       "id": "sensus",
       "amount": 4
     }
   ],
-  "inactive": true,
-  "inactive_reason": "recipe-derived base aspects cannot yet be reproduced safely",
+  "inactive": false,
   "legacy": {
     "registration_mode": "recipe_derived_modifier",
     "target_kind": "item_stack",
@@ -29,5 +48,6 @@
       }
     ],
     "source_expression": "ThaumcraftApi.registerComplexObjectTag(new ItemStack(Items.field_151061_bv), (new AspectList()).add(Aspect.SENSES, 4))"
-  }
+  },
+  "recipe_derivation": "TC4 generateTags base plus the original registered complex-object modifier."
 }

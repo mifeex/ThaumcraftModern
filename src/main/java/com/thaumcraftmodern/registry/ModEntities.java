@@ -8,6 +8,13 @@ import com.thaumcraftmodern.entity.AlumentumEntity;
 import com.thaumcraftmodern.entity.BottledTaintProjectile;
 import com.thaumcraftmodern.entity.PechBlastEntity;
 import com.thaumcraftmodern.entity.FacelessWitnessEntity;
+import com.thaumcraftmodern.entity.FrostShardEntity;
+import com.thaumcraftmodern.entity.PrimalOrbEntity;
+import com.thaumcraftmodern.entity.FocusEmberEntity;
+import com.thaumcraftmodern.entity.StrawGolemEntity;
+import com.thaumcraftmodern.entity.ClassicGolemEntity;
+import com.thaumcraftmodern.entity.GolemMaterial;
+import com.thaumcraftmodern.entity.GolemFishingBobberEntity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
 import net.minecraftforge.eventbus.api.IEventBus;
@@ -98,6 +105,38 @@ public final class ModEntities {
                                             + ":faceless_witness"
                             )
             );
+    public static final RegistryObject<EntityType<FrostShardEntity>> FROST_SHARD =
+            ENTITY_TYPES.register("frost_shard", () -> EntityType.Builder
+                    .<FrostShardEntity>of(FrostShardEntity::new, MobCategory.MISC)
+                    .sized(0.25F, 0.25F).clientTrackingRange(8).updateInterval(2)
+                    .build(ThaumcraftModern.MOD_ID + ":frost_shard"));
+    public static final RegistryObject<EntityType<PrimalOrbEntity>> PRIMAL_ORB =
+            ENTITY_TYPES.register("primal_orb", () -> EntityType.Builder
+                    .<PrimalOrbEntity>of(PrimalOrbEntity::new, MobCategory.MISC)
+                    .sized(0.35F, 0.35F).clientTrackingRange(10).updateInterval(2)
+                    .build(ThaumcraftModern.MOD_ID + ":primal_orb"));
+    public static final RegistryObject<EntityType<FocusEmberEntity>> FOCUS_EMBER =
+            ENTITY_TYPES.register("focus_ember", () -> EntityType.Builder
+                    .<FocusEmberEntity>of(FocusEmberEntity::new, MobCategory.MISC)
+                    .sized(0.15F, 0.15F).clientTrackingRange(8).updateInterval(2)
+                    .build(ThaumcraftModern.MOD_ID + ":focus_ember"));
+    public static final RegistryObject<EntityType<GolemFishingBobberEntity>> GOLEM_FISHING_BOBBER =
+            ENTITY_TYPES.register("golem_fishing_bobber", () -> EntityType.Builder
+                    .<GolemFishingBobberEntity>of(GolemFishingBobberEntity::new, MobCategory.MISC)
+                    .sized(.25F, .25F).clientTrackingRange(10).updateInterval(1)
+                    .build(ThaumcraftModern.MOD_ID + ":golem_fishing_bobber"));
+    public static final RegistryObject<EntityType<StrawGolemEntity>> STRAW_GOLEM =
+            ENTITY_TYPES.register("straw_golem", () -> EntityType.Builder
+                    .<StrawGolemEntity>of(StrawGolemEntity::new, MobCategory.MISC)
+                    .sized(.4F,.95F).clientTrackingRange(8).updateInterval(3)
+                                    .build(ThaumcraftModern.MOD_ID + ":straw_golem"));
+    public static final RegistryObject<EntityType<ClassicGolemEntity>> WOOD_GOLEM = golem(GolemMaterial.WOOD);
+    public static final RegistryObject<EntityType<ClassicGolemEntity>> TALLOW_GOLEM = golem(GolemMaterial.TALLOW);
+    public static final RegistryObject<EntityType<ClassicGolemEntity>> CLAY_GOLEM = golem(GolemMaterial.CLAY);
+    public static final RegistryObject<EntityType<ClassicGolemEntity>> FLESH_GOLEM = golem(GolemMaterial.FLESH);
+    public static final RegistryObject<EntityType<ClassicGolemEntity>> STONE_GOLEM = golem(GolemMaterial.STONE);
+    public static final RegistryObject<EntityType<ClassicGolemEntity>> IRON_GOLEM = golem(GolemMaterial.IRON);
+    public static final RegistryObject<EntityType<ClassicGolemEntity>> THAUMIUM_GOLEM = golem(GolemMaterial.THAUMIUM);
 
     public static final RegistryObject<EntityType<LegacyThaumcraftMob>>
             ANGRY_ZOMBIE = mob(LegacyMobKind.ANGRY_ZOMBIE);
@@ -117,6 +156,10 @@ public final class ModEntities {
             ELDRITCH_WARDEN = mob(LegacyMobKind.ELDRITCH_WARDEN);
     public static final RegistryObject<EntityType<LegacyThaumcraftMob>>
             CRIMSON_KNIGHT = mob(LegacyMobKind.CRIMSON_KNIGHT);
+    public static final RegistryObject<EntityType<LegacyThaumcraftMob>>
+            CRIMSON_INQUISITOR = mob(LegacyMobKind.CRIMSON_INQUISITOR);
+    public static final RegistryObject<EntityType<LegacyThaumcraftMob>>
+            CONVERTED_VILLAGER = mob(LegacyMobKind.CONVERTED_VILLAGER);
     public static final RegistryObject<EntityType<LegacyThaumcraftMob>>
             CRIMSON_CLERIC = mob(LegacyMobKind.CRIMSON_CLERIC);
     public static final RegistryObject<EntityType<LegacyThaumcraftMob>>
@@ -157,6 +200,16 @@ public final class ModEntities {
             GIANT_TAINTACLE = mob(LegacyMobKind.GIANT_TAINTACLE);
 
     private ModEntities() {
+    }
+
+    private static RegistryObject<EntityType<ClassicGolemEntity>> golem(GolemMaterial material) {
+        return ENTITY_TYPES.register(material.id() + "_golem", () -> {
+            EntityType.Builder<ClassicGolemEntity> builder = EntityType.Builder.of(
+                    (type, level) -> new ClassicGolemEntity(type, level, material), MobCategory.MISC);
+            if (material.fireResistant()) builder.fireImmune();
+            return builder.sized(.4F, .95F).clientTrackingRange(8).updateInterval(3)
+                    .build(ThaumcraftModern.MOD_ID + ":" + material.id() + "_golem");
+        });
     }
 
     private static RegistryObject<EntityType<LegacyThaumcraftMob>> mob(
